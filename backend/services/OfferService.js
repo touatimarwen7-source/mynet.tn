@@ -1,6 +1,7 @@
 const { getPool } = require('../config/db');
 const Offer = require('../models/Offer');
 const crypto = require('crypto');
+const KeyManagementService = require('../security/KeyManagementService');
 
 class OfferService {
     generateOfferNumber() {
@@ -16,15 +17,26 @@ class OfferService {
         try {
             const offerNumber = this.generateOfferNumber();
             
+            // تشفير البيانات المالية الحساسة
+            const sensitiveData = JSON.stringify({
+                total_amount: offer.total_amount,
+                financial_proposal: offer.financial_proposal,
+                payment_terms: offer.payment_terms
+            });
+            
+            const { iv, encryptedData } = KeyManagementService.encryptData(sensitiveData);
+            const keyId = `key_${offerNumber}`;
+            
             const result = await pool.query(
                 `INSERT INTO offers (tender_id, supplier_id, offer_number, total_amount, currency, 
                  delivery_time, payment_terms, technical_proposal, financial_proposal, attachments, 
-                 status, created_by)
-                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+                 status, encrypted_data, decryption_key_id, encryption_iv, created_by)
+                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
                  RETURNING *`,
                 [offer.tender_id, userId, offerNumber, offer.total_amount, offer.currency,
                  offer.delivery_time, offer.payment_terms, offer.technical_proposal,
-                 offer.financial_proposal, JSON.stringify(offer.attachments), offer.status, userId]
+                 offer.financial_proposal, JSON.stringify(offer.attachments), offer.status,
+                 encryptedData, keyId, iv, userId]
             );
             
             return result.rows[0];

@@ -1,10 +1,20 @@
 const OfferService = require('../../services/OfferService');
+const CreateOfferDTO = require('../../mappers/dtos/CreateOfferDTO');
 
 class OfferController {
     async createOffer(req, res) {
         try {
-            const offerData = req.body;
-            const offer = await OfferService.createOffer(offerData, req.user.userId);
+            const offerDTO = new CreateOfferDTO(req.body);
+            const validation = offerDTO.validate();
+
+            if (!validation.isValid) {
+                return res.status(400).json({
+                    success: false,
+                    errors: validation.errors
+                });
+            }
+
+            const offer = await OfferService.createOffer(offerDTO, req.user.userId);
 
             res.status(201).json({
                 success: true,

@@ -18,6 +18,9 @@ class Offer extends BaseEntity {
         this.evaluation_notes = data.evaluation_notes || '';
         this.submitted_at = data.submitted_at || new Date();
         this.is_winner = data.is_winner || false;
+        this.encrypted_data = data.encrypted_data || null;
+        this.decryption_key_id = data.decryption_key_id || null;
+        this.encryption_iv = data.encryption_iv || null;
     }
 
     toJSON() {
@@ -38,7 +41,10 @@ class Offer extends BaseEntity {
             evaluation_score: this.evaluation_score,
             evaluation_notes: this.evaluation_notes,
             submitted_at: this.submitted_at,
-            is_winner: this.is_winner
+            is_winner: this.is_winner,
+            encrypted_data: this.encrypted_data,
+            decryption_key_id: this.decryption_key_id,
+            encryption_iv: this.encryption_iv
         };
     }
 }

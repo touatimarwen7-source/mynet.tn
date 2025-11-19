@@ -62,6 +62,9 @@ const schemaQueries = [
         evaluation_notes TEXT,
         submitted_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         is_winner BOOLEAN DEFAULT FALSE,
+        encrypted_data TEXT,
+        decryption_key_id VARCHAR(255),
+        encryption_iv VARCHAR(255),
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         created_by INTEGER,
@@ -167,13 +170,57 @@ const schemaQueries = [
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );`,
 
+    `CREATE TABLE IF NOT EXISTS audit_logs (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        action VARCHAR(100) NOT NULL,
+        entity_type VARCHAR(50),
+        entity_id INTEGER,
+        details JSONB,
+        ip_address VARCHAR(45),
+        user_agent TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );`,
+
+    `CREATE TABLE IF NOT EXISTS subscription_plans (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        description TEXT,
+        price DECIMAL(10, 2) NOT NULL,
+        currency VARCHAR(3) DEFAULT 'TND',
+        duration_days INTEGER NOT NULL,
+        features JSONB,
+        max_tenders INTEGER,
+        max_offers INTEGER,
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );`,
+
+    `CREATE TABLE IF NOT EXISTS user_subscriptions (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        plan_id INTEGER REFERENCES subscription_plans(id),
+        start_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        end_date TIMESTAMP WITH TIME ZONE,
+        status VARCHAR(20) DEFAULT 'active',
+        payment_method VARCHAR(50),
+        transaction_id VARCHAR(255),
+        auto_renew BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );`,
+
     `CREATE INDEX IF NOT EXISTS idx_tenders_status ON tenders(status);`,
     `CREATE INDEX IF NOT EXISTS idx_tenders_buyer ON tenders(buyer_id);`,
     `CREATE INDEX IF NOT EXISTS idx_offers_tender ON offers(tender_id);`,
     `CREATE INDEX IF NOT EXISTS idx_offers_supplier ON offers(supplier_id);`,
     `CREATE INDEX IF NOT EXISTS idx_po_tender ON purchase_orders(tender_id);`,
     `CREATE INDEX IF NOT EXISTS idx_notifications_user ON notifications(user_id);`,
-    `CREATE INDEX IF NOT EXISTS idx_messages_receiver ON messages(receiver_id);`
+    `CREATE INDEX IF NOT EXISTS idx_messages_receiver ON messages(receiver_id);`,
+    `CREATE INDEX IF NOT EXISTS idx_audit_user ON audit_logs(user_id);`,
+    `CREATE INDEX IF NOT EXISTS idx_audit_entity ON audit_logs(entity_type, entity_id);`,
+    `CREATE INDEX IF NOT EXISTS idx_subscriptions_user ON user_subscriptions(user_id);`
 ];
 
 async function initializeSchema(pool) {

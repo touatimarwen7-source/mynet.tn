@@ -1,8 +1,8 @@
 const { getPool } = require('../config/db');
 const Tender = require('../models/Tender');
-const crypto = require('crypto');
 const NotificationService = require('./NotificationService');
 const AuditLogService = require('./AuditLogService');
+const QueueService = require('./QueueService');
 
 class TenderService {
     generateTenderNumber() {
@@ -33,6 +33,16 @@ class TenderService {
             // Log the audit trail for tender creation
             await AuditLogService.log(userId, 'tender', result.rows[0].id, 'create', 'Tender created successfully');
 
+
+            // Log to audit
+            await QueueService.logTenderHistory({
+                tender_id: result.rows[0].id,
+                user_id: tenderData.buyer_id,
+                action: 'created',
+                previous_state: null,
+                new_state: 'draft',
+                metadata: { title: tenderData.title }
+            });
 
             return result.rows[0];
         } catch (error) {

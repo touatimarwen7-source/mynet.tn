@@ -3,6 +3,7 @@ const authRoutes = require('./routes/authRoutes');
 const procurementRoutes = require('./routes/procurementRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const searchRoutes = require('./routes/searchRoutes');
+const stripeWebhookRoutes = require('./routes/webhooks/stripeRoutes');
 
 const app = express();
 
@@ -13,11 +14,11 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    
+
     if (req.method === 'OPTIONS') {
         return res.sendStatus(200);
     }
-    
+
     next();
 });
 
@@ -39,6 +40,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/procurement', procurementRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/webhooks', stripeWebhookRoutes);
 
 const ErrorHandler = require('./middleware/errorHandler');
 

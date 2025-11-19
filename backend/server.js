@@ -1,8 +1,8 @@
 require('dotenv').config();
-const app = require('./backend/app');
-const { initializeDb } = require('./backend/config/db');
-const { initializeSchema } = require('./backend/config/schema');
-const { getPool } = require('./backend/config/db');
+const app = require('./app');
+const { initializeDb } = require('./config/db');
+const { initializeSchema } = require('./config/schema');
+const { getPool } = require('./config/db');
 
 const PORT = process.env.PORT || 5000;
 

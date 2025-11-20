@@ -82,3 +82,12 @@ function App() {
 }
 
 export default App;
+
+// إضافة هذا في useEffect:
+import { setupInactivityTimer } from './utils/security';
+
+// في useEffect، أضف:
+useEffect(() => {
+  const cleanup = setupInactivityTimer(15 * 60 * 1000); // 15 دقيقة
+  return cleanup;
+}, []);

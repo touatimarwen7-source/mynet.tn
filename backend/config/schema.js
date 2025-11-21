@@ -398,6 +398,17 @@ const schemaQueries = [
     `CREATE INDEX IF NOT EXISTS idx_messages_sender ON messages(sender_id);`,
     `CREATE INDEX IF NOT EXISTS idx_messages_receiver ON messages(receiver_id);`,
     `CREATE INDEX IF NOT EXISTS idx_messages_entity ON messages(related_entity_type, related_entity_id);`,
+    // Add is_archived column if it doesn't exist (for existing tables)
+    `ALTER TABLE IF EXISTS tenders ADD COLUMN IF NOT EXISTS is_archived BOOLEAN DEFAULT FALSE;`,
+    `ALTER TABLE IF EXISTS offers ADD COLUMN IF NOT EXISTS is_archived BOOLEAN DEFAULT FALSE;`,
+    `ALTER TABLE IF EXISTS purchase_orders ADD COLUMN IF NOT EXISTS is_archived BOOLEAN DEFAULT FALSE;`,
+    `ALTER TABLE IF EXISTS invoices ADD COLUMN IF NOT EXISTS is_archived BOOLEAN DEFAULT FALSE;`,
+    `ALTER TABLE IF EXISTS tenders ADD COLUMN IF NOT EXISTS archived_at TIMESTAMP WITH TIME ZONE;`,
+    `ALTER TABLE IF EXISTS offers ADD COLUMN IF NOT EXISTS archived_at TIMESTAMP WITH TIME ZONE;`,
+    `ALTER TABLE IF EXISTS purchase_orders ADD COLUMN IF NOT EXISTS archived_at TIMESTAMP WITH TIME ZONE;`,
+    `ALTER TABLE IF EXISTS invoices ADD COLUMN IF NOT EXISTS archived_at TIMESTAMP WITH TIME ZONE;`,
+    
+    // Create indexes after columns exist
     `CREATE INDEX IF NOT EXISTS idx_tenders_archived ON tenders(is_archived);`,
     `CREATE INDEX IF NOT EXISTS idx_offers_archived ON offers(is_archived);`,
     `CREATE INDEX IF NOT EXISTS idx_po_archived ON purchase_orders(is_archived);`,

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setPageTitle } from '../utils/pageTitle';
+import PublicNavbar from '../components/PublicNavbar';
 import '../styles/homepage.css';
 
 export default function HomePage() {
@@ -14,7 +15,9 @@ export default function HomePage() {
   };
 
   return (
-    <div className="homepage">
+    <>
+      <PublicNavbar />
+      <div className="homepage">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
@@ -208,5 +211,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

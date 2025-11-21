@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { setPageTitle } from '../utils/pageTitle';
+import PublicNavbar from '../components/PublicNavbar';
 import '../styles/pricingpage.css';
 
 export default function PricingPage() {
@@ -72,7 +73,9 @@ export default function PricingPage() {
   ];
 
   return (
-    <div className="pricing-page">
+    <>
+      <PublicNavbar />
+      <div className="pricing-page">
       {/* Hero Section */}
       <section className="pricing-hero">
         <h1>Tarification Transparente et Flexible</h1>
@@ -395,5 +398,6 @@ export default function PricingPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

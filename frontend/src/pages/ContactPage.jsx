@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { setPageTitle } from '../utils/pageTitle';
+import PublicNavbar from '../components/PublicNavbar';
 import '../styles/contactpage.css';
 
 export default function ContactPage() {
@@ -34,7 +35,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="contact-page">
+    <>
+      <PublicNavbar />
+      <div className="contact-page">
       {/* Hero Section */}
       <section className="contact-hero">
         <h1>📞 Contact et Support</h1>
@@ -491,5 +494,6 @@ export default function ContactPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

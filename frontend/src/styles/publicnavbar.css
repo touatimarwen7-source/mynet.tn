@@ -1,0 +1,221 @@
+.public-navbar {
+  background: linear-gradient(135deg, #00a8e8 0%, #00d4ff 100%);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 168, 232, 0.3);
+}
+
+body.dark-mode .public-navbar {
+  background: linear-gradient(135deg, #0078a8 0%, #0099cc 100%);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand a {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: white;
+  font-weight: 800;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand a:hover {
+  opacity: 0.9;
+}
+
+.brand-icon {
+  font-size: 1.8rem;
+}
+
+.brand-text {
+  display: block;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}
+
+.navbar-auth {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-login,
+.btn-register {
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: 2px solid transparent;
+}
+
+.btn-login {
+  color: #00a8e8;
+  background: white;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-register {
+  color: white;
+  background: transparent;
+  border: 2px solid white;
+}
+
+.btn-register:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 0.4rem;
+}
+
+.mobile-menu-btn span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #0089b8 0%, #00b8e8 100%);
+  padding: 1rem 2rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  padding-left: 1.5rem;
+}
+
+.mobile-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mobile-auth .btn-login,
+.mobile-auth .btn-register {
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 1rem 2rem;
+  }
+
+  .navbar-menu {
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-auth {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .navbar-container {
+    padding: 1rem 1.5rem;
+  }
+
+  .brand-text {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-container {
+    padding: 0.8rem 1rem;
+  }
+
+  .brand-icon {
+    font-size: 1.5rem;
+  }
+
+  .brand-text {
+    font-size: 1rem;
+  }
+
+  .mobile-menu {
+    top: 60px;
+    padding: 1rem;
+  }
+}

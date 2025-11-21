@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { setPageTitle } from '../utils/pageTitle';
+import PublicNavbar from '../components/PublicNavbar';
 import '../styles/aboutpage.css';
 
 export default function AboutPage() {
   setPageTitle('À Propos');
 
   return (
-    <div className="about-page">
+    <>
+      <PublicNavbar />
+      <div className="about-page">
       {/* Hero Section */}
       <section className="about-hero">
         <div className="hero-content">
@@ -369,5 +372,6 @@ export default function AboutPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

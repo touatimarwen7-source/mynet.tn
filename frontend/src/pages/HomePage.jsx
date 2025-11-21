@@ -6,6 +6,7 @@ import DynamicAdvertisement from '../components/DynamicAdvertisement';
 import HowItWorks from '../components/HowItWorks';
 import LeadGenerationForm from '../components/LeadGenerationForm';
 import HeroSearch from '../components/HeroSearch';
+import '../styles/design-system.css';
 import '../styles/hero-section-enhanced.css';
 import '../styles/homepage.css';
 

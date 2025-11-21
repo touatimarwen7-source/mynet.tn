@@ -78,29 +78,29 @@ export default function BuyerDashboard() {
 
         <div className="kpi-card">
           <div className="kpi-header">
-            <h3>إجمالي العروض</h3>
+            <h3>Total des Offres</h3>
             <span className="traffic-light blue"></span>
           </div>
           <p className="kpi-value">{stats.totalBids}</p>
-          <p className="kpi-label">عرض مستلم</p>
+          <p className="kpi-label">Offres reçues</p>
         </div>
 
         <div className={`kpi-card highlight status-${getStatus(stats.totalSavings)}`}>
           <div className="kpi-header">
-            <h3>التوفير المحقق</h3>
+            <h3>Économies Réalisées</h3>
             <span className={`traffic-light ${getStatus(stats.totalSavings)}`}></span>
           </div>
           <p className="kpi-value">{stats.totalSavings}%</p>
-          <p className="kpi-label">من Budget</p>
+          <p className="kpi-label">du Budget</p>
         </div>
 
         <div className="kpi-card">
           <div className="kpi-header">
-            <h3>سرعة تدفق العروض</h3>
+            <h3>Vélocité des Offres</h3>
             <span className="traffic-light orange"></span>
           </div>
           <p className="kpi-value">{stats.bidVelocity}</p>
-          <p className="kpi-label">عرض/مناقصة</p>
+          <p className="kpi-label">Offre/Appel</p>
         </div>
       </div>
 
@@ -108,7 +108,7 @@ export default function BuyerDashboard() {
       <div className="recent-section">
         <h2>Appels d'offres Récents</h2>
         {recentTenders.length === 0 ? (
-          <p className="empty-state">لا توجد مناقصات حالياً</p>
+          <p className="empty-state">Aucun appel d'offres actuellement</p>
         ) : (
           <div className="tenders-list">
             {recentTenders.map(tender => (
@@ -129,23 +129,23 @@ export default function BuyerDashboard() {
 
       {/* Traffic Light Legend */}
       <div className="legend">
-        <h3>مؤشرات Statut</h3>
+        <h3>Indicateurs de Statut</h3>
         <div className="legend-items">
           <div className="legend-item">
             <span className="traffic-light green"></span>
-            <span>ممتاز</span>
+            <span>Excellent</span>
           </div>
           <div className="legend-item">
             <span className="traffic-light blue"></span>
-            <span>جيد</span>
+            <span>Bon</span>
           </div>
           <div className="legend-item">
             <span className="traffic-light orange"></span>
-            <span>متوسط</span>
+            <span>Moyen</span>
           </div>
           <div className="legend-item">
             <span className="traffic-light red"></span>
-            <span>حرج</span>
+            <span>Critique</span>
           </div>
         </div>
       </div>

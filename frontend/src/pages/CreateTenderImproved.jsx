@@ -29,7 +29,7 @@ export default function CreateTenderImproved() {
   const [errors, setErrors] = useState({});
   const [documentFiles, setDocumentFiles] = useState([]);
 
-  // Auto-Save كل 30 ثانية
+  // Auto-Save tous les 30 secondes
   useEffect(() => {
     const interval = setInterval(() => {
       if (tenderData.title || tenderData.summary) saveDraft();
@@ -43,10 +43,10 @@ export default function CreateTenderImproved() {
       await axios.post('http://localhost:5000/api/procurement/tender-draft', tenderData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
-      setAutoSaveStatus('✓ تم الحفظ تلقائياً');
+      setAutoSaveStatus('✓ Sauvegardé automatiquement');
       setTimeout(() => setAutoSaveStatus(''), 3000);
     } catch (error) {
-      setAutoSaveStatus('✗ خطأ في الحفظ');
+      setAutoSaveStatus('✗ Erreur lors de la sauvegarde');
     }
   };
 

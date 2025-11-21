@@ -780,3 +780,126 @@
 .stat-card {
   background: linear-gradient(135deg, rgba(0, 168, 232, 0.05), rgba(0, 212, 255, 0.02)) !important;
 }
+
+/* Security and Preferences Page Styling */
+
+.security-feature-card {
+  background: linear-gradient(135deg, rgba(27, 94, 140, 0.04), rgba(13, 122, 140, 0.04)) !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 8px !important;
+  padding: var(--space-6) !important;
+  margin-bottom: var(--space-4) !important;
+}
+
+.feature-info {
+  margin-bottom: var(--space-4) !important;
+}
+
+.feature-description {
+  font-size: 0.95rem !important;
+  color: var(--financial-neutral-700) !important;
+  line-height: 1.6 !important;
+  margin-bottom: var(--space-3) !important;
+}
+
+.section-description {
+  font-size: 0.95rem !important;
+  color: var(--financial-neutral-700) !important;
+  margin-bottom: var(--space-4) !important;
+  line-height: 1.6 !important;
+}
+
+.form-help {
+  display: block !important;
+  font-size: 0.8125rem !important;
+  color: var(--financial-neutral-600) !important;
+  margin-top: var(--space-1) !important;
+}
+
+/* Preferences Group */
+.preferences-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-4) !important;
+}
+
+.preference-item {
+  background: white !important;
+  border: 1px solid var(--financial-neutral-200) !important;
+  border-radius: 6px !important;
+  padding: var(--space-4) !important;
+  transition: all 0.2s ease !important;
+}
+
+.preference-item:hover {
+  border-color: var(--financial-accent) !important;
+  box-shadow: 0 2px 4px rgba(0, 168, 232, 0.08) !important;
+}
+
+.preference-control {
+  display: flex !important;
+  gap: var(--space-4) !important;
+  align-items: flex-start !important;
+}
+
+.preference-checkbox {
+  width: 20px !important;
+  height: 20px !important;
+  margin-top: 2px !important;
+  cursor: pointer !important;
+  accent-color: var(--financial-accent) !important;
+  flex-shrink: 0 !important;
+}
+
+.preference-label {
+  flex: 1 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-2) !important;
+}
+
+.preference-label strong {
+  font-weight: 600 !important;
+  color: var(--financial-neutral-900) !important;
+}
+
+.preference-description {
+  font-size: 0.875rem !important;
+  color: var(--financial-neutral-600) !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Sessions Table */
+.sessions-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+.sessions-table thead th {
+  background: linear-gradient(135deg, rgba(27, 94, 140, 0.06), rgba(13, 122, 140, 0.06)) !important;
+  padding: var(--space-4) !important;
+  text-align: left !important;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.sessions-table tbody td {
+  padding: var(--space-4) !important;
+  border-bottom: 1px solid var(--financial-neutral-200) !important;
+  color: var(--financial-neutral-800) !important;
+}
+
+.sessions-table tbody tr:hover {
+  background: rgba(0, 168, 232, 0.02) !important;
+}
+
+.table-wrapper {
+  border: 1px solid var(--financial-neutral-200) !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+}
+

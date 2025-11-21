@@ -116,7 +116,7 @@ export default function UnifiedHeader() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button type="submit" className="search-btn" aria-label="Rechercher">
-              ↵
+              🔍
             </button>
           </form>
         )}

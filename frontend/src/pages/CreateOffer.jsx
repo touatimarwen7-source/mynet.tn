@@ -1,5 +1,40 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import {
+  Container,
+  Box,
+  Card,
+  CardContent,
+  Button,
+  TextField,
+  Typography,
+  Alert,
+  CircularProgress,
+  Stepper,
+  Step,
+  StepLabel,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Paper,
+  Checkbox,
+  FormControlLabel,
+  Stack,
+  Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { procurementAPI } from '../api';
 import { useToastContext } from '../contexts/ToastContext';
 import { setPageTitle } from '../utils/pageTitle';
@@ -12,17 +47,17 @@ export default function CreateOffer() {
   useEffect(() => {
     setPageTitle('Soumission d\'Offre Sécurisée');
   }, []);
+
   const [tender, setTender] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [step, setStep] = useState(1); // Étapes du formulaire
+  const [step, setStep] = useState(0);
   const [showCatalogModal, setShowCatalogModal] = useState(false);
   const [selectedLineItemIndex, setSelectedLineItemIndex] = useState(null);
   const [catalogProducts, setCatalogProducts] = useState([]);
 
-  // Vérifier si le délai de l'appel d'offres est dépassé
   const isDeadlinePassed = tender && new Date() > new Date(tender.deadline);
 
   const [offerData, setOfferData] = useState({
@@ -44,7 +79,6 @@ export default function CreateOffer() {
       const response = await procurementAPI.getTender(tenderId);
       setTender(response.data.tender);
       
-      // Initialiser les articles de l'appel d'offres
       const items = response.data.tender.requirements || [];
       setOfferData(prev => ({
         ...prev,
@@ -73,7 +107,7 @@ export default function CreateOffer() {
 
   const fetchCatalogProducts = async () => {
     try {
-      const response = await procurementAPI.getMyOffers(); // Simulation du catalogue
+      const response = await procurementAPI.getMyOffers();
       setCatalogProducts(response.data.offers || []);
     } catch (err) {
       console.error('Erreur lors de la récupération du catalogue:', err);
@@ -134,7 +168,7 @@ export default function CreateOffer() {
     e.preventDefault();
 
     if (isDeadlinePassed) {
-      setError(`L'envoi a échoué. L'appel d'offres est fermé depuis ${new Date(tender.deadline).toLocaleDateString('fr-FR')} à ${new Date(tender.deadline).toLocaleTimeString('fr-FR')}`);
+      setError(`L'envoi a échoué. L'appel d'offres est fermé depuis ${new Date(tender.deadline).toLocaleDateString('fr-FR')}`);
       return;
     }
 
@@ -168,7 +202,7 @@ export default function CreateOffer() {
 
       await procurementAPI.createOffer(formData);
       setSuccess(true);
-      addToast('✅ Votre offre a été envoyée avec succès et chiffrée en toute sécurité!', 'success', 2000);
+      addToast('✅ Votre offre a été envoyée avec succès!', 'success', 2000);
       
       setTimeout(() => {
         navigate('/my-offers');
@@ -176,373 +210,278 @@ export default function CreateOffer() {
     } catch (err) {
       const errorMsg = err.response?.data?.error || err.message;
       setError('Erreur lors de l\'envoi de l\'offre: ' + errorMsg);
-      addToast('Erreur lors de l\'envoi de l\'offre', 'error', 4000);
+      addToast('Erreur lors de l\'envoi', 'error', 4000);
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (loading) return <div className="loading">Chargement de l'appel d'offres...</div>;
-  if (!tender) return <div className="alert alert-error">L'appel d'offres n'existe pas</div>;
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <CircularProgress sx={{ color: '#1565c0' }} />
+      </Box>
+    );
+  }
+
+  if (!tender) {
+    return (
+      <Container maxWidth="lg" sx={{ paddingY: '40px' }}>
+        <Alert severity="error">L'appel d'offres n'existe pas</Alert>
+      </Container>
+    );
+  }
 
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
-      <button onClick={() => window.history.back()} className="btn btn-secondary">
-        ← Retour
-      </button>
+    <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
+      <Container maxWidth="lg">
+        <Button startIcon={<ArrowBackIcon />} onClick={() => window.history.back()} sx={{ marginBottom: '24px', color: '#1565c0' }}>
+          Retour
+        </Button>
 
-      {/* Message d'erreur pour les appels d'offres expirés */}
-      {isDeadlinePassed && (
-        <div style={{
-          marginTop: '1rem',
-          padding: '1.5rem',
-          backgroundColor: '#f8d7da',
-          border: '2px solid #f5c6cb',
-          borderRadius: '8px',
-          color: '#721c24',
-          textAlign: 'center'
-        }}>
-          <h3>⏰ Désolé, cet appel d'offres est fermé</h3>
-          <p>Date de clôture: {new Date(tender.deadline).toLocaleDateString('fr-FR')} à {new Date(tender.deadline).toLocaleTimeString('fr-FR')}</p>
-          <p>Vous ne pouvez pas soumettre d'offre après la date limite.</p>
-        </div>
-      )}
+        {isDeadlinePassed && (
+          <Alert severity="error" sx={{ marginBottom: '24px' }}>
+            ⏰ Cet appel d'offres est fermé. La date limite était: {new Date(tender.deadline).toLocaleDateString('fr-FR')}
+          </Alert>
+        )}
 
-      {error && <div className="alert alert-error" style={{ marginTop: '1rem' }}>{error}</div>}
-      {success && (
-        <div className="alert alert-success" style={{ marginTop: '1rem' }}>
-          ✅ Votre offre a été envoyée avec succès et chiffrée en toute sécurité! Redirection vers mes offres...
-        </div>
-      )}
+        {error && <Alert severity="error" sx={{ marginBottom: '24px' }}>{error}</Alert>}
+        {success && <Alert severity="success" sx={{ marginBottom: '24px' }}>✅ Votre offre a été envoyée avec succès!</Alert>}
 
-      <div className="card" style={{ marginTop: '1rem' }}>
-        <h2>Formulaire de soumission d'offre sécurisée</h2>
-        <p style={{ color: '#666' }}>
-          <strong>Appel d'offres:</strong> {tender.title}
-        </p>
+        <Card sx={{ border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ padding: '32px' }}>
+            <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+              Soumission d'Offre Sécurisée
+            </Typography>
+            <Typography sx={{ color: '#616161', marginBottom: '24px' }}>
+              Appel d'offres: <strong>{tender.title}</strong>
+            </Typography>
 
-        {/* Barres d'étapes */}
-        <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', justifyContent: 'center' }}>
-          {[1, 2, 3].map(s => (
-            <div
-              key={s}
-              style={{
-                padding: '0.75rem 1.5rem',
-                backgroundColor: step === s ? '#007bff' : step > s ? '#28a745' : '#e9ecef',
-                color: step === s || step > s ? 'white' : '#666',
-                borderRadius: '20px',
-                cursor: 'pointer',
-                fontWeight: step === s ? 'bold' : 'normal'
-              }}
-              onClick={() => !isDeadlinePassed && step > s && setStep(s)}
-            >
-              {s === 1 && '1️⃣ Informations de base'}
-              {s === 2 && '2️⃣ Articles de l\'appel'}
-              {s === 3 && '3️⃣ Révision et envoi'}
-            </div>
-          ))}
-        </div>
+            <Stepper activeStep={step} sx={{ marginBottom: '32px' }}>
+              <Step>
+                <StepLabel>Informations de base</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Articles & Prix</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Révision & Envoi</StepLabel>
+              </Step>
+            </Stepper>
 
-        <form onSubmit={handleSubmit}>
-          {/* Étape 1: Informations de base */}
-          {step === 1 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <h3>Informations de base de l'offre</h3>
+            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {step === 0 && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <TextField
+                    fullWidth
+                    label="Numéro de Référence Fournisseur"
+                    value={offerData.supplier_ref_number}
+                    onChange={(e) => setOfferData({...offerData, supplier_ref_number: e.target.value})}
+                    disabled={submitting || isDeadlinePassed}
+                  />
 
-              <div>
-                <label><strong>Numéro de référence du fournisseur (optionnel)</strong></label>
-                <input
-                  type="text"
-                  value={offerData.supplier_ref_number}
-                  onChange={(e) => setOfferData({...offerData, supplier_ref_number: e.target.value})}
-                  placeholder="Numéro interne pour faciliter le suivi"
-                  style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
-                />
-                <small style={{ color: '#666', display: 'block', marginTop: '0.25rem' }}>N'affecte pas l'évaluation</small>
-              </div>
+                  <TextField
+                    fullWidth
+                    label="Période de Validité (jours)"
+                    type="number"
+                    min="1"
+                    max="365"
+                    value={offerData.validity_period_days}
+                    onChange={(e) => setOfferData({...offerData, validity_period_days: parseInt(e.target.value)})}
+                    disabled={submitting || isDeadlinePassed}
+                  />
 
-              <div>
-                <label><strong>Période de validité de l'offre (en jours)</strong></label>
-                <input
-                  type="number"
-                  min="1"
-                  max="365"
-                  value={offerData.validity_period_days}
-                  onChange={(e) => setOfferData({...offerData, validity_period_days: parseInt(e.target.value)})}
-                  style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
-                />
-                <small style={{ color: '#666', display: 'block', marginTop: '0.25rem' }}>Doit être inférieur à 365 jours</small>
-              </div>
+                  <FormControl fullWidth disabled={submitting || isDeadlinePassed}>
+                    <InputLabel>Conditions de Paiement</InputLabel>
+                    <Select
+                      value={offerData.payment_terms}
+                      onChange={(e) => setOfferData({...offerData, payment_terms: e.target.value})}
+                      label="Conditions de Paiement"
+                    >
+                      <MenuItem value="Net30">Net 30</MenuItem>
+                      <MenuItem value="Net60">Net 60</MenuItem>
+                      <MenuItem value="PaymentInAdvance">Paiement d'Avance</MenuItem>
+                      <MenuItem value="CashOnDelivery">Paiement à la Livraison</MenuItem>
+                    </Select>
+                  </FormControl>
 
-              <div>
-                <label><strong>Conditions de paiement proposées</strong></label>
-                <select
-                  value={offerData.payment_terms}
-                  onChange={(e) => setOfferData({...offerData, payment_terms: e.target.value})}
-                  style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
-                >
-                  <option value="Net30">Net 30 - Dans les 30 jours</option>
-                  <option value="Net60">Net 60 - Dans les 60 jours</option>
-                  <option value="PaymentInAdvance">Paiement d'avance</option>
-                  <option value="CashOnDelivery">Paiement à la livraison</option>
-                </select>
-              </div>
+                  <TextField
+                    fullWidth
+                    label="Proposition Technique"
+                    multiline
+                    rows={4}
+                    value={offerData.technical_proposal}
+                    onChange={(e) => setOfferData({...offerData, technical_proposal: e.target.value})}
+                    disabled={submitting || isDeadlinePassed}
+                  />
 
-              <div>
-                <label><strong>Proposition technique</strong></label>
-                <textarea
-                  rows="5"
-                  value={offerData.technical_proposal}
-                  onChange={(e) => setOfferData({...offerData, technical_proposal: e.target.value})}
-                  placeholder="Expliquez comment vous livrerez le service/produit et les spécifications techniques..."
-                  style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px', fontFamily: 'inherit' }}
-                />
-              </div>
-
-              <div>
-                <label><strong>Documents du fournisseur (PDF, DOCX)</strong></label>
-                <input
-                  type="file"
-                  multiple
-                  accept=".pdf,.docx,.doc"
-                  onChange={handleFileUpload}
-                  style={{ marginTop: '0.5rem' }}
-                />
-                {offerData.attachments.length > 0 && (
-                  <div style={{ marginTop: '1rem' }}>
-                    <p><strong>Fichiers téléchargés:</strong></p>
-                    <ul style={{ paddingLeft: '1.5rem' }}>
-                      {offerData.attachments.map((file, idx) => (
-                        <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                          <span>{file.name}</span>
-                          <button type="button" onClick={() => removeAttachment(idx)} className="btn btn-small">Supprimer</button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setStep(2)}
-                className="btn btn-primary"
-                style={{ padding: '0.75rem 2rem', alignSelf: 'flex-end' }}
-              >
-                Suivant ← Articles de l'appel
-              </button>
-            </div>
-          )}
-
-          {/* Étape 2: Articles de l'appel */}
-          {step === 2 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <h3>📦 Réponse aux articles de l'appel d'offres</h3>
-
-              {offerData.line_items.length === 0 ? (
-                <div className="alert alert-info">Il n'y a pas d'articles dans cet appel d'offres</div>
-              ) : (
-                <div style={{ overflowX: 'auto' }}>
-                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead>
-                      <tr style={{ backgroundColor: '#f5f5f5', borderBottom: '2px solid #ddd' }}>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Description</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Quantité</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Unité</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Prix unitaire</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Total</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #ddd' }}>Catalogue</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {offerData.line_items.map((item, idx) => (
-                        <tr key={idx} style={{ borderBottom: '1px solid #eee' }}>
-                          <td style={{ padding: '0.75rem' }}>{item.description}</td>
-                          <td style={{ padding: '0.75rem' }}>{item.quantity}</td>
-                          <td style={{ padding: '0.75rem' }}>{item.unit}</td>
-                          <td style={{ padding: '0.75rem' }}>
-                            <input
-                              type="number"
-                              step="0.01"
-                              min="0"
-                              value={item.unit_price}
-                              onChange={(e) => handleLineItemChange(idx, 'unit_price', e.target.value)}
-                              placeholder="Prix"
-                              style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fffbf0' }}
-                            />
-                          </td>
-                          <td style={{ padding: '0.75rem', fontWeight: 'bold' }}>
-                            {item.total_price.toFixed(2)} {tender.currency}
-                          </td>
-                          <td style={{ padding: '0.75rem', textAlign: 'center' }}>
-                            <button
-                              type="button"
-                              onClick={() => handleOpenCatalog(idx)}
-                              className="btn btn-small"
-                              style={{ padding: '0.5rem' }}
-                            >
-                              📚 Du catalogue
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                  <Box>
+                    <Typography variant="h4" sx={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                      Documents (PDF, DOCX)
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      startIcon={<CloudUploadIcon />}
+                      disabled={submitting || isDeadlinePassed}
+                    >
+                      Télécharger des Fichiers
+                      <input type="file" hidden multiple accept=".pdf,.docx,.doc" onChange={handleFileUpload} />
+                    </Button>
+                    {offerData.attachments.length > 0 && (
+                      <Stack spacing={1} sx={{ marginTop: '12px' }}>
+                        {offerData.attachments.map((file, idx) => (
+                          <Chip
+                            key={idx}
+                            label={file.name}
+                            onDelete={() => removeAttachment(idx)}
+                            icon={<DeleteIcon />}
+                          />
+                        ))}
+                      </Stack>
+                    )}
+                  </Box>
+                </Box>
               )}
 
-              <div style={{ padding: '1rem', backgroundColor: '#e7f3ff', borderRadius: '4px', textAlign: 'center' }}>
-                <strong>Total financier de l'offre: </strong>
-                <span style={{ fontSize: '1.3rem', color: '#007bff', fontWeight: 'bold' }}>
-                  {getTotalBidAmount()} {tender.currency}
-                </span>
-              </div>
+              {step === 1 && (
+                <Box>
+                  <Paper sx={{ overflow: 'hidden' }}>
+                    <Table>
+                      <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
+                        <TableRow>
+                          <TableCell sx={{ fontWeight: 600, color: '#1565c0' }}>Description</TableCell>
+                          <TableCell sx={{ fontWeight: 600, color: '#1565c0' }} align="right">Qty</TableCell>
+                          <TableCell sx={{ fontWeight: 600, color: '#1565c0' }} align="right">Prix Unitaire</TableCell>
+                          <TableCell sx={{ fontWeight: 600, color: '#1565c0' }} align="right">Total</TableCell>
+                          <TableCell sx={{ fontWeight: 600, color: '#1565c0' }} align="center">Actions</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {offerData.line_items.map((item, idx) => (
+                          <TableRow key={idx} sx={{ borderBottom: '1px solid #e0e0e0' }}>
+                            <TableCell sx={{ color: '#212121' }}>{item.description}</TableCell>
+                            <TableCell align="right" sx={{ color: '#212121' }}>{item.quantity}</TableCell>
+                            <TableCell align="right">
+                              <TextField
+                                size="small"
+                                type="number"
+                                value={item.unit_price}
+                                onChange={(e) => handleLineItemChange(idx, 'unit_price', e.target.value)}
+                                disabled={submitting || isDeadlinePassed}
+                                sx={{ width: '100px' }}
+                              />
+                            </TableCell>
+                            <TableCell align="right" sx={{ color: '#1565c0', fontWeight: 600 }}>
+                              {item.total_price.toFixed(2)} TND
+                            </TableCell>
+                            <TableCell align="center">
+                              <Button
+                                size="small"
+                                onClick={() => handleOpenCatalog(idx)}
+                                disabled={submitting || isDeadlinePassed}
+                                sx={{ color: '#1565c0', textTransform: 'none' }}
+                              >
+                                Catalogue
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </Paper>
+                  <Box sx={{ padding: '16px', backgroundColor: '#f5f5f5', marginTop: '16px', borderRadius: '4px' }}>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#1565c0' }}>
+                      Total: {getTotalBidAmount()} TND
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
 
-              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between' }}>
-                <button
-                  type="button"
-                  onClick={() => setStep(1)}
-                  className="btn btn-secondary"
-                  style={{ padding: '0.75rem 1.5rem' }}
-                >
-                  ← Précédent
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setStep(3)}
-                  className="btn btn-primary"
-                  style={{ padding: '0.75rem 1.5rem' }}
-                >
-                  Suivant - Révision ←
-                </button>
-              </div>
-            </div>
-          )}
+              {step === 2 && (
+                <Box>
+                  <Card sx={{ backgroundColor: '#e3f2fd', border: '1px solid #1565c0', marginBottom: '16px' }}>
+                    <CardContent>
+                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#0d47a1', marginBottom: '8px' }}>
+                        Résumé de Votre Offre
+                      </Typography>
+                      <Stack spacing={1} sx={{ fontSize: '14px' }}>
+                        <Typography>📋 <strong>Total:</strong> {getTotalBidAmount()} TND</Typography>
+                        <Typography>⏱️ <strong>Validité:</strong> {offerData.validity_period_days} jours</Typography>
+                        <Typography>💳 <strong>Paiement:</strong> {offerData.payment_terms}</Typography>
+                        <Typography>📎 <strong>Documents:</strong> {offerData.attachments.length} fichier(s)</Typography>
+                      </Stack>
+                    </CardContent>
+                  </Card>
 
-          {/* Étape 3: Révision et envoi */}
-          {step === 3 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <h3>✅ Révision finale et envoi sécurisé</h3>
-
-              <div style={{ padding: '1.5rem', backgroundColor: '#f9f9f9', borderRadius: '8px', border: '1px solid #ddd' }}>
-                <h4>Résumé de l'offre</h4>
-                <div style={{ lineHeight: '1.8', fontSize: '0.95rem' }}>
-                  <p><strong>Numéro de référence:</strong> {offerData.supplier_ref_number || 'Aucun'}</p>
-                  <p><strong>Période de validité:</strong> {offerData.validity_period_days} jours</p>
-                  <p><strong>Conditions de paiement:</strong> {offerData.payment_terms}</p>
-                  <p><strong>Nombre d'articles:</strong> {offerData.line_items.length}</p>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#007bff' }}>
-                    💰 Total financier: {getTotalBidAmount()} {tender.currency}
-                  </p>
-                  <p><strong>Fichiers téléchargés:</strong> {offerData.attachments.length} fichier(s)</p>
-                </div>
-              </div>
-
-              <div style={{ padding: '1rem', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '4px', color: '#856404' }}>
-                <strong>Alerte de sécurité:</strong>
-                <p>Toutes les données financières de votre offre seront chiffrées avec AES-256. Seul l'acheteur pourra déchiffrer et accéder aux détails financiers.</p>
-              </div>
-
-              <div style={{ padding: '1rem', backgroundColor: '#d4edda', border: '1px solid #c3e6cb', borderRadius: '4px', color: '#155724' }}>
-                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', cursor: 'pointer' }}>
-                  <input
-                    type="checkbox"
-                    checked={offerData.commitment}
-                    onChange={(e) => setOfferData({...offerData, commitment: e.target.checked})}
-                    style={{ marginTop: '0.25rem' }}
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={offerData.commitment}
+                        onChange={(e) => setOfferData({...offerData, commitment: e.target.checked})}
+                        disabled={submitting || isDeadlinePassed}
+                      />
+                    }
+                    label="J'accepte les termes et conditions et j'engage ma responsabilité"
                   />
-                  <span>
-                    <strong>Engagement d'envoi</strong>
-                    <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem' }}>
-                      Je confirme que j'ai lu et compris tous les termes et conditions de l'appel d'offres, et que cette offre est valable pour la période indiquée ci-dessus.
-                    </p>
-                  </span>
-                </label>
-              </div>
+                </Box>
+              )}
 
-              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between' }}>
-                <button
-                  type="button"
-                  onClick={() => setStep(2)}
-                  className="btn btn-secondary"
-                  style={{ padding: '0.75rem 1.5rem' }}
-                  disabled={submitting || isDeadlinePassed}
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ marginTop: '24px' }}>
+                <Button
+                  variant="outlined"
+                  onClick={() => setStep(Math.max(0, step - 1))}
+                  disabled={step === 0 || submitting || isDeadlinePassed}
+                  sx={{ color: '#1565c0', borderColor: '#1565c0' }}
                 >
-                  ← Retour à la modification des articles
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting || !offerData.commitment || isDeadlinePassed}
-                  className="btn btn-primary"
-                  style={{
-                    padding: '0.75rem 2rem',
-                    fontSize: '1rem',
-                    backgroundColor: isDeadlinePassed ? '#ccc' : undefined,
-                    cursor: isDeadlinePassed || !offerData.commitment ? 'not-allowed' : 'pointer',
-                    opacity: submitting || !offerData.commitment ? 0.6 : 1
-                  }}
-                >
-                  {submitting ? 'Chiffrement et envoi de l\'offre en cours...' : '🔐 Chiffrer et envoyer l\'offre maintenant'}
-                </button>
-              </div>
-            </div>
-          )}
-        </form>
-      </div>
+                  Précédent
+                </Button>
+                {step < 2 ? (
+                  <Button
+                    variant="contained"
+                    onClick={() => setStep(step + 1)}
+                    disabled={submitting || isDeadlinePassed}
+                    sx={{ backgroundColor: '#1565c0', '&:hover': { backgroundColor: '#0d47a1' } }}
+                  >
+                    Suivant
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    disabled={submitting || isDeadlinePassed || !offerData.commitment}
+                    sx={{ backgroundColor: '#2e7d32', '&:hover': { backgroundColor: '#1b5e20' } }}
+                  >
+                    {submitting ? <CircularProgress size={20} /> : 'Soumettre l\'Offre'}
+                  </Button>
+                )}
+              </Stack>
+            </Box>
+          </CardContent>
+        </Card>
+      </Container>
 
-      {/* Fenêtre du catalogue */}
-      {showCatalogModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            padding: '2rem',
-            borderRadius: '8px',
-            maxWidth: '600px',
-            maxHeight: '80vh',
-            overflowY: 'auto',
-            width: '90%'
-          }}>
-            <h3>Choisissez dans votre catalogue</h3>
+      <Dialog open={showCatalogModal} onClose={() => setShowCatalogModal(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Sélectionner du Catalogue</DialogTitle>
+        <DialogContent>
+          <Stack spacing={1} sx={{ marginTop: '16px' }}>
             {catalogProducts.length === 0 ? (
-              <p className="alert alert-info">Aucun produit dans votre catalogue</p>
+              <Typography sx={{ color: '#999' }}>Aucun produit disponible</Typography>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {catalogProducts.map((product, idx) => (
-                  <div key={idx} style={{
-                    padding: '1rem',
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s'
-                  }} onClick={() => handleSelectFromCatalog(product)}>
-                    <p><strong>{product.description || 'Produit'}</strong></p>
-                    <p style={{ fontSize: '0.9rem', color: '#666' }}>Prix: {product.total_amount} {tender.currency}</p>
-                  </div>
-                ))}
-              </div>
+              catalogProducts.map(product => (
+                <Button
+                  key={product.id}
+                  variant="outlined"
+                  onClick={() => handleSelectFromCatalog(product)}
+                  sx={{ textAlign: 'left', justifyContent: 'flex-start', color: '#212121' }}
+                >
+                  {product.description} - {product.total_amount} TND
+                </Button>
+              ))
             )}
-            <button
-              type="button"
-              onClick={() => setShowCatalogModal(false)}
-              className="btn btn-secondary"
-              style={{ marginTop: '1rem', width: '100%' }}
-            >
-              Fermer
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+          </Stack>
+        </DialogContent>
+      </Dialog>
+    </Box>
   );
 }

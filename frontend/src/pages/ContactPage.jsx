@@ -1,10 +1,27 @@
 import { useState } from 'react';
+import {
+  Container,
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Stack,
+  Alert,
+  CircularProgress,
+  Link,
+} from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { setPageTitle } from '../utils/pageTitle';
-
 
 export default function ContactPage() {
   setPageTitle('Contact et Support');
-  const [activeTab, setActiveTab] = useState('general');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,6 +31,7 @@ export default function ContactPage() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,477 +40,253 @@ export default function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
-      // Simulate form submission
       await new Promise(resolve => setTimeout(resolve, 1000));
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
       console.error('Erreur:', error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <>
-      
-      <div className="contact-page">
+    <Box sx={{ backgroundColor: '#fafafa' }}>
       {/* Hero Section */}
-      <section className="contact-hero">
-        <h1>📞 Contact et Support</h1>
-        <p className="hero-subtitle">Nous sommes ici pour vous aider</p>
-      </section>
+      <Box
+        sx={{
+          backgroundColor: 'linear-gradient(135deg, #1565c0 0%, #0d47a1 100%)',
+          color: 'white',
+          padding: '60px 20px',
+          textAlign: 'center',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography variant="h1" sx={{ fontSize: '44px', fontWeight: 600, marginBottom: '16px' }}>
+            📞 Contact et Support
+          </Typography>
+          <Typography sx={{ fontSize: '18px', color: '#e3f2fd' }}>
+            Nous sommes ici pour vous aider
+          </Typography>
+        </Container>
+      </Box>
 
-      {/* Main Content */}
-      <div className="container">
-        <div className="contact-layout">
-          {/* Left Column - Contact Info */}
-          <aside className="contact-sidebar">
-            {/* Company Info */}
-            <div className="info-card">
-              <h3>Siège Social</h3>
-              <div className="info-item">
-                <strong>MyNet.tn</strong>
-                <p>Immeuble Tunisiana Business Center</p>
-                <p>Rue des Entrepreneurs, La Marsa</p>
-                <p>2070 Tunis, Tunisie</p>
-              </div>
-            </div>
+      <Container maxWidth="lg" sx={{ paddingY: '60px' }}>
+        <Grid container spacing={4}>
+          {/* Contact Info Column */}
+          <Grid item xs={12} md={4}>
+            <Stack spacing={3}>
+              {/* Address */}
+              <Card sx={{ border: '1px solid #e0e0e0' }}>
+                <CardContent sx={{ padding: '24px' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
+                    <LocationOnIcon sx={{ color: '#1565c0', marginTop: '2px' }} />
+                    <Box>
+                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121' }}>
+                        Siège Social
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Typography sx={{ color: '#616161', fontSize: '14px', lineHeight: 1.8 }}>
+                    MyNet.tn<br />
+                    Immeuble Tunisiana Business Center<br />
+                    Rue des Entrepreneurs, La Marsa<br />
+                    2070 Tunis, Tunisie
+                  </Typography>
+                </CardContent>
+              </Card>
 
-            {/* Phone Numbers */}
-            <div className="info-card">
-              <h3>Téléphone</h3>
-              <div className="info-item">
-                <p><strong>Support Technique:</strong></p>
-                <a href="tel:+21671123456">+216 71 123 456</a>
-                <p><strong>Support Commercial:</strong></p>
-                <a href="tel:+21671123457">+216 71 123 457</a>
-                <p><strong>Support Légal:</strong></p>
-                <a href="tel:+21671123458">+216 71 123 458</a>
-              </div>
-            </div>
+              {/* Phone */}
+              <Card sx={{ border: '1px solid #e0e0e0' }}>
+                <CardContent sx={{ padding: '24px' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
+                    <PhoneIcon sx={{ color: '#1565c0', marginTop: '2px' }} />
+                    <Box>
+                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121' }}>
+                        Téléphone
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Stack spacing={1}>
+                    <Box>
+                      <Typography sx={{ fontSize: '12px', color: '#616161', fontWeight: 600 }}>Support Technique</Typography>
+                      <Link href="tel:+21671123456" sx={{ color: '#1565c0', textDecoration: 'none', fontSize: '14px' }}>
+                        +216 71 123 456
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '12px', color: '#616161', fontWeight: 600 }}>Support Commercial</Typography>
+                      <Link href="tel:+21671123457" sx={{ color: '#1565c0', textDecoration: 'none', fontSize: '14px' }}>
+                        +216 71 123 457
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '12px', color: '#616161', fontWeight: 600 }}>Support Légal</Typography>
+                      <Link href="tel:+21671123458" sx={{ color: '#1565c0', textDecoration: 'none', fontSize: '14px' }}>
+                        +216 71 123 458
+                      </Link>
+                    </Box>
+                  </Stack>
+                </CardContent>
+              </Card>
 
-            {/* Email */}
-            <div className="info-card">
-              <h3>Email</h3>
-              <div className="info-item">
-                <p><strong>Support Général:</strong></p>
-                <a href="mailto:support@mynet.tn">support@mynet.tn</a>
-                <p><strong>Technique:</strong></p>
-                <a href="mailto:tech@mynet.tn">tech@mynet.tn</a>
-                <p><strong>Commercial:</strong></p>
-                <a href="mailto:sales@mynet.tn">sales@mynet.tn</a>
-                <p><strong>Légal:</strong></p>
-                <a href="mailto:legal@mynet.tn">legal@mynet.tn</a>
-              </div>
-            </div>
+              {/* Email */}
+              <Card sx={{ border: '1px solid #e0e0e0' }}>
+                <CardContent sx={{ padding: '24px' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
+                    <EmailIcon sx={{ color: '#1565c0', marginTop: '2px' }} />
+                    <Box>
+                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121' }}>
+                        Email
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Stack spacing={1}>
+                    <Box>
+                      <Typography sx={{ fontSize: '12px', color: '#616161', fontWeight: 600 }}>Support Général</Typography>
+                      <Link href="mailto:support@mynet.tn" sx={{ color: '#1565c0', textDecoration: 'none', fontSize: '14px' }}>
+                        support@mynet.tn
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '12px', color: '#616161', fontWeight: 600 }}>Technique</Typography>
+                      <Link href="mailto:tech@mynet.tn" sx={{ color: '#1565c0', textDecoration: 'none', fontSize: '14px' }}>
+                        tech@mynet.tn
+                      </Link>
+                    </Box>
+                  </Stack>
+                </CardContent>
+              </Card>
 
-            {/* Hours */}
-            <div className="info-card">
-              <h3>⏰ Horaires</h3>
-              <div className="info-item">
-                <p><strong>Lundi - Vendredi:</strong></p>
-                <p>8:00 - 18:00</p>
-                <p><strong>Samedi:</strong></p>
-                <p>9:00 - 13:00</p>
-                <p><strong>Support 24/7:</strong></p>
-                <p>Disponible pour clients Premium</p>
-              </div>
-            </div>
+              {/* Hours */}
+              <Card sx={{ border: '1px solid #e0e0e0', backgroundColor: '#e3f2fd' }}>
+                <CardContent sx={{ padding: '24px' }}>
+                  <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#0d47a1', marginBottom: '12px' }}>
+                    ⏰ Horaires
+                  </Typography>
+                  <Stack spacing={1} sx={{ fontSize: '14px', color: '#0d47a1' }}>
+                    <Typography><strong>Lundi - Vendredi:</strong> 8:00 - 18:00</Typography>
+                    <Typography><strong>Samedi:</strong> 9:00 - 13:00</Typography>
+                    <Typography><strong>Support 24/7:</strong> Disponible pour clients Premium</Typography>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Stack>
+          </Grid>
 
-            {/* Help Center */}
-            <div className="info-card help-card">
-              <h3>💡 Centre d'Aide</h3>
-              <p>Consultez notre base de connaissances pour des réponses rapides</p>
-              <a href="#help-center" className="help-link">Accéder au Centre d'Aide →</a>
-            </div>
-          </aside>
-
-          {/* Right Column - Forms */}
-          <main className="contact-forms">
-            {/* Tab Navigation */}
-            <div className="form-tabs">
-              <button 
-                className={`tab-btn ${activeTab === 'general' ? 'active' : ''}`}
-                onClick={() => setActiveTab('general')}
-              >
-                Demande Générale
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'technical' ? 'active' : ''}`}
-                onClick={() => setActiveTab('technical')}
-              >
-                🔧 Support Technique
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'legal' ? 'active' : ''}`}
-                onClick={() => setActiveTab('legal')}
-              >
-                ⚖️ Demandes Légales
-              </button>
-            </div>
-
-            {/* General Contact Form */}
-            {activeTab === 'general' && (
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <h2>Formulaire de Contact Général</h2>
-                <p className="form-intro">Nous vous répondrons dans les 24 heures</p>
-
-                {submitted && (
-                  <div className="success-message">
-                    Merci! Votre message a été envoyé avec succès. Nous vous recontacterons bientôt.
-                  </div>
-                )}
-
-                <div className="form-group">
-                  <label>Nom Complet *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Téléphone</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label>Entreprise</label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Sujet *</label>
-                  <select name="subject" value={formData.subject} onChange={handleInputChange} required>
-                    <option value="">Sélectionner un sujet</option>
-                    <option value="demo">Demander une Démonstration</option>
-                    <option value="pricing">Question sur Tarification</option>
-                    <option value="partnership">Partenariat</option>
-                    <option value="feedback">Retour d'expérience</option>
-                    <option value="other">Autre</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Message *</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows="6"
-                    required
-                  ></textarea>
-                </div>
-
-                <button type="submit" className="submit-btn">Envoyer</button>
-              </form>
-            )}
-
-            {/* Technical Support Form */}
-            {activeTab === 'technical' && (
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <h2>Formulaire Support Technique</h2>
-                <p className="form-intro">Décrivez votre problème technique en détail</p>
+          {/* Contact Form Column */}
+          <Grid item xs={12} md={8}>
+            <Card sx={{ border: '1px solid #e0e0e0' }}>
+              <CardContent sx={{ padding: '32px' }}>
+                <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+                  Envoyez-nous un Message
+                </Typography>
+                <Typography sx={{ color: '#616161', marginBottom: '24px' }}>
+                  Remplissez le formulaire ci-dessous et nous vous répondrons dès que possible
+                </Typography>
 
                 {submitted && (
-                  <div className="success-message">
-                    Ticket créé! Référence: #TK{new Date().getTime()} - Nous le traiterons rapidement.
-                  </div>
+                  <Alert severity="success" sx={{ marginBottom: '24px' }}>
+                    ✅ Merci! Votre message a été envoyé avec succès. Nous vous répondrons bientôt.
+                  </Alert>
                 )}
 
-                <div className="form-group">
-                  <label>Nom Complet *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
+                <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        fullWidth
+                        label="Nom"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        disabled={submitting}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        fullWidth
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        disabled={submitting}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        fullWidth
+                        label="Téléphone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        disabled={submitting}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        fullWidth
+                        label="Entreprise"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        disabled={submitting}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        label="Sujet"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        required
+                        disabled={submitting}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        label="Message"
+                        name="message"
+                        multiline
+                        rows={6}
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                        disabled={submitting}
+                      />
+                    </Grid>
+                  </Grid>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Numéro de Ticket (si applicable)</label>
-                    <input
-                      type="text"
-                      placeholder="TK-XXXXX"
-                      name="ticket"
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label>Catégorie du Problème *</label>
-                  <select name="subject" value={formData.subject} onChange={handleInputChange} required>
-                    <option value="">Sélectionner une catégorie</option>
-                    <option value="login">Problème de Connexion</option>
-                    <option value="performance">Performance/Lenteur</option>
-                    <option value="bug">Signaler un Bug</option>
-                    <option value="feature">Demande de Fonctionnalité</option>
-                    <option value="integration">Problème d'Intégration</option>
-                    <option value="other">Autre</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Priorité *</label>
-                  <select name="priority" required>
-                    <option value="">Sélectionner</option>
-                    <option value="low">🟢 Faible - Peut attendre</option>
-                    <option value="medium">🟡 Moyen - Important</option>
-                    <option value="high">🔴 Élevée - Urgent</option>
-                    <option value="critical">⛔ Critique - Bloquant</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Description Détaillée *</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows="6"
-                    placeholder="Décrivez le problème, les étapes pour le reproduire, et toute information pertinente..."
-                    required
-                  ></textarea>
-                </div>
-
-                <button type="submit" className="submit-btn">🆘 Créer un Ticket Support</button>
-              </form>
-            )}
-
-            {/* Legal Requests Form */}
-            {activeTab === 'legal' && (
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <h2>Demandes Légales et de Conformité</h2>
-                <p className="form-intro">Pour les demandes légales, de confidentialité ou de conformité</p>
-
-                {submitted && (
-                  <div className="success-message">
-                    Votre demande légale a été reçue. Notre équipe légale vous contactera sous 2 jours ouvrables.
-                  </div>
-                )}
-
-                <div className="form-group">
-                  <label>Nom Complet *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Fonction</label>
-                    <input
-                      type="text"
-                      placeholder="Ex: Responsable Légal"
-                      name="role"
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label>Organisation/Entreprise *</label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Type de Demande *</label>
-                  <select name="subject" value={formData.subject} onChange={handleInputChange} required>
-                    <option value="">Sélectionner</option>
-                    <option value="privacy">Demande Accès à Données Personnelles</option>
-                    <option value="deletion">Demande de Suppression de Données</option>
-                    <option value="complaint">Plainte</option>
-                    <option value="compliance">Conformité / Audit</option>
-                    <option value="contract">Accord Contractuel</option>
-                    <option value="dpa">Data Processing Agreement</option>
-                    <option value="other">Autre Demande Légale</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Description Détaillée *</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows="6"
-                    placeholder="Veuillez fournir les détails complets de votre demande légale..."
-                    required
-                  ></textarea>
-                </div>
-
-                <div className="form-group checkbox">
-                  <label>
-                    <input type="checkbox" required />
-                    Je confirme que cette demande est authentique et autorisée
-                  </label>
-                </div>
-
-                <button type="submit" className="submit-btn">⚖️ Soumettre la Demande Légale</button>
-              </form>
-            )}
-          </main>
-        </div>
-      </div>
-
-      {/* Help Center Section */}
-      <section id="help-center" className="help-center-section">
-        <div className="container">
-          <h2>💡 Centre d'Aide et Base de Connaissances</h2>
-          <p className="section-intro">Trouvez des réponses rapides à vos questions</p>
-
-          <div className="help-grid">
-            <div className="help-card">
-              <div className="help-icon">🚀</div>
-              <h3>Démarrage Rapide</h3>
-              <p>Apprenez les bases pour commencer à utiliser MyNet.tn en quelques minutes</p>
-              <a href="#" className="help-link">Consulter Guide →</a>
-            </div>
-
-            <div className="help-card">
-              <div className="help-icon">🏢</div>
-              <h3>Guide Acheteur</h3>
-              <p>Documentation complète pour les acheteurs sur la création d'AO et évaluation</p>
-              <a href="#" className="help-link">Consulter Guide →</a>
-            </div>
-
-            <div className="help-card">
-              <div className="help-icon">🏭</div>
-              <h3>Guide Fournisseur</h3>
-              <p>Tout ce qu'il faut savoir pour soumettre des offres et gérer votre catalogue</p>
-              <a href="#" className="help-link">Consulter Guide →</a>
-            </div>
-
-            <div className="help-card">
-              <div className="help-icon">🔐</div>
-              <h3>Sécurité et Confidentialité</h3>
-              <p>Comprendre comment nous protégeons vos données et vos transactions</p>
-              <a href="#" className="help-link">Consulter Guide →</a>
-            </div>
-
-            <div className="help-card">
-              <div className="help-icon">💳</div>
-              <h3>Facturation et Paiements</h3>
-              <p>Questions sur les forfaits, la facturation, et les modes de paiement</p>
-              <a href="#" className="help-link">Consulter Guide →</a>
-            </div>
-
-            <div className="help-card">
-              <div className="help-icon">🔗</div>
-              <h3>Intégrations</h3>
-              <p>Comment intégrer MyNet.tn avec vos systèmes ERP et autres outils</p>
-              <a href="#" className="help-link">Consulter Guide →</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="faq-section">
-        <div className="container">
-          <h2>❓ Questions Fréquemment Posées</h2>
-
-          <div className="faq-grid">
-            <div className="faq-item">
-              <h4>Quel est le temps de réponse moyen du support?</h4>
-              <p>Nous répondons généralement dans les 2 heures pour les problèmes critiques, et 24h pour les autres demandes.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Puis-je parler à quelqu'un directement?</h4>
-              <p>Oui! Les clients Premium ont accès à un support téléphonique direct. Appelez notre support technique pour organiser un appel.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Avez-vous une documentation API?</h4>
-              <p>Oui, la documentation API complète est disponible dans le Centre d'Aide pour les forfaits Gold et Platinum.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Comment puis-je signaler une faille de sécurité?</h4>
-              <p>Veuillez envoyer un email à security@mynet.tn avec les détails. Nous traiterons les rapports de sécurité en priorité.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Offrez-vous une formation pour notre équipe?</h4>
-              <p>Oui! Les clients Premium et Platinum peuvent accéder à des sessions de formation personnalisées.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Comment puis-je demander une fonctionnalité?</h4>
-              <p>Vous pouvez soumettre des demandes de fonctionnalités via notre formulaire de contact ou le Centre d'Aide.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="contact-cta">
-        <div className="container">
-          <h2>Vous ne trouvez pas votre réponse?</h2>
-          <p>Nos équipes de support sont prêtes à vous aider</p>
-          <a href="#" className="cta-button">📞 Planifier un Appel avec Expert →</a>
-        </div>
-      </section>
-    </div>
-    </>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    disabled={submitting}
+                    startIcon={submitting ? <CircularProgress size={20} /> : <SendIcon />}
+                    sx={{
+                      backgroundColor: '#1565c0',
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      minHeight: '44px',
+                      marginTop: '16px',
+                      '&:hover': { backgroundColor: '#0d47a1' },
+                    }}
+                  >
+                    {submitting ? 'Envoi en cours...' : 'Envoyer le Message'}
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

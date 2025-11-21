@@ -49,14 +49,14 @@ function App() {
         const tokenData = JSON.parse(atob(token.split('.')[1]));
         setUser(tokenData);
       } catch (error) {
-        console.error('خطأ في فك تشفير التوكن:', error);
+        console.error('Erreur lors du décodage du jeton:', error);
         localStorage.removeItem('accessToken');
       }
     }
     setLoading(false);
   }, []);
 
-  // إعداد مراقبة الخمول - تنبيه بعد 15 دقيقة من عدم النشاط
+  // Configurer la surveillance de l'inactivité - alerte après 15 minutes d'inactivité
   useEffect(() => {
     if (!user) return;
     const cleanup = setupInactivityTimer(15 * 60 * 1000);
@@ -110,18 +110,18 @@ function App() {
 
         <main className="main-content">
           <Routes>
-            {/* المصادقة */}
+            {/* Authentification */}
             <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="/register" element={<Register />} />
 
-            {/* المناقصات */}
+            {/* Appels d'offres */}
             <Route path="/tenders" element={<TenderList />} />
             <Route path="/tender/:id" element={<TenderDetail />} />
             <Route path="/tender/:id/audit-log" element={<AuditLog />} />
             <Route path="/tender/:id/award" element={<PartialAward />} />
             <Route path="/tender/:id/analysis" element={<OfferAnalysis />} />
 
-            {/* واجهة المشتري */}
+            {/* Interface Acheteur */}
             <Route 
               path="/buyer-dashboard" 
               element={user?.role === 'buyer' ? <BuyerDashboard /> : <Navigate to="/tenders" />} 
@@ -143,7 +143,7 @@ function App() {
               element={user?.role === 'buyer' ? <InvoiceManagement /> : <Navigate to="/tenders" />} 
             />
 
-            {/* واجهة المورد */}
+            {/* Interface Fournisseur */}
             <Route 
               path="/supplier-search" 
               element={user?.role === 'supplier' ? <SupplierSearch /> : <Navigate to="/tenders" />} 
@@ -173,7 +173,7 @@ function App() {
               element={user?.role === 'supplier' ? <CreateOffer /> : <Navigate to="/tenders" />} 
             />
 
-            {/* الإدارة */}
+            {/* Administration */}
             <Route 
               path="/admin" 
               element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/tenders" />} 
@@ -203,7 +203,7 @@ function App() {
               element={user?.role === 'admin' ? <UserManagement /> : <Navigate to="/tenders" />} 
             />
 
-            {/* الملف الشخصي والأمان */}
+            {/* Profil et Sécurité */}
             <Route 
               path="/profile" 
               element={user ? <Profile user={user} /> : <Navigate to="/login" />} 
@@ -213,7 +213,7 @@ function App() {
               element={user ? <MFASetup /> : <Navigate to="/login" />} 
             />
 
-            {/* الافتراضي */}
+            {/* Par défaut */}
             <Route path="/" element={<Navigate to="/tenders" />} />
             <Route path="*" element={<Navigate to="/tenders" />} />
           </Routes>

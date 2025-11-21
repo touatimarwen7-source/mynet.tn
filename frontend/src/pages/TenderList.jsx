@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { procurementAPI } from '../api';
 import EnhancedTable from '../components/EnhancedTable';
 
 export default function TenderList() {
-  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [tenders, setTenders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +11,7 @@ export default function TenderList() {
 
   useEffect(() => {
     fetchTenders();
-  }, [i18n.language]);
+  }, []);
 
   const fetchTenders = async () => {
     try {
@@ -31,16 +29,16 @@ export default function TenderList() {
     navigate(`/create-offer/${tenderId}`);
   };
 
-  if (loading) return <div className="loading">{t('messages.loadingTenders')}</div>;
+  if (loading) return <div className="loading">Chargement des appels d'offres...</div>;
 
   return (
     <div className="page tender-list-page">
-      <h1>{t('tender.list')}</h1>
+      <h1>Appels d'offres</h1>
       
       <div className="filter-section">
         <input
           type="text"
-          placeholder={t('tender.title')}
+          placeholder="Titre de l'appel d'offres"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="input-filter"
@@ -48,7 +46,7 @@ export default function TenderList() {
       </div>
 
       {tenders.length === 0 ? (
-        <div className="alert alert-info">{t('messages.noTenders')}</div>
+        <div className="alert alert-info">Aucun appel d'offres disponible</div>
       ) : (
         <EnhancedTable
           data={tenders}

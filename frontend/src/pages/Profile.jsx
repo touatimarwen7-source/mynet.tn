@@ -20,7 +20,7 @@ export default function Profile({ user }) {
       setProfile(response.data.user);
       setFormData(response.data.user);
     } catch (err) {
-      setError(err.response?.data?.error || 'خطأ في تحميل الملف الشخصي');
+      setError(err.response?.data?.error || 'Erreur lors du chargement du profil');
     } finally {
       setLoading(false);
     }
@@ -41,20 +41,20 @@ export default function Profile({ user }) {
       const response = await authAPI.updateProfile(formData);
       setProfile(response.data.user);
       setEditing(false);
-      setSuccess('تم تحديث الملف الشخصي بنجاح');
+      setSuccess('Profil mis à jour avec succès');
     } catch (err) {
-      setError(err.response?.data?.error || 'خطأ في تحديث الملف الشخصي');
+      setError(err.response?.data?.error || 'Erreur lors de la mise à jour du profil');
     } finally {
       setLoading(false);
     }
   };
 
   if (loading) return <div className="loading">Chargement en cours...</div>;
-  if (!profile) return <div className="alert alert-error">لم يتم العثور على الملف الشخصي</div>;
+  if (!profile) return <div className="alert alert-error">Profil non trouvé</div>;
 
   return (
     <div className="form-container" style={{ maxWidth: '600px' }}>
-      <h2>الملف الشخصي</h2>
+      <h2>Profil</h2>
       
       {error && <div className="alert alert-error">{error}</div>}
       {success && <div className="alert alert-success">{success}</div>}
@@ -62,15 +62,15 @@ export default function Profile({ user }) {
       {!editing ? (
         <div>
           <div className="card">
-            <p><strong>اسم المستخدم:</strong> {profile.username}</p>
-            <p><strong>البريد الإلكتروني:</strong> {profile.email}</p>
-            <p><strong>الاسم الكامل:</strong> {profile.full_name}</p>
-            <p><strong>رقم الهاتف:</strong> {profile.phone || '-'}</p>
-            <p><strong>الدور:</strong> {profile.role}</p>
-            <p><strong>اسم الشركة:</strong> {profile.company_name || '-'}</p>
-            <p><strong>حالة التحقق:</strong> {profile.is_verified ? '✓ مُتحقق منه' : '✗ غير مُتحقق'}</p>
+            <p><strong>Nom d'utilisateur:</strong> {profile.username}</p>
+            <p><strong>Email:</strong> {profile.email}</p>
+            <p><strong>Nom complet:</strong> {profile.full_name}</p>
+            <p><strong>Téléphone:</strong> {profile.phone || '-'}</p>
+            <p><strong>Rôle:</strong> {profile.role}</p>
+            <p><strong>Nom de l'entreprise:</strong> {profile.company_name || '-'}</p>
+            <p><strong>Statut de vérification:</strong> {profile.is_verified ? '✓ Vérifié' : '✗ Non vérifié'}</p>
             <p style={{ fontSize: '0.9rem', color: '#999' }}>
-              تم الإنشاء: {new Date(profile.created_at).toLocaleDateString('ar-TN')}
+              Créé le: {new Date(profile.created_at).toLocaleDateString('fr-FR')}
             </p>
           </div>
 
@@ -79,13 +79,13 @@ export default function Profile({ user }) {
             onClick={() => setEditing(true)}
             style={{ marginTop: '1rem' }}
           >
-            تعديل البيانات
+            Modifier les données
           </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>الاسم الكامل</label>
+            <label>Nom complet</label>
             <input
               type="text"
               name="full_name"
@@ -95,7 +95,7 @@ export default function Profile({ user }) {
           </div>
 
           <div className="form-group">
-            <label>رقم الهاتف</label>
+            <label>Téléphone</label>
             <input
               type="tel"
               name="phone"
@@ -105,7 +105,7 @@ export default function Profile({ user }) {
           </div>
 
           <div className="form-group">
-            <label>اسم الشركة</label>
+            <label>Nom de l'entreprise</label>
             <input
               type="text"
               name="company_name"
@@ -115,7 +115,7 @@ export default function Profile({ user }) {
           </div>
 
           <div className="form-group">
-            <label>رقم تسجيل الشركة</label>
+            <label>Numéro d'enregistrement de l'entreprise</label>
             <input
               type="text"
               name="company_registration"
@@ -126,7 +126,7 @@ export default function Profile({ user }) {
 
           <div style={{ display: 'flex', gap: '1rem' }}>
             <button className="btn btn-primary" disabled={loading}>
-              {loading ? 'Sauvegarde en cours...' : 'حفظ التغييرات'}
+              {loading ? 'Sauvegarde en cours...' : 'Enregistrer les modifications'}
             </button>
             <button 
               type="button" 
@@ -136,7 +136,7 @@ export default function Profile({ user }) {
                 setFormData(profile);
               }}
             >
-              إلغاء
+              Annuler
             </button>
           </div>
         </form>

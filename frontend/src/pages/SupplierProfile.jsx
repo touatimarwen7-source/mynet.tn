@@ -13,10 +13,13 @@ export default function SupplierProfile() {
   const [editData, setEditData] = useState({});
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [stats, setStats] = useState({});
+  const [activity, setActivity] = useState([]);
 
   useEffect(() => {
-    setPageTitle('Profil du Fournisseur');
+    setPageTitle('ملف الفرنيسة');
     fetchProfile();
+    fetchActivity();
   }, []);
 
   const fetchProfile = async () => {
@@ -28,10 +31,22 @@ export default function SupplierProfile() {
       setEditData(response.data.profile);
       setDocuments(response.data.documents || []);
       setCategories(response.data.categories || []);
+      setStats(response.data.stats || {});
     } catch (error) {
-      setError('Erreur lors du chargement du profil');
+      setError('خطأ في تحميل الملف الشخصي');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchActivity = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/supplier/activity', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
+      });
+      setActivity(response.data.activity || []);
+    } catch (error) {
+      console.error('خطأ في تحميل النشاط');
     }
   };
 
@@ -50,25 +65,25 @@ export default function SupplierProfile() {
           'Content-Type': 'multipart/form-data'
         }
       });
-      setSuccess('Document uploadé avec succès ✓');
+      setSuccess('تم رفع المستند بنجاح ✓');
       setTimeout(() => setSuccess(''), 3000);
       fetchProfile();
     } catch (error) {
-      setError('Erreur: ' + error.response?.data?.error);
+      setError('خطأ: ' + error.response?.data?.error);
     }
   };
 
   const handleDeleteDocument = async (docId) => {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer ce document?')) return;
+    if (!confirm('هل أنت متأكد من رغبتك في حذف هذا المستند؟')) return;
     try {
       await axios.delete(`http://localhost:3000/api/supplier/documents/${docId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
-      setSuccess('Document supprimé ✓');
+      setSuccess('تم حذف المستند ✓');
       setTimeout(() => setSuccess(''), 3000);
       fetchProfile();
     } catch (error) {
-      setError('Erreur: ' + error.response?.data?.error);
+      setError('خطأ: ' + error.response?.data?.error);
     }
   };
 
@@ -79,10 +94,10 @@ export default function SupplierProfile() {
       });
       setProfile(editData);
       setEditing(false);
-      setSuccess('Profil mis à jour avec succès ✓');
+      setSuccess('تم تحديث الملف الشخصي بنجاح ✓');
       setTimeout(() => setSuccess(''), 3000);
     } catch (error) {
-      setError('Erreur: ' + error.response?.data?.error);
+      setError('خطأ: ' + error.response?.data?.error);
     }
   };
 
@@ -98,8 +113,8 @@ export default function SupplierProfile() {
     <div className="page-container">
       {/* Page Header */}
       <div className="page-header animate-slide-down">
-        <h1 className="page-title">🏢 Profil du Fournisseur</h1>
-        <p className="page-subtitle">Gérez votre profil professionnel et vos documents</p>
+        <h1 className="page-title">🏢 ملف الفرنيسة</h1>
+        <p className="page-subtitle">أدر ملفك المهني والوثائق والدومينات المتخصصة</p>
       </div>
 
       {/* Alerts */}
@@ -124,7 +139,7 @@ export default function SupplierProfile() {
               <div className="profile-avatar">🏢</div>
               <div className="profile-header-info">
                 <h2 className="profile-name">{profile.company_name}</h2>
-                <p className="profile-role">Fournisseur Professionnel</p>
+                <p className="profile-role">فرنيسة متخصصة</p>
               </div>
               {!editing && (
                 <button 
@@ -132,7 +147,7 @@ export default function SupplierProfile() {
                   onClick={() => setEditing(true)}
                   style={{ marginLeft: 'auto' }}
                 >
-                  ✏️ Modifier
+                  ✏️ تعديل
                 </button>
               )}
             </div>
@@ -142,7 +157,7 @@ export default function SupplierProfile() {
               <div className="profile-edit-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label className="form-label">Nom de l'Entreprise</label>
+                    <label className="form-label">اسم الشركة</label>
                     <input 
                       type="text" 
                       value={editData.company_name || ''} 
@@ -151,7 +166,7 @@ export default function SupplierProfile() {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Numéro Commercial</label>
+                    <label className="form-label">الرقم التجاري</label>
                     <input 
                       type="text" 
                       value={editData.commercial_number || ''} 
@@ -163,7 +178,7 @@ export default function SupplierProfile() {
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label className="form-label">Siège Social</label>
+                    <label className="form-label">الموقع</label>
                     <input 
                       type="text" 
                       value={editData.location || ''} 
@@ -172,7 +187,7 @@ export default function SupplierProfile() {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Téléphone</label>
+                    <label className="form-label">الهاتف</label>
                     <input 
                       type="tel" 
                       value={editData.phone || ''} 
@@ -184,10 +199,10 @@ export default function SupplierProfile() {
 
                 <div className="form-actions">
                   <button className="btn btn-secondary" onClick={() => setEditing(false)}>
-                    ✕ Annuler
+                    ✕ إلغاء
                   </button>
                   <button className="btn btn-primary" onClick={handleSaveProfile}>
-                    💾 Sauvegarder
+                    💾 حفظ
                   </button>
                 </div>
               </div>
@@ -196,44 +211,95 @@ export default function SupplierProfile() {
               <div className="profile-info-grid">
                 <div className="info-group">
                   <div className="info-item">
-                    <label className="info-label">📍 Siège Social</label>
+                    <label className="info-label">📍 الموقع</label>
                     <p className="info-value">{profile.location || '—'}</p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">📱 Téléphone</label>
+                    <label className="info-label">📱 الهاتف</label>
                     <p className="info-value">{profile.phone || '—'}</p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">🔢 Numéro Commercial</label>
+                    <label className="info-label">🔢 الرقم التجاري</label>
                     <p className="info-value">{profile.commercial_number || '—'}</p>
                   </div>
                 </div>
 
                 <div className="info-group">
                   <div className="info-item">
-                    <label className="info-label">⭐ Note Moyenne</label>
+                    <label className="info-label">⭐ التقييم</label>
                     <p className="info-value">
                       <span className="rating-stars">{'⭐'.repeat(Math.round(profile.average_rating || 0))}</span>
                       {profile.average_rating || 0}/5
                     </p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">📊 Soumissions</label>
-                    <p className="info-value">{profile.submission_count || 0}</p>
+                    <label className="info-label">📊 العروض</label>
+                    <p className="info-value">{stats.submissions || 0}</p>
+                  </div>
+                  <div className="info-item">
+                    <label className="info-label">🏆 الجوائز</label>
+                    <p className="info-value">{stats.awards || 0}</p>
                   </div>
                 </div>
               </div>
             )}
           </div>
 
+          {/* Statistics Section */}
+          <div className="profile-section animate-slide-up">
+            <h3 className="section-title">📊 إحصائيات الشركة</h3>
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-icon">📝</div>
+                <div className="stat-number">{stats.total_tenders || 0}</div>
+                <div className="stat-label">المناقصات</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">🏆</div>
+                <div className="stat-number">{stats.won_awards || 0}</div>
+                <div className="stat-label">الجوائز المكتسبة</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">⭐</div>
+                <div className="stat-number">{(profile.average_rating || 0).toFixed(1)}</div>
+                <div className="stat-label">التقييم العام</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">👥</div>
+                <div className="stat-number">{stats.review_count || 0}</div>
+                <div className="stat-label">عدد التقييمات</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Activity Section */}
+          <div className="profile-section animate-slide-up">
+            <h3 className="section-title">📈 النشاط الأخير</h3>
+            {activity.length === 0 ? (
+              <div className="empty-state">لا يوجد نشاط حالياً</div>
+            ) : (
+              <div className="activity-timeline">
+                {activity.slice(0, 5).map((item, idx) => (
+                  <div key={idx} className="activity-item">
+                    <div className="activity-icon">
+                      {item.type === 'bid' ? '📤' : item.type === 'award' ? '🏆' : item.type === 'review' ? '⭐' : '📌'}
+                    </div>
+                    <div className="activity-content">
+                      <p className="activity-title">{item.description || item.type}</p>
+                      <p className="activity-date">{new Date(item.created_at).toLocaleDateString('ar-TN')}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Expertise Areas */}
           <div className="profile-section animate-slide-up">
-            <h3 className="section-title">🎯 Domaines d'Expertise</h3>
+            <h3 className="section-title">🎯 الدومينات المتخصصة</h3>
             <div className="categories-tags">
               {categories.length === 0 ? (
-                <div className="empty-state">
-                  <p>Aucun domaine défini</p>
-                </div>
+                <div className="empty-state">لم يتم تحديد أي دومين متخصص</div>
               ) : (
                 categories.map((cat, idx) => (
                   <span key={idx} className="badge badge-primary">{cat}</span>
@@ -244,7 +310,7 @@ export default function SupplierProfile() {
 
           {/* Documents and Certificates */}
           <div className="profile-section animate-slide-up">
-            <h3 className="section-title">📄 Documents et Certificats</h3>
+            <h3 className="section-title">📄 الوثائق والشهادات</h3>
             
             <div className="document-upload-area">
               <label className="upload-label">
@@ -254,25 +320,23 @@ export default function SupplierProfile() {
                   accept=".pdf,.jpg,.jpeg,.png"
                   className="upload-input"
                 />
-                <span className="upload-button">📤 Télécharger un Document</span>
+                <span className="upload-button">📤 رفع مستند</span>
               </label>
-              <p className="upload-help">PDF, JPG ou PNG • Maximum 10 MB</p>
+              <p className="upload-help">PDF, JPG أو PNG • الحد الأقصى 10 MB</p>
             </div>
 
             {documents.length === 0 ? (
-              <div className="empty-state">
-                <p>Aucun document uploadé</p>
-              </div>
+              <div className="empty-state">لم يتم رفع أي مستندات</div>
             ) : (
               <div className="documents-table-wrapper">
                 <table className="documents-table">
                   <thead>
                     <tr>
-                      <th>Type</th>
-                      <th>Date d'Upload</th>
-                      <th>Expiration</th>
-                      <th>Statut</th>
-                      <th>Action</th>
+                      <th>النوع</th>
+                      <th>تاريخ الرفع</th>
+                      <th>الانتهاء</th>
+                      <th>الحالة</th>
+                      <th>الإجراء</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -283,20 +347,20 @@ export default function SupplierProfile() {
                       return (
                         <tr key={idx} className={isExpiringSoon ? 'warning-row' : ''}>
                           <td><strong>{doc.type}</strong></td>
-                          <td>{new Date(doc.uploaded_at).toLocaleDateString('fr-FR')}</td>
-                          <td>{new Date(doc.expiry_date).toLocaleDateString('fr-FR')}</td>
+                          <td>{new Date(doc.uploaded_at).toLocaleDateString('ar-TN')}</td>
+                          <td>{new Date(doc.expiry_date).toLocaleDateString('ar-TN')}</td>
                           <td>
                             {isExpiringSoon ? (
-                              <span className="badge badge-warning">⚠️ {daysLeft} jours</span>
+                              <span className="badge badge-warning">⚠️ {daysLeft} يوم</span>
                             ) : (
-                              <span className="badge badge-success">✓ Valide</span>
+                              <span className="badge badge-success">✓ صحيح</span>
                             )}
                           </td>
                           <td>
                             <button 
                               className="btn btn-sm btn-outline"
                               onClick={() => handleDeleteDocument(doc.id)}
-                              title="Supprimer"
+                              title="حذف"
                             >
                               🗑️
                             </button>
@@ -312,12 +376,12 @@ export default function SupplierProfile() {
 
           {/* Public Profile Preview */}
           <div className="profile-section animate-slide-up">
-            <h3 className="section-title">🌐 Profil Public</h3>
+            <h3 className="section-title">🌐 المعلومات العامة</h3>
             <button 
               className="btn btn-outline"
               onClick={() => setShowPublicProfile(!showPublicProfile)}
             >
-              {showPublicProfile ? '🔒 Masquer le Profil' : '👁️ Afficher Profil Public'}
+              {showPublicProfile ? '🔒 إخفاء' : '👁️ عرض البيانات العامة'}
             </button>
 
             {showPublicProfile && (
@@ -327,8 +391,9 @@ export default function SupplierProfile() {
                   <p className="preview-location">📍 {profile.location}</p>
                 </div>
                 <div className="preview-content">
-                  <p><strong>Domaines:</strong> {categories.join(', ') || '—'}</p>
-                  <p><strong>Note:</strong> ⭐ {profile.average_rating || 0}/5</p>
+                  <p><strong>الدومينات:</strong> {categories.join(', ') || '—'}</p>
+                  <p><strong>التقييم:</strong> ⭐ {profile.average_rating || 0}/5</p>
+                  <p><strong>الجوائز المكتسبة:</strong> 🏆 {stats.won_awards || 0}</p>
                 </div>
               </div>
             )}

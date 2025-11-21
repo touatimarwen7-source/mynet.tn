@@ -149,7 +149,8 @@ export default function CreateTenderImproved() {
       });
       setStep(1);
     } catch (error) {
-      alert('Erreur: ' + error.response?.data?.error);
+      const errorMsg = error.response?.data?.error || 'Une erreur est survenue lors de la publication';
+      alert('Erreur: ' + errorMsg);
     }
   };
 
@@ -158,7 +159,7 @@ export default function CreateTenderImproved() {
 
   return (
     <div className="create-tender-professional">
-      <h1>📑 Créer un Appel d'Offres Professionnel</h1>
+      <h1>Créer un Appel d'Offres Professionnel</h1>
 
       {/* Barre de Progression */}
       <div className="progress-steps">

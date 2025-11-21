@@ -911,3 +911,635 @@ body {
   padding: 2rem;
   color: #999;
 }
+
+/* Supplier Search Styles */
+.supplier-search {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.filters-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  direction: rtl;
+}
+
+.tenders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.tender-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tender-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.tender-card.recommended {
+  border-left: 4px solid #667eea;
+}
+
+.badge-recommended {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #667eea;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.tender-card h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.tender-info p {
+  margin: 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.btn-bid {
+  width: 100%;
+  padding: 0.75rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.btn-bid:hover {
+  background: #5568d3;
+}
+
+/* Submit Bid Styles */
+.submit-bid-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bid-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.bid-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  direction: rtl;
+}
+
+.price-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.price-input input {
+  flex: 1;
+}
+
+.price-input select {
+  width: 100px;
+}
+
+/* Sidebar */
+.bid-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sync-indicator,
+.encryption-status,
+.eligibility-visualizer {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sync-status {
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sync-status.synced {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.sync-status.out-of-sync {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sync-status.synced .indicator-dot {
+  background: #4caf50;
+}
+
+.sync-status.out-of-sync .indicator-dot {
+  background: #f44336;
+}
+
+.encryption-status .status {
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.encryption-status .status.encrypted {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.encryption-status .status.pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.encryption-status .icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.progress-container {
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width 0.3s;
+}
+
+.percentage {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.eligibility-checklist {
+  margin-top: 1rem;
+}
+
+.check-item {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  background: #f5f5f5;
+}
+
+.check-item.complete {
+  color: #2e7d32;
+  background: #e8f5e9;
+}
+
+.check-item.pending {
+  color: #e65100;
+  background: #fff3e0;
+}
+
+/* Notification Center */
+.notification-center {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.notification-settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.setting-group h3 {
+  margin-top: 0;
+}
+
+.frequency-buttons,
+.dnd-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.freq-btn,
+.dnd-btn {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.freq-btn.active,
+.dnd-btn:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.dnd-active {
+  background: #e8f5e9;
+  padding: 1rem;
+  border-radius: 4px;
+  color: #2e7d32;
+}
+
+.notification-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.notifications-list {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.notification-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+  border-right: 4px solid #ddd;
+}
+
+.notification-item.priority-critical {
+  border-right-color: #f44336;
+  background: #ffebee;
+}
+
+.notification-item.priority-high {
+  border-right-color: #ff9800;
+  background: #fff3e0;
+}
+
+.notification-item.priority-normal {
+  border-right-color: #2196f3;
+}
+
+.notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.priority-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.notif-message {
+  margin: 0.5rem 0;
+  color: #666;
+}
+
+.notif-time {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+/* Supplier Catalog */
+.supplier-catalog {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.add-product-btn {
+  margin-bottom: 2rem;
+}
+
+.product-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.product-card h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.product-card p {
+  margin: 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.price {
+  font-weight: 600;
+  color: #667eea;
+  margin-top: 1rem;
+}
+
+.product-card .actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-edit,
+.btn-delete {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background: #667eea;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #5568d3;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+/* Supplier Profile */
+.supplier-profile {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-layout {
+  display: grid;
+  gap: 2rem;
+}
+
+.profile-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row label {
+  font-weight: 600;
+  color: #333;
+  flex: 0 0 150px;
+}
+
+.categories-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.documents-list {
+  margin-top: 1rem;
+}
+
+.document-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.doc-info h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.expiry-status {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.expiry-status.ok {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.expiry-status.warning {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.public-profile-preview {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+/* Supplier Invoices */
+.supplier-invoices {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.invoices-table-wrapper {
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.invoices-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoices-table th {
+  background: #f5f5f5;
+  padding: 1rem;
+  text-align: right;
+  font-weight: 600;
+  border-bottom: 2px solid #eee;
+}
+
+.invoices-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.status {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.status-pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.status-approved {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-paid {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+@media (max-width: 768px) {
+  .bid-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .notification-settings {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .tenders-grid,
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}

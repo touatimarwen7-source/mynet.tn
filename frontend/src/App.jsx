@@ -9,6 +9,17 @@ import MyOffers from './pages/MyOffers';
 import Profile from './pages/Profile';
 import AuditLog from './pages/AuditLog';
 import PartialAward from './pages/PartialAward';
+import OfferAnalysis from './pages/OfferAnalysis';
+import BuyerDashboard from './pages/BuyerDashboard';
+import InvoiceManagement from './pages/InvoiceManagement';
+import SupplierSearch from './pages/SupplierSearch';
+import SubmitBid from './pages/SubmitBid';
+import NotificationCenter from './pages/NotificationCenter';
+import SupplierCatalog from './pages/SupplierCatalog';
+import SupplierProfile from './pages/SupplierProfile';
+import SupplierInvoices from './pages/SupplierInvoices';
+import AdminDashboard from './pages/AdminDashboard';
+import MFASetup from './pages/MFASetup';
 import { setupInactivityTimer } from './utils/security';
 import './App.css';
 
@@ -60,8 +71,11 @@ function App() {
               {user ? (
                 <>
                   <a href="/tenders">المناقصات</a>
+                  {user.role === 'buyer' && <a href="/buyer-dashboard">لوحتي</a>}
                   {user.role === 'buyer' && <a href="/create-tender">إنشاء مناقصة</a>}
-                  {user.role === 'supplier' && <a href="/my-offers">عروضي</a>}
+                  {user.role === 'supplier' && <a href="/supplier-search">البحث</a>}
+                  {user.role === 'supplier' && <a href="/notifications">إشعاراتي</a>}
+                  {user.role === 'supplier' && <a href="/supplier-catalog">منتجاتي</a>}
                   {user.role === 'admin' && <a href="/admin">لوحة التحكم</a>}
                   <a href="/profile">الملف الشخصي</a>
                   <button onClick={handleLogout} className="btn-logout">تسجيل الخروج</button>
@@ -87,23 +101,62 @@ function App() {
             <Route path="/tender/:id" element={<TenderDetail />} />
             <Route path="/tender/:id/audit-log" element={<AuditLog />} />
             <Route path="/tender/:id/award" element={<PartialAward />} />
+            <Route path="/tender/:id/analysis" element={<OfferAnalysis />} />
 
-            {/* الإنشاء */}
+            {/* واجهة المشتري */}
+            <Route 
+              path="/buyer-dashboard" 
+              element={user?.role === 'buyer' ? <BuyerDashboard /> : <Navigate to="/tenders" />} 
+            />
             <Route 
               path="/create-tender" 
               element={user?.role === 'buyer' ? <CreateTender /> : <Navigate to="/tenders" />} 
             />
+            <Route 
+              path="/invoices" 
+              element={user?.role === 'buyer' ? <InvoiceManagement /> : <Navigate to="/tenders" />} 
+            />
 
-            {/* المشتري والمورد */}
+            {/* واجهة المورد */}
+            <Route 
+              path="/supplier-search" 
+              element={user?.role === 'supplier' ? <SupplierSearch /> : <Navigate to="/tenders" />} 
+            />
+            <Route 
+              path="/tender/:id/bid" 
+              element={user?.role === 'supplier' ? <SubmitBid /> : <Navigate to="/tenders" />} 
+            />
+            <Route 
+              path="/notifications" 
+              element={user ? <NotificationCenter /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path="/supplier-catalog" 
+              element={user?.role === 'supplier' ? <SupplierCatalog /> : <Navigate to="/tenders" />} 
+            />
+            <Route 
+              path="/supplier-invoices" 
+              element={user?.role === 'supplier' ? <SupplierInvoices /> : <Navigate to="/tenders" />} 
+            />
             <Route 
               path="/my-offers" 
               element={user?.role === 'supplier' ? <MyOffers /> : <Navigate to="/tenders" />} 
             />
 
-            {/* الملف الشخصي */}
+            {/* الإدارة */}
+            <Route 
+              path="/admin" 
+              element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/tenders" />} 
+            />
+
+            {/* الملف الشخصي والأمان */}
             <Route 
               path="/profile" 
               element={user ? <Profile user={user} /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path="/mfa-setup" 
+              element={user ? <MFASetup /> : <Navigate to="/login" />} 
             />
 
             {/* الافتراضي */}

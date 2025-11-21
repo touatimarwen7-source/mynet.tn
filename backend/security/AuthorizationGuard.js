@@ -8,7 +8,7 @@ class AuthorizationGuard {
 
         if (!token) {
             return res.status(401).json({ 
-                error: 'Access denied. No token provided.' 
+                error: 'Accès refusé. Aucun jeton fourni.' 
             });
         }
 
@@ -18,7 +18,7 @@ class AuthorizationGuard {
             next();
         } catch (error) {
             return res.status(403).json({ 
-                error: 'Invalid or expired token.' 
+                error: 'Jeton invalide ou expiré.' 
             });
         }
     }
@@ -27,13 +27,13 @@ class AuthorizationGuard {
         return (req, res, next) => {
             if (!req.user) {
                 return res.status(401).json({ 
-                    error: 'Authentication required.' 
+                    error: 'Authentification requise.' 
                 });
             }
 
             if (!hasPermission(req.user.role, permission)) {
                 return res.status(403).json({ 
-                    error: 'You do not have permission to perform this action.' 
+                    error: 'Vous n'''avez pas la permission d'''effectuer cette action.' 
                 });
             }
 
@@ -45,13 +45,13 @@ class AuthorizationGuard {
         return (req, res, next) => {
             if (!req.user) {
                 return res.status(401).json({ 
-                    error: 'Authentication required.' 
+                    error: 'Authentification requise.' 
                 });
             }
 
             if (!allowedRoles.includes(req.user.role)) {
                 return res.status(403).json({ 
-                    error: 'You do not have access to this resource.' 
+                    error: 'Vous n'''avez pas accès à cette ressource.' 
                 });
             }
 

@@ -71,7 +71,7 @@ export default function SubmitBid() {
       }));
       setBidData(prev => ({ ...prev, lineItems: initialItems }));
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

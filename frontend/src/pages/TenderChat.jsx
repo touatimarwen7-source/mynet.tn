@@ -14,7 +14,7 @@ export default function TenderChat({ tenderId }) {
         const tokenData = JSON.parse(atob(token.split('.')[1]));
         setUser(tokenData);
       } catch (error) {
-        console.error('خطأ:', error);
+        console.error('Erreur:', error);
       }
     }
     fetchMessages();
@@ -27,7 +27,7 @@ export default function TenderChat({ tenderId }) {
       });
       setMessages(response.data.messages || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }
@@ -46,7 +46,7 @@ export default function TenderChat({ tenderId }) {
       setMessages([...messages, response.data.message]);
       setNewMessage('');
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     }
   };
 

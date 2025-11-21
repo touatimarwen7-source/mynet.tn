@@ -18,7 +18,7 @@ export default function SupplierInvoices() {
       });
       setInvoices(response.data.invoices || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

@@ -19,7 +19,7 @@ export default function UserManagement() {
       });
       setUsers(response.data.users || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

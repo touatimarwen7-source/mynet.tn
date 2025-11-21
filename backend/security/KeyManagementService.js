@@ -41,7 +41,7 @@ class KeyManagementService {
         try {
             return jwt.verify(token, this.JWT_SECRET);
         } catch (error) {
-            throw new Error('Invalid or expired access token');
+            throw new Error('Jeton d'''accès invalide ou expiré');
         }
     }
 
@@ -49,7 +49,7 @@ class KeyManagementService {
         try {
             return jwt.verify(token, this.JWT_REFRESH_SECRET);
         } catch (error) {
-            throw new Error('Invalid or expired refresh token');
+            throw new Error('Jeton d'''actualisation invalide ou expiré');
         }
     }
 
@@ -120,7 +120,7 @@ class KeyManagementService {
                 [keyId, encryptedKey, keyType, expiresAt]
             );
         } catch (error) {
-            console.error('Failed to store encryption key:', error.message);
+            console.error("Erreur lors du stockage de la clé de chiffrement:", error.message);
         }
     }
 
@@ -143,7 +143,7 @@ class KeyManagementService {
             const encryptedKey = result.rows[0].encrypted_key;
             return this.decryptWithMasterKey(encryptedKey);
         } catch (error) {
-            console.error('Failed to retrieve encryption key:', error.message);
+            console.error("Erreur lors de la récupération de la clé de chiffrement:", error.message);
             return null;
         }
     }
@@ -179,7 +179,7 @@ class KeyManagementService {
 
             return { success: true, rotatedCount: result.rows.length };
         } catch (error) {
-            console.error('Key rotation failed:', error.message);
+            console.error("Erreur de rotation de clé:", error.message);
             return { success: false, error: error.message };
         }
     }

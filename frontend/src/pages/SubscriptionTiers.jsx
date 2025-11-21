@@ -24,7 +24,7 @@ export default function SubscriptionTiers() {
       });
       setTiers(response.data.tiers || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

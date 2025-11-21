@@ -22,7 +22,7 @@ export default function AdminDashboard() {
       setAlerts(response.data.alerts);
       setPaths(response.data.paths);
     } catch (error) {
-      console.error('خطأ في تحميل بيانات الصحة:', error);
+      console.error('Erreur lors du chargement des données de santé:', error);
     } finally {
       setLoading(false);
     }

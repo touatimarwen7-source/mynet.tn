@@ -22,7 +22,7 @@ export default function SupplierSearch() {
       const response = await procurementAPI.getTenders(filters);
       setTenders(response.data.tenders || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     }
   };
 
@@ -31,7 +31,7 @@ export default function SupplierSearch() {
       const response = await procurementAPI.getTenders({ recommended: true });
       setRecommended(response.data.tenders || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

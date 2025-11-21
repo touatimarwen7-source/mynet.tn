@@ -14,13 +14,13 @@ export default function AuditLog({ tenderId }) {
     setLoading(true);
     try {
       const response = await procurementAPI.getAuditLogs(tenderId, filters);
-      // ترتيب عكسي زمني
+      // Tri chronologique inverse
       const sortedLogs = (response.data.logs || []).sort(
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
       );
       setLogs(sortedLogs);
     } catch (error) {
-      console.error('خطأ في تحميل سجل التدقيق:', error);
+      console.error('Erreur lors du chargement du journal d\'audit:', error);
     } finally {
       setLoading(false);
     }
@@ -28,42 +28,42 @@ export default function AuditLog({ tenderId }) {
 
   return (
     <div className="audit-log-container">
-      <h3>سجل التدقيق - التغييرات غير القابلة للتعديل</h3>
+      <h3>Journal d'audit - Modifications immuables</h3>
       
       <div className="audit-filters">
         <select 
           value={filters.eventType}
           onChange={(e) => setFilters({ ...filters, eventType: e.target.value })}
         >
-          <option value="">جميع الأحداث</option>
-          <option value="create">إنشاء</option>
-          <option value="update">تحديث</option>
-          <option value="delete">حذف</option>
-          <option value="publish">نشر</option>
-          <option value="close">إغلاق</option>
+          <option value="">Tous les événements</option>
+          <option value="create">Créer</option>
+          <option value="update">Mettre à jour</option>
+          <option value="delete">Supprimer</option>
+          <option value="publish">Publier</option>
+          <option value="close">Fermer</option>
         </select>
       </div>
 
       {loading ? (
         <div className="loading">Chargement en cours...</div>
       ) : logs.length === 0 ? (
-        <div className="alert alert-info">لا توجد سجلات</div>
+        <div className="alert alert-info">Aucun enregistrement</div>
       ) : (
         <div className="audit-log-table">
           <table>
             <thead>
               <tr>
-                <th>التاريخ والوقت</th>
-                <th>المستخدم</th>
-                <th>نوع الحدث</th>
-                <th>التفاصيل</th>
-                <th>عنوان IP</th>
+                <th>Date et heure</th>
+                <th>Utilisateur</th>
+                <th>Type d'événement</th>
+                <th>Détails</th>
+                <th>Adresse IP</th>
               </tr>
             </thead>
             <tbody>
               {logs.map((log, idx) => (
                 <tr key={idx}>
-                  <td>{new Date(log.created_at).toLocaleString('ar-TN')}</td>
+                  <td>{new Date(log.created_at).toLocaleString('fr-FR')}</td>
                   <td>{log.user_name || log.username}</td>
                   <td className={`event-type-${log.action}`}>{log.action}</td>
                   <td>{log.message || log.details}</td>

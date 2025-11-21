@@ -30,7 +30,7 @@ class MFAService {
             
             return true;
         } catch (error) {
-            console.error('Failed to store MFA code:', error.message);
+            console.error("Erreur de stockage du code MFA:", error.message);
             return false;
         }
     }
@@ -61,7 +61,7 @@ class MFAService {
 
             return { valid: true, message: 'MFA verification successful' };
         } catch (error) {
-            console.error('MFA verification error:', error.message);
+            console.error("Erreur de vérification MFA:", error.message);
             return { valid: false, message: 'MFA verification failed' };
         }
     }

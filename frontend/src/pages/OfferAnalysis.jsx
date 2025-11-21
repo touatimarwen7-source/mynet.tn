@@ -19,7 +19,7 @@ export default function OfferAnalysis() {
       const offersRes = await procurementAPI.getOffers(tenderId);
       setOffers(offersRes.data.offers || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

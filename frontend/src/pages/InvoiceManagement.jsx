@@ -18,7 +18,7 @@ export default function InvoiceManagement() {
       });
       setInvoices(response.data.invoices || []);
     } catch (error) {
-      console.error('خطأ في تحميل الفواتير:', error);
+      console.error('Erreur lors du chargement des factures:', error);
     } finally {
       setLoading(false);
     }

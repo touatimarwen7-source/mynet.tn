@@ -19,7 +19,7 @@ export default function NotificationCenter() {
       });
       setNotifications(response.data.notifications || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     }
   };
 
@@ -37,7 +37,7 @@ export default function NotificationCenter() {
         { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } }
       );
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     }
   };
 

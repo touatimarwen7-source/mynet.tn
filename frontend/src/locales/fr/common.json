@@ -34,17 +34,7 @@
     "closed": "Fermé",
     "draft": "Brouillon",
     "description": "Description",
-    "requirements": "Exigences",
-    "createNew": "Créer un appel d'offres",
-    "title": "Titre",
-    "minBudget": "Budget minimum",
-    "maxBudget": "Budget maximum",
-    "currency": "Devise",
-    "closingDate": "Date de clôture",
-    "buyerDashboard": "Tableau de bord - Acheteur",
-    "recentTenders": "Appels d'offres récents",
-    "activeTenders": "Appels d'offres actifs",
-    "details": "Détails"
+    "requirements": "Exigences"
   },
   "offer": {
     "title": "Offres",
@@ -56,23 +46,7 @@
     "accepted": "Acceptée",
     "rejected": "Rejetée",
     "pending": "En attente",
-    "encrypted": "Chiffré",
-    "secureForm": "Formulaire de soumission d'offre sécurisée",
-    "basicInfo": "Informations de base de l'offre",
-    "items": "Réponse aux articles de l'appel d'offres",
-    "review": "Révision finale et envoi sécurisé",
-    "summary": "Résumé de l'offre",
-    "noOffers": "Aucune offre disponible",
-    "offerNumber": "Numéro de l'offre",
-    "amount": "Montant",
-    "deliveryTime": "Délai de livraison",
-    "evaluationScore": "Note d'évaluation",
-    "evaluationNotes": "Commentaires d'évaluation",
-    "submittedDate": "Soumise le",
-    "all": "Tous",
-    "step1": "1️⃣ Informations de base",
-    "step2": "2️⃣ Articles de l'appel",
-    "step3": "3️⃣ Révision et envoi"
+    "encrypted": "Chiffré"
   },
   "form": {
     "email": "E-mail",
@@ -83,50 +57,16 @@
     "delete": "Supprimer",
     "edit": "Modifier",
     "loading": "Chargement...",
-    "savingInProgress": "Sauvegarde en cours...",
-    "required": "Champ obligatoire",
-    "fullName": "Nom complet",
-    "phone": "Téléphone",
-    "companyName": "Nom de l'entreprise",
-    "companyRegistration": "Numéro d'enregistrement de l'entreprise",
-    "back": "Retour",
-    "next": "Suivant",
-    "previous": "Précédent",
-    "updateProfile": "Mettre à jour le profil",
-    "editData": "Modifier les données",
-    "suppliers": "Fournisseurs",
-    "categories": "Catégories",
-    "filter": "Filtrer",
-    "search": "Rechercher",
-    "price": "Prix",
-    "quantity": "Quantité",
-    "unit": "Unité",
-    "unitPrice": "Prix unitaire",
-    "totalPrice": "Prix total",
-    "total": "Total",
-    "description": "Description",
-    "specifications": "Spécifications",
-    "from": "De",
-    "to": "À",
-    "selectDate": "Sélectionner une date"
+    "required": "Champ obligatoire"
   },
   "messages": {
     "success": "Succès",
-    "successfullySaved": "Enregistré avec succès",
     "error": "Erreur",
     "warning": "Avertissement",
     "info": "Information",
     "loadingTenders": "Chargement des appels d'offres...",
     "noTenders": "Aucun appel d'offres trouvé",
-    "tenderNotFound": "Appel d'offres non trouvé",
-    "loading": "Chargement en cours...",
-    "noItems": "Il n'y a pas d'articles dans cet appel d'offres",
-    "closed": "Cet appel d'offres est fermé",
-    "closedMessage": "Désolé, cet appel d'offres est fermé",
-    "closingDate": "Date de clôture",
-    "cannotSubmit": "Vous ne pouvez pas soumettre d'offre après la date limite",
-    "notFound": "Non trouvé",
-    "confirming": "Confirmez les conditions et conditions"
+    "tenderNotFound": "Appel d'offres non trouvé"
   },
   "auth": {
     "login": "Connexion",
@@ -134,103 +74,32 @@
     "email": "E-mail",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
-    "username": "Nom d'utilisateur",
     "rememberMe": "Se souvenir de moi",
     "forgotPassword": "Mot de passe oublié ?",
     "noAccount": "Pas encore de compte ?",
-    "haveAccount": "Vous avez déjà un compte ?",
-    "mfaRequired": "MFA est requis",
-    "mfaCode": "Code MFA",
-    "enterMFACode": "Entrez le code MFA",
-    "mfaSetup": "Configuration de la MFA",
-    "mfaRequiredForChanges": "MFA requis pour les modifications",
-    "enableMFA": "Activer MFA",
-    "setupMFA": "Configurer MFA"
+    "haveAccount": "Vous avez déjà un compte ?"
   },
   "role": {
     "buyer": "Acheteur",
     "supplier": "Fournisseur",
     "admin": "Administrateur",
     "accountant": "Comptable",
-    "viewer": "Lecteur",
-    "selectRole": "Sélectionner un rôle"
+    "viewer": "Lecteur"
   },
-  "profile": {
-    "title": "Profil",
-    "username": "Nom d'utilisateur",
-    "email": "E-mail",
-    "fullName": "Nom complet",
-    "phone": "Téléphone",
-    "role": "Rôle",
-    "companyName": "Nom de l'entreprise",
-    "verificationStatus": "Statut de vérification",
-    "verified": "Vérifié",
-    "notVerified": "Non vérifié",
-    "createdDate": "Créé le",
-    "editData": "Modifier les données",
-    "updateSuccess": "Profil mis à jour avec succès"
-  },
-  "admin": {
-    "dashboard": "Tableau de contrôle de la plateforme",
-    "statistics": "Statistiques",
-    "users": "Utilisateurs",
-    "auditLogs": "Journaux d'audit",
-    "health": "Santé du système",
-    "archive": "Archive",
-    "subscriptions": "Abonnements",
-    "features": "Fonctionnalités"
-  },
-  "button": {
+  "auditLog": {
+    "title": "Journal d'audit",
+    "subtitle": "Modifications immuables",
+    "allEvents": "Tous les événements",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "delete": "Supprimer",
+    "publish": "Publier",
     "close": "Fermer",
-    "export": "Exporter",
-    "import": "Importer",
-    "back": "← Retour"
-  },
-  "validation": {
-    "required": "Ce champ est obligatoire",
-    "invalidEmail": "Email invalide",
-    "passwordMismatch": "Les mots de passe ne correspondent pas",
-    "fillAllPrices": "Veuillez remplir les prix de tous les articles",
-    "acceptTerms": "Vous devez accepter les conditions"
-  },
-  "payment": {
-    "paymentTerms": "Conditions de paiement",
-    "paymentTermsProposed": "Conditions de paiement proposées",
-    "netDays": "Net {days} - Dans les {days} jours",
-    "paymentAdvance": "Paiement d'avance",
-    "cashOnDelivery": "Paiement à la livraison",
-    "net30": "Net 30",
-    "net60": "Net 60"
-  },
-  "category": {
-    "technology": "Technologie",
-    "supplies": "Fournitures",
-    "construction": "Construction",
-    "services": "Services"
-  },
-  "currency": {
-    "tnd": "Dinar tunisien",
-    "usd": "Dollar américain",
-    "eur": "Euro"
-  },
-  "security": {
-    "securityAlert": "Alerte de sécurité",
-    "encrypted": "Chiffré",
-    "encryption": "Chiffrement et envoi de l'offre en cours...",
-    "encryptNow": "Chiffrer et envoyer l'offre maintenant",
-    "encryptionMessage": "Toutes les données financières de votre offre seront chiffrées avec AES-256. Seul l'acheteur pourra déchiffrer et accéder aux détails financiers.",
-    "commitment": "Engagement d'envoi",
-    "commitmentMessage": "Je confirme que j'ai lu et compris tous les termes et conditions de l'appel d'offres, et que cette offre est valable pour la période indiquée ci-dessus."
-  },
-  "documents": {
-    "documentsProvider": "Documents du fournisseur (PDF, DOCX)",
-    "filesUploaded": "Fichiers téléchargés",
-    "download": "Télécharger",
-    "delete": "Supprimer"
-  },
-  "catalog": {
-    "selectFromCatalog": "Choisissez dans votre catalogue",
-    "noCatalog": "Aucun produit dans votre catalogue",
-    "fromCatalog": "📚 Du catalogue"
+    "dateTime": "Date et heure",
+    "user": "Utilisateur",
+    "eventType": "Type d'événement",
+    "details": "Détails",
+    "ipAddress": "Adresse IP",
+    "noRecords": "Aucun enregistrement"
   }
 }

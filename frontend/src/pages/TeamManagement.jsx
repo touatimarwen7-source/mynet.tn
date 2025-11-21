@@ -22,7 +22,7 @@ export default function TeamManagement() {
       });
       setTeam(response.data.team || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

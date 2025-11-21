@@ -24,7 +24,7 @@ export default function SupplierCatalog() {
       });
       setProducts(response.data.products || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

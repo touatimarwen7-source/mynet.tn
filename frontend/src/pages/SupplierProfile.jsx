@@ -21,7 +21,7 @@ export default function SupplierProfile() {
       setDocuments(response.data.documents || []);
       setCategories(response.data.categories || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

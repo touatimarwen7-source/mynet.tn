@@ -42,7 +42,7 @@ export default function BuyerDashboard() {
       
       setRecentTenders(tenders.slice(0, 5));
     } catch (error) {
-      console.error('خطأ في تحميل البيانات:', error);
+      console.error('Erreur lors du chargement des données:', error);
     } finally {
       setLoading(false);
     }

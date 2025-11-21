@@ -19,7 +19,7 @@ export default function AuditLogViewer() {
       });
       setLogs(response.data.logs || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

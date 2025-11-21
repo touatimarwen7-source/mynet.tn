@@ -23,7 +23,7 @@ export default function ArchiveManagement() {
       });
       setSettings(response.data.settings);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }
@@ -36,7 +36,7 @@ export default function ArchiveManagement() {
       });
       setArchiveJobs(response.data.jobs || []);
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     }
   };
 

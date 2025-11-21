@@ -24,7 +24,7 @@ export default function HealthMonitoring() {
       setEndpoints(response.data.endpoints || []);
       setServerStatus(response.data.status === 'healthy' ? 'healthy' : 'warning');
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
       setServerStatus('error');
     }
   };

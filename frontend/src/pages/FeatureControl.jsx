@@ -29,7 +29,7 @@ export default function FeatureControl() {
       setFeatures(response.data.features || []);
       setTierFeatures(response.data.tierFeatures || {});
     } catch (error) {
-      console.error('خطأ:', error);
+      console.error('Erreur:', error);
     } finally {
       setLoading(false);
     }

@@ -1,0 +1,92 @@
+/* Role Header */
+.role-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.role-icon {
+  font-size: 2.5rem;
+}
+
+.role-header h1 {
+  font-size: 2rem;
+  color: #00a8e8;
+  margin: 0;
+}
+
+body.dark-mode .role-header h1 {
+  color: #00d4ff;
+}
+
+/* Benefits List */
+.benefits-list {
+  background: linear-gradient(135deg, rgba(0, 168, 232, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+  border-left: 4px solid #00a8e8;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+body.dark-mode .benefits-list {
+  background: linear-gradient(135deg, rgba(0, 168, 232, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+}
+
+.benefit-item {
+  color: #333;
+  margin: 0.5rem 0;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+body.dark-mode .benefit-item {
+  color: #e0e0e0;
+}
+
+/* Auth Links */
+.auth-links {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.login-link,
+.role-switch {
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.login-link a,
+.role-switch a {
+  color: #00a8e8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.login-link a:hover,
+.role-switch a:hover {
+  color: #00d4ff;
+  text-decoration: underline;
+}
+
+body.dark-mode .login-link a,
+body.dark-mode .role-switch a {
+  color: #00d4ff;
+}
+
+body.dark-mode .login-link a:hover,
+body.dark-mode .role-switch a:hover {
+  color: #4fd1ff;
+}
+
+.role-switch {
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 1rem;
+}
+
+body.dark-mode .role-switch {
+  border-top-color: #444;
+}

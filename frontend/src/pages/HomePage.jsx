@@ -14,7 +14,15 @@ export default function HomePage() {
 
   const handleStartTrial = (role) => {
     setSelectedRole(role);
-    setTimeout(() => navigate('/register'), 300);
+    setTimeout(() => navigate(`/register?role=${role}`), 300);
+  };
+
+  const handleFreeTrialClick = () => {
+    navigate('/register?role=buyer');
+  };
+
+  const handleLearnMoreClick = () => {
+    navigate('/about');
   };
 
   return (
@@ -44,10 +52,10 @@ export default function HomePage() {
               <span>Disponibilité</span>
             </div>
           </div>
-          <button className="cta-button primary" onClick={() => navigate('/register')}>
+          <button className="cta-button primary" onClick={handleFreeTrialClick}>
             ✨ Essai Gratuit 30 Jours
           </button>
-          <button className="cta-button secondary" onClick={() => navigate('/about')}>
+          <button className="cta-button secondary" onClick={handleLearnMoreClick}>
             En Savoir Plus →
           </button>
         </div>

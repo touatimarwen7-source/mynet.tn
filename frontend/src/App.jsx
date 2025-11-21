@@ -35,6 +35,7 @@ import PerformanceMonitoring from './pages/PerformanceMonitoring';
 import DisputeManagement from './pages/DisputeManagement';
 import InvoiceGeneration from './pages/InvoiceGeneration';
 import MonitoringSubmissions from './pages/MonitoringSubmissions';
+import TestingChecklist from './pages/TestingChecklist';
 import CreateTenderImproved from './pages/CreateTenderImproved';
 import TenderChat from './pages/TenderChat';
 import TenderSecuritySettings from './pages/TenderSecuritySettings';
@@ -268,6 +269,10 @@ function App() {
             <Route 
               path="/monitoring-submissions" 
               element={user?.role === 'buyer' ? <MonitoringSubmissions /> : <Navigate to="/tenders" />} 
+            />
+            <Route 
+              path="/testing-checklist" 
+              element={<TestingChecklist />} 
             />
             <Route 
               path="/supplier-payments" 

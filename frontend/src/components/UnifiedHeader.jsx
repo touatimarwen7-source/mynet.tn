@@ -30,6 +30,7 @@ export default function UnifiedHeader() {
     location.pathname
   );
 
+  // Always show authenticated links when logged in, regardless of page
   const publicLinks = [
     { label: 'Accueil', href: '/' },
     { label: 'À Propos', href: '/about' },
@@ -43,6 +44,10 @@ export default function UnifiedHeader() {
     { label: 'Appels d\'Offres', href: '/tenders' },
     { label: 'Mon Profil', href: '/profile' }
   ];
+
+  // Show authenticated links if logged in, even on protected pages
+  const shouldShowAuthLinks = isAuthenticated;
+  const shouldShowPublicLinks = isPublicPage || !isAuthenticated;
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -77,19 +82,7 @@ export default function UnifiedHeader() {
           </div>
 
           <nav className="header-nav">
-            {isPublicPage || !isAuthenticated ? (
-              <>
-                {publicLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className={`nav-link ${location.pathname === link.href ? 'active' : ''}`}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </>
-            ) : (
+            {shouldShowAuthLinks ? (
               <>
                 {authenticatedLinks.map((link) => (
                   <a
@@ -101,7 +94,19 @@ export default function UnifiedHeader() {
                   </a>
                 ))}
               </>
-            )}
+            ) : shouldShowPublicLinks ? (
+              <>
+                {publicLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`nav-link ${location.pathname === link.href ? 'active' : ''}`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </>
+            ) : null}
           </nav>
         </div>
 
@@ -169,22 +174,7 @@ export default function UnifiedHeader() {
       {mobileMenuOpen && (
         <div className="mobile-menu">
           <nav className="mobile-nav">
-            {isPublicPage || !isAuthenticated ? (
-              <>
-                {publicLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className={`mobile-nav-link ${
-                      location.pathname === link.href ? 'active' : ''
-                    }`}
-                    onClick={handleNavClick}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </>
-            ) : (
+            {shouldShowAuthLinks ? (
               <>
                 {authenticatedLinks.map((link) => (
                   <a
@@ -199,7 +189,22 @@ export default function UnifiedHeader() {
                   </a>
                 ))}
               </>
-            )}
+            ) : shouldShowPublicLinks ? (
+              <>
+                {publicLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`mobile-nav-link ${
+                      location.pathname === link.href ? 'active' : ''
+                    }`}
+                    onClick={handleNavClick}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </>
+            ) : null}
           </nav>
 
           <div className="mobile-actions">

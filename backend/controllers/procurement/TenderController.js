@@ -64,6 +64,28 @@ class TenderController {
         }
     }
 
+    async getMyTenders(req, res) {
+        try {
+            const filters = {
+                status: req.query.status,
+                category: req.query.category,
+                limit: req.query.limit ? parseInt(req.query.limit) : 50
+            };
+
+            const tenders = await TenderService.getMyTenders(req.user.userId, filters);
+
+            res.status(200).json({
+                success: true,
+                count: tenders.length,
+                tenders
+            });
+        } catch (error) {
+            res.status(500).json({ 
+                error: error.message 
+            });
+        }
+    }
+
     async updateTender(req, res) {
         try {
             const { id } = req.params;

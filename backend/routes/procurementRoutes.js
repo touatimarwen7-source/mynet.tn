@@ -15,6 +15,11 @@ router.post('/tenders',
     TenderController.createTender.bind(TenderController)
 );
 
+router.get('/my-tenders',
+    AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
+    TenderController.getMyTenders.bind(TenderController)
+);
+
 router.get('/tenders', TenderController.getAllTenders.bind(TenderController));
 
 router.get('/tenders/:id', TenderController.getTender.bind(TenderController));

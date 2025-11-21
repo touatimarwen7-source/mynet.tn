@@ -121,6 +121,42 @@ class TenderService {
         }
     }
 
+    async getMyTenders(userId, filters = {}) {
+        const pool = getPool();
+        let query = 'SELECT * FROM tenders WHERE is_deleted = FALSE AND created_by = $1';
+        const params = [userId];
+        let paramCount = 2;
+
+        if (filters.status) {
+            query += ` AND status = $${paramCount}`;
+            params.push(filters.status);
+            paramCount++;
+        }
+
+        if (filters.category) {
+            query += ` AND category = $${paramCount}`;
+            params.push(filters.category);
+            paramCount++;
+        }
+
+        query += ' ORDER BY created_at DESC';
+
+        if (filters.limit) {
+            query += ` LIMIT $${paramCount}`;
+            params.push(filters.limit);
+            paramCount++;
+        }
+
+        try {
+            const result = await pool.query(query, params);
+            await AuditLogService.log(userId, 'tender', null, 'read', 'My tenders fetched');
+            return result.rows;
+        } catch (error) {
+            await AuditLogService.log(userId, 'tender', null, 'read', `Failed to get my tenders: ${error.message}`);
+            throw new Error(`Failed to get my tenders: ${error.message}`);
+        }
+    }
+
     async updateTender(tenderId, updateData, userId) {
         const pool = getPool();
 

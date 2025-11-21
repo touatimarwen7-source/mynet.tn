@@ -113,6 +113,7 @@ export const procurementAPI = {
   deleteTender: (id) => api.delete(`/procurement/tenders/${id}`),
   publishTender: (id) => api.post(`/procurement/tenders/${id}/publish`),
   closeTender: (id) => api.post(`/procurement/tenders/${id}/close`),
+  getMyTenders: (filters) => api.get('/procurement/my-tenders', { params: filters }),
   
   getOffers: (tenderId) => api.get(`/procurement/tenders/${tenderId}/offers`),
   getMyOffers: () => api.get('/procurement/my-offers'),

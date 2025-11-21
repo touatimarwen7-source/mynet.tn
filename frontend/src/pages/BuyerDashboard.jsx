@@ -32,7 +32,7 @@ export default function BuyerDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const tenderRes = await procurementAPI.getTenders({ status: 'active' });
+      const tenderRes = await procurementAPI.getMyTenders({ status: 'active' });
       const tenders = tenderRes.data.tenders || [];
       
       // Calcul des Statistiques

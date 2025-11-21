@@ -1,13 +1,27 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { procurementAPI } from '../api';
 
 export default function TenderDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
   const [tender, setTender] = useState(null);
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      try {
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        setUser(tokenData);
+      } catch (e) {
+        console.error('خطأ في فك التوكن:', e);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     fetchTender();
@@ -68,6 +82,21 @@ export default function TenderDetail() {
           </div>
         )}
       </div>
+
+      {/* زر المشاركة للمورد */}
+      {user?.role === 'supplier' && (
+        <div style={{ marginTop: '2rem', padding: '1.5rem', backgroundColor: '#f5f5f5', borderRadius: '8px', textAlign: 'center' }}>
+          <h3 style={{ marginBottom: '1rem' }}>هل تريد تقديم عرض على هذه المناقصة؟</h3>
+          <p style={{ color: '#666', marginBottom: '1.5rem' }}>انقر على الزر أدناه لتقديم عرض آمن</p>
+          <button 
+            onClick={() => navigate(`/create-offer/${id}`)}
+            className="btn btn-primary"
+            style={{ padding: '0.75rem 2rem', fontSize: '1rem' }}
+          >
+            📝 المشاركة وتقديم عرض
+          </button>
+        </div>
+      )}
 
       {offers.length > 0 && (
         <div style={{ marginTop: '2rem' }}>

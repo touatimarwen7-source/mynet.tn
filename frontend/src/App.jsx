@@ -32,6 +32,7 @@ import FeatureControl from './pages/FeatureControl';
 import UserManagement from './pages/UserManagement';
 import { setupInactivityTimer } from './utils/security';
 import ToastContainer from './components/ToastContainer';
+import Sidebar from './components/Sidebar';
 import { ToastContext } from './contexts/ToastContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import './App.css';
@@ -103,34 +104,25 @@ function App() {
         <Router>
         <div className="app">
         <ToastContainer toasts={toasts} removeToast={removeToast} />
-      <nav className="navbar">
-          <div className="nav-container">
-            <div className="nav-brand">
-              <h1>MyNet.tn</h1>
-              <span>Système de Gestion des Appels d'Offres</span>
+        
+        {/* Sidebar Navigation - Only for authenticated users */}
+        {user && <Sidebar user={user} onLogout={handleLogout} />}
+
+        {/* Top Navbar - For unauthenticated users and mobile */}
+        {!user && (
+          <nav className="navbar">
+            <div className="nav-container">
+              <div className="nav-brand">
+                <h1>MyNet.tn</h1>
+                <span>Système de Gestion des Appels d'Offres</span>
+              </div>
+              <div className="nav-links">
+                <a href="/login">Connexion</a>
+                <a href="/register">Inscription</a>
+              </div>
             </div>
-            <div className="nav-links">
-              {user ? (
-                <>
-                  <a href="/tenders">Appels d'offres</a>
-                  {user.role === 'buyer' && <a href="/buyer-dashboard">Mon tableau de bord</a>}
-                  {user.role === 'buyer' && <a href="/create-tender">Créer un appel d'offres</a>}
-                  {user.role === 'supplier' && <a href="/supplier-search">Rechercher</a>}
-                  {user.role === 'supplier' && <a href="/notifications">Notifications</a>}
-                  {user.role === 'supplier' && <a href="/supplier-catalog">Mon catalogue</a>}
-                  {user.role === 'admin' && <a href="/admin">Tableau de contrôle</a>}
-                  <a href="/profile">Profil</a>
-                  <button onClick={handleLogout} className="btn-logout">Déconnexion</button>
-                </>
-              ) : (
-                <>
-                  <a href="/login">Connexion</a>
-                  <a href="/register">Inscription</a>
-                </>
-              )}
-            </div>
-          </div>
-        </nav>
+          </nav>
+        )}
 
         <main className="main-content">
           <Routes>

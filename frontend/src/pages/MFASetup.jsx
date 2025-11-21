@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export default function MFASetup() {
-  const [step, setStep] = useState('setup'); // setup, verify
+  const [step, setStep] = useState('setup');
   const [secret, setSecret] = useState('');
   const [qrCode, setQrCode] = useState('');
   const [backupCodes, setBackupCodes] = useState([]);
@@ -20,13 +20,13 @@ export default function MFASetup() {
       setBackupCodes(response.data.backupCodes);
       setStep('verify');
     } catch (err) {
-      setError(err.response?.data?.error || 'خطأ في إعداد MFA');
+      setError(err.response?.data?.error || 'Erreur lors de la configuration MFA');
     }
   };
 
   const handleVerifyMFA = async () => {
     if (!token || token.length !== 6) {
-      setError('أدخل رمز 6 أرقام من التطبيق');
+      setError('Entrez un code à 6 chiffres depuis l\'application');
       return;
     }
 
@@ -35,39 +35,39 @@ export default function MFASetup() {
         { token, secret, backupCodes },
         { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } }
       );
-      setSuccess('تم تفعيل المصادقة الثنائية بنجاح!');
+      setSuccess('Authentification à deux facteurs activée avec succès !');
       setStep('setup');
       setToken('');
     } catch (err) {
-      setError(err.response?.data?.error || 'خطأ في التحقق');
+      setError(err.response?.data?.error || 'Erreur lors de la vérification');
     }
   };
 
   return (
     <div className="mfa-setup-container">
-      <h2>المصادقة الثنائية (MFA)</h2>
+      <h2>Authentification à deux facteurs (MFA)</h2>
       
       {error && <div className="alert alert-error">{error}</div>}
       {success && <div className="alert alert-success">{success}</div>}
 
       {step === 'setup' && (
         <div className="setup-section">
-          <p>لتحسين أمان حسابك، يمكنك تفعيل المصادقة الثنائية</p>
+          <p>Pour renforcer la sécurité de votre compte, vous pouvez activer l'authentification à deux facteurs</p>
           <button onClick={handleSetupMFA} className="btn btn-primary">
-            تفعيل المصادقة الثنائية
+            Activer l'authentification à deux facteurs
           </button>
         </div>
       )}
 
       {step === 'verify' && (
         <div className="verify-section">
-          <h3>خطوات التفعيل:</h3>
+          <h3>Étapes d'activation :</h3>
           <ol>
-            <li>افتح تطبيق المصادقة (Google Authenticator, Microsoft Authenticator, إلخ)</li>
-            <li>امسح رمز QR أدناه:
+            <li>Ouvrez une application d'authentification (Google Authenticator, Microsoft Authenticator, etc.)</li>
+            <li>Scannez le code QR ci-dessous :
               {qrCode && <img src={qrCode} alt="QR Code" className="qr-code" />}
             </li>
-            <li>أدخل الرمز من التطبيق:
+            <li>Entrez le code depuis l'application :
               <input 
                 type="text" 
                 placeholder="000000" 
@@ -77,7 +77,7 @@ export default function MFASetup() {
                 className="mfa-input"
               />
             </li>
-            <li>احفظ رموز النسخ الاحتياطية:
+            <li>Conservez les codes de sauvegarde :
               <div className="backup-codes">
                 {backupCodes.map((code, idx) => (
                   <code key={idx}>{code}</code>
@@ -86,7 +86,7 @@ export default function MFASetup() {
             </li>
           </ol>
           <button onClick={handleVerifyMFA} className="btn btn-success">
-            تأكيد المصادقة
+            Confirmer l'authentification
           </button>
         </div>
       )}

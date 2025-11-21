@@ -19,7 +19,7 @@ export default function TenderList() {
       const response = await procurementAPI.getTenders();
       setTenders(response.data.tenders || []);
     } catch (err) {
-      console.error('Error fetching tenders:', err);
+      console.error('Erreur lors de la récupération des appels d\'offres:', err);
     } finally {
       setLoading(false);
     }
@@ -51,20 +51,22 @@ export default function TenderList() {
         <EnhancedTable
           data={tenders}
           columns={[
-            { key: 'title', label: t('tender.title') },
-            { key: 'category', label: t('tender.category') },
-            { key: 'deadline', label: t('tender.deadline') },
-            { key: 'status', label: t('tender.status') },
-            { key: 'budget', label: t('tender.budget') }
+            { header: 'Titre', accessor: 'title' },
+            { header: 'Entreprise', accessor: 'buyer_name' },
+            { header: 'Budget', accessor: 'budget_min' },
+            { header: 'Date limite', accessor: 'deadline', 
+              render: (val) => new Date(val).toLocaleDateString('fr-FR') 
+            },
+            { header: 'Statut', accessor: 'status' },
           ]}
-          onRowClick={(tender) => navigate(`/tenders/${tender.id}`)}
-          actions={[
-            {
-              label: t('tender.participate'),
-              onClick: (tender) => handleParticipate(tender.id),
-              className: 'btn-primary'
-            }
-          ]}
+          actions={(tender) => (
+            <button 
+              onClick={() => handleParticipate(tender.id)}
+              className="btn btn-small"
+            >
+              Participer
+            </button>
+          )}
         />
       )}
     </div>

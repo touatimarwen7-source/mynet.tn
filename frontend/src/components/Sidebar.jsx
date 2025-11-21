@@ -1,15 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import {
+  Drawer,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Collapse,
+  Button,
+  Avatar,
+  Typography,
+  Divider,
+  Stack,
+  IconButton,
+} from '@mui/material';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
 import { setPageTitle } from '../utils/pageTitle';
 import UpgradeModal from './UpgradeModal';
 import { useSubscriptionTier } from '../hooks/useSubscriptionTier';
+
+const DRAWER_WIDTH = 280;
 
 export default function Sidebar({ user, onLogout }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState({});
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const { checkFeatureAccess, handleLockedFeatureClick, closeUpgradeModal, upgradeModal, currentTier } = useSubscriptionTier(user?.subscription);
+  const { checkFeatureAccess, handleLockedFeatureClick, closeUpgradeModal, upgradeModal } = useSubscriptionTier(user?.subscription);
 
   // Menus par rôle
   const buyerMenu = [
@@ -119,7 +140,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'notifications',
       label: 'Notifications',
-      icon: '🔔',
       path: '/notifications',
       featureKey: 'notifications',
       subItems: []
@@ -127,7 +147,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'profile',
       label: 'Profil',
-      icon: '⚙️',
       featureKey: 'profile',
       subItems: [
         { label: 'Paramètres', path: '/profile', featureKey: 'profile' },
@@ -141,14 +160,12 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'dashboard',
       label: 'Tableau de Contrôle',
-      icon: '🎛️',
       path: '/admin',
       subItems: []
     },
     {
       id: 'users',
       label: 'Utilisateurs',
-      icon: '👥',
       subItems: [
         { label: 'Gestion', path: '/admin/users' },
         { label: 'Rôles', path: '/admin/roles' },
@@ -158,7 +175,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'tenders',
       label: 'Appels d\'Offres',
-      icon: '📋',
       subItems: [
         { label: 'Tous', path: '/admin/tenders' },
         { label: 'Modération', path: '/admin/tenders-moderation' },
@@ -168,7 +184,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'system',
       label: 'Système',
-      icon: '⚙️',
       subItems: [
         { label: 'Santé', path: '/health-monitoring' },
         { label: 'Audit', path: '/audit-log-viewer' },
@@ -178,7 +193,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'billing',
       label: 'Facturation',
-      icon: '💳',
       subItems: [
         { label: 'Abonnements', path: '/subscription-tiers' },
         { label: 'Factures', path: '/admin/invoices' },
@@ -188,7 +202,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'profile',
       label: 'Profil Admin',
-      icon: '⚙️',
       subItems: [
         { label: 'Paramètres', path: '/profile' },
         { label: 'Sécurité', path: '/security' }
@@ -196,7 +209,6 @@ export default function Sidebar({ user, onLogout }) {
     }
   ];
 
-  // Sélectionner le menu selon le rôle
   const getMenuForRole = () => {
     switch (user?.role) {
       case 'buyer': return buyerMenu;
@@ -215,7 +227,7 @@ export default function Sidebar({ user, onLogout }) {
     }));
   };
 
-  const handleNavigation = (path, label, featureKey) => {
+  const handleNavigation = (path, label) => {
     setPageTitle(label);
     navigate(path);
   };
@@ -224,101 +236,190 @@ export default function Sidebar({ user, onLogout }) {
     return location.pathname === path;
   };
 
+  const drawerContent = (
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* Header */}
+      <Box sx={{ padding: '24px 16px', borderBottom: '1px solid #e0e0e0' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+          <Avatar sx={{ width: 36, height: 36, backgroundColor: '#1565c0', fontSize: '16px', fontWeight: 600 }}>
+            {user?.email?.[0]?.toUpperCase() || 'U'}
+          </Avatar>
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, color: '#212121', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {user?.email || 'Utilisateur'}
+            </Typography>
+            <Typography variant="caption" sx={{ color: '#616161' }}>
+              {user?.role === 'buyer' ? 'Acheteur' : user?.role === 'supplier' ? 'Fournisseur' : 'Admin'}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Navigation Menu */}
+      <List sx={{ flex: 1, padding: '8px 0', overflowY: 'auto' }}>
+        {menu.map(item => (
+          <Box key={item.id}>
+            {item.subItems.length > 0 ? (
+              <>
+                <ListItemButton
+                  onClick={() => toggleMenu(item.id)}
+                  sx={{
+                    padding: '12px 16px',
+                    margin: '4px 8px',
+                    borderRadius: '4px',
+                    color: '#212121',
+                    '&:hover': { backgroundColor: '#f5f5f5' },
+                  }}
+                >
+                  <ListItemText
+                    primary={item.label}
+                    sx={{ margin: 0, '& .MuiTypography-root': { fontSize: '14px', fontWeight: 500 } }}
+                  />
+                  {expandedMenus[item.id] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </ListItemButton>
+
+                <Collapse in={expandedMenus[item.id]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {item.subItems.map((subItem, idx) => (
+                      <ListItemButton
+                        key={idx}
+                        onClick={() => handleNavigation(subItem.path, subItem.label)}
+                        sx={{
+                          paddingLeft: '48px',
+                          paddingRight: '16px',
+                          paddingTop: '8px',
+                          paddingBottom: '8px',
+                          marginRight: '8px',
+                          marginLeft: '8px',
+                          marginTop: '2px',
+                          marginBottom: '2px',
+                          borderRadius: '4px',
+                          backgroundColor: isMenuItemActive(subItem.path) ? '#e3f2fd' : 'transparent',
+                          borderLeft: isMenuItemActive(subItem.path) ? '4px solid #1565c0' : 'none',
+                          paddingLeft: isMenuItemActive(subItem.path) ? '44px' : '48px',
+                          color: isMenuItemActive(subItem.path) ? '#1565c0' : '#616161',
+                          '&:hover': {
+                            backgroundColor: '#f5f5f5',
+                            color: '#1565c0',
+                          },
+                        }}
+                      >
+                        <ListItemText
+                          primary={subItem.label}
+                          sx={{ margin: 0, '& .MuiTypography-root': { fontSize: '13px', fontWeight: 400 } }}
+                        />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Collapse>
+              </>
+            ) : (
+              <ListItemButton
+                onClick={() => handleNavigation(item.path, item.label)}
+                sx={{
+                  padding: '12px 16px',
+                  margin: '4px 8px',
+                  borderRadius: '4px',
+                  backgroundColor: isMenuItemActive(item.path) ? '#e3f2fd' : 'transparent',
+                  borderLeft: isMenuItemActive(item.path) ? '4px solid #1565c0' : 'none',
+                  paddingLeft: isMenuItemActive(item.path) ? '12px' : '16px',
+                  color: isMenuItemActive(item.path) ? '#1565c0' : '#212121',
+                  '&:hover': {
+                    backgroundColor: '#f5f5f5',
+                    color: '#1565c0',
+                  },
+                }}
+              >
+                <ListItemText
+                  primary={item.label}
+                  sx={{ margin: 0, '& .MuiTypography-root': { fontSize: '14px', fontWeight: 500 } }}
+                />
+              </ListItemButton>
+            )}
+          </Box>
+        ))}
+      </List>
+
+      {/* Footer */}
+      <Box sx={{ borderTop: '1px solid #e0e0e0', padding: '16px' }}>
+        <Button
+          fullWidth
+          variant="contained"
+          color="error"
+          onClick={onLogout}
+          startIcon={<LogoutIcon />}
+          sx={{
+            textTransform: 'none',
+            fontWeight: 500,
+            backgroundColor: '#c62828',
+            '&:hover': { backgroundColor: '#ad1457' },
+          }}
+        >
+          Se Déconnecter
+        </Button>
+      </Box>
+
+      {upgradeModal && <UpgradeModal {...upgradeModal} onClose={closeUpgradeModal} />}
+    </Box>
+  );
+
   return (
     <>
-      {/* Toggle Button */}
-      <button 
-        className="sidebar-toggle"
+      {/* Mobile Toggle Button */}
+      <IconButton
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        aria-label="Toggle sidebar"
+        sx={{
+          display: { xs: 'flex', md: 'none' },
+          position: 'fixed',
+          left: '12px',
+          top: '76px',
+          zIndex: 100,
+          backgroundColor: '#1565c0',
+          color: '#ffffff',
+          '&:hover': { backgroundColor: '#0d47a1' },
+        }}
       >
-        ☰
-      </button>
+        <MenuIcon />
+      </IconButton>
 
-      {/* Sidebar */}
-      <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
-        {/* Sidebar Header */}
-        <div className="sidebar-header">
-          <div className="sidebar-logo">
-            <span className="logo-icon">🏢</span>
-            <span className="logo-text">MyNet</span>
-          </div>
-          <span className="role-badge">{user?.role?.toUpperCase()}</span>
-        </div>
+      {/* Desktop Drawer */}
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: DRAWER_WIDTH,
+          display: { xs: 'none', md: 'block' },
+          '& .MuiDrawer-paper': {
+            width: DRAWER_WIDTH,
+            boxSizing: 'border-box',
+            backgroundColor: '#ffffff',
+            borderRight: '1px solid #e0e0e0',
+            marginTop: '64px',
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
 
-        {/* User Info */}
-        <div className="user-info">
-          <div className="user-avatar">{user?.email?.[0]?.toUpperCase() || 'U'}</div>
-          <div className="user-details">
-            <p className="user-name">{user?.email || 'Utilisateur'}</p>
-            <p className="user-role">{user?.role === 'buyer' ? 'Acheteur' : user?.role === 'supplier' ? 'Fournisseur' : 'Admin'}</p>
-          </div>
-        </div>
+      {/* Mobile Drawer */}
+      <Drawer
+        anchor="left"
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': {
+            width: DRAWER_WIDTH,
+            boxSizing: 'border-box',
+            backgroundColor: '#ffffff',
+            marginTop: '64px',
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
 
-        {/* Navigation Menu */}
-        <nav className="sidebar-nav">
-          {menu.map(item => (
-            <div key={item.id} className="menu-item-container">
-              {item.subItems.length > 0 ? (
-                <>
-                  <button
-                    className={`menu-item ${expandedMenus[item.id] ? 'expanded' : ''}`}
-                    onClick={() => toggleMenu(item.id)}
-                  >
-                    <span className="menu-icon">{item.icon}</span>
-                    <span className="menu-label">{item.label}</span>
-                    <span className="menu-arrow">›</span>
-                  </button>
-
-                  {/* Submenu */}
-                  {expandedMenus[item.id] && (
-                    <div className="submenu">
-                      {item.subItems.map((subItem, idx) => (
-                        <button
-                          key={idx}
-                          className={`submenu-item ${isMenuItemActive(subItem.path) ? 'active' : ''}`}
-                          onClick={() => handleNavigation(subItem.path, subItem.label, subItem.featureKey)}
-                        >
-                          <span className="submenu-dot">•</span>
-                          <span className="submenu-label">{subItem.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <button
-                  className={`menu-item ${isMenuItemActive(item.path) ? 'active' : ''}`}
-                  onClick={() => handleNavigation(item.path, item.label)}
-                >
-                  <span className="menu-icon">{item.icon}</span>
-                  <span className="menu-label">{item.label}</span>
-                </button>
-              )}
-            </div>
-          ))}
-        </nav>
-
-        {/* Sidebar Footer */}
-        <div className="sidebar-footer">
-          <button
-            className="btn-logout-sidebar"
-            onClick={onLogout}
-          >
-            <span className="logout-icon">🚪</span>
-            <span>Se Déconnecter</span>
-          </button>
-        </div>
-      </aside>
-
-      {/* Overlay for mobile */}
-      {sidebarOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
+      {/* Page Content Spacer - Desktop Only */}
+      <Box sx={{ width: DRAWER_WIDTH, display: { xs: 'none', md: 'block' } }} />
     </>
   );
 }

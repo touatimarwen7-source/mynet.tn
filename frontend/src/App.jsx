@@ -44,6 +44,12 @@ import ToastContainer from './components/ToastContainer';
 import Sidebar from './components/Sidebar';
 import { ToastContext } from './contexts/ToastContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
+import './styles/modern-professional.css';
+import './styles/components-premium.css';
+import './styles/forms-modern.css';
+import './styles/pages-modern.css';
+import './styles/animations-modern.css';
+import './styles/responsive-modern.css';
 import './styles/unified-theme.css';
 import './App.css';
 
@@ -256,3 +262,5 @@ export default App;
 
 // Add to navbar after nav-brand (around line 85):
 // <LanguageSwitcher />
+
+/* Added imports in main App.jsx */

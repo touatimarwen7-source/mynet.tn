@@ -492,21 +492,37 @@
 
 .add-interest-form {
   display: flex;
-  gap: var(--space-2);
-  align-items: stretch;
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: var(--space-6);
 }
 
 .add-interest-form .form-input {
   flex: 1;
-  min-height: 44px;
+  height: 44px;
   padding: var(--space-3) var(--space-4) !important;
+  border: 2px solid var(--neutral-200) !important;
+  border-radius: var(--radius-lg) !important;
+  font-size: var(--fs-base) !important;
+  font-family: var(--font-sans) !important;
+}
+
+.add-interest-form .form-input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.1) !important;
+}
+
+.add-interest-form .form-input::placeholder {
+  color: var(--neutral-500) !important;
 }
 
 .add-interest-form .btn {
   height: 44px;
-  padding: var(--space-3) var(--space-4) !important;
+  padding: var(--space-3) var(--space-5) !important;
   font-size: var(--fs-sm) !important;
+  font-weight: var(--fw-600) !important;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Tools Grid */

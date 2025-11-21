@@ -12,12 +12,12 @@ export default function CreateOffer() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [step, setStep] = useState(1); // خطوات النموذج
+  const [step, setStep] = useState(1); // Étapes du formulaire
   const [showCatalogModal, setShowCatalogModal] = useState(false);
   const [selectedLineItemIndex, setSelectedLineItemIndex] = useState(null);
   const [catalogProducts, setCatalogProducts] = useState([]);
 
-  // التحقق من انتهاء صلاحية المناقصة
+  // Vérifier si le délai de l'appel d'offres est dépassé
   const isDeadlinePassed = tender && new Date() > new Date(tender.deadline);
 
   const [offerData, setOfferData] = useState({
@@ -39,7 +39,7 @@ export default function CreateOffer() {
       const response = await procurementAPI.getTender(tenderId);
       setTender(response.data.tender);
       
-      // تهيئة بنود المناقصة
+      // Initialiser les articles de l'appel d'offres
       const items = response.data.tender.requirements || [];
       setOfferData(prev => ({
         ...prev,
@@ -56,9 +56,9 @@ export default function CreateOffer() {
           technical_response: ''
         }))
       }));
-      addToast('L'appel d'offres a été chargé avec succès', 'success', 2000);
+      addToast('L\'appel d\'offres a été chargé avec succès', 'success', 2000);
     } catch (err) {
-      const errorMessage = 'Erreur lors du chargement de l'appel d'offres: ' + err.message;
+      const errorMessage = 'Erreur lors du chargement de l\'appel d\'offres: ' + err.message;
       setError(errorMessage);
       addToast(errorMessage, 'error', 4000);
     } finally {
@@ -68,7 +68,7 @@ export default function CreateOffer() {
 
   const fetchCatalogProducts = async () => {
     try {
-      const response = await procurementAPI.getMyOffers(); // محاكاة الكتالوج
+      const response = await procurementAPI.getMyOffers(); // Simulation du catalogue
       setCatalogProducts(response.data.offers || []);
     } catch (err) {
       console.error('Erreur lors de la récupération du catalogue:', err);
@@ -129,18 +129,18 @@ export default function CreateOffer() {
     e.preventDefault();
 
     if (isDeadlinePassed) {
-      setError(`❌ فشلت عملية الإرسال. المناقصة مغلقة منذ ${new Date(tender.deadline).toLocaleDateString('ar-TN')} الساعة ${new Date(tender.deadline).toLocaleTimeString('ar-TN')}`);
+      setError(`❌ L'envoi a échoué. L'appel d'offres est fermé depuis ${new Date(tender.deadline).toLocaleDateString('fr-FR')} à ${new Date(tender.deadline).toLocaleTimeString('fr-FR')}`);
       return;
     }
 
     if (!offerData.commitment) {
-      setError('يجب عليك التعهد بالموافقة على جميع الشروط');
+      setError('Vous devez accepter tous les termes et conditions');
       return;
     }
 
     const invalidItems = offerData.line_items.filter(item => !item.unit_price || item.unit_price === 0);
     if (invalidItems.length > 0) {
-      setError('يرجى ملء أسعار جميع البنود');
+      setError('Veuillez remplir les prix de tous les articles');
       return;
     }
 
@@ -170,20 +170,20 @@ export default function CreateOffer() {
       }, 2500);
     } catch (err) {
       const errorMsg = err.response?.data?.error || err.message;
-      setError('❌ Erreur lors de l'envoi de l'offre: ' + errorMsg);
-      addToast('❌ Erreur lors de l'envoi de l'offre', 'error', 4000);
+      setError('❌ Erreur lors de l\'envoi de l\'offre: ' + errorMsg);
+      addToast('❌ Erreur lors de l\'envoi de l\'offre', 'error', 4000);
     } finally {
       setSubmitting(false);
     }
   };
 
   if (loading) return <div className="loading">Chargement de l'appel d'offres...</div>;
-  if (!tender) return <div className="alert alert-error">المناقصة غير موجودة</div>;
+  if (!tender) return <div className="alert alert-error">L'appel d'offres n'existe pas</div>;
 
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
       <button onClick={() => window.history.back()} className="btn btn-secondary">
-        ← رجوع
+        ← Retour
       </button>
 
       {/* Message d'erreur pour les appels d'offres expirés */}
@@ -197,9 +197,9 @@ export default function CreateOffer() {
           color: '#721c24',
           textAlign: 'center'
         }}>
-          <h3>⏰ آسف، هذه المناقصة مغلقة</h3>
-          <p>موعد الإغلاق: {new Date(tender.deadline).toLocaleDateString('ar-TN')} الساعة {new Date(tender.deadline).toLocaleTimeString('ar-TN')}</p>
-          <p>لا يمكنك تقديم عرض بعد انتهاء الموعد المحدد.</p>
+          <h3>⏰ Désolé, cet appel d'offres est fermé</h3>
+          <p>Date de clôture: {new Date(tender.deadline).toLocaleDateString('fr-FR')} à {new Date(tender.deadline).toLocaleTimeString('fr-FR')}</p>
+          <p>Vous ne pouvez pas soumettre d'offre après la date limite.</p>
         </div>
       )}
 
@@ -211,12 +211,12 @@ export default function CreateOffer() {
       )}
 
       <div className="card" style={{ marginTop: '1rem' }}>
-        <h2>📝 نموذج تقديم العرض الآمن</h2>
+        <h2>📝 Formulaire de soumission d'offre sécurisée</h2>
         <p style={{ color: '#666' }}>
-          <strong>المناقصة:</strong> {tender.title}
+          <strong>Appel d'offres:</strong> {tender.title}
         </p>
 
-        {/* شرائط الخطوات */}
+        {/* Barres d'étapes */}
         <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', justifyContent: 'center' }}>
           {[1, 2, 3].map(s => (
             <div
@@ -231,33 +231,33 @@ export default function CreateOffer() {
               }}
               onClick={() => !isDeadlinePassed && step > s && setStep(s)}
             >
-              {s === 1 && '1️⃣ البيانات الأساسية'}
-              {s === 2 && '2️⃣ بنود المناقصة'}
-              {s === 3 && '3️⃣ المراجعة والإرسال'}
+              {s === 1 && '1️⃣ Informations de base'}
+              {s === 2 && '2️⃣ Articles de l\'appel'}
+              {s === 3 && '3️⃣ Révision et envoi'}
             </div>
           ))}
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* الخطوة 1: البيانات الأساسية */}
+          {/* Étape 1: Informations de base */}
           {step === 1 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <h3>📋 البيانات الأساسية للعرض</h3>
+              <h3>📋 Informations de base de l'offre</h3>
 
               <div>
-                <label><strong>رقم مرجع المورد (اختياري)</strong></label>
+                <label><strong>Numéro de référence du fournisseur (optionnel)</strong></label>
                 <input
                   type="text"
                   value={offerData.supplier_ref_number}
                   onChange={(e) => setOfferData({...offerData, supplier_ref_number: e.target.value})}
-                  placeholder="رقم داخلي لتسهيل التتبع"
+                  placeholder="Numéro interne pour faciliter le suivi"
                   style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
-                <small style={{ color: '#666', display: 'block', marginTop: '0.25rem' }}>لا يؤثر على التقييم</small>
+                <small style={{ color: '#666', display: 'block', marginTop: '0.25rem' }}>N'affecte pas l'évaluation</small>
               </div>
 
               <div>
-                <label><strong>فترة صلاحية العرض (بالأيام)</strong></label>
+                <label><strong>Période de validité de l'offre (en jours)</strong></label>
                 <input
                   type="number"
                   min="1"
@@ -266,36 +266,36 @@ export default function CreateOffer() {
                   onChange={(e) => setOfferData({...offerData, validity_period_days: parseInt(e.target.value)})}
                   style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
-                <small style={{ color: '#666', display: 'block', marginTop: '0.25rem' }}>يجب أن تكون أقل من 365 يوم</small>
+                <small style={{ color: '#666', display: 'block', marginTop: '0.25rem' }}>Doit être inférieur à 365 jours</small>
               </div>
 
               <div>
-                <label><strong>شروط الدفع المقترحة</strong></label>
+                <label><strong>Conditions de paiement proposées</strong></label>
                 <select
                   value={offerData.payment_terms}
                   onChange={(e) => setOfferData({...offerData, payment_terms: e.target.value})}
                   style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
                 >
-                  <option value="Net30">Net 30 - خلال 30 يوم</option>
-                  <option value="Net60">Net 60 - خلال 60 يوم</option>
-                  <option value="PaymentInAdvance">الدفع المقدم</option>
-                  <option value="CashOnDelivery">الدفع عند الاستلام</option>
+                  <option value="Net30">Net 30 - Dans les 30 jours</option>
+                  <option value="Net60">Net 60 - Dans les 60 jours</option>
+                  <option value="PaymentInAdvance">Paiement d'avance</option>
+                  <option value="CashOnDelivery">Paiement à la livraison</option>
                 </select>
               </div>
 
               <div>
-                <label><strong>الاقتراح التقني</strong></label>
+                <label><strong>Proposition technique</strong></label>
                 <textarea
                   rows="5"
                   value={offerData.technical_proposal}
                   onChange={(e) => setOfferData({...offerData, technical_proposal: e.target.value})}
-                  placeholder="اشرح كيفية تقديمك للخدمة/المنتج والمواصفات التقنية..."
+                  placeholder="Expliquez comment vous livrerez le service/produit et les spécifications techniques..."
                   style={{ width: '100%', padding: '0.75rem', marginTop: '0.5rem', border: '1px solid #ddd', borderRadius: '4px', fontFamily: 'inherit' }}
                 />
               </div>
 
               <div>
-                <label><strong>وثائق المورد (PDF, DOCX)</strong></label>
+                <label><strong>Documents du fournisseur (PDF, DOCX)</strong></label>
                 <input
                   type="file"
                   multiple
@@ -305,12 +305,12 @@ export default function CreateOffer() {
                 />
                 {offerData.attachments.length > 0 && (
                   <div style={{ marginTop: '1rem' }}>
-                    <p><strong>Fichiers Téléchargés:</strong></p>
+                    <p><strong>Fichiers téléchargés:</strong></p>
                     <ul style={{ paddingRight: '1.5rem' }}>
                       {offerData.attachments.map((file, idx) => (
                         <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                           <span>{file.name}</span>
-                          <button type="button" onClick={() => removeAttachment(idx)} className="btn btn-small">حذف</button>
+                          <button type="button" onClick={() => removeAttachment(idx)} className="btn btn-small">Supprimer</button>
                         </li>
                       ))}
                     </ul>
@@ -324,29 +324,29 @@ export default function CreateOffer() {
                 className="btn btn-primary"
                 style={{ padding: '0.75rem 2rem', alignSelf: 'flex-end' }}
               >
-                التالي ← بنود المناقصة
+                Suivant ← Articles de l'appel
               </button>
             </div>
           )}
 
-          {/* الخطوة 2: بنود المناقصة */}
+          {/* Étape 2: Articles de l'appel */}
           {step === 2 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <h3>📦 الرد على بنود المناقصة</h3>
+              <h3>📦 Réponse aux articles de l'appel d'offres</h3>
 
               {offerData.line_items.length === 0 ? (
-                <div className="alert alert-info">لا توجد بنود في هذه المناقصة</div>
+                <div className="alert alert-info">Il n'y a pas d'articles dans cet appel d'offres</div>
               ) : (
                 <div style={{ overflowX: 'auto' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                       <tr style={{ backgroundColor: '#f5f5f5', borderBottom: '2px solid #ddd' }}>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>الوصف</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>الكمية</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>الوحدة</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>🔒 السعر الوحدوي</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>الإجمالي</th>
-                        <th style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #ddd' }}>الكتالوج</th>
+                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Description</th>
+                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Quantité</th>
+                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Unité</th>
+                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>🔒 Prix unitaire</th>
+                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '1px solid #ddd' }}>Total</th>
+                        <th style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '1px solid #ddd' }}>Catalogue</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -362,7 +362,7 @@ export default function CreateOffer() {
                               min="0"
                               value={item.unit_price}
                               onChange={(e) => handleLineItemChange(idx, 'unit_price', e.target.value)}
-                              placeholder="السعر"
+                              placeholder="Prix"
                               style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fffbf0' }}
                             />
                           </td>
@@ -376,7 +376,7 @@ export default function CreateOffer() {
                               className="btn btn-small"
                               style={{ padding: '0.5rem' }}
                             >
-                              📚 من الكتالوج
+                              📚 Du catalogue
                             </button>
                           </td>
                         </tr>
@@ -387,7 +387,7 @@ export default function CreateOffer() {
               )}
 
               <div style={{ padding: '1rem', backgroundColor: '#e7f3ff', borderRadius: '4px', textAlign: 'center' }}>
-                <strong>الإجمالي المالي للعرض: </strong>
+                <strong>Total financier de l'offre: </strong>
                 <span style={{ fontSize: '1.3rem', color: '#007bff', fontWeight: 'bold' }}>
                   {getTotalBidAmount()} {tender.currency}
                 </span>
@@ -400,7 +400,7 @@ export default function CreateOffer() {
                   className="btn btn-secondary"
                   style={{ padding: '0.75rem 1.5rem' }}
                 >
-                  ← السابق
+                  ← Précédent
                 </button>
                 <button
                   type="button"
@@ -408,33 +408,33 @@ export default function CreateOffer() {
                   className="btn btn-primary"
                   style={{ padding: '0.75rem 1.5rem' }}
                 >
-                  التالي - المراجعة ←
+                  Suivant - Révision ←
                 </button>
               </div>
             </div>
           )}
 
-          {/* الخطوة 3: المراجعة والإرسال */}
+          {/* Étape 3: Révision et envoi */}
           {step === 3 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <h3>✅ المراجعة النهائية والإرسال الآمن</h3>
+              <h3>✅ Révision finale et envoi sécurisé</h3>
 
               <div style={{ padding: '1.5rem', backgroundColor: '#f9f9f9', borderRadius: '8px', border: '1px solid #ddd' }}>
-                <h4>📊 ملخص العرض</h4>
+                <h4>📊 Résumé de l'offre</h4>
                 <div style={{ lineHeight: '1.8', fontSize: '0.95rem' }}>
-                  <p><strong>رقم المرجع:</strong> {offerData.supplier_ref_number || 'بدون'}</p>
-                  <p><strong>فترة الصلاحية:</strong> {offerData.validity_period_days} يوم</p>
-                  <p><strong>شروط الدفع:</strong> {offerData.payment_terms}</p>
-                  <p><strong>عدد البنود:</strong> {offerData.line_items.length}</p>
+                  <p><strong>Numéro de référence:</strong> {offerData.supplier_ref_number || 'Aucun'}</p>
+                  <p><strong>Période de validité:</strong> {offerData.validity_period_days} jours</p>
+                  <p><strong>Conditions de paiement:</strong> {offerData.payment_terms}</p>
+                  <p><strong>Nombre d'articles:</strong> {offerData.line_items.length}</p>
                   <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#007bff' }}>
-                    💰 الإجمالي المالي: {getTotalBidAmount()} {tender.currency}
+                    💰 Total financier: {getTotalBidAmount()} {tender.currency}
                   </p>
-                  <p><strong>Fichiers Téléchargés:</strong> {offerData.attachments.length} ملف</p>
+                  <p><strong>Fichiers téléchargés:</strong> {offerData.attachments.length} fichier(s)</p>
                 </div>
               </div>
 
               <div style={{ padding: '1rem', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '4px', color: '#856404' }}>
-                <strong>🔒 تنبيه أمان:</strong>
+                <strong>🔒 Alerte de sécurité:</strong>
                 <p>Toutes les données financières de votre offre seront chiffrées avec AES-256. Seul l'acheteur pourra déchiffrer et accéder aux détails financiers.</p>
               </div>
 
@@ -477,7 +477,7 @@ export default function CreateOffer() {
                     opacity: submitting || !offerData.commitment ? 0.6 : 1
                   }}
                 >
-                  {submitting ? '⏳ Chiffrement et envoi de l'offre en cours...' : '🔐 Chiffrer et envoyer l'offre maintenant'}
+                  {submitting ? '⏳ Chiffrement et envoi de l\'offre en cours...' : '🔐 Chiffrer et envoyer l\'offre maintenant'}
                 </button>
               </div>
             </div>
@@ -508,9 +508,9 @@ export default function CreateOffer() {
             overflowY: 'auto',
             width: '90%'
           }}>
-            <h3>اختر من كتالوجك</h3>
+            <h3>Choisissez dans votre catalogue</h3>
             {catalogProducts.length === 0 ? (
-              <p className="alert alert-info">لا توجد منتجات في كتالوجك</p>
+              <p className="alert alert-info">Aucun produit dans votre catalogue</p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {catalogProducts.map((product, idx) => (
@@ -521,8 +521,8 @@ export default function CreateOffer() {
                     cursor: 'pointer',
                     transition: 'all 0.2s'
                   }} onClick={() => handleSelectFromCatalog(product)}>
-                    <p><strong>{product.description || 'منتج'}</strong></p>
-                    <p style={{ fontSize: '0.9rem', color: '#666' }}>السعر: {product.total_amount} {tender.currency}</p>
+                    <p><strong>{product.description || 'Produit'}</strong></p>
+                    <p style={{ fontSize: '0.9rem', color: '#666' }}>Prix: {product.total_amount} {tender.currency}</p>
                   </div>
                 ))}
               </div>
@@ -533,7 +533,7 @@ export default function CreateOffer() {
               className="btn btn-secondary"
               style={{ marginTop: '1rem', width: '100%' }}
             >
-              إغلاق
+              Fermer
             </button>
           </div>
         </div>

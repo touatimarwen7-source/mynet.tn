@@ -20,6 +20,7 @@ import OfferAnalysis from './pages/OfferAnalysis';
 import BuyerDashboard from './pages/BuyerDashboard';
 import BuyerActiveTenders from './pages/BuyerActiveTenders';
 import InvoiceManagement from './pages/InvoiceManagement';
+import FinancialReports from './pages/FinancialReports';
 import CreateTenderImproved from './pages/CreateTenderImproved';
 import TenderChat from './pages/TenderChat';
 import TenderSecuritySettings from './pages/TenderSecuritySettings';
@@ -57,6 +58,7 @@ import './styles/professional-formatting.css';
 import './styles/financial-corporate.css';
 import './styles/unified-theme.css';
 import './styles/buyer-active-tenders.css';
+import './styles/financial-reports.css';
 import './App.css';
 
 function App() {
@@ -185,7 +187,7 @@ function App() {
             />
             <Route 
               path="/financial-reports" 
-              element={user?.role === 'buyer' ? <BuyerDashboard /> : <Navigate to="/tenders" />} 
+              element={user?.role === 'buyer' ? <FinancialReports /> : <Navigate to="/tenders" />} 
             />
             <Route 
               path="/security" 

@@ -27,7 +27,7 @@ export default function TenderPreferencesSettings() {
 
   const fetchPreferences = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/tenders/preferences', {
+      const response = await axios.get('/api/tenders/preferences', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setPreferences(response.data.preferences || preferences);
@@ -58,7 +58,7 @@ export default function TenderPreferencesSettings() {
     setSuccess('');
 
     try {
-      await axios.put('http://localhost:3000/api/tenders/preferences', preferences, {
+      await axios.put('/api/tenders/preferences', preferences, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setSuccess('Préférences enregistrées avec succès');

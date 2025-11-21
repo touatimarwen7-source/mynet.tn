@@ -26,7 +26,7 @@ export default function TenderSecuritySettings() {
 
   const fetchSecuritySettings = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/tenders/security', {
+      const response = await axios.get('/api/tenders/security', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setSettings(response.data.settings || settings);
@@ -57,7 +57,7 @@ export default function TenderSecuritySettings() {
     if (!newShareEmail.trim()) return;
 
     try {
-      await axios.post('http://localhost:3000/api/tenders/share', {
+      await axios.post('/api/tenders/share', {
         email: newShareEmail,
         permissions: 'view'
       }, {
@@ -93,7 +93,7 @@ export default function TenderSecuritySettings() {
     setSuccess('');
 
     try {
-      await axios.put('http://localhost:3000/api/tenders/security', settings, {
+      await axios.put('/api/tenders/security', settings, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setSuccess('Paramètres de sécurité enregistrés avec succès');

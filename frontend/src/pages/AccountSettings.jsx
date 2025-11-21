@@ -18,7 +18,7 @@ export default function AccountSettings() {
 
   const fetchSettings = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/user/settings', {
+      const response = await axios.get('/api/user/settings', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setSettings(response.data.settings || settings);
@@ -31,7 +31,7 @@ export default function AccountSettings() {
 
   const handleSave = async () => {
     try {
-      await axios.put('http://localhost:3000/api/user/settings', settings, {
+      await axios.put('/api/user/settings', settings, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       alert('Paramètres sauvegardés avec succès');

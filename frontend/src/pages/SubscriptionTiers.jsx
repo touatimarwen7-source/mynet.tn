@@ -21,7 +21,7 @@ export default function SubscriptionTiers() {
 
   const fetchTiers = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/admin/subscription-tiers', {
+      const response = await axios.get('/api/admin/subscription-tiers', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setTiers(response.data.tiers || []);
@@ -35,7 +35,7 @@ export default function SubscriptionTiers() {
   const handleCreateTier = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/admin/subscription-tiers', newTier, {
+      await axios.post('/api/admin/subscription-tiers', newTier, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       alert('Forfait créé avec succès');

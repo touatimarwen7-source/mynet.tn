@@ -149,14 +149,15 @@ export default function CreateTenderImproved() {
 
     try {
       const backendData = transformDataForBackend();
-      console.log('Sending to backend:', backendData);
-      console.log('Authorization token:', localStorage.getItem('accessToken')?.substring(0, 20) + '...');
       
-      const response = await axios.post('http://localhost:3000/api/procurement/tenders', backendData, {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? '/api/procurement/tenders'
+        : '/api/procurement/tenders';
+      
+      const response = await axios.post(apiUrl, backendData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       
-      console.log('Response:', response.data);
       alert("Appel d'offres créé avec succès et alertes envoyées aux fournisseurs qualifiés");
       setTenderData({
         title: '', categories: [], summary: '', budgetMax: 0, currency: 'TND',
@@ -169,11 +170,6 @@ export default function CreateTenderImproved() {
       setDocumentFiles([]);
       setStep(1);
     } catch (error) {
-      console.error('Error details:', {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message
-      });
       const errorMsg = error.response?.data?.error || error.message || 'Une erreur est survenue lors de la publication';
       alert('Erreur: ' + errorMsg);
     }

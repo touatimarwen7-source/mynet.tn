@@ -19,7 +19,7 @@ export default function TeamManagement() {
 
   const fetchTeam = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/company/team', {
+      const response = await axios.get('/api/company/team', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setTeam(response.data.team || []);
@@ -33,7 +33,7 @@ export default function TeamManagement() {
   const handleAddMember = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/company/team', newMember, {
+      await axios.post('/api/company/team', newMember, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       alert('Membre ajouté avec succès');

@@ -18,7 +18,7 @@ export default function ArchiveManagement() {
 
   const fetchSettings = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/admin/archive-settings', {
+      const response = await axios.get('/api/admin/archive-settings', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setSettings(response.data.settings || settings);
@@ -31,7 +31,7 @@ export default function ArchiveManagement() {
 
   const fetchArchiveJobs = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/admin/archive-jobs', {
+      const response = await axios.get('/api/admin/archive-jobs', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setArchiveJobs(response.data.jobs || []);
@@ -42,7 +42,7 @@ export default function ArchiveManagement() {
 
   const handleSaveSettings = async () => {
     try {
-      await axios.put('http://localhost:3000/api/admin/archive-settings', settings, {
+      await axios.put('/api/admin/archive-settings', settings, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       alert('Paramètres d\'archivage sauvegardés');
@@ -55,7 +55,7 @@ export default function ArchiveManagement() {
   const handleTriggerArchive = async () => {
     if (!confirm('Êtes-vous sûr de vouloir déclencher l\'archivage maintenant?')) return;
     try {
-      await axios.post('http://localhost:3000/api/admin/archive-trigger', {}, {
+      await axios.post('/api/admin/archive-trigger', {}, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       alert('Archivage déclenché');

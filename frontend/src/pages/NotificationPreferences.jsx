@@ -23,7 +23,7 @@ export default function NotificationPreferences() {
 
   const fetchPreferences = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/user/notification-preferences', {
+      const response = await axios.get('/api/user/notification-preferences', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setPreferences(response.data.preferences || preferences);
@@ -47,7 +47,7 @@ export default function NotificationPreferences() {
     setSuccess('');
     
     try {
-      await axios.put('http://localhost:3000/api/user/notification-preferences', preferences, {
+      await axios.put('/api/user/notification-preferences', preferences, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setSuccess('Préférences de notifications enregistrées avec succès');

@@ -16,7 +16,7 @@ export default function HealthMonitoring() {
 
   const fetchHealth = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/admin/health', {
+      const response = await axios.get('/api/admin/health', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setHealth(response.data);

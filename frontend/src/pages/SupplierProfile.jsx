@@ -24,7 +24,7 @@ export default function SupplierProfile() {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/supplier/profile', {
+      const response = await axios.get('/api/supplier/profile', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setProfile(response.data.profile);
@@ -41,7 +41,7 @@ export default function SupplierProfile() {
 
   const fetchActivity = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/supplier/activity', {
+      const response = await axios.get('/api/supplier/activity', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setActivity(response.data.activity || []);
@@ -59,7 +59,7 @@ export default function SupplierProfile() {
     formData.append('type', 'ISO');
 
     try {
-      await axios.post('http://localhost:3000/api/supplier/documents', formData, {
+      await axios.post('/api/supplier/documents', formData, {
         headers: { 
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           'Content-Type': 'multipart/form-data'
@@ -89,7 +89,7 @@ export default function SupplierProfile() {
 
   const handleSaveProfile = async () => {
     try {
-      await axios.put('http://localhost:3000/api/supplier/profile', editData, {
+      await axios.put('/api/supplier/profile', editData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setProfile(editData);

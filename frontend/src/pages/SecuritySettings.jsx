@@ -21,7 +21,7 @@ export default function SecuritySettings() {
 
   const fetchSecurityData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/user/security', {
+      const response = await axios.get('/api/user/security', {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setMfaEnabled(response.data.mfa_enabled || false);
@@ -49,7 +49,7 @@ export default function SecuritySettings() {
     }
 
     try {
-      await axios.post('http://localhost:3000/api/user/change-password', {
+      await axios.post('/api/user/change-password', {
         current_password: currentPassword,
         new_password: newPassword
       }, {
@@ -67,7 +67,7 @@ export default function SecuritySettings() {
 
   const handleToggleMFA = async () => {
     try {
-      await axios.post('http://localhost:3000/api/user/toggle-mfa', {}, {
+      await axios.post('/api/user/toggle-mfa', {}, {
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
       });
       setMfaEnabled(!mfaEnabled);

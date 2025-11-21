@@ -1,0 +1,616 @@
+.about-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+body.dark-mode .about-page {
+  background: linear-gradient(135deg, #1a1f3a 0%, #0f0f23 100%);
+}
+
+/* Hero Section */
+.about-hero {
+  padding: 6rem 4rem;
+  text-align: center;
+  background: linear-gradient(135deg, #00a8e8 0%, #00d4ff 100%);
+  color: white;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.95;
+}
+
+/* Sections */
+.story-section,
+.team-section,
+.compliance-section,
+.partners-section {
+  padding: 5rem 4rem;
+  background: white;
+  margin: 3rem auto;
+  max-width: 1400px;
+  border-radius: 20px;
+}
+
+body.dark-mode .story-section,
+body.dark-mode .team-section,
+body.dark-mode .compliance-section,
+body.dark-mode .partners-section {
+  background: #1e1e2e;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section Titles */
+.story-section h2,
+.team-section h2,
+.compliance-section h2,
+.partners-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: #333;
+}
+
+body.dark-mode .story-section h2,
+body.dark-mode .team-section h2,
+body.dark-mode .compliance-section h2,
+body.dark-mode .partners-section h2 {
+  color: #e0e0e0;
+}
+
+/* Story Grid */
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.story-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+body.dark-mode .story-card {
+  background: linear-gradient(135deg, #252535 0%, #2a2a3e 100%);
+}
+
+.story-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 168, 232, 0.2);
+}
+
+.story-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+body.dark-mode .story-card h3 {
+  color: #e0e0e0;
+}
+
+.story-card p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+body.dark-mode .story-card p {
+  color: #b0b0b0;
+}
+
+.problem-icon,
+.solution-icon,
+.vision-icon {
+  font-size: 3rem;
+  margin-top: 1rem;
+}
+
+/* Key Values */
+.key-values {
+  background: linear-gradient(135deg, #00a8e8 0%, #00d4ff 100%);
+  border-radius: 16px;
+  padding: 3rem;
+  color: white;
+  text-align: center;
+}
+
+.key-values h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.value-item {
+  text-align: center;
+}
+
+.value-emoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.value-item h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.value-item p {
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+/* Team Section */
+.section-intro {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+body.dark-mode .section-intro {
+  color: #b0b0b0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.team-member {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .team-member {
+  background: linear-gradient(135deg, #252535 0%, #2a2a3e 100%);
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 168, 232, 0.15);
+}
+
+.member-photo {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.team-member h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+body.dark-mode .team-member h3 {
+  color: #e0e0e0;
+}
+
+.role {
+  color: #00a8e8;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.bio {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+body.dark-mode .bio {
+  color: #b0b0b0;
+}
+
+.expertise {
+  background: rgba(0, 168, 232, 0.1);
+  border-left: 3px solid #00a8e8;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+body.dark-mode .expertise {
+  background: rgba(0, 168, 232, 0.15);
+  color: #e0e0e0;
+}
+
+/* Compliance Grid */
+.compliance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.compliance-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  border-left: 4px solid #00a8e8;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .compliance-card {
+  background: linear-gradient(135deg, #252535 0%, #2a2a3e 100%);
+}
+
+.compliance-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 168, 232, 0.2);
+  transform: translateX(5px);
+}
+
+.compliance-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+body.dark-mode .compliance-card h3 {
+  color: #e0e0e0;
+}
+
+.detail p {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+body.dark-mode .detail p {
+  color: #b0b0b0;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Security Details */
+.security-details {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+body.dark-mode .security-details {
+  background: linear-gradient(135deg, #252535 0%, #2a2a3e 100%);
+}
+
+.security-details h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+body.dark-mode .security-details h3 {
+  color: #e0e0e0;
+}
+
+.security-layers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.layer {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-top: 3px solid #00a8e8;
+}
+
+body.dark-mode .layer {
+  background: #1e1e2e;
+}
+
+.layer strong {
+  color: #00a8e8;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.layer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.layer li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+body.dark-mode .layer li {
+  color: #b0b0b0;
+}
+
+/* Accreditations */
+.accreditations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.accreditation-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .accreditation-card {
+  background: linear-gradient(135deg, #252535 0%, #2a2a3e 100%);
+}
+
+.accreditation-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 168, 232, 0.2);
+}
+
+.cert-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.accreditation-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+body.dark-mode .accreditation-card h3 {
+  color: #e0e0e0;
+}
+
+.cert-detail {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+body.dark-mode .cert-detail {
+  color: #b0b0b0;
+}
+
+.status {
+  color: #00a8e8;
+  font-weight: 600;
+}
+
+/* Strategic Partners */
+.strategic-partners {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+body.dark-mode .strategic-partners {
+  background: linear-gradient(135deg, #252535 0%, #2a2a3e 100%);
+}
+
+.strategic-partners h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+body.dark-mode .strategic-partners h3 {
+  color: #e0e0e0;
+}
+
+.partners-intro {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+body.dark-mode .partners-intro {
+  color: #b0b0b0;
+}
+
+.partners-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.partner {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #00a8e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.dark-mode .partner {
+  background: #1e1e2e;
+}
+
+.partner-name {
+  font-weight: 600;
+  color: #333;
+}
+
+body.dark-mode .partner-name {
+  color: #e0e0e0;
+}
+
+.partner-role {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+body.dark-mode .partner-role {
+  color: #b0b0b0;
+}
+
+/* Stats Banner */
+.stats-banner {
+  background: linear-gradient(135deg, #00a8e8 0%, #00d4ff 100%);
+  padding: 3rem 4rem;
+  color: white;
+}
+
+.stats-banner .container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-box {
+  padding: 2rem;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.stat-text {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+/* Contact CTA */
+.contact-cta {
+  padding: 4rem;
+  text-align: center;
+  background: white;
+  max-width: 1400px;
+  margin: 3rem auto;
+  border-radius: 20px;
+}
+
+body.dark-mode .contact-cta {
+  background: #1e1e2e;
+}
+
+.contact-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+body.dark-mode .contact-cta h2 {
+  color: #e0e0e0;
+}
+
+.contact-cta p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+body.dark-mode .contact-cta p {
+  color: #b0b0b0;
+}
+
+.cta-button {
+  background: linear-gradient(135deg, #00a8e8 0%, #00d4ff 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 168, 232, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .story-grid,
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .compliance-grid,
+  .accreditations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .security-layers,
+  .stats-banner .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .partners-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-page {
+    padding: 0;
+  }
+
+  .story-grid,
+  .values-grid,
+  .team-grid,
+  .compliance-grid,
+  .accreditations-grid,
+  .security-layers,
+  .stats-banner .container {
+    grid-template-columns: 1fr;
+  }
+
+  .story-section,
+  .team-section,
+  .compliance-section,
+  .partners-section,
+  .contact-cta {
+    padding: 2rem 1rem;
+    margin: 1rem auto;
+  }
+
+  .about-hero {
+    padding: 3rem 1rem;
+  }
+
+  .about-hero h1 {
+    font-size: 1.8rem;
+  }
+}

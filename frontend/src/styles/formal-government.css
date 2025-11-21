@@ -1,0 +1,392 @@
+/* ================================================
+   TUNEPS-Inspired Formal Government Design System
+   نظام التصميم الرسمي الحكومي
+   ================================================ */
+
+/* Remove all emoji icons - clean formal look */
+.card-icon,
+.action-icon,
+.tab-icon,
+.role-icon {
+  display: none !important;
+}
+
+/* Hero Search - Simplified formal design */
+.hero-search-container {
+  background: linear-gradient(180deg, #f0f5f9 0%, #ffffff 100%);
+  padding: 2rem;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.search-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+.search-tab {
+  padding: 0.75rem 1.5rem;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.search-tab:hover {
+  border-color: #003d7a;
+  color: #003d7a;
+  background: #f0f5f9;
+}
+
+.search-tab.active {
+  background: #003d7a;
+  border-color: #003d7a;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.hero-search-form {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Dashboard Cards - Clean minimal design */
+.dashboard-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-card {
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card::before,
+.dashboard-card::after {
+  display: none !important;
+}
+
+.dashboard-card:hover {
+  border-color: #003d7a;
+  box-shadow: 0 2px 6px rgba(0, 61, 122, 0.12);
+  transform: none;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 1rem;
+}
+
+.card-label {
+  font-size: 12px;
+  color: #666666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.card-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #003d7a;
+  margin-bottom: 0.5rem;
+}
+
+/* Quick Actions - Simplified buttons */
+.quick-actions-section {
+  margin-bottom: 2rem;
+}
+
+.quick-actions-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #003d7a;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 1rem;
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.quick-action-btn {
+  padding: 1rem 1rem;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  color: #333333;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  overflow: hidden;
+  text-transform: capitalize;
+}
+
+.quick-action-btn::before {
+  display: none !important;
+}
+
+.quick-action-btn:hover {
+  background: #f0f5f9;
+  border-color: #003d7a;
+  color: #003d7a;
+  box-shadow: 0 2px 4px rgba(0, 61, 122, 0.1);
+  transform: none;
+}
+
+.action-label {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Sidebar - Formal text-based navigation */
+.sidebar {
+  background: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-menu-item {
+  padding: 0.75rem 1.25rem;
+  color: #333333;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.sidebar-menu-item:hover,
+.sidebar-menu-item.active {
+  background: #f0f5f9;
+  border-left-color: #003d7a;
+  color: #003d7a;
+}
+
+/* Role Cards - Clean formal cards */
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.role-card {
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.role-card:hover {
+  border-color: #003d7a;
+  box-shadow: 0 2px 8px rgba(0, 61, 122, 0.12);
+}
+
+.role-card h3 {
+  font-size: 18px;
+  color: #003d7a;
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+}
+
+.role-features {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.role-features li {
+  padding: 0.5rem 0;
+  color: #666666;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.role-features li:last-child {
+  border-bottom: none;
+}
+
+.role-button {
+  background: #003d7a;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.role-button:hover {
+  background: #1e3a5f;
+  box-shadow: 0 2px 6px rgba(0, 61, 122, 0.2);
+}
+
+/* Forms - Formal styling */
+.search-input,
+.search-select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  padding: 0.75rem;
+  font-size: 14px;
+  color: #333333;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #003d7a;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 61, 122, 0.1);
+}
+
+/* Stats Grid - Formal presentation */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: #003d7a;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.stat-description {
+  font-size: 12px;
+  color: #666666;
+  margin-top: 0.5rem;
+}
+
+/* Remove all shimmer and gradient effects for formal look */
+[class*="shimmer"]::after,
+[class*="gradient"] {
+  display: none !important;
+}
+
+/* Typography - Formal government style */
+h1, h2, h3, h4, h5, h6 {
+  color: #003d7a;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+body {
+  background: #fafafa;
+  color: #333333;
+}
+
+/* Links - Formal styling */
+a {
+  color: #003d7a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #1e3a5f;
+  text-decoration: underline;
+}
+
+/* Buttons - Clean formal buttons */
+button,
+.btn {
+  background: #003d7a;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  background: #1e3a5f;
+  box-shadow: 0 2px 6px rgba(0, 61, 122, 0.15);
+}
+
+button:active,
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Secondary buttons */
+.btn-secondary,
+button.secondary {
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
+}
+
+.btn-secondary:hover,
+button.secondary:hover {
+  background: #f0f5f9;
+  border-color: #003d7a;
+  color: #003d7a;
+}
+
+/* Remove dark mode shimmer effects */
+body.dark-mode .dashboard-card::before,
+body.dark-mode .dashboard-card::after,
+body.dark-mode .quick-action-btn::before {
+  display: none !important;
+}

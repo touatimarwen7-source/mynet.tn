@@ -13,10 +13,10 @@ export default function HeroSearch() {
   });
 
   const searchTabs = [
-    { id: 'markets', label: 'Nouveaux Marchés', icon: '🏪' },
-    { id: 'tenders', label: 'Appels d\'Offres', icon: '📋' },
-    { id: 'awards', label: 'Attributions', icon: '🏆' },
-    { id: 'data', label: 'Données Essentielles', icon: '📊' }
+    { id: 'markets', label: 'Nouveaux Marchés' },
+    { id: 'tenders', label: 'Appels d\'Offres' },
+    { id: 'awards', label: 'Attributions' },
+    { id: 'data', label: 'Données Essentielles' }
   ];
 
   const categories = [
@@ -116,7 +116,6 @@ export default function HeroSearch() {
             className={`search-tab ${activeTab === tab.id ? 'active' : ''}`}
             onClick={() => handleTabChange(tab.id)}
           >
-            <span className="tab-icon">{tab.icon}</span>
             <span className="tab-label">{tab.label}</span>
           </button>
         ))}

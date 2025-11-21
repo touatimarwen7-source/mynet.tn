@@ -18,7 +18,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'dashboard',
       label: 'Tableau de Bord',
-      icon: '📊',
       path: '/buyer-dashboard',
       featureKey: 'dashboard',
       subItems: []
@@ -26,7 +25,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'tenders',
       label: 'Appels d\'Offres',
-      icon: '📋',
       subItems: [
         { label: 'Actifs', path: '/buyer-active-tenders', featureKey: 'browsetenders' },
         { label: 'Créer un Appel', path: '/create-tender', featureKey: 'createtender' },
@@ -39,7 +37,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'finances',
       label: 'Finances',
-      icon: '💰',
       subItems: [
         { label: 'Factures', path: '/invoices', featureKey: 'invoices' },
         { label: 'Génération', path: '/invoice-generation', featureKey: 'invoices' },
@@ -50,7 +47,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'operations',
       label: 'Opérations',
-      icon: '⚙️',
       subItems: [
         { label: 'Contrats', path: '/contracts', featureKey: 'operations' },
         { label: 'Livraisons', path: '/deliveries', featureKey: 'operations' },
@@ -61,7 +57,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'team',
       label: 'Équipe',
-      icon: '👥',
       subItems: [
         { label: 'Gestion d\'équipe', path: '/team-management', featureKey: 'teammanagement' },
         { label: 'Permissions', path: '/team-permissions', featureKey: 'teammanagement' },
@@ -71,7 +66,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'notifications',
       label: 'Notifications',
-      icon: '🔔',
       path: '/notifications',
       featureKey: 'notifications',
       subItems: []
@@ -79,7 +73,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'profile',
       label: 'Profil',
-      icon: '⚙️',
       featureKey: 'profile',
       subItems: [
         { label: 'Paramètres', path: '/profile', featureKey: 'profile' },
@@ -93,7 +86,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'dashboard',
       label: 'Tableau de Bord',
-      icon: '📊',
       path: '/supplier-search',
       featureKey: 'dashboard',
       subItems: []
@@ -101,7 +93,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'tenders',
       label: 'Appels d\'Offres',
-      icon: '📋',
       subItems: [
         { label: 'Parcourir', path: '/tenders', featureKey: 'browsetenders' },
         { label: 'Mes Offres', path: '/my-offers', featureKey: 'myoffers' },
@@ -112,7 +103,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'catalog',
       label: 'Catalogue',
-      icon: '📦',
       subItems: [
         { label: 'Gestion Produits', path: '/supplier-products', featureKey: 'catalog' },
         { label: 'Gestion Services', path: '/supplier-services', featureKey: 'catalog' },
@@ -122,7 +112,6 @@ export default function Sidebar({ user, onLogout }) {
     {
       id: 'finances',
       label: 'Finances',
-      icon: '💰',
       subItems: [
         { label: 'Factures', path: '/supplier-invoices', featureKey: 'invoices' },
         { label: 'Paiements', path: '/supplier-payments', featureKey: 'invoices' },

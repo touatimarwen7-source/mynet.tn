@@ -23,7 +23,6 @@ export default function QuickActions({ actions }) {
             onClick={() => handleActionClick(action)}
             title={action.description}
           >
-            <span className="action-icon">{action.icon}</span>
             <span className="action-label">{action.label}</span>
             {action.badge && (
               <span className="action-badge">{action.badge}</span>

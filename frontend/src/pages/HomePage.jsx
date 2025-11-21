@@ -47,7 +47,6 @@ export default function HomePage() {
         <div className="roles-grid">
           {/* Acheteur Card */}
           <div className={`role-card role-buyer ${selectedRole === 'buyer' ? 'selected' : ''}`}>
-            <div className="role-icon">🏢</div>
             <h3>Je suis Acheteur</h3>
             <p className="role-description">
               Publiez vos appels d'offres, recevez les meilleures propositions, évaluez les fournisseurs et finalisez vos contrats en toute confiance.
@@ -63,13 +62,12 @@ export default function HomePage() {
               className="role-button"
               onClick={() => handleStartTrial('buyer')}
             >
-              🚀 Commencer Essai Gratuit
+              Commencer Essai Gratuit
             </button>
           </div>
 
           {/* Fournisseur Card */}
           <div className={`role-card role-supplier ${selectedRole === 'supplier' ? 'selected' : ''}`}>
-            <div className="role-icon">🏭</div>
             <h3>Je suis Fournisseur</h3>
             <p className="role-description">
               Découvrez les opportunités de marché, soumettez vos offres compétitives, et développez votre activité avec des clients de confiance.
@@ -85,7 +83,7 @@ export default function HomePage() {
               className="role-button"
               onClick={() => handleStartTrial('supplier')}
             >
-              🚀 Commencer Essai Gratuit
+              Commencer Essai Gratuit
             </button>
           </div>
         </div>

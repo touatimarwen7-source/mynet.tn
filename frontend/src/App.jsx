@@ -63,6 +63,7 @@ import ToastContainer from './components/ToastContainer';
 import Sidebar from './components/Sidebar';
 import { ToastContext } from './contexts/ToastContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
+import './styles/formal-government.css';
 import './styles/modern-professional.css';
 import './styles/components-premium.css';
 import './styles/forms-modern.css';

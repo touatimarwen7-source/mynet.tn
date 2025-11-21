@@ -6,7 +6,6 @@ export default function DashboardCards({ cards }) {
       {cards.map((card, idx) => (
         <div key={idx} className={`dashboard-card card-type-${card.type}`}>
           <div className="card-header">
-            <span className="card-icon">{card.icon}</span>
             <span className="card-label">{card.label}</span>
           </div>
           

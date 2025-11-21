@@ -1,28 +1,28 @@
 /* ========================================
-   MyNet.tn - Design System Color Palette
-   نظام الألوان الاحترافي للمنصة المالية
+   MyNet.tn - TUNEPS-Inspired Government Design
+   نظام الألوان الرسمي الموثوق للمنصة
    ======================================== */
 
 :root {
-  /* لوحة الألوان الأساسية - Professional & Trustworthy */
+  /* Government-Formal Color Palette */
   
-  /* الأزرق الداكن - الهوية الأساسية */
-  --color-primary-dark: #1a3a52;      /* أزرق داكن مهني */
-  --color-primary-main: #00a8e8;      /* أزرق أساسي */
-  --color-primary-light: #00d4ff;     /* أزرق فاتح */
-  --color-primary-lighter: #e3f2fd;   /* أزرق جداً فاتح للخلفيات */
+  /* الأزرق الحكومي الداكن - الهوية الأساسية */
+  --color-primary-dark: #1e3a5f;      /* أزرق داكن رسمي حكومي */
+  --color-primary-main: #003d7a;      /* أزرق حكومي أساسي */
+  --color-primary-light: #1e5a96;     /* أزرق حكومي فاتح */
+  --color-primary-lighter: #f0f5f9;   /* أزرق جداً فاتح للخلفيات */
   
-  /* الأزرق السماوي - لون العمل (Action Color) */
-  --color-action: #00a8e8;            /* أزرق سماوي مشرق */
-  --color-action-hover: #0086b3;      /* أزرق سماوي عند التمرير */
-  --color-action-light: #00d4ff;      /* أزرق سماوي فاتح */
+  /* الأزرق الحكومي - لون العمل (Action Color) */
+  --color-action: #003d7a;            /* أزرق حكومي أساسي */
+  --color-action-hover: #1e3a5f;      /* أزرق حكومي عند التمرير */
+  --color-action-light: #1e5a96;      /* أزرق حكومي فاتح */
   
-  /* الرمادي الدافئ - للنصوص والخلفيات */
-  --color-grey-dark: #424242;         /* رمادي داكن للنصوص */
-  --color-grey-medium: #757575;       /* رمادي متوسط */
-  --color-grey-light: #bdbdbd;        /* رمادي فاتح للحدود */
-  --color-grey-lighter: #eeeeee;      /* رمادي جداً فاتح للخلفيات */
-  --color-grey-lightest: #f9f9f9;     /* رمادي فاتح جداً */
+  /* الرمادي الحكومي - للنصوص والخلفيات */
+  --color-grey-dark: #333333;         /* رمادي داكن للنصوص */
+  --color-grey-medium: #666666;       /* رمادي متوسط */
+  --color-grey-light: #cccccc;        /* رمادي فاتح للحدود */
+  --color-grey-lighter: #f0f0f0;      /* رمادي جداً فاتح للخلفيات */
+  --color-grey-lightest: #fafafa;     /* رمادي فاتح جداً */
   
   /* الأبيض النقي */
   --color-white: #ffffff;
@@ -38,10 +38,10 @@
   --color-info-light: #bbdefb;        /* أزرق فاتح للخلفيات */
   
   /* ألوان التدرجات - للرسوم البيانية */
-  --gradient-primary: linear-gradient(135deg, #00a8e8 0%, #00d4ff 100%);
-  --gradient-action: linear-gradient(135deg, #00a8e8 0%, #0086b3 100%);
+  --gradient-primary: linear-gradient(135deg, #003d7a 0%, #1e5a96 100%);
+  --gradient-action: linear-gradient(135deg, #003d7a 0%, #1e3a5f 100%);
   --gradient-success: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
-  --gradient-warning: linear-gradient(135deg, #f57c00 0%, #fbc02d 100%);
+  --gradient-warning: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
   
   /* الظلال - لعمق 3D الدقيق */
   --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.08);

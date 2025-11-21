@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { procurementAPI } from '../api';
+import { formatDate } from '../utils/dateFormatter';
 import EnhancedTable from '../components/EnhancedTable';
 import { setPageTitle } from '../utils/pageTitle';
 
@@ -60,7 +61,7 @@ export default function TenderList() {
             { header: 'Entreprise', accessor: 'buyer_name' },
             { header: 'Budget', accessor: 'budget_min' },
             { header: 'Date limite', accessor: 'deadline', 
-              render: (val) => new Date(val).toLocaleDateString('fr-FR') 
+              render: (val) => formatDate(val)
             },
             { header: 'Statut', accessor: 'status' },
           ]}

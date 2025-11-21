@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { procurementAPI } from '../api';
+import { formatDate, parseDate } from '../utils/dateFormatter';
 import { setPageTitle } from '../utils/pageTitle';
 import '../styles/corporate-design.css';
 import '../styles/tables-dense.css';
@@ -38,8 +39,8 @@ export default function BuyerActiveTenders() {
   );
 
   const sortedTenders = [...filteredTenders].sort((a, b) => {
-    if (sortBy === 'created_at') return new Date(b.created_at) - new Date(a.created_at);
-    if (sortBy === 'deadline') return new Date(a.deadline) - new Date(b.deadline);
+    if (sortBy === 'created_at') return parseDate(b.created_at) - parseDate(a.created_at);
+    if (sortBy === 'deadline') return parseDate(a.deadline) - parseDate(b.deadline);
     if (sortBy === 'budget') return (b.budget_max || 0) - (a.budget_max || 0);
     return 0;
   });
@@ -144,11 +145,11 @@ export default function BuyerActiveTenders() {
                 <div className="tender-dates">
                   <div className="date-item">
                     <label>Date limite:</label>
-                    <span>{new Date(tender.deadline).toLocaleDateString('fr-FR')}</span>
+                    <span>{formatDate(tender.deadline)}</span>
                   </div>
                   <div className="date-item">
                     <label>Créé le:</label>
-                    <span>{new Date(tender.created_at).toLocaleDateString('fr-FR')}</span>
+                    <span>{formatDate(tender.created_at)}</span>
                   </div>
                 </div>
 

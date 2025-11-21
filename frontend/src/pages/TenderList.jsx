@@ -2,12 +2,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { procurementAPI } from '../api';
 import EnhancedTable from '../components/EnhancedTable';
+import { setPageTitle } from '../utils/pageTitle';
 
 export default function TenderList() {
   const navigate = useNavigate();
   const [tenders, setTenders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    setPageTitle('Appels d\'Offres');
+  }, []);
 
   useEffect(() => {
     fetchTenders();

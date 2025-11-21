@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useToastContext } from '../contexts/ToastContext';
 import { authAPI } from '../api';
+import { setPageTitle } from '../utils/pageTitle';
 
 export default function Login() {
   const { t } = useTranslation();
@@ -11,6 +12,10 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setPageTitle('Connexion Sécurisée');
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

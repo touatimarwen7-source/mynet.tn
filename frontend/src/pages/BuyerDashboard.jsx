@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { procurementAPI } from '../api';
+import { setPageTitle } from '../utils/pageTitle';
 
 export default function BuyerDashboard() {
   const [stats, setStats] = useState({
@@ -10,6 +11,10 @@ export default function BuyerDashboard() {
   });
   const [recentTenders, setRecentTenders] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setPageTitle('Tableau de Bord Acheteur');
+  }, []);
 
   useEffect(() => {
     fetchDashboardData();

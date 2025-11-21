@@ -2,11 +2,16 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { procurementAPI } from '../api';
 import { useToastContext } from '../contexts/ToastContext';
+import { setPageTitle } from '../utils/pageTitle';
 
 export default function CreateOffer() {
   const { tenderId } = useParams();
   const navigate = useNavigate();
   const { addToast } = useToastContext();
+
+  useEffect(() => {
+    setPageTitle('Soumission d\'Offre Sécurisée');
+  }, []);
   const [tender, setTender] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);

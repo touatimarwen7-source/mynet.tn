@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../api';
+import { setPageTitle } from '../utils/pageTitle';
 
 export default function Register() {
+  useEffect(() => {
+    setPageTitle('Inscription');
+  }, []);
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',

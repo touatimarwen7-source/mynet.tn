@@ -1,0 +1,195 @@
+/* ========================================
+   MyNet.tn - Modern Premium Color System
+   Système de couleurs moderne et premium
+   ======================================== */
+
+:root {
+  /* Couleurs Primaires - Premium & Modern */
+  --color-primary-dark: #0d2849;          /* Bleu très foncé (confiance) */
+  --color-primary-main: #1f5a8f;          /* Bleu principal (professionnel) */
+  --color-primary-light: #2d7db8;         /* Bleu clair (approche) */
+  --color-primary-lighter: #e3f2fd;       /* Bleu très clair (fond) */
+  
+  /* Couleurs d'Action - Accent Moderne */
+  --color-action: #0288d1;                /* Cyan brillant (CTA) */
+  --color-action-hover: #0277bd;          /* Cyan foncé (survol) */
+  --color-action-light: #81d4fa;          /* Cyan très clair */
+  
+  /* Teintes Vertes - Succès & Growth */
+  --color-success: #00a854;               /* Vert premium */
+  --color-success-light: #d4f4dd;         /* Vert clair */
+  --color-success-subtle: #e8f5e9;        /* Vert très clair */
+  
+  /* Teintes Oranges - Attention & Warning */
+  --color-warning: #f57c00;               /* Orange vif */
+  --color-warning-light: #ffe0b2;         /* Orange clair */
+  --color-warning-subtle: #fff3e0;        /* Orange très clair */
+  
+  /* Teintes Rouges - Erreur & Danger */
+  --color-error: #d32f2f;                 /* Rouge premium */
+  --color-error-light: #ffcdd2;           /* Rouge clair */
+  --color-error-subtle: #ffebee;          /* Rouge très clair */
+  
+  /* Informations - Neutre */
+  --color-info: #1565c0;                  /* Bleu info */
+  --color-info-light: #bbdefb;            /* Bleu clair info */
+  --color-info-subtle: #e3f2fd;           /* Bleu très clair info */
+  
+  /* Gris Modernes - Texte & Arrière-plan */
+  --color-grey-darkest: #1a1a1a;          /* Presque noir */
+  --color-grey-dark: #2c3e50;             /* Gris foncé */
+  --color-grey-medium: #607d8b;           /* Gris moyen */
+  --color-grey-light: #bdbdbd;            /* Gris clair */
+  --color-grey-lighter: #f5f5f5;          /* Gris très clair */
+  --color-grey-lightest: #fafafa;         /* Quasi blanc */
+  --color-white: #ffffff;                 /* Blanc pur */
+  
+  /* Gradients Premium */
+  --gradient-primary: linear-gradient(135deg, #0d2849 0%, #1f5a8f 50%, #0288d1 100%);
+  --gradient-action: linear-gradient(135deg, #0288d1 0%, #00bcd4 100%);
+  --gradient-success: linear-gradient(135deg, #00a854 0%, #26c281 100%);
+  --gradient-warning: linear-gradient(135deg, #f57c00 0%, #ffa726 100%);
+  --gradient-error: linear-gradient(135deg, #d32f2f 0%, #ef5350 100%);
+  --gradient-night: linear-gradient(135deg, #0d2849 0%, #1a3a52 100%);
+  
+  /* Ombres Sophistiquées */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 8px rgba(2, 136, 209, 0.12);
+  --shadow-lg: 0 8px 16px rgba(2, 136, 209, 0.16);
+  --shadow-xl: 0 12px 24px rgba(2, 136, 209, 0.2);
+  --shadow-2xl: 0 20px 40px rgba(2, 136, 209, 0.25);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  
+  /* Espacements Modernes */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Transitions Fluides */
+  --transition-fast: 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-normal: 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-slow: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Bordures Modernes */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-color: #e0e0e0;
+  --border-color-light: #f0f0f0;
+  
+  /* Tailles de police */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  
+  /* Poids de police */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+/* Dark Mode Palette */
+[data-theme='dark'] {
+  --color-primary-dark: #4db8e8;
+  --color-primary-main: #2d8fb8;
+  --color-primary-light: #1a5a7d;
+  --color-primary-lighter: #1a2a3a;
+  
+  --color-action: #64b5f6;
+  --color-action-hover: #42a5f5;
+  --color-action-light: #1976d2;
+  
+  --color-success: #66bb6a;
+  --color-success-light: #1b5e20;
+  --color-success-subtle: #0d3817;
+  
+  --color-warning: #ffa726;
+  --color-warning-light: #e65100;
+  --color-warning-subtle: #bf360c;
+  
+  --color-error: #ef5350;
+  --color-error-light: #b71c1c;
+  --color-error-subtle: #7f0000;
+  
+  --color-info: #42a5f5;
+  --color-info-light: #0d47a1;
+  --color-info-subtle: #0d3070;
+  
+  --color-grey-darkest: #f5f5f5;
+  --color-grey-dark: #e0e0e0;
+  --color-grey-medium: #bdbdbd;
+  --color-grey-light: #616161;
+  --color-grey-lighter: #424242;
+  --color-grey-lightest: #2c2c2c;
+  --color-white: #121212;
+  
+  --gradient-primary: linear-gradient(135deg, #4db8e8 0%, #2d8fb8 50%, #1976d2 100%);
+  --gradient-action: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+  --gradient-success: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+  --gradient-warning: linear-gradient(135deg, #ffa726 0%, #ff9800 100%);
+  --gradient-error: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+  
+  --shadow-xs: 0 1px 2px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 2px 4px rgba(255, 255, 255, 0.08);
+  --shadow-md: 0 4px 8px rgba(100, 181, 246, 0.12);
+  --shadow-lg: 0 8px 16px rgba(100, 181, 246, 0.16);
+  --shadow-xl: 0 12px 24px rgba(100, 181, 246, 0.2);
+  
+  --border-color: #424242;
+  --border-color-light: #303030;
+}
+
+/* Animations Globales */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

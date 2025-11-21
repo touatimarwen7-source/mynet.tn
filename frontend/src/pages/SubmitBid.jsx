@@ -462,101 +462,6 @@ export default function SubmitBid() {
           </div>
         </div>
       )}
-                type="number" 
-                value={bidData.price}
-                onChange={(e) => setBidData({...bidData, price: e.target.value})}
-                placeholder="أدخل السعر"
-                required
-              />
-              <select 
-                value={bidData.currency}
-                onChange={(e) => setBidData({...bidData, currency: e.target.value})}
-              >
-                <option value="TND">د.ت</option>
-                <option value="USD">$</option>
-                <option value="EUR">€</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>وقت التسليم:</label>
-            <input 
-              type="number" 
-              value={bidData.deliveryTime}
-              onChange={(e) => setBidData({...bidData, deliveryTime: e.target.value})}
-              placeholder="عدد الأيام"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>الملاحظات:</label>
-            <textarea 
-              value={bidData.description}
-              onChange={(e) => setBidData({...bidData, description: e.target.value})}
-              placeholder="ملاحظات إضافية"
-              rows={4}
-            />
-          </div>
-
-          <button type="submit" className="btn btn-primary">
-            {isEncrypted ? '✓ تم التشفير' : 'تقديم العرض'}
-          </button>
-        </form>
-
-        {/* الشريط الجانبي - الأمان والأهلية */}
-        <div className="bid-sidebar">
-          {/* Time Sync Indicator */}
-          <div className="sync-indicator">
-            <h3>تزامن الوقت</h3>
-            <div className={`sync-status ${timeSyncStatus}`}>
-              <span className="indicator-dot"></span>
-              {timeSyncStatus === 'synced' ? 'متزامن مع الخادم' : 'غير متزامن'}
-            </div>
-            <p className="timestamp">الوقت الحالي: {new Date().toLocaleTimeString('ar-TN')}</p>
-          </div>
-
-          {/* Encrypted Bid Message */}
-          <div className="encryption-status">
-            <h3>حالة التشفير</h3>
-            <div className={`status ${isEncrypted ? 'encrypted' : 'pending'}`}>
-              {isEncrypted ? (
-                <>
-                  <span className="icon">🔒</span>
-                  <p>تم تشفير العرض بنجاح</p>
-                  <p className="detail">استخدام AES-256-GCM</p>
-                </>
-              ) : (
-                <>
-                  <span className="icon">🔓</span>
-                  <p>سيتم التشفير عند التقديم</p>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Eligibility Visualizer */}
-          <div className="eligibility-visualizer">
-            <h3>اكتمال الملف</h3>
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill" 
-                  style={{width: `${eligibility.complete}%`}}
-                ></div>
-              </div>
-              <p className="percentage">{eligibility.complete}%</p>
-            </div>
-            <div className="eligibility-checklist">
-              <div className="check-item complete">✓ التوثيق الأساسي</div>
-              <div className="check-item complete">✓ الرخصة التجارية</div>
-              <div className="check-item pending">○ شهادة ISO</div>
-              <div className="check-item pending">○ شهادة البنك</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -51,6 +51,7 @@ import './styles/pages-modern.css';
 import './styles/animations-modern.css';
 import './styles/responsive-modern.css';
 import './styles/professional-formatting.css';
+import './styles/financial-corporate.css';
 import './styles/unified-theme.css';
 import './App.css';
 
@@ -265,3 +266,5 @@ export default App;
 // <LanguageSwitcher />
 
 /* Added imports in main App.jsx */
+// Financial corporate styling import (add at end of imports if not present)
+// Already added in CSS imports

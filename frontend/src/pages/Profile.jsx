@@ -67,7 +67,7 @@ export default function Profile({ user }) {
       const response = await authAPI.updateProfile(formData);
       setProfile(response.data.user);
       setEditing(false);
-      setSuccess('Profil mis à jour avec succès ✔');
+      setSuccess('Profil mis à jour avec succès');
     } catch (err) {
       setError(err.response?.data?.error || 'Erreur lors de la mise à jour du profil');
     } finally {
@@ -152,7 +152,7 @@ export default function Profile({ user }) {
                 </div>
                 <div className="profile-header-info">
                   <h2 className="profile-name">{profile.full_name || profile.username}</h2>
-                  <p className="profile-role">{profile.role === 'buyer' ? '👤 Acheteur' : profile.role === 'supplier' ? '🏢 Fournisseur' : '⚙️ Administrateur'}</p>
+                  <p className="profile-role">{profile.role === 'buyer' ? 'Acheteur' : profile.role === 'supplier' ? 'Fournisseur' : 'Administrateur'}</p>
                 </div>
               </div>
 
@@ -160,15 +160,15 @@ export default function Profile({ user }) {
                 {/* Personal Information */}
                 <div className="info-group">
                   <div className="info-item">
-                    <label className="info-label">📧 Adresse Email</label>
+                    <label className="info-label">Adresse Email</label>
                     <p className="info-value">{profile.email}</p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">👤 Nom d'utilisateur</label>
+                    <label className="info-label">Nom d'Utilisateur</label>
                     <p className="info-value">{profile.username}</p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">📱 Numéro de Téléphone</label>
+                    <label className="info-label">Numéro de Téléphone</label>
                     <p className="info-value">{profile.phone || '—'}</p>
                   </div>
                 </div>
@@ -176,20 +176,20 @@ export default function Profile({ user }) {
                 {/* Company Information */}
                 <div className="info-group">
                   <div className="info-item">
-                    <label className="info-label">🏢 Entreprise</label>
+                    <label className="info-label">Raison Sociale</label>
                     <p className="info-value">{profile.company_name || '—'}</p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">📜 Enregistrement</label>
+                    <label className="info-label">Numéro d'Enregistrement</label>
                     <p className="info-value">{profile.company_registration || '—'}</p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">✔ Vérification</label>
+                    <label className="info-label">Statut de Vérification</label>
                     <div className="info-value">
                       {profile.is_verified ? (
-                        <span className="badge badge-success">✔ Vérifié</span>
+                        <span className="badge badge-success">Vérifié</span>
                       ) : (
-                        <span className="badge badge-warning">⏳ En attente</span>
+                        <span className="badge badge-warning">En Attente de Vérification</span>
                       )}
                     </div>
                   </div>
@@ -198,11 +198,11 @@ export default function Profile({ user }) {
                 {/* Account Information */}
                 <div className="info-group">
                   <div className="info-item">
-                    <label className="info-label">📅 Créé le</label>
+                    <label className="info-label">Date de Création</label>
                     <p className="info-value">{new Date(profile.created_at).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                   </div>
                   <div className="info-item">
-                    <label className="info-label">🔄 Mis à jour</label>
+                    <label className="info-label">Dernière Modification</label>
                     <p className="info-value">{new Date(profile.updated_at || profile.created_at).toLocaleDateString('fr-FR')}</p>
                   </div>
                 </div>
@@ -211,9 +211,9 @@ export default function Profile({ user }) {
 
             {/* Activity Section */}
             <div className="profile-section animate-slide-up">
-              <h3 className="section-title">📈 Historique d'Activité</h3>
+              <h3 className="section-title">Historique d'Activité</h3>
               {activity.length === 0 ? (
-                <div className="empty-state">Aucune activité disponible</div>
+                <div className="empty-state">Aucune activité disponible pour le moment</div>
               ) : (
                 <div className="activity-timeline">
                   {activity.slice(0, 5).map((item, idx) => (
@@ -233,7 +233,7 @@ export default function Profile({ user }) {
 
             {/* Interests Section */}
             <div className="profile-section animate-slide-up">
-              <h3 className="section-title">🎯 Domaines d'Intérêt Professionnel</h3>
+              <h3 className="section-title">Secteurs d'Intérêt</h3>
               <div className="interests-container">
                 <div className="interests-list">
                   {interests.length === 0 ? (
@@ -259,7 +259,7 @@ export default function Profile({ user }) {
                     value={newInterest}
                     onChange={(e) => setNewInterest(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && addInterest()}
-                    placeholder="Ajouter un domaine..."
+                    placeholder="Ajouter..."
                     className="form-input"
                   />
                   <button 
@@ -274,7 +274,7 @@ export default function Profile({ user }) {
 
             {/* Search Tools Section */}
             <div className="profile-section animate-slide-up">
-              <h3 className="section-title">⚙️ Outils de Recherche Avancée</h3>
+              <h3 className="section-title">Services Disponibles</h3>
               <div className="tools-grid">
                 <div className="tool-card">
                   <div className="tool-icon">📋</div>
@@ -306,12 +306,12 @@ export default function Profile({ user }) {
             {/* Alerts Section */}
             <div className="profile-section animate-slide-up">
               <div className="alerts-header">
-                <h3 className="section-title">🔔 Système d'Alertes</h3>
+                <h3 className="section-title">Système de Notifications</h3>
                 <button 
                   className="btn btn-primary btn-sm"
                   onClick={() => setShowAlertForm(!showAlertForm)}
                 >
-                  {showAlertForm ? '✕ Fermer' : '➕ Ajouter une Alerte'}
+                  {showAlertForm ? 'Fermer' : 'Créer une Notification'}
                 </button>
               </div>
 
@@ -326,7 +326,7 @@ export default function Profile({ user }) {
                         className="form-input"
                       >
                         <option value="tender">Appels d'Offres Publics</option>
-                        <option value="award"> PrixPrix</option>
+                        <option value="award">Attributions de Marchés</option>
                         <option value="supplier">Nouveaux Fournisseurs</option>
                         <option value="market">Notifications du Marché</option>
                       </select>
@@ -384,7 +384,7 @@ export default function Profile({ user }) {
                 className="btn btn-primary btn-lg hover-lift"
                 onClick={() => setEditing(true)}
               >
-                📝 Modifier votre Profil
+                Modifier votre Profil
               </button>
             </div>
           </>
@@ -396,23 +396,23 @@ export default function Profile({ user }) {
             <form onSubmit={handleSubmit} className="form-container">
               {/* Personal Information Section */}
               <div className="form-section">
-                <h3 className="form-section-title">👤 المعلومات الشخصية</h3>
+                <h3 className="form-section-title">Informations Personnelles</h3>
                 
                 <div className="form-row">
                   <div className="form-group">
-                    <label className="form-label">الاسم الكامل</label>
+                    <label className="form-label">Nom Complet</label>
                     <input
                       type="text"
                       name="full_name"
                       value={formData.full_name || ''}
                       onChange={handleChange}
                       className="form-input"
-                      placeholder="اسمك الكامل"
+                      placeholder="Votre nom complet"
                     />
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">الهاتف</label>
+                    <label className="form-label">Numéro de Téléphone</label>
                     <input
                       type="tel"
                       name="phone"
@@ -427,30 +427,30 @@ export default function Profile({ user }) {
 
               {/* Company Information Section */}
               <div className="form-section">
-                <h3 className="form-section-title">🏢 المعلومات المهنية</h3>
+                <h3 className="form-section-title">Informations Professionnelles</h3>
                 
                 <div className="form-row">
                   <div className="form-group">
-                    <label className="form-label">اسم الشركة</label>
+                    <label className="form-label">Raison Sociale</label>
                     <input
                       type="text"
                       name="company_name"
                       value={formData.company_name || ''}
                       onChange={handleChange}
                       className="form-input"
-                      placeholder="شركتك"
+                      placeholder="Dénomination de votre entreprise"
                     />
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">رقم التسجيل</label>
+                    <label className="form-label">Numéro d'Enregistrement</label>
                     <input
                       type="text"
                       name="company_registration"
                       value={formData.company_registration || ''}
                       onChange={handleChange}
                       className="form-input"
-                      placeholder="الرقم التجاري"
+                      placeholder="Matricule fiscal"
                     />
                   </div>
                 </div>
@@ -474,7 +474,7 @@ export default function Profile({ user }) {
                   className="btn btn-primary"
                   disabled={loading}
                 >
-                  {loading ? '⏳ Traitement en cours...' : '💾 Enregistrer les Modifications'}
+                  {loading ? '⏳ Traitement en cours......' : '💾 Enregistrer les Modifications'}
                 </button>
               </div>
             </form>

@@ -276,7 +276,7 @@ export default function SupplierProfile() {
           <div className="profile-section animate-slide-up">
             <h3 className="section-title">📋 Journal d'Activité</h3>
             {activity.length === 0 ? (
-              <div className="empty-state">Aucune activité disponible</div>
+              <div className="empty-state">Aucune activité disponible pour le moment</div>
             ) : (
               <div className="activity-timeline">
                 {activity.slice(0, 5).map((item, idx) => (

@@ -5,8 +5,13 @@ import {
   Card,
   CardContent,
   Typography,
-  Grid,
+  Stack,
+  Button,
 } from '@mui/material';
+import SecurityIcon from '@mui/icons-material/Security';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import BalanceIcon from '@mui/icons-material/Balance';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function AboutPage() {
@@ -15,134 +20,438 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <Box className="about-page-wrapper">
+    <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '0px' }}>
       {/* Hero Section */}
-      <Box className="about-hero-section">
+      <Box
+        sx={{
+          backgroundColor: '#0056B3',
+          color: '#FFFFFF',
+          paddingY: '80px',
+          textAlign: 'center',
+        }}
+      >
         <Container maxWidth="lg">
-          <Typography variant="h1" className="about-hero-title">
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: '48px',
+              fontWeight: 700,
+              marginBottom: '16px',
+              lineHeight: 1.2,
+            }}
+          >
             À Propos de MyNet.tn
           </Typography>
-          <Typography className="about-hero-subtitle">
-            Transforming Public Procurement in Tunisia
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: '18px',
+              fontWeight: 400,
+              lineHeight: 1.6,
+              maxWidth: '600px',
+              margin: '0 auto',
+            }}
+          >
+            Transforming Public Procurement in Tunisia with Digital Innovation
           </Typography>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" className="about-main-container">
+      {/* Main Content */}
+      <Container maxWidth="lg" sx={{ paddingY: '80px' }}>
         {/* Story Section */}
-        <Box className="about-story-section">
-          <Typography variant="h2" className="about-section-title">
-            📖 Notre Histoire et Vision
+        <Box sx={{ marginBottom: '80px' }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: '36px',
+              fontWeight: 700,
+              color: '#212121',
+              marginBottom: '48px',
+              textAlign: 'center',
+            }}
+          >
+            Notre Histoire et Vision
           </Typography>
 
-          <Grid container spacing={2} className="about-story-grid">
-            <Grid sx={{ flex: 1, minWidth: "0px" }}>
-              <Card className="about-story-card">
-                <CardContent className="about-card-content">
-                  <Typography className="about-card-emoji">⚠️</Typography>
-                  <Typography variant="h4" className="about-card-title">
-                    Le Problème
-                  </Typography>
-                  <Typography className="about-card-text">
-                    En Tunisie, les marchés publics étaient fragilisés par manque de transparence, absence de normes uniformes et risques élevés de collusion.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
+            {/* Problem Card */}
+            <Card
+              sx={{
+                flex: 1,
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E0E0E0',
+                borderRadius: '4px',
+                boxShadow: 'none',
+              }}
+            >
+              <CardContent sx={{ padding: '32px' }}>
+                <Box sx={{ fontSize: '40px', marginBottom: '16px' }}>⚠️</Box>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontSize: '20px',
+                    fontWeight: 600,
+                    color: '#212121',
+                    marginBottom: '12px',
+                  }}
+                >
+                  Le Problème
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: '14px',
+                    color: '#616161',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  En Tunisie, les marchés publics étaient fragilisés par manque
+                  de transparence, absence de normes uniformes et risques élevés
+                  de collusion. Les processus manuels ralentissaient les
+                  décisions.
+                </Typography>
+              </CardContent>
+            </Card>
 
-            <Grid sx={{ flex: 1, minWidth: "0px" }}>
-              <Card className="about-story-card">
-                <CardContent className="about-card-content">
-                  <Typography className="about-card-emoji">✨</Typography>
-                  <Typography variant="h4" className="about-card-title">
-                    Notre Solution
-                  </Typography>
-                  <Typography className="about-card-text">
-                    Une plateforme numérique entièrement sécurisée, transparente et conforme aux standards internationaux utilisant l'IA et la blockchain.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            {/* Solution Card */}
+            <Card
+              sx={{
+                flex: 1,
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E0E0E0',
+                borderRadius: '4px',
+                boxShadow: 'none',
+              }}
+            >
+              <CardContent sx={{ padding: '32px' }}>
+                <Box sx={{ fontSize: '40px', marginBottom: '16px' }}>✨</Box>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontSize: '20px',
+                    fontWeight: 600,
+                    color: '#212121',
+                    marginBottom: '12px',
+                  }}
+                >
+                  Notre Solution
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: '14px',
+                    color: '#616161',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Une plateforme numérique sécurisée, transparente et conforme
+                  aux standards internationaux. Utilisant l'IA, la blockchain
+                  et les technologies modernes pour automatiser et améliorer les
+                  processus.
+                </Typography>
+              </CardContent>
+            </Card>
 
-            <Grid sx={{ flex: 1, minWidth: "0px" }}>
-              <Card className="about-story-card">
-                <CardContent className="about-card-content">
-                  <Typography className="about-card-emoji">🎯</Typography>
-                  <Typography variant="h4" className="about-card-title">
-                    Notre Vision
-                  </Typography>
-                  <Typography className="about-card-text">
-                    Être la plateforme de référence pour la gestion des appels d'offres en Afrique du Nord où chaque entreprise a accès aux mêmes opportunités.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+            {/* Vision Card */}
+            <Card
+              sx={{
+                flex: 1,
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E0E0E0',
+                borderRadius: '4px',
+                boxShadow: 'none',
+              }}
+            >
+              <CardContent sx={{ padding: '32px' }}>
+                <Box sx={{ fontSize: '40px', marginBottom: '16px' }}>🎯</Box>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontSize: '20px',
+                    fontWeight: 600,
+                    color: '#212121',
+                    marginBottom: '12px',
+                  }}
+                >
+                  Notre Vision
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: '14px',
+                    color: '#616161',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Être la plateforme de référence pour la gestion des appels
+                  d'offres en Afrique du Nord où chaque entreprise a accès aux
+                  mêmes opportunités et où la transparence prime.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Stack>
         </Box>
 
         {/* Values Section */}
-        <Box className="about-values-section">
-          <Typography variant="h2" className="about-section-title">
+        <Box sx={{ marginBottom: '80px' }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: '36px',
+              fontWeight: 700,
+              color: '#212121',
+              marginBottom: '48px',
+              textAlign: 'center',
+            }}
+          >
             Nos Valeurs Fondamentales
           </Typography>
 
-          <Grid container spacing={2}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={3}
+            sx={{ flexWrap: 'wrap' }}
+          >
             {[
-              { icon: '🔐', title: 'Sécurité', desc: 'La confiance est notre priorité absolue' },
-              { icon: '👁️', title: 'Transparence', desc: 'Zéro compromis sur la clarté des processus' },
-              { icon: '⚖️', title: 'Équité', desc: 'Égalité des chances pour tous les participants' },
-              { icon: '🚀', title: 'Innovation', desc: 'Technologie de pointe pour un avenir meilleur' },
+              {
+                icon: <SecurityIcon sx={{ fontSize: 40, color: '#0056B3' }} />,
+                title: 'Sécurité',
+                desc: 'La confiance est notre priorité absolue avec chiffrement AES-256 et authentification 2FA',
+              },
+              {
+                icon: <VisibilityIcon sx={{ fontSize: 40, color: '#0056B3' }} />,
+                title: 'Transparence',
+                desc: 'Zéro compromis sur la clarté des processus avec audit complet et historique complet',
+              },
+              {
+                icon: <BalanceIcon sx={{ fontSize: 40, color: '#0056B3' }} />,
+                title: 'Équité',
+                desc: 'Égalité des chances pour tous les participants dans un environnement juste',
+              },
+              {
+                icon: <LightbulbIcon sx={{ fontSize: 40, color: '#0056B3' }} />,
+                title: 'Innovation',
+                desc: 'Technologie de pointe pour un avenir meilleur et des processus plus efficaces',
+              },
             ].map((value, idx) => (
-              <Grid key={idx} sx={{ flex: { xs: "1 1 100%", sm: "1 1 50%", md: "1 1 25%" } }}>
-                <Card className="about-value-card">
-                  <CardContent className="about-value-content">
-                    <Typography className="about-value-emoji">{value.icon}</Typography>
-                    <Typography variant="h4" className="about-value-title">
+              <Box
+                key={idx}
+                sx={{
+                  flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 9px)' },
+                }}
+              >
+                <Card
+                  sx={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E0E0E0',
+                    borderRadius: '4px',
+                    boxShadow: 'none',
+                    height: '100%',
+                  }}
+                >
+                  <CardContent sx={{ padding: '32px', textAlign: 'center' }}>
+                    <Box sx={{ marginBottom: '16px' }}>{value.icon}</Box>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        color: '#212121',
+                        marginBottom: '8px',
+                      }}
+                    >
                       {value.title}
                     </Typography>
-                    <Typography className="about-value-text">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: '14px',
+                        color: '#616161',
+                        lineHeight: 1.6,
+                      }}
+                    >
                       {value.desc}
                     </Typography>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Stack>
         </Box>
 
         {/* Team Section */}
-        <Box className="about-team-section">
-          <Typography variant="h2" className="about-section-title">
-            👥 L'Équipe Dirigeante
+        <Box sx={{ marginBottom: '80px' }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: '36px',
+              fontWeight: 700,
+              color: '#212121',
+              marginBottom: '48px',
+              textAlign: 'center',
+            }}
+          >
+            L'Équipe Dirigeante
           </Typography>
 
-          <Grid container spacing={2}>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
             {[
-              { name: 'Mohamed Dhaoui', role: 'Fondateur & Directeur Général', bio: 'Entrepreneur tunisien avec 15 ans d\'expérience en technologie' },
-              { name: 'Fatima Belgacem', role: 'Directrice Technique', bio: 'Experte en sécurité informatique et blockchain' },
-              { name: 'Karim Mansouri', role: 'Directeur Juridique', bio: 'Spécialiste des marchés publics et du droit commercial' },
-              { name: 'Leila Saibi', role: 'Directrice du Développement', bio: 'Expert en partenariats publics-privés' },
+              {
+                name: 'Mohamed Dhaoui',
+                role: 'Fondateur & Directeur Général',
+                bio: 'Entrepreneur tunisien avec 15 ans d\'expérience en technologie et innovation digitale',
+              },
+              {
+                name: 'Fatima Belgacem',
+                role: 'Directrice Technique',
+                bio: 'Experte en sécurité informatique, blockchain et architectures distribuées',
+              },
+              {
+                name: 'Karim Mansouri',
+                role: 'Directeur Juridique',
+                bio: 'Spécialiste des marchés publics, droit commercial et conformité réglementaire',
+              },
+              {
+                name: 'Leila Saibi',
+                role: 'Directrice du Développement',
+                bio: 'Expert en partenariats publics-privés et développement d\'affaires stratégique',
+              },
             ].map((member, idx) => (
-              <Grid key={idx} sx={{ flex: { xs: "1 1 100%", md: "1 1 50%" } }}>
-                <Card className="about-team-card">
-                  <CardContent className="about-team-content">
-                    <Box className="about-team-avatar">👨‍💼</Box>
-                    <Box className="about-team-info">
-                      <Typography variant="h4" className="about-team-name">
-                        {member.name}
-                      </Typography>
-                      <Typography className="about-team-role">
-                        {member.role}
-                      </Typography>
-                      <Typography className="about-team-bio">
-                        {member.bio}
-                      </Typography>
+              <Box key={idx} sx={{ flex: 1 }}>
+                <Card
+                  sx={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E0E0E0',
+                    borderRadius: '4px',
+                    boxShadow: 'none',
+                  }}
+                >
+                  <CardContent sx={{ padding: '32px' }}>
+                    <Box
+                      sx={{
+                        fontSize: '48px',
+                        marginBottom: '16px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      👨‍💼
                     </Box>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        color: '#212121',
+                        marginBottom: '4px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {member.name}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: '13px',
+                        color: '#0056B3',
+                        fontWeight: 600,
+                        marginBottom: '12px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {member.role}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: '14px',
+                        color: '#616161',
+                        lineHeight: 1.6,
+                        textAlign: 'center',
+                      }}
+                    >
+                      {member.bio}
+                    </Typography>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Stack>
+        </Box>
+
+        {/* CTA Section */}
+        <Box
+          sx={{
+            backgroundColor: '#0056B3',
+            borderRadius: '4px',
+            padding: '48px',
+            textAlign: 'center',
+            color: '#FFFFFF',
+          }}
+        >
+          <Typography
+            variant="h3"
+            sx={{
+              fontSize: '28px',
+              fontWeight: 700,
+              marginBottom: '16px',
+            }}
+          >
+            Prêt à Rejoindre la Révolution?
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: '16px',
+              marginBottom: '32px',
+              lineHeight: 1.6,
+            }}
+          >
+            Rejoignez des centaines d'organisations qui font confiance à MyNet.tn
+            pour transformer leurs processus d'approvisionnement
+          </Typography>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            justifyContent="center"
+          >
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#FFFFFF',
+                color: '#0056B3',
+                fontWeight: 600,
+                padding: '12px 32px',
+                fontSize: '16px',
+                borderRadius: '4px',
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: '#f5f5f5',
+                },
+              }}
+              href="/register?role=buyer"
+            >
+              Je suis Acheteur
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{
+                borderColor: '#FFFFFF',
+                color: '#FFFFFF',
+                fontWeight: 600,
+                padding: '12px 32px',
+                fontSize: '16px',
+                borderRadius: '4px',
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+              href="/register?role=supplier"
+            >
+              Je suis Fournisseur
+            </Button>
+          </Stack>
         </Box>
       </Container>
     </Box>

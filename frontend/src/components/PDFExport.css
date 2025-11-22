@@ -1,21 +1,33 @@
+/* ================================================
+   PDF Export Module - Corporate Design System
+   ================================================ */
+
 .pdf-export {
   display: flex;
-  gap: 10px;
+  gap: 16px;
   flex-wrap: wrap;
   position: relative;
+  margin-bottom: 16px;
 }
 
+/* ================================================
+   Buttons - Corporate Professional
+   ================================================ */
 .btn {
-  padding: 10px 16px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 200ms ease-in-out;
   display: flex;
   align-items: center;
   gap: 8px;
+  min-height: 44px;
+  text-transform: none;
+  letter-spacing: 0px;
 }
 
 .btn:disabled {
@@ -23,24 +35,54 @@
   cursor: not-allowed;
 }
 
+.btn:hover:not(:disabled) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0px);
+}
+
+/* ================================================
+   Button Variants - Corporate Colors
+   ================================================ */
 .btn-primary {
-  background-color: #3498db;
-  color: white;
+  background-color: #1565c0;
+  color: #ffffff;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #2980b9;
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  background-color: #0d47a1;
+  box-shadow: 0 4px 8px rgba(21, 101, 192, 0.2);
+}
+
+.btn-primary:active:not(:disabled) {
+  background-color: #0d47a1;
 }
 
 .btn-secondary {
-  background-color: #95a5a6;
-  color: white;
+  background-color: #616161;
+  color: #ffffff;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: #7f8c8d;
-  box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3);
+  background-color: #424242;
+  box-shadow: 0 4px 8px rgba(97, 97, 97, 0.2);
+}
+
+.btn-secondary:active:not(:disabled) {
+  background-color: #424242;
+}
+
+.btn-success {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #1b5e20;
+  box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2);
 }
 
 .btn-export,
@@ -49,11 +91,19 @@
   justify-content: center;
 }
 
+/* ================================================
+   Icon Styling
+   ================================================ */
 .icon {
   font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Loading Indicator */
+/* ================================================
+   Loading Overlay
+   ================================================ */
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -66,11 +116,12 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .spinner {
   border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid white;
+  border-top: 4px solid #ffffff;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -79,59 +130,141 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-overlay p {
-  color: white;
-  font-size: 16px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
   margin-top: 10px;
+  margin-bottom: 0;
+  text-align: center;
 }
 
+/* ================================================
+   Error Message - Corporate Error Color
+   ================================================ */
 .error-message {
-  background-color: #e74c3c;
-  color: white;
+  background-color: #ffebee;
+  color: #c62828;
   padding: 12px 16px;
-  border-radius: 6px;
-  margin-bottom: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
+  font-weight: 400;
   width: 100%;
   text-align: left;
   direction: ltr;
+  border: 1px solid #c62828;
+  border-left: 4px solid #c62828;
+  box-sizing: border-box;
 }
 
-/* طباعة */
+.error-message strong {
+  font-weight: 600;
+  color: #ad1457;
+}
+
+/* ================================================
+   Success Message
+   ================================================ */
+.success-message {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  width: 100%;
+  text-align: left;
+  direction: ltr;
+  border: 1px solid #2e7d32;
+  border-left: 4px solid #2e7d32;
+  box-sizing: border-box;
+}
+
+/* ================================================
+   Print Media - Professional Printing
+   ================================================ */
 @media print {
   .pdf-export,
   .btn,
   .loading-overlay,
-  .error-message {
+  .error-message,
+  .success-message,
+  .no-print,
+  .no-print-block {
     display: none !important;
   }
 
   body {
-    background: white;
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
 
   .container {
-    box-shadow: none;
-    padding: 0;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+  }
+
+  p {
+    page-break-inside: avoid;
+  }
+
+  table {
+    page-break-inside: avoid;
   }
 }
 
-/* Responsive */
+/* ================================================
+   Responsive Design - Mobile First
+   ================================================ */
 @media (max-width: 768px) {
   .pdf-export {
     flex-direction: column;
+    gap: 12px;
   }
 
   .btn {
     width: 100%;
+    padding: 14px 16px;
+  }
+
+  .btn-export,
+  .btn-print {
+    min-width: auto;
   }
 
   .spinner {
     width: 40px;
     height: 40px;
+  }
+
+  .loading-overlay p {
+    font-size: 13px;
+  }
+
+  .error-message,
+  .success-message {
+    font-size: 13px;
+    padding: 10px 14px;
   }
 }

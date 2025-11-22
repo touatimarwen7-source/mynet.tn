@@ -72,6 +72,16 @@ The platform utilizes a React frontend (Vite) and a Node.js backend with a Postg
   - Automatic role-based access control
   - Redirects non-buyers to tenders page
 
+- **Frontend Pages**: 
+  - `/direct-supply-request` - Create new supply request (Buyers)
+  - `/my-supply-requests` - View sent requests (Buyers)
+  - `/supplier-requests` - View received requests (Suppliers)
+
+- **Pages Details**:
+  - **DirectSupplyRequest.jsx**: 4-step wizard for creating requests
+  - **MySupplyRequests.jsx**: Table view of buyer's sent requests with filtering
+  - **SupplierRequests.jsx**: Table view of supplier's received requests with accept/reject actions
+
 ### Features
 - ✅ Step-by-step form wizard for easy navigation
 - ✅ Real-time validation of required fields

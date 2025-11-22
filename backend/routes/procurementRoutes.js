@@ -108,17 +108,6 @@ router.patch('/invoices/:id/paid',
     InvoiceController.markAsPaid.bind(InvoiceController)
 );
 
-// Reviews
-router.post('/reviews', 
-    AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
-    AuthorizationGuard.requirePermission(Permissions.CREATE_REVIEW).bind(AuthorizationGuard),
-    ReviewController.createReview.bind(ReviewController)
-);
-
-router.get('/reviews/user/:userId', 
-    ReviewController.getUserReviews.bind(ReviewController)
-);
-
 // Tender Award - Partial/Multi-Supplier Award
 router.post('/tenders/:tenderId/award/initialize',
     AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),

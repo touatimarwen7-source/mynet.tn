@@ -213,6 +213,11 @@ export default function ServicesManager() {
           startIcon={<AddIcon />}
           sx={{ backgroundColor: '#0056B3' }}
           disabled={saving}
+          onClick={() => {
+            setEditingPlan(null);
+            setPlanForm({ name: '', description: '', price: 0, duration_days: 30 });
+            setOpenPlanDialog(true);
+          }}
         >
           خطة جديدة
         </Button>
@@ -248,10 +253,39 @@ export default function ServicesManager() {
                   }}
                 />
                 <Box sx={{ display: 'flex', gap: 1 }}>
-                  <Button size="small" startIcon={<EditIcon />} variant="outlined" sx={{ flex: 1 }}>
+                  <Button 
+                    size="small" 
+                    startIcon={<EditIcon />} 
+                    variant="outlined" 
+                    sx={{ flex: 1 }}
+                    onClick={() => {
+                      setEditingPlan(plan);
+                      setPlanForm({
+                        name: plan.name,
+                        description: plan.description || '',
+                        price: plan.price || 0,
+                        duration_days: plan.duration_days || 30
+                      });
+                      setOpenPlanDialog(true);
+                    }}
+                    disabled={saving}
+                  >
                     تعديل
                   </Button>
-                  <Button size="small" startIcon={<DeleteIcon />} variant="outlined" sx={{ flex: 1, color: '#C62828', borderColor: '#C62828' }}>
+                  <Button 
+                    size="small" 
+                    startIcon={<DeleteIcon />} 
+                    variant="outlined" 
+                    sx={{ flex: 1, color: '#C62828', borderColor: '#C62828' }}
+                    onClick={() => {
+                      if (window.confirm(`هل تريد حذف الخطة "${plan.name}"؟`)) {
+                        setPlans(plans.filter(p => p.id !== plan.id));
+                        setSuccessMsg('تم حذف الخطة');
+                        setTimeout(() => setSuccessMsg(''), 3000);
+                      }
+                    }}
+                    disabled={saving}
+                  >
                     حذف
                   </Button>
                 </Box>

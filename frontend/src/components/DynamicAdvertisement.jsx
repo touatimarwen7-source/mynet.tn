@@ -27,7 +27,11 @@ export default function DynamicAdvertisement() {
           <Typography variant="body2" sx={{ fontSize: '14px', color: '#616161', marginBottom: '16px' }}>
             {ad.message}
           </Typography>
-          <Button variant="contained" sx={{ backgroundColor: '#0056B3', color: '#FFFFFF' }}>
+          <Button 
+            variant="contained" 
+            sx={{ backgroundColor: '#0056B3', color: '#FFFFFF' }}
+            onClick={() => console.log('CTA clicked:', ad.title)}
+          >
             {ad.cta}
           </Button>
 

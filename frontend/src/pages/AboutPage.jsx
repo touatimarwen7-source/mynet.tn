@@ -36,7 +36,7 @@ export default function AboutPage() {
           </Typography>
 
           <Grid container spacing={2} className="about-story-grid">
-            <Grid item xs={12} md={4}>
+            <Grid sx={{ flex: 1, minWidth: "0px" }}>
               <Card className="about-story-card">
                 <CardContent className="about-card-content">
                   <Typography className="about-card-emoji">⚠️</Typography>
@@ -50,7 +50,7 @@ export default function AboutPage() {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid sx={{ flex: 1, minWidth: "0px" }}>
               <Card className="about-story-card">
                 <CardContent className="about-card-content">
                   <Typography className="about-card-emoji">✨</Typography>
@@ -64,7 +64,7 @@ export default function AboutPage() {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid sx={{ flex: 1, minWidth: "0px" }}>
               <Card className="about-story-card">
                 <CardContent className="about-card-content">
                   <Typography className="about-card-emoji">🎯</Typography>
@@ -93,7 +93,7 @@ export default function AboutPage() {
               { icon: '⚖️', title: 'Équité', desc: 'Égalité des chances pour tous les participants' },
               { icon: '🚀', title: 'Innovation', desc: 'Technologie de pointe pour un avenir meilleur' },
             ].map((value, idx) => (
-              <Grid item xs={12} sm={6} md={3} key={idx}>
+              <Grid key={idx} sx={{ flex: { xs: "1 1 100%", sm: "1 1 50%", md: "1 1 25%" } }}>
                 <Card className="about-value-card">
                   <CardContent className="about-value-content">
                     <Typography className="about-value-emoji">{value.icon}</Typography>
@@ -123,7 +123,7 @@ export default function AboutPage() {
               { name: 'Karim Mansouri', role: 'Directeur Juridique', bio: 'Spécialiste des marchés publics et du droit commercial' },
               { name: 'Leila Saibi', role: 'Directrice du Développement', bio: 'Expert en partenariats publics-privés' },
             ].map((member, idx) => (
-              <Grid item xs={12} md={6} key={idx}>
+              <Grid key={idx} sx={{ flex: { xs: "1 1 100%", md: "1 1 50%" } }}>
                 <Card className="about-team-card">
                   <CardContent className="about-team-content">
                     <Box className="about-team-avatar">👨‍💼</Box>

@@ -245,7 +245,9 @@ export default function Sidebar({ user, onLogout }) {
     switch (user?.role) {
       case 'buyer': return buyerMenu;
       case 'supplier': return supplierMenu;
-      case 'admin': return adminMenu;
+      case 'admin':
+      case 'super_admin': // Support both 'admin' and 'super_admin' roles
+        return adminMenu;
       default: return [];
     }
   };
@@ -281,7 +283,7 @@ export default function Sidebar({ user, onLogout }) {
               {user?.email || 'Utilisateur'}
             </Typography>
             <Typography variant="caption" sx={{ color: '#616161' }}>
-              {user?.role === 'buyer' ? 'Acheteur' : user?.role === 'supplier' ? 'Fournisseur' : 'Admin'}
+              {user?.role === 'buyer' ? 'Acheteur' : user?.role === 'supplier' ? 'Fournisseur' : user?.role === 'super_admin' ? 'Super Admin' : 'Admin'}
             </Typography>
           </Box>
         </Box>

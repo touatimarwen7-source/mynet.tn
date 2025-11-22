@@ -1,5 +1,5 @@
 entrypoint = "index.js"
-modules = ["nodejs-20", "web", "bash"]
+modules = ["nodejs-20", "web", "bash", "postgresql-16"]
 hidden = [".config", "package-lock.json"]
 
 [gitHubImport]
@@ -46,7 +46,7 @@ localPort = 35021
 externalPort = 4200
 
 [[ports]]
-localPort = 37141
+localPort = 38537
 externalPort = 6000
 
 [[ports]]

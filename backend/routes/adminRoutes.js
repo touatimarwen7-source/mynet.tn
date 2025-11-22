@@ -3,9 +3,9 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// جميع مسارات الإدارة محمية - admin فقط
+// جميع مسارات الإدارة محمية - admin و super_admin
 router.use(authMiddleware.verifyToken);
-router.use(authMiddleware.checkRole(['admin']));
+router.use(authMiddleware.checkRole(['admin', 'super_admin']));
 
 // ===== لوحة التحكم =====
 router.get('/health', adminController.getHealthDashboard);
@@ -20,16 +20,41 @@ router.post('/users/:id/block', adminController.blockUser);
 router.post('/users/:id/unblock', adminController.unblockUser);
 router.post('/users/:id/reset-password', adminController.resetUserPassword);
 
-// ===== إدارة المحتوى الثابت =====
+// ===== إدارة المحتوى الثابت والصفحات والملفات =====
+// الصفحات الثابتة (تحرير كامل)
 router.get('/content/pages', adminController.getAllPages);
 router.get('/content/pages/:id', adminController.getPageById);
-router.put('/content/pages/:id', adminController.updatePage);
 router.post('/content/pages', adminController.createPage);
+router.put('/content/pages/:id', adminController.updatePage);
+router.patch('/content/pages/:id', adminController.updatePagePartial);
 router.delete('/content/pages/:id', adminController.deletePage);
 
+// الملفات والصور والوثائق
 router.get('/content/files', adminController.getAllFiles);
+router.get('/content/media', adminController.getAllMedia);
 router.post('/content/files', adminController.uploadFile);
+router.post('/content/files/bulk', adminController.uploadBulkFiles);
+router.put('/content/files/:id', adminController.updateFileMetadata);
 router.delete('/content/files/:id', adminController.deleteFile);
+router.delete('/content/files/bulk', adminController.deleteBulkFiles);
+
+// الصور (محسّنة)
+router.get('/content/images', adminController.getAllImages);
+router.post('/content/images', adminController.uploadImage);
+router.put('/content/images/:id', adminController.updateImage);
+router.delete('/content/images/:id', adminController.deleteImage);
+
+// الوثائق والمستندات
+router.get('/content/documents', adminController.getAllDocuments);
+router.post('/content/documents', adminController.uploadDocument);
+router.put('/content/documents/:id', adminController.updateDocument);
+router.delete('/content/documents/:id', adminController.deleteDocument);
+
+// إدارة المحتوى المتقدمة
+router.post('/content/sync', adminController.syncContent);
+router.get('/content/stats', adminController.getContentStats);
+router.post('/content/backup', adminController.backupContent);
+router.post('/content/restore', adminController.restoreContent);
 
 // ===== إعدادات النظام =====
 router.get('/config', adminController.getSystemConfig);

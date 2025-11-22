@@ -46,7 +46,7 @@ export default function AboutPage() {
 
           <Grid container spacing={2} sx={{ marginBottom: '40px' }}>
             <Grid item xs={12} md={4}>
-              <Card sx={{ height: '100%', border: '1px solid #e0e0e0', transition: 'all 0.3s', '&:hover': { boxShadow: '0 8px 16px rgba(0,0,0,0.1)' } }}>
+              <Card sx={{ height: '100%', border: '1px solid #e0e0e0', transition: 'all 0.3s', '&:hover': { boxShadow: 'none' } }}>
                 <CardContent sx={{ padding: '32px' }}>
                   <Typography sx={{ fontSize: '48px', marginBottom: '16px', textAlign: 'center' }}>⚠️</Typography>
                   <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
@@ -60,7 +60,7 @@ export default function AboutPage() {
             </Grid>
 
             <Grid item xs={12} md={4}>
-              <Card sx={{ height: '100%', border: '1px solid #e0e0e0', transition: 'all 0.3s', '&:hover': { boxShadow: '0 8px 16px rgba(0,0,0,0.1)' } }}>
+              <Card sx={{ height: '100%', border: '1px solid #e0e0e0', transition: 'all 0.3s', '&:hover': { boxShadow: 'none' } }}>
                 <CardContent sx={{ padding: '32px' }}>
                   <Typography sx={{ fontSize: '48px', marginBottom: '16px', textAlign: 'center' }}>✨</Typography>
                   <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
@@ -74,7 +74,7 @@ export default function AboutPage() {
             </Grid>
 
             <Grid item xs={12} md={4}>
-              <Card sx={{ height: '100%', border: '1px solid #e0e0e0', transition: 'all 0.3s', '&:hover': { boxShadow: '0 8px 16px rgba(0,0,0,0.1)' } }}>
+              <Card sx={{ height: '100%', border: '1px solid #e0e0e0', transition: 'all 0.3s', '&:hover': { boxShadow: 'none' } }}>
                 <CardContent sx={{ padding: '32px' }}>
                   <Typography sx={{ fontSize: '48px', marginBottom: '16px', textAlign: 'center' }}>🎯</Typography>
                   <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>

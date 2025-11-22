@@ -46,7 +46,7 @@ export default function ToastNotification({ id, message, type = 'info', duration
         severity={severityMap[type] || 'info'}
         sx={{
           minWidth: '300px',
-          boxShadow: '0 4px 8px rgba(0,0,0,0.12)'
+          boxShadow: 'none'
         }}
       >
         {message}

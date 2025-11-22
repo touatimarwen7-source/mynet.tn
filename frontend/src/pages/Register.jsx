@@ -96,7 +96,7 @@ export default function Register() {
   return (
     <Box sx={{ backgroundColor: '#fafafa', minHeight: '100vh', paddingY: '60px' }}>
       <Container maxWidth="sm">
-        <Card sx={{ borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.12)' }}>
+        <Card sx={{ borderRadius: '8px', boxShadow: 'none' }}>
           <CardContent sx={{ padding: '48px 40px' }}>
             {/* Header */}
             <Box sx={{ textAlign: 'center', marginBottom: '32px' }}>

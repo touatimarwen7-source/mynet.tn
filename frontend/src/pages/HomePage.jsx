@@ -169,7 +169,7 @@ export default function HomePage() {
                   height: '100%',
                   border: selectedRole === role.id ? '2px solid #0056B3' : '1px solid #e0e0e0',
                   borderRadius: '8px',
-                  boxShadow: selectedRole === role.id ? '0 8px 16px rgba(21, 101, 192, 0.15)' : '0 1px 3px rgba(0, 0, 0, 0.08)',
+                  boxShadow: 'none',
                   transition: 'all 300ms ease-in-out',
                   cursor: 'pointer',
                   '&:hover': {
@@ -392,7 +392,7 @@ export default function HomePage() {
                   transition: 'all 200ms ease-in-out',
                   '&:hover': {
                     borderColor: '#0056B3',
-                    boxShadow: '0 8px 16px rgba(21, 101, 192, 0.1)',
+                    boxShadow: 'none',
                     transform: 'translateY(-4px)',
                   },
                 }}

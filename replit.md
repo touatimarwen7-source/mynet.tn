@@ -7,6 +7,11 @@ MyNet.tn is a production-ready B2B procurement platform for the private sector, 
 I prefer simple language and clear explanations. I want iterative development with small, testable changes. Please ask before making any major architectural changes or introducing new dependencies. I prefer that the agent works in the `/frontend` directory and does not make changes in the `/backend` directory.
 
 ## Recent Changes (November 22, 2025)
+- **Role Selection Screen**: Added initial role selection screen at /register showing:
+  - **Compte Acheteur** (Buyer Account) card with benefits and icon
+  - **Compte Fournisseur** (Supplier Account) card with benefits and icon
+  - Clickable cards with hover effects
+  - Clear benefits listed for each account type
 - **Multi-Step Registration Form**: Restructured registration into 3 phases on same page:
   - **Step 1 - Informations Générales**: Username, email, password, full name, phone
   - **Step 2 - Informations de l'Entreprise**: Company name, registration number

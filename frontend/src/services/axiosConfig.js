@@ -1,10 +1,10 @@
 /**
- * Axios Configuration with Security Features
+ * Axios Configuration with Security & Caching Features
  * 
  * - Automatic token injection
  * - Automatic token refresh
  * - CSRF protection headers
- * - Request/Response logging
+ * - Request caching (stale-while-revalidate)
  * - Error handling
  */
 
@@ -12,6 +12,37 @@ import axios from 'axios';
 import TokenManager from './tokenManager';
 
 const API_BASE_URL = '/api';
+
+// ============================================
+// Response Cache
+// ============================================
+const responseCache = new Map();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes default
+
+const getCacheKey = (config) => {
+  return `${config.method}:${config.url}`;
+};
+
+const isCacheValid = (cacheEntry) => {
+  return Date.now() - cacheEntry.timestamp < CACHE_DURATION;
+};
+
+const getCachedResponse = (config) => {
+  const key = getCacheKey(config);
+  const cached = responseCache.get(key);
+  if (cached && isCacheValid(cached)) {
+    return cached.data;
+  }
+  return null;
+};
+
+const setCachedResponse = (config, response) => {
+  const key = getCacheKey(config);
+  responseCache.set(key, {
+    data: response,
+    timestamp: Date.now()
+  });
+};
 
 // Create axios instance
 const axiosInstance = axios.create({
@@ -72,15 +103,30 @@ axiosInstance.interceptors.request.use(
 
 /**
  * Response Interceptor
+ * - Cache successful GET requests
  * - Handle 401 errors
  * - Automatically refresh token
  * - Retry failed requests
  * - Clear tokens on 403 (forbidden)
  */
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Cache GET requests
+    if (response.config.method === 'get') {
+      setCachedResponse(response.config, response);
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
+    
+    // Try to use cache on network error for GET requests
+    if (!error.response && originalRequest.method === 'get') {
+      const cached = getCachedResponse(originalRequest);
+      if (cached) {
+        return Promise.resolve(cached);
+      }
+    }
 
     // Handle 401 Unauthorized
     if (error.response?.status === 401 && !originalRequest._retry) {

@@ -1,4 +1,10 @@
-// Input Validation Utilities
+/**
+ * Input Validation Utilities
+ * - Manual validation functions
+ * - Zod schema validation for forms
+ */
+
+import { z } from 'zod';
 
 export const validation = {
   // Email validation
@@ -103,6 +109,67 @@ export const validation = {
     }
     
     return errors;
+  }
+};
+
+// ============================================
+// Zod Schema Definitions
+// ============================================
+
+export const LoginSchema = z.object({
+  email: z
+    .string()
+    .email('البريد الإلكتروني غير صحيح')
+    .min(1, 'البريد الإلكتروني مطلوب'),
+  password: z
+    .string()
+    .min(8, 'كلمة المرور يجب أن تكون على الأقل 8 أحرف')
+    .regex(/[A-Z]/, 'كلمة المرور يجب أن تحتوي على حرف كبير')
+    .regex(/[0-9]/, 'كلمة المرور يجب أن تحتوي على رقم')
+});
+
+export const RegisterSchema = z.object({
+  email: z
+    .string()
+    .email('البريد الإلكتروني غير صحيح'),
+  password: z
+    .string()
+    .min(8, 'كلمة المرور يجب أن تكون على الأقل 8 أحرف'),
+  confirmPassword: z.string(),
+  companyName: z
+    .string()
+    .min(2, 'اسم الشركة مطلوب'),
+  role: z.enum(['buyer', 'supplier'])
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'كلمات المرور غير متطابقة',
+  path: ['confirmPassword']
+});
+
+export const TenderSchema = z.object({
+  title: z.string().min(5).max(200),
+  description: z.string().min(20).max(5000),
+  budget: z.number().positive(),
+  deadline: z.string(),
+  category: z.string().min(1)
+});
+
+/**
+ * Validate data with Zod schema
+ * Returns { success, data, errors }
+ */
+export const validateWithZod = (schema, data) => {
+  try {
+    const validatedData = schema.parse(data);
+    return { success: true, data: validatedData, errors: null };
+  } catch (error) {
+    if (error.errors) {
+      const errors = error.errors.reduce((acc, err) => {
+        acc[err.path.join('.')] = err.message;
+        return acc;
+      }, {});
+      return { success: false, data: null, errors };
+    }
+    return { success: false, data: null, errors: { general: error.message } };
   }
 };
 

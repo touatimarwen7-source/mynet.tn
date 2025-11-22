@@ -6,6 +6,7 @@ import { Box, CircularProgress, Container } from '@mui/material';
 import institutionalTheme from './theme/theme';
 import AlertStrip from './components/AlertStrip';
 import UnifiedHeader from './components/UnifiedHeader';
+import ErrorBoundary from './components/ErrorBoundary';
 import { setupInactivityTimer } from './utils/security';
 import ToastContainer from './components/ToastContainer';
 import Sidebar from './components/Sidebar';
@@ -139,21 +140,22 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={institutionalTheme}>
-      <CssBaseline />
-      <DarkModeProvider>
-        <ToastContext.Provider value={{ addToast }}>
-          <Router>
-          <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-          <AlertStrip />
-          <UnifiedHeader />
-          <ToastContainer toasts={toasts} removeToast={removeToast} />
-        
-        {/* Sidebar Navigation - Only for authenticated users */}
-        {user && <Sidebar user={user} onLogout={handleLogout} />}
+    <ErrorBoundary>
+      <ThemeProvider theme={institutionalTheme}>
+        <CssBaseline />
+        <DarkModeProvider>
+          <ToastContext.Provider value={{ addToast }}>
+            <Router>
+            <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <AlertStrip />
+            <UnifiedHeader />
+            <ToastContainer toasts={toasts} removeToast={removeToast} />
+          
+          {/* Sidebar Navigation - Only for authenticated users */}
+          {user && <Sidebar user={user} onLogout={handleLogout} />}
 
-        <Box component="main" sx={{ flex: 1, paddingY: '20px' }}>
-          <Suspense fallback={<LoadingFallback />}>
+          <Box component="main" sx={{ flex: 1, paddingY: '20px' }}>
+            <Suspense fallback={<LoadingFallback />}>
               <Routes>
               {/* Pages Publiques */}
               <Route path="/" element={!user ? <HomePage /> : <Navigate to="/tenders" />} />
@@ -360,13 +362,14 @@ function App() {
         <Box component="footer" sx={{ backgroundColor: '#F9F9F9', borderTop: '1px solid #E0E0E0', padding: '20px', textAlign: 'center', fontSize: '13px', color: '#616161' }}>
           &copy; 2025 MyNet.tn - Système de Gestion des Appels d'Offres et des Achats
         </Box>
-        </Box>
-      </Router>
-        </ToastContext.Provider>
-      </DarkModeProvider>
-    </ThemeProvider>
-  );
-}
+            </Box>
+          </Router>
+            </ToastContext.Provider>
+          </DarkModeProvider>
+        </ThemeProvider>
+      </ErrorBoundary>
+    );
+  }
 
 export default App;
 

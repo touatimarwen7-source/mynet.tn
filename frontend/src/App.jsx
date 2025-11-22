@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import institutionalTheme from './theme/muiTheme';
+import corporateTheme from './theme/corporateTheme';
 import AlertStrip from './components/AlertStrip';
 import UnifiedHeader from './components/UnifiedHeader';
 import HomePage from './pages/HomePage';
@@ -129,7 +129,7 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={institutionalTheme}>
+    <ThemeProvider theme={corporateTheme}>
       <CssBaseline />
       <DarkModeProvider>
         <ToastContext.Provider value={{ addToast }}>

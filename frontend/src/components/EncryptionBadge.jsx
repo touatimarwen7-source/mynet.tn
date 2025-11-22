@@ -1,19 +1,25 @@
-import Tooltip from './Tooltip';
+import { Box, Tooltip } from '@mui/material';
 
 export default function EncryptionBadge({ size = 'md', level = 'AES-256' }) {
-  const sizes = {
-    sm: '16px',
-    md: '20px',
-    lg: '24px'
+  const sizeMap = {
+    sm: 16,
+    md: 20,
+    lg: 24
   };
 
   return (
-    <Tooltip content={`مشفر بـ ${level}`} position="top">
-      <div className={`encryption-badge encryption-${size}`}>
-        <span className="lock-icon" style={{ fontSize: sizes[size] }}>
-          🔒
-        </span>
-      </div>
+    <Tooltip title={`مشفر بـ ${level}`}>
+      <Box
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: sizeMap[size],
+          cursor: 'default'
+        }}
+      >
+        🔒
+      </Box>
     </Tooltip>
   );
 }

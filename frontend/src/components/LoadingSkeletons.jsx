@@ -1,17 +1,15 @@
-/* Loading Skeleton Components for Smooth Loading States */
+import { Box, Skeleton, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
-export function SkeletonLoader({ width = '100%', height = '20px', count = 1, className = '' }) {
+export function SkeletonLoader({ width = '100%', height = '20px', count = 1 }) {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
-        <div
+        <Skeleton
           key={i}
-          className={`skeleton skeleton-line ${className}`}
-          style={{
-            width,
-            height,
-            marginBottom: '12px'
-          }}
+          variant="rectangular"
+          width={width}
+          height={height}
+          sx={{ marginBottom: '12px' }}
         />
       ))}
     </>
@@ -20,87 +18,87 @@ export function SkeletonLoader({ width = '100%', height = '20px', count = 1, cla
 
 export function CardSkeleton() {
   return (
-    <div className="card" style={{ padding: '24px' }}>
-      <div className="skeleton skeleton-title" style={{ width: '70%' }} />
+    <Box sx={{ padding: '24px' }}>
+      <Skeleton variant="text" width="70%" height="32px" sx={{ marginBottom: '16px' }} />
       <SkeletonLoader count={3} />
-      <div className="skeleton skeleton-line" style={{ width: '50%' }} />
-    </div>
+      <Skeleton variant="text" width="50%" height="16px" />
+    </Box>
   );
 }
 
 export function TableSkeleton({ rows = 5, columns = 4 }) {
   return (
-    <table style={{ width: '100%', marginBottom: '20px' }}>
-      <thead>
-        <tr>
+    <Table sx={{ width: '100%', marginBottom: '20px' }}>
+      <TableHead>
+        <TableRow>
           {Array.from({ length: columns }).map((_, i) => (
-            <th key={i}>
-              <div className="skeleton skeleton-text" style={{ width: '80%' }} />
-            </th>
+            <TableCell key={i}>
+              <Skeleton variant="text" width="80%" />
+            </TableCell>
           ))}
-        </tr>
-      </thead>
-      <tbody>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {Array.from({ length: rows }).map((_, rowIdx) => (
-          <tr key={rowIdx}>
+          <TableRow key={rowIdx}>
             {Array.from({ length: columns }).map((_, colIdx) => (
-              <td key={colIdx}>
-                <div className="skeleton skeleton-text" style={{ width: '90%' }} />
-              </td>
+              <TableCell key={colIdx}>
+                <Skeleton variant="text" width="90%" />
+              </TableCell>
             ))}
-          </tr>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }
 
 export function AvatarSkeleton() {
   return (
-    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-      <div className="skeleton skeleton-avatar" />
-      <div style={{ flex: 1 }}>
-        <div className="skeleton skeleton-text" style={{ width: '70%', marginBottom: '8px' }} />
-        <div className="skeleton skeleton-text" style={{ width: '50%' }} />
-      </div>
-    </div>
+    <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+      <Skeleton variant="circular" width={40} height={40} sx={{ flexShrink: 0 }} />
+      <Box sx={{ flex: 1 }}>
+        <Skeleton variant="text" width="70%" height="20px" sx={{ marginBottom: '8px' }} />
+        <Skeleton variant="text" width="50%" height="16px" />
+      </Box>
+    </Box>
   );
 }
 
 export function FormSkeleton({ fields = 5 }) {
   return (
-    <div>
+    <Box>
       {Array.from({ length: fields }).map((_, i) => (
-        <div key={i} style={{ marginBottom: '20px' }}>
-          <div className="skeleton skeleton-text" style={{ width: '30%', marginBottom: '8px' }} />
-          <div className="skeleton skeleton-line" style={{ height: '40px' }} />
-        </div>
+        <Box key={i} sx={{ marginBottom: '20px' }}>
+          <Skeleton variant="text" width="30%" height="16px" sx={{ marginBottom: '8px' }} />
+          <Skeleton variant="rectangular" width="100%" height="40px" />
+        </Box>
       ))}
-      <div className="skeleton skeleton-line" style={{ height: '44px', width: '100%' }} />
-    </div>
+      <Skeleton variant="rectangular" width="100%" height="44px" />
+    </Box>
   );
 }
 
 export function HeroSkeleton() {
   return (
-    <div style={{ padding: '48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
-      <div>
-        <div className="skeleton skeleton-title" style={{ width: '90%', marginBottom: '20px' }} />
+    <Box sx={{ padding: '48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
+      <Box>
+        <Skeleton variant="text" width="90%" height="32px" sx={{ marginBottom: '20px' }} />
         <SkeletonLoader count={4} />
-      </div>
-      <div className="skeleton" style={{ height: '400px', borderRadius: '12px' }} />
-    </div>
+      </Box>
+      <Skeleton variant="rectangular" height="400px" sx={{ borderRadius: '12px' }} />
+    </Box>
   );
 }
 
 export function ListSkeleton({ items = 3 }) {
   return (
-    <div>
+    <Box>
       {Array.from({ length: items }).map((_, i) => (
-        <div key={i} style={{ marginBottom: '16px', padding: '16px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+        <Box key={i} sx={{ marginBottom: '16px', padding: '16px', borderRadius: '8px', border: '1px solid #e0e0e0' }}>
           <AvatarSkeleton />
-        </div>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 }

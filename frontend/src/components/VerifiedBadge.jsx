@@ -1,20 +1,31 @@
-import Tooltip from './Tooltip';
+import { Box, Tooltip, Typography } from '@mui/material';
 
 export default function VerifiedBadge({ size = 'md', showText = true }) {
-  const sizes = {
-    sm: '16px',
-    md: '20px',
-    lg: '24px'
+  const sizeMap = {
+    sm: 16,
+    md: 20,
+    lg: 24
   };
 
   return (
-    <Tooltip content="تم التحقق من هذا المورد" position="top">
-      <div className={`verified-badge verified-${size}`}>
-        <span className="verified-icon" style={{ fontSize: sizes[size] }}>
+    <Tooltip title="تم التحقق من هذا المورد">
+      <Box
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '4px',
+          cursor: 'default'
+        }}
+      >
+        <Box sx={{ fontSize: sizeMap[size] }}>
           ✓
-        </span>
-        {showText && <span className="verified-text">موثق</span>}
-      </div>
+        </Box>
+        {showText && (
+          <Typography variant="caption" sx={{ fontWeight: 600, color: '#2e7d32' }}>
+            موثق
+          </Typography>
+        )}
+      </Box>
     </Tooltip>
   );
 }

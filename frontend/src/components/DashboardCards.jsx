@@ -1,41 +1,86 @@
+import { Box, Card, CardContent, Typography, LinearProgress, Stack, Chip } from '@mui/material';
 
 export default function DashboardCards({ cards }) {
+  const getStatusColor = (status) => {
+    const statusMap = {
+      active: 'success',
+      pending: 'warning',
+      warning: 'warning',
+      error: 'error'
+    };
+    return statusMap[status] || 'default';
+  };
+
+  const getStatusLabel = (status) => {
+    const statusMap = {
+      active: 'Actif',
+      pending: 'En attente',
+      warning: 'Attention',
+      error: 'Critique'
+    };
+    return statusMap[status] || status;
+  };
+
   return (
-    <div className="dashboard-cards-container">
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' },
+        gap: '16px'
+      }}
+    >
       {cards.map((card, idx) => (
-        <div key={idx} className={`dashboard-card card-type-${card.type}`}>
-          <div className="card-header">
-            <span className="card-label">{card.label}</span>
-          </div>
-          
-          <div className="card-value">{card.value}</div>
-          
-          {card.subtitle && (
-            <p className="card-subtitle">{card.subtitle}</p>
-          )}
-          
-          {card.status && (
-            <div className={`card-status status-${card.status}`}>
-              <span className="status-dot"></span>
-              <span className="status-text">
-                {card.status === 'active' ? 'Actif' : 
-                 card.status === 'pending' ? 'En attente' :
-                 card.status === 'warning' ? 'Attention' :
-                 card.status === 'error' ? 'Critique' : card.status}
-              </span>
-            </div>
-          )}
-          
-          {card.progress !== undefined && (
-            <div className="card-progress">
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${card.progress}%` }}></div>
-              </div>
-              <span className="progress-text">{card.progress}%</span>
-            </div>
-          )}
-        </div>
+        <Card key={idx} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <CardContent>
+            <Stack spacing={2} sx={{ height: '100%' }}>
+              <Typography variant="subtitle2" sx={{ fontWeight: 500, color: '#616161' }}>
+                {card.label}
+              </Typography>
+              
+              <Typography variant="h4" sx={{ fontWeight: 600, color: '#1565c0' }}>
+                {card.value}
+              </Typography>
+              
+              {card.subtitle && (
+                <Typography variant="caption" sx={{ color: '#9e9e9e' }}>
+                  {card.subtitle}
+                </Typography>
+              )}
+              
+              {card.status && (
+                <Chip
+                  label={getStatusLabel(card.status)}
+                  color={getStatusColor(card.status)}
+                  variant="outlined"
+                  size="small"
+                  sx={{ width: 'fit-content' }}
+                />
+              )}
+              
+              {card.progress !== undefined && (
+                <Box>
+                  <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '8px' }}>
+                    <Typography variant="caption" sx={{ fontWeight: 500 }}>
+                      Progress
+                    </Typography>
+                    <Typography variant="caption" sx={{ fontWeight: 600, color: '#1565c0' }}>
+                      {card.progress}%
+                    </Typography>
+                  </Stack>
+                  <LinearProgress
+                    variant="determinate"
+                    value={card.progress}
+                    sx={{
+                      height: '8px',
+                      borderRadius: '4px'
+                    }}
+                  />
+                </Box>
+              )}
+            </Stack>
+          </CardContent>
+        </Card>
       ))}
-    </div>
+    </Box>
   );
 }

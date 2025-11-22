@@ -1,16 +1,22 @@
 import { useContext } from 'react';
+import { IconButton } from '@mui/material';
 import { DarkModeContext } from '../contexts/DarkModeContext';
 
 export default function DarkModeToggle() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <button
+    <IconButton
       onClick={toggleDarkMode}
-      className="btn-dark-mode"
       title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      sx={{
+        color: '#1565c0',
+        '&:hover': {
+          backgroundColor: '#f5f5f5'
+        }
+      }}
     >
       {isDarkMode ? '☀️' : '🌙'}
-    </button>
+    </IconButton>
   );
 }

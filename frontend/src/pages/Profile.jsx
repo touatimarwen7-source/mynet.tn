@@ -228,7 +228,7 @@ export default function Profile({ user }) {
 
             {!editing ? (
               <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Email
                   </Typography>
@@ -236,7 +236,7 @@ export default function Profile({ user }) {
                     {profile.email}
                   </Typography>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Téléphone
                   </Typography>
@@ -244,7 +244,7 @@ export default function Profile({ user }) {
                     {profile.phone || '—'}
                   </Typography>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Entreprise
                   </Typography>
@@ -252,7 +252,7 @@ export default function Profile({ user }) {
                     {profile.company_name || '—'}
                   </Typography>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Enregistrement
                   </Typography>
@@ -467,14 +467,14 @@ export default function Profile({ user }) {
                 {activity.length === 0 ? (
                   <Typography sx={{ color: '#999', fontStyle: 'italic', padding: '16px' }}>Aucune activité disponible</Typography>
                 ) : (
-                  activity.slice(0, 10).map((item, idx) => (
+                  activity.slice(0, 10).map((activity_item, idx) => (
                     <ListItem key={idx}>
                       <ListItemIcon sx={{ minWidth: 40, color: '#0056B3' }}>
-                        {item.type === 'login' ? '📥' : item.type === 'update' ? '📝' : item.type === 'tender' ? '📄' : '🎯'}
+                        {activity_item.type === 'login' ? '📥' : activity_item.type === 'update' ? '📝' : activity_item.type === 'tender' ? '📄' : '🎯'}
                       </ListItemIcon>
                       <ListItemText
-                        primary={item.description || item.type}
-                        secondary={new Date(item.created_at).toLocaleDateString('fr-FR')}
+                        primary={activity_item.description || activity_item.type}
+                        secondary={new Date(activity_item.created_at).toLocaleDateString('fr-FR')}
                       />
                     </ListItem>
                   ))

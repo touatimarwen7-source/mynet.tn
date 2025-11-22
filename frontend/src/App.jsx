@@ -145,7 +145,7 @@ function App() {
         <CssBaseline />
         <DarkModeProvider>
           <ToastContext.Provider value={{ addToast }}>
-            <Router>
+            <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <AlertStrip />
             <UnifiedHeader />

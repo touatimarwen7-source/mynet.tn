@@ -28,7 +28,7 @@ export default function QuickActions({ actions }) {
       </Typography>
       <Grid container spacing={2}>
         {actions.map((action, idx) => (
-          <Grid item xs={12} sm={6} md={4} key={idx}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
             <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', height: '100%' }}>
               <CardActionArea onClick={() => handleActionClick(action)} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: 1, width: '100%' }}>

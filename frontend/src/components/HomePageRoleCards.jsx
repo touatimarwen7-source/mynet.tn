@@ -28,7 +28,7 @@ export default function HomePageRoleCards({ onRoleClick }) {
 
       <Grid container spacing={2}>
         {roles.map((role) => (
-          <Grid item xs={12} md={6} key={role.id}>
+          <Grid size={{ xs: 12, md: 6 }} key={role.id}>
             <Card sx={{ height: '100%', border: selectedRole === role.id ? '2px solid #0056B3' : '1px solid #e0e0e0', borderRadius: '8px', boxShadow: 'none', transition: 'all 300ms ease-in-out', cursor: 'pointer', '&:hover': { borderColor: '#0056B3', boxShadow: 'none' } }} onClick={() => setSelectedRole(role.id)}>
               <CardContent sx={{ padding: '32px' }}>
                 <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 500, color: '#0056B3', marginBottom: '16px' }}>

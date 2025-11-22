@@ -131,7 +131,7 @@ export default function BuyerDashboard() {
 
         {/* Stats Cards */}
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard 
               label="Appels d'Offres Actifs"
               value={stats.activeTenders}
@@ -139,7 +139,7 @@ export default function BuyerDashboard() {
               icon="📋"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard 
               label="Offres Reçues"
               value={stats.totalBids}
@@ -147,7 +147,7 @@ export default function BuyerDashboard() {
               icon="📊"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard 
               label="Économies"
               value={`${stats.totalSavings}%`}
@@ -156,7 +156,7 @@ export default function BuyerDashboard() {
               progress={Math.min(parseInt(stats.totalSavings) || 0, 100)}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard 
               label="Vélocité"
               value={`${stats.bidVelocity}x`}

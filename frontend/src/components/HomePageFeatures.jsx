@@ -23,7 +23,7 @@ export default function HomePageFeatures() {
       </Typography>
       <Grid container spacing={2}>
         {features.map((feature, idx) => (
-          <Grid item xs={12} md={4} key={idx}>
+          <Grid size={{ xs: 12, md: 4 }} key={idx}>
             <Card sx={{ backgroundColor: '#ffffff', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '32px 24px', textAlign: 'center', transition: 'all 200ms ease-in-out', '&:hover': { borderColor: '#0056B3', boxShadow: 'none', transform: 'translateY(-4px)' } }}>
               <Box sx={{ marginBottom: '16px' }}>
                 {feature.icon}

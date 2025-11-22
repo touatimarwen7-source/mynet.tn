@@ -14,7 +14,7 @@ export default function HomePageTestimonials() {
       </Typography>
       <Grid container spacing={2}>
         {testimonials.map((testimonial, idx) => (
-          <Grid item xs={12} md={4} key={idx}>
+          <Grid size={{ xs: 12, md: 4 }} key={idx}>
             <Paper sx={{ padding: '24px', backgroundColor: '#f5f5f5', border: '1px solid #e0e0e0', borderRadius: '8px', height: '100%', display: 'flex', flexDirection: 'column' }}>
               <Typography sx={{ fontSize: '14px', color: '#212121', marginBottom: '12px', flex: 1, lineHeight: 1.6 }}>
                 "{testimonial.text}"

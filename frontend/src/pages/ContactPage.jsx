@@ -76,7 +76,7 @@ export default function ContactPage() {
       <Container maxWidth="lg" sx={{ paddingY: '60px' }}>
         <Grid container spacing={4}>
           {/* Contact Info Column */}
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Stack spacing={2}>
               {/* Address */}
               <Card sx={{ border: '1px solid #e0e0e0' }}>
@@ -177,7 +177,7 @@ export default function ContactPage() {
           </Grid>
 
           {/* Contact Form Column */}
-          <Grid item xs={12} md={8}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent sx={{ padding: '32px' }}>
                 <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
@@ -195,7 +195,7 @@ export default function ContactPage() {
 
                 <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <TextField
                         fullWidth
                         label="Nom"
@@ -206,7 +206,7 @@ export default function ContactPage() {
                         disabled={submitting}
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <TextField
                         fullWidth
                         label="Email"
@@ -218,7 +218,7 @@ export default function ContactPage() {
                         disabled={submitting}
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <TextField
                         fullWidth
                         label="Téléphone"
@@ -228,7 +228,7 @@ export default function ContactPage() {
                         disabled={submitting}
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <TextField
                         fullWidth
                         label="Entreprise"
@@ -238,7 +238,7 @@ export default function ContactPage() {
                         disabled={submitting}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }} >
                       <TextField
                         fullWidth
                         label="Sujet"
@@ -249,7 +249,7 @@ export default function ContactPage() {
                         disabled={submitting}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }} >
                       <TextField
                         fullWidth
                         label="Message"

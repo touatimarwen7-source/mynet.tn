@@ -88,7 +88,7 @@ export default function AdvancedSearch() {
         </Box>
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
               label="Mots clés ou Entreprise"
@@ -101,7 +101,7 @@ export default function AdvancedSearch() {
               }}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Select
               fullWidth
               value={region}

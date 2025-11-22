@@ -38,7 +38,7 @@ export default function HowItWorks() {
           </Typography>
           <Grid container spacing={3}>
             {buyerSteps.map((step, idx) => (
-              <Grid item xs={12} md={4} key={idx}>
+              <Grid size={{ xs: 12, md: 4 }} key={idx}>
                 <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', height: '100%' }}>
                   <CardContent sx={{ padding: '32px', textAlign: 'center' }}>
                     <Box sx={{ fontSize: '48px', marginBottom: '16px' }}>{step.icon}</Box>
@@ -62,7 +62,7 @@ export default function HowItWorks() {
           </Typography>
           <Grid container spacing={3}>
             {supplierSteps.map((step, idx) => (
-              <Grid item xs={12} md={4} key={idx}>
+              <Grid size={{ xs: 12, md: 4 }} key={idx}>
                 <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', height: '100%' }}>
                   <CardContent sx={{ padding: '32px', textAlign: 'center' }}>
                     <Box sx={{ fontSize: '48px', marginBottom: '16px' }}>{step.icon}</Box>
@@ -86,7 +86,7 @@ export default function HowItWorks() {
           </Typography>
           <Grid container spacing={3}>
             {benefits.map((benefit, idx) => (
-              <Grid item xs={12} sm={6} md={3} key={idx}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={idx}>
                 <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', textAlign: 'center' }}>
                   <CardContent sx={{ padding: '24px' }}>
                     <Box sx={{ fontSize: '40px', marginBottom: '12px' }}>{benefit.icon}</Box>

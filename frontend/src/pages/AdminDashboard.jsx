@@ -109,7 +109,7 @@ export default function AdminDashboard() {
 
         {/* Stats Cards */}
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard
               icon={<PeopleIcon sx={{ fontSize: 40, color: '#0056B3' }} />}
               label="Utilisateurs Totaux"
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
               status="active"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard
               icon={<StorageIcon sx={{ fontSize: 40, color: '#0056B3' }} />}
               label="Sessions Actives"
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
               status="active"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard
               icon={<SecurityIcon sx={{ fontSize: 40, color: '#2e7d32' }} />}
               label="Santé Système"
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
               status={stats.systemHealth >= 99 ? 'active' : 'warning'}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} >
             <StatCard
               icon={<ErrorIcon sx={{ fontSize: 40, color: stats.pendingAudits > 0 ? '#f57c00' : '#2e7d32' }} />}
               label="Audits en Attente"
@@ -155,7 +155,7 @@ export default function AdminDashboard() {
               Actions Rapides
             </Typography>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} >
                 <Button
                   fullWidth
                   variant="outlined"
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
                   Gestion Utilisateurs
                 </Button>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} >
                 <Button
                   fullWidth
                   variant="outlined"
@@ -187,7 +187,7 @@ export default function AdminDashboard() {
                   Journaux d'Audit
                 </Button>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} >
                 <Button
                   fullWidth
                   variant="outlined"
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
                   Appels d'Offres
                 </Button>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} >
                 <Button
                   fullWidth
                   variant="outlined"

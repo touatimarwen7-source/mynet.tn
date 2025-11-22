@@ -44,7 +44,7 @@ const ErrorFallback = ({ error, resetError }) => {
         Un problème s'est produit lors du chargement de cette section. Veuillez réessayer.
       </Typography>
 
-      {process.env.NODE_ENV === 'development' && error && (
+      {import.meta.env.MODE === 'development' && error && (
         <Alert severity="error" sx={{ marginBottom: '16px', textAlign: 'left' }}>
           <Typography variant="caption" sx={{ fontFamily: 'monospace', fontSize: '11px' }}>
             {error.message}

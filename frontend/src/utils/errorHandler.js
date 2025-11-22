@@ -137,7 +137,7 @@ export const errorHandler = {
     };
 
     // Development: console.error
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.MODE === 'development') {
       console.error(
         `[${context}] [${errorInfo.code}] ${errorInfo.message}`,
         error
@@ -145,7 +145,7 @@ export const errorHandler = {
     }
 
     // Production: Send to error tracking service (Sentry, LogRocket, etc.)
-    if (process.env.NODE_ENV === 'production') {
+    if (import.meta.env.MODE === 'production') {
       // TODO: Integrate with error tracking service
       // window.errorTrackingService?.captureException(errorInfo);
     }

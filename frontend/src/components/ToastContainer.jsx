@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
+import { Box } from '@mui/material';
 import ToastNotification from './ToastNotification';
 
 export const useToast = () => {
@@ -20,7 +21,7 @@ export const useToast = () => {
 
 export default function ToastContainer({ toasts, removeToast }) {
   return (
-    <div className="toast-container">
+    <Box sx={{ position: 'fixed', top: '20px', right: '20px', zIndex: 9999 }}>
       {toasts.map(toast => (
         <ToastNotification
           key={toast.id}
@@ -31,6 +32,6 @@ export default function ToastContainer({ toasts, removeToast }) {
           onClose={removeToast}
         />
       ))}
-    </div>
+    </Box>
   );
 }

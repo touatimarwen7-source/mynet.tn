@@ -1,109 +1,108 @@
+import { Box, Container, Typography, Grid, Card, CardContent, Stack } from '@mui/material';
 
 export default function HowItWorks() {
   const buyerSteps = [
-    {
-      number: 1,
-      title: 'Créer un Appel d\'Offres',
-      description: 'Définissez vos besoins, fixez les critères et publiez en quelques clics',
-      icon: '📝'
-    },
-    {
-      number: 2,
-      title: 'Recevoir les Offres',
-      description: 'Collectez les propositions de fournisseurs qualifiés en temps réel',
-      icon: '📨'
-    },
-    {
-      number: 3,
-      title: 'Évaluer et Attribuer',
-      description: 'Comparez, analysez avec l\'IA et attribuez les meilleurs fournisseurs',
-      icon: '✓'
-    }
+    { number: 1, title: 'Créer un Appel d\'Offres', description: 'Définissez vos besoins, fixez les critères et publiez en quelques clics', icon: '📝' },
+    { number: 2, title: 'Recevoir les Offres', description: 'Collectez les propositions de fournisseurs qualifiés en temps réel', icon: '📨' },
+    { number: 3, title: 'Évaluer et Attribuer', description: 'Comparez, analysez avec l\'IA et attribuez les meilleurs fournisseurs', icon: '✓' }
   ];
 
   const supplierSteps = [
-    {
-      number: 1,
-      title: 'Parcourir les Opportunités',
-      description: 'Découvrez les appels d\'offres correspondant à votre expertise',
-      icon: '🔍'
-    },
-    {
-      number: 2,
-      title: 'Soumettre une Offre',
-      description: 'Répondez avec votre proposition chiffrée sécurisée en quelques minutes',
-      icon: '💼'
-    },
-    {
-      number: 3,
-      title: 'Remporter le Marché',
-      description: 'Recevez le bon de commande et commencez à servir le client',
-      icon: '🎯'
-    }
+    { number: 1, title: 'Parcourir les Opportunités', description: 'Découvrez les appels d\'offres correspondant à votre expertise', icon: '🔍' },
+    { number: 2, title: 'Soumettre une Offre', description: 'Répondez avec votre proposition chiffrée sécurisée en quelques minutes', icon: '💼' },
+    { number: 3, title: 'Remporter le Marché', description: 'Recevez le bon de commande et commencez à servir le client', icon: '🎯' }
+  ];
+
+  const benefits = [
+    { icon: '⚡', title: 'Rapide', desc: 'Processus complet en quelques jours au lieu de semaines' },
+    { icon: '🔐', title: 'Sécurisé', desc: 'Chiffrement AES-256 et audit complet de toutes les transactions' },
+    { icon: '🤖', title: 'Intelligent', desc: 'Analyse IA pour sélectionner les meilleures offres automatiquement' },
+    { icon: '💰', title: 'Économique', desc: 'Réduisez les coûts d\'approvisionnement de 15-25%' }
   ];
 
   return (
-    <div className="how-it-works">
-      <div className="container">
-        <h2 className="section-title">Comment Fonctionne MyNet.tn?</h2>
-        <p className="section-subtitle">Trois étapes simples pour transformer vos achats</p>
+    <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '60px' }}>
+      <Container maxWidth="lg">
+        <Box sx={{ textAlign: 'center', marginBottom: '60px' }}>
+          <Typography variant="h2" sx={{ fontSize: '36px', fontWeight: 700, color: '#212121', marginBottom: '16px' }}>
+            Comment Fonctionne MyNet.tn?
+          </Typography>
+          <Typography variant="body1" sx={{ fontSize: '16px', color: '#616161' }}>
+            Trois étapes simples pour transformer vos achats
+          </Typography>
+        </Box>
 
-        {/* Buyer Journey */}
-        <div className="journey-section">
-          <h3 className="journey-title">🏢 Pour les Acheteurs</h3>
-          <div className="steps-grid">
+        <Box sx={{ marginBottom: '60px' }}>
+          <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: '#212121', marginBottom: '32px' }}>
+            Pour les Acheteurs
+          </Typography>
+          <Grid container spacing={3}>
             {buyerSteps.map((step, idx) => (
-              <div key={idx} className="step-card">
-                <div className="step-number">{step.number}</div>
-                <div className="step-icon">{step.icon}</div>
-                <h4>{step.title}</h4>
-                <p>{step.description}</p>
-                {idx < buyerSteps.length - 1 && <div className="step-arrow">→</div>}
-              </div>
+              <Grid item xs={12} md={4} key={idx}>
+                <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', height: '100%' }}>
+                  <CardContent sx={{ padding: '32px', textAlign: 'center' }}>
+                    <Box sx={{ fontSize: '48px', marginBottom: '16px' }}>{step.icon}</Box>
+                    <Box sx={{ fontSize: '32px', fontWeight: 700, color: '#0056B3', marginBottom: '12px' }}>{step.number}</Box>
+                    <Typography variant="h5" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+                      {step.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontSize: '14px', color: '#616161', lineHeight: 1.6 }}>
+                      {step.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             ))}
-          </div>
-        </div>
+          </Grid>
+        </Box>
 
-        {/* Supplier Journey */}
-        <div className="journey-section">
-          <h3 className="journey-title">🏭 Pour les Fournisseurs</h3>
-          <div className="steps-grid">
+        <Box sx={{ marginBottom: '60px' }}>
+          <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: '#212121', marginBottom: '32px' }}>
+            Pour les Fournisseurs
+          </Typography>
+          <Grid container spacing={3}>
             {supplierSteps.map((step, idx) => (
-              <div key={idx} className="step-card">
-                <div className="step-number">{step.number}</div>
-                <div className="step-icon">{step.icon}</div>
-                <h4>{step.title}</h4>
-                <p>{step.description}</p>
-                {idx < supplierSteps.length - 1 && <div className="step-arrow">→</div>}
-              </div>
+              <Grid item xs={12} md={4} key={idx}>
+                <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', height: '100%' }}>
+                  <CardContent sx={{ padding: '32px', textAlign: 'center' }}>
+                    <Box sx={{ fontSize: '48px', marginBottom: '16px' }}>{step.icon}</Box>
+                    <Box sx={{ fontSize: '32px', fontWeight: 700, color: '#0056B3', marginBottom: '12px' }}>{step.number}</Box>
+                    <Typography variant="h5" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+                      {step.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontSize: '14px', color: '#616161', lineHeight: 1.6 }}>
+                      {step.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             ))}
-          </div>
-        </div>
+          </Grid>
+        </Box>
 
-        {/* Key Benefits */}
-        <div className="benefits-section">
-          <div className="benefit-item">
-            <span className="benefit-icon">⚡</span>
-            <h4>Rapide</h4>
-            <p>Processus complet en quelques jours au lieu de semaines</p>
-          </div>
-          <div className="benefit-item">
-            <span className="benefit-icon">🔐</span>
-            <h4>Sécurisé</h4>
-            <p>Chiffrement AES-256 et audit complet de toutes les transactions</p>
-          </div>
-          <div className="benefit-item">
-            <span className="benefit-icon">🤖</span>
-            <h4>Intelligent</h4>
-            <p>Analyse IA pour sélectionner les meilleures offres automatiquement</p>
-          </div>
-          <div className="benefit-item">
-            <span className="benefit-icon">💰</span>
-            <h4>Économique</h4>
-            <p>Réduisez les coûts d\'approvisionnement de 15-25%</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Box>
+          <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: '#212121', marginBottom: '32px', textAlign: 'center' }}>
+            Avantages Clés
+          </Typography>
+          <Grid container spacing={3}>
+            {benefits.map((benefit, idx) => (
+              <Grid item xs={12} sm={6} md={3} key={idx}>
+                <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', textAlign: 'center' }}>
+                  <CardContent sx={{ padding: '24px' }}>
+                    <Box sx={{ fontSize: '40px', marginBottom: '12px' }}>{benefit.icon}</Box>
+                    <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+                      {benefit.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontSize: '13px', color: '#616161', lineHeight: 1.6 }}>
+                      {benefit.desc}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
   );
 }

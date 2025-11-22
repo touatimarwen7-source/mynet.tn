@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Box, Container, Typography, Stack, Card, CardContent, Button, Chip } from '@mui/material';
 import { procurementAPI } from '../api';
 
 export default function PaymentOrders() {
@@ -13,8 +14,6 @@ export default function PaymentOrders() {
   const fetchPaymentOrders = async () => {
     try {
       setLoading(true);
-      // This would fetch the purchase orders from the API
-      // For now, we'll fetch purchase orders which are payment orders
       const response = await procurementAPI.getPurchaseOrders?.() || { data: { purchaseOrders: [] } };
       setOrders(response.data.purchaseOrders || []);
     } catch (error) {
@@ -25,44 +24,34 @@ export default function PaymentOrders() {
     }
   };
 
-  const getStatusBadge = (status) => {
-    const statusMap = {
-      pending: { label: 'قيد الانتظار', class: 'status-pending' },
-      approved: { label: 'موافق عليه', class: 'status-approved' },
-      in_progress: { label: 'قيد الإنجاز', class: 'status-in-progress' },
-      completed: { label: 'مكتمل', class: 'status-completed' },
-      cancelled: { label: 'ملغى', class: 'status-cancelled' }
+  const getStatusColor = (status) => {
+    const colorMap = {
+      pending: '#f57c00',
+      approved: '#2e7d32',
+      in_progress: '#0288d1',
+      completed: '#1b5e20',
+      cancelled: '#c62828'
     };
-    return statusMap[status] || { label: status, class: 'status-default' };
+    return colorMap[status] || '#616161';
   };
 
   const formatCurrency = (amount, currency = 'TND') => {
-    return new Intl.NumberFormat('ar-TN', {
-      style: 'currency',
-      currency: currency
-    }).format(amount);
+    return new Intl.NumberFormat('ar-TN', { style: 'currency', currency }).format(amount);
   };
 
-  const filteredOrders = orders.filter(order => {
-    if (filter === 'all') return true;
-    return order.status === filter;
-  });
+  const filteredOrders = orders.filter(order => filter === 'all' || order.status === filter);
 
   if (loading) {
-    return <div className="loading">جاري تحميل أوامر الصرف...</div>;
+    return <Box sx={{ padding: '20px', textAlign: 'center' }}>جاري تحميل أوامر الصرف...</Box>;
   }
 
   return (
-    <div className="payment-orders-section">
-      <div className="section-header">
-        <h2>أوامر الصرف</h2>
-        <div className="section-meta">
-          <span className="meta-badge">{filteredOrders.length} أمر</span>
-        </div>
-      </div>
+    <Container maxWidth="lg" sx={{ paddingY: '40px' }}>
+      <Typography variant="h4" sx={{ fontWeight: 600, marginBottom: '24px' }}>
+        أوامر الصرف
+      </Typography>
 
-      {/* Filter Tabs */}
-      <div className="filter-tabs">
+      <Stack direction="row" spacing={1} sx={{ marginBottom: '32px', flexWrap: 'wrap' }}>
         {[
           { value: 'all', label: 'الكل' },
           { value: 'pending', label: 'قيد الانتظار' },
@@ -70,64 +59,87 @@ export default function PaymentOrders() {
           { value: 'in_progress', label: 'قيد الإنجاز' },
           { value: 'completed', label: 'مكتمل' }
         ].map(tab => (
-          <button
+          <Button
             key={tab.value}
-            className={`filter-tab ${filter === tab.value ? 'active' : ''}`}
+            variant={filter === tab.value ? 'contained' : 'outlined'}
             onClick={() => setFilter(tab.value)}
+            size="small"
           >
             {tab.label}
-          </button>
+          </Button>
         ))}
-      </div>
+      </Stack>
 
-      {/* Orders List */}
       {filteredOrders.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon">📋</div>
-          <p className="empty-message">لا توجد أوامر صرف</p>
-          <p className="empty-submessage">سيظهر هنا عند إنشاء أوامر جديدة</p>
-        </div>
+        <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px' }}>
+          <CardContent sx={{ textAlign: 'center', padding: '48px' }}>
+            <Typography sx={{ fontSize: '24px', marginBottom: '12px' }}>📋</Typography>
+            <Typography sx={{ color: '#616161' }}>لا توجد أوامر صرف</Typography>
+            <Typography sx={{ fontSize: '13px', color: '#9e9e9e' }}>سيظهر هنا عند إنشاء أوامر جديدة</Typography>
+          </CardContent>
+        </Card>
       ) : (
-        <div className="orders-list">
+        <Stack spacing={2}>
           {filteredOrders.map(order => (
-            <div key={order.id} className="order-card">
-              <div className="order-header">
-                <div className="order-info">
-                  <h3 className="order-number">{order.po_number || 'رقم غير محدد'}</h3>
-                  <p className="order-tender">{order.tender_title || 'مناقصة'}</p>
-                </div>
-                <div className={`order-status ${getStatusBadge(order.status).class}`}>
-                  {getStatusBadge(order.status).label}
-                </div>
-              </div>
+            <Card key={order.id} sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px' }}>
+              <CardContent sx={{ padding: '24px' }}>
+                <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" sx={{ marginBottom: '16px' }}>
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, fontSize: '16px', color: '#212121' }}>
+                      {order.po_number || 'رقم غير محدد'}
+                    </Typography>
+                    <Typography sx={{ fontSize: '13px', color: '#616161' }}>
+                      {order.tender_title || 'مناقصة'}
+                    </Typography>
+                  </Box>
+                  <Chip
+                    label={
+                      order.status === 'pending' ? 'قيد الانتظار' :
+                      order.status === 'approved' ? 'موافق عليه' :
+                      order.status === 'in_progress' ? 'قيد الإنجاز' :
+                      order.status === 'completed' ? 'مكتمل' :
+                      'ملغى'
+                    }
+                    sx={{ backgroundColor: getStatusColor(order.status), color: '#FFFFFF' }}
+                  />
+                </Stack>
 
-              <div className="order-body">
-                <div className="order-row">
-                  <span className="row-label">المورد:</span>
-                  <span className="row-value">{order.supplier_name || 'غير محدد'}</span>
-                </div>
-                <div className="order-row">
-                  <span className="row-label">المبلغ الإجمالي:</span>
-                  <span className="row-value amount">{formatCurrency(order.total_amount, order.currency)}</span>
-                </div>
-                <div className="order-row">
-                  <span className="row-label">شروط الدفع:</span>
-                  <span className="row-value">{order.payment_terms || 'عادية'}</span>
-                </div>
-                <div className="order-row">
-                  <span className="row-label">تاريخ الإنشاء:</span>
-                  <span className="row-value">{new Date(order.created_at).toLocaleDateString('ar-TN')}</span>
-                </div>
-              </div>
+                <Stack spacing={1} sx={{ marginBottom: '16px' }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography sx={{ fontSize: '13px', color: '#616161' }}>المورد:</Typography>
+                    <Typography sx={{ fontSize: '13px', fontWeight: 500, color: '#212121' }}>
+                      {order.supplier_name || 'غير محدد'}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography sx={{ fontSize: '13px', color: '#616161' }}>المبلغ الإجمالي:</Typography>
+                    <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#0056B3' }}>
+                      {formatCurrency(order.total_amount, order.currency)}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography sx={{ fontSize: '13px', color: '#616161' }}>شروط الدفع:</Typography>
+                    <Typography sx={{ fontSize: '13px', color: '#212121' }}>
+                      {order.payment_terms || 'عادية'}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography sx={{ fontSize: '13px', color: '#616161' }}>تاريخ الإنشاء:</Typography>
+                    <Typography sx={{ fontSize: '13px', color: '#212121' }}>
+                      {new Date(order.created_at).toLocaleDateString('ar-TN')}
+                    </Typography>
+                  </Box>
+                </Stack>
 
-              <div className="order-actions">
-                <button className="action-btn view-btn">عرض التفاصيل</button>
-                <button className="action-btn update-btn">تحديث الحالة</button>
-              </div>
-            </div>
+                <Stack direction="row" spacing={1}>
+                  <Button size="small" variant="outlined">عرض التفاصيل</Button>
+                  <Button size="small" variant="outlined">تحديث الحالة</Button>
+                </Stack>
+              </CardContent>
+            </Card>
           ))}
-        </div>
+        </Stack>
       )}
-    </div>
+    </Container>
   );
 }

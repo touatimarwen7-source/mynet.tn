@@ -204,7 +204,6 @@ export const Icon = ({ name, size = 24, className = '' }) => {
 
   return (
     <div
-      className={`icon-wrapper ${className}`}
       style={{
         width: size,
         height: size,

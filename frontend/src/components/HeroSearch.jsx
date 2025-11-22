@@ -121,87 +121,77 @@ export default function HeroSearch() {
   };
 
   return (
-    <Paper elevation={0} className="hero-search-container">
-      {/* Search Type Tabs */}
-      <Stack direction="row" spacing={1} className="search-tabs-wrapper">
-        {searchTabs.map(tab => (
-          <Button
-            key={tab.id}
-            variant={activeTab === tab.id ? 'contained' : 'outlined'}
-            onClick={() => handleTabChange(tab.id)}
-            className="search-tab-button"
-          >
-            {tab.label}
-          </Button>
-        ))}
-      </Stack>
-
-      {/* Search Form */}
-      <form onSubmit={handleSearch}>
-        <Stack spacing={2} className="search-form-stack">
-          {/* Category Filter */}
-          <FormControl component="fieldset" className="search-category-filter">
-            <FormLabel component="legend">Catégorie</FormLabel>
-            <RadioGroup
-              row
-              value={searchData.category}
-              onChange={handleCategoryChange}
+    <Paper elevation={0} sx={{ padding: '24px', backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px' }}>
+      <Stack spacing={2}>
+        <Stack direction="row" spacing={1}>
+          {searchTabs.map(tab => (
+            <Button
+              key={tab.id}
+              variant={activeTab === tab.id ? 'contained' : 'outlined'}
+              onClick={() => handleTabChange(tab.id)}
             >
-              {categories.map(cat => (
-                <FormControlLabel
-                  key={cat.value}
-                  value={cat.value}
-                  control={<Radio />}
-                  label={cat.label}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-
-          {/* Search Fields */}
-          <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-            {/* Keywords Input */}
-            <TextField
-              label="Mots-clés ou Entreprise"
-              placeholder="Exemple: Construction, Informatique, Services"
-              value={searchData.keywords}
-              onChange={handleKeywordsChange}
-              variant="outlined"
-              fullWidth
-              className="search-keywords-field"
-              InputProps={{
-                endAdornment: <SearchIcon />,
-              }}
-            />
-
-            {/* Region Select */}
-            <Select
-              value={searchData.region}
-              onChange={handleRegionChange}
-              displayEmpty
-              className="search-region-select"
-              startAdornment={<LocationOnIcon />}
-            >
-              {regions.map(region => (
-                <MenuItem key={region.value} value={region.value}>
-                  {region.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </Stack>
-
-          {/* Search Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            className="search-submit-button"
-            startIcon={<SearchIcon />}
-          >
-            {getButtonText()}
-          </Button>
+              {tab.label}
+            </Button>
+          ))}
         </Stack>
-      </form>
+
+        <Box component="form" onSubmit={handleSearch}>
+          <Stack spacing={2}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Catégorie</FormLabel>
+              <RadioGroup
+                row
+                value={searchData.category}
+                onChange={handleCategoryChange}
+              >
+                {categories.map(cat => (
+                  <FormControlLabel
+                    key={cat.value}
+                    value={cat.value}
+                    control={<Radio />}
+                    label={cat.label}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+
+            <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+              <TextField
+                label="Mots-clés ou Entreprise"
+                placeholder="Exemple: Construction, Informatique, Services"
+                value={searchData.keywords}
+                onChange={handleKeywordsChange}
+                variant="outlined"
+                fullWidth
+                InputProps={{
+                  endAdornment: <SearchIcon />,
+                }}
+              />
+
+              <Select
+                value={searchData.region}
+                onChange={handleRegionChange}
+                displayEmpty
+              >
+                {regions.map(region => (
+                  <MenuItem key={region.value} value={region.value}>
+                    {region.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Stack>
+
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              startIcon={<SearchIcon />}
+            >
+              {getButtonText()}
+            </Button>
+          </Stack>
+        </Box>
+      </Stack>
     </Paper>
   );
 }

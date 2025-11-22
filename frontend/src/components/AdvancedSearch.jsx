@@ -1,5 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Paper,
+  Typography,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  FormControl,
+  TextField,
+  Select,
+  MenuItem,
+  Button,
+  Stack,
+  Grid,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function AdvancedSearch() {
   const [category, setCategory] = useState('tous');
@@ -17,121 +33,127 @@ export default function AdvancedSearch() {
   };
 
   return (
-    <form className="advanced-search" onSubmit={handleSearch}>
-      {/* Category Radio Buttons */}
-      <div className="search-section">
-        <h3 className="search-title">Catégorie</h3>
-        <div className="category-options">
-          <div className="radio-option">
-            <input
-              type="radio"
-              name="category"
-              value="tous"
-              id="cat-all"
-              checked={category === 'tous'}
+    <Paper
+      component="form"
+      onSubmit={handleSearch}
+      sx={{
+        padding: '24px',
+        backgroundColor: '#FFFFFF',
+        border: '1px solid #E0E0E0',
+        borderRadius: '4px',
+        boxShadow: 'none',
+      }}
+    >
+      <Stack spacing={3}>
+        <Box>
+          <Typography
+            variant="h5"
+            sx={{
+              fontSize: '16px',
+              fontWeight: 600,
+              color: '#212121',
+              marginBottom: '16px',
+            }}
+          >
+            Catégorie
+          </Typography>
+          <FormControl component="fieldset">
+            <RadioGroup
+              row
+              value={category}
               onChange={(e) => setCategory(e.target.value)}
-            />
-            <label htmlFor="cat-all">Tous</label>
-          </div>
-          <div className="radio-option">
-            <input
-              type="radio"
-              name="category"
-              value="travaux"
-              id="cat-works"
-              checked={category === 'travaux'}
-              onChange={(e) => setCategory(e.target.value)}
-            />
-            <label htmlFor="cat-works">Travaux</label>
-          </div>
-          <div className="radio-option">
-            <input
-              type="radio"
-              name="category"
-              value="services"
-              id="cat-services"
-              checked={category === 'services'}
-              onChange={(e) => setCategory(e.target.value)}
-            />
-            <label htmlFor="cat-services">Services</label>
-          </div>
-          <div className="radio-option">
-            <input
-              type="radio"
-              name="category"
-              value="fournitures"
-              id="cat-supplies"
-              checked={category === 'fournitures'}
-              onChange={(e) => setCategory(e.target.value)}
-            />
-            <label htmlFor="cat-supplies">Fournitures</label>
-          </div>
-        </div>
-      </div>
+            >
+              <FormControlLabel
+                value="tous"
+                control={<Radio />}
+                label="Tous"
+              />
+              <FormControlLabel
+                value="travaux"
+                control={<Radio />}
+                label="Travaux"
+              />
+              <FormControlLabel
+                value="services"
+                control={<Radio />}
+                label="Services"
+              />
+              <FormControlLabel
+                value="fournitures"
+                control={<Radio />}
+                label="Fournitures"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Box>
 
-      {/* Search Fields Grid */}
-      <div className="search-grid">
-        {/* Keywords Field */}
-        <div className="search-field">
-          <label htmlFor="keywords" className="search-label">Mots clés ou nom d'organisme</label>
-          <div className="input-wrapper">
-            <input
-              type="text"
-              id="keywords"
-              name="keywords"
-              className="search-input"
-              placeholder="Ex : Plomberie, parking, etc..."
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              label="Mots clés ou Entreprise"
+              placeholder="Ex: Plomberie, parking, etc..."
               value={keywords}
               onChange={(e) => setKeywords(e.target.value)}
+              variant="outlined"
+              InputProps={{
+                endAdornment: <SearchIcon sx={{ color: '#0056B3', marginRight: '8px' }} />,
+              }}
             />
-            <span className="search-icon">🔍</span>
-          </div>
-        </div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Select
+              fullWidth
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              displayEmpty
+            >
+              <MenuItem value="all">Toutes les régions</MenuItem>
+              <MenuItem value="tunis">Tunis</MenuItem>
+              <MenuItem value="ariana">Ariana</MenuItem>
+              <MenuItem value="ben-arous">Ben Arous</MenuItem>
+              <MenuItem value="manouba">Manouba</MenuItem>
+              <MenuItem value="sousse">Sousse</MenuItem>
+              <MenuItem value="sfax">Sfax</MenuItem>
+              <MenuItem value="kairouan">Kairouan</MenuItem>
+              <MenuItem value="kasserine">Kasserine</MenuItem>
+              <MenuItem value="gafsa">Gafsa</MenuItem>
+              <MenuItem value="tozeur">Tozeur</MenuItem>
+              <MenuItem value="djerba">Djerba</MenuItem>
+              <MenuItem value="gabes">Gabès</MenuItem>
+              <MenuItem value="tataouine">Tataouine</MenuItem>
+              <MenuItem value="medenine">Médenine</MenuItem>
+              <MenuItem value="mahdia">Mahdia</MenuItem>
+              <MenuItem value="monastir">Monastir</MenuItem>
+              <MenuItem value="hammamet">Hammamet</MenuItem>
+              <MenuItem value="nabeul">Nabeul</MenuItem>
+              <MenuItem value="zaghouan">Zaghouan</MenuItem>
+              <MenuItem value="bizerte">Bizerte</MenuItem>
+              <MenuItem value="jendouba">Jendouba</MenuItem>
+              <MenuItem value="kef">Kef</MenuItem>
+              <MenuItem value="siliana">Siliana</MenuItem>
+            </Select>
+          </Grid>
+        </Grid>
 
-        {/* Region Field */}
-        <div className="search-field">
-          <label htmlFor="region" className="search-label">Zone géographique</label>
-          <select
-            id="region"
-            name="region"
-            className="search-select"
-            value={region}
-            onChange={(e) => setRegion(e.target.value)}
+        <Box sx={{ textAlign: 'center' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            startIcon={<SearchIcon />}
+            sx={{
+              padding: '10px 24px',
+              backgroundColor: '#0056B3',
+              color: '#FFFFFF',
+              fontSize: '14px',
+              fontWeight: 500,
+            }}
           >
-            <option value="all">Toutes les régions</option>
-            <option value="tunis">Tunis</option>
-            <option value="ariana">Ariana</option>
-            <option value="ben-arous">Ben Arous</option>
-            <option value="manouba">Manouba</option>
-            <option value="sousse">Sousse</option>
-            <option value="sfax">Sfax</option>
-            <option value="kairouan">Kairouan</option>
-            <option value="kasserine">Kasserine</option>
-            <option value="gafsa">Gafsa</option>
-            <option value="tozeur">Tozeur</option>
-            <option value="djerba">Djerba</option>
-            <option value="gabes">Gabès</option>
-            <option value="tataouine">Tataouine</option>
-            <option value="medenine">Médenine</option>
-            <option value="mahdia">Mahdia</option>
-            <option value="monastir">Monastir</option>
-            <option value="hammamet">Hammamet</option>
-            <option value="nabeul">Nabeul</option>
-            <option value="zaghouan">Zaghouan</option>
-            <option value="bizerte">Bizerte</option>
-            <option value="jendouba">Jendouba</option>
-            <option value="kef">Kef</option>
-            <option value="siliana">Siliana</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Submit Button */}
-      <div className="search-actions">
-        <button type="submit" className="search-submit-btn">
-          Rechercher
-        </button>
-      </div>
-    </form>
+            Rechercher
+          </Button>
+        </Box>
+      </Stack>
+    </Paper>
   );
 }

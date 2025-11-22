@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Box } from '@mui/material';
 import institutionalTheme from './theme/theme';
 import AlertStrip from './components/AlertStrip';
 import UnifiedHeader from './components/UnifiedHeader';
@@ -125,7 +126,7 @@ function App() {
   };
 
   if (loading) {
-    return <div className="loading">Chargement en cours...</div>;
+    return <Box sx={{ padding: '20px', textAlign: 'center' }}>Chargement en cours...</Box>;
   }
 
   return (
@@ -134,7 +135,7 @@ function App() {
       <DarkModeProvider>
         <ToastContext.Provider value={{ addToast }}>
           <Router>
-          <div className="app">
+          <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <AlertStrip />
           <UnifiedHeader />
           <ToastContainer toasts={toasts} removeToast={removeToast} />
@@ -142,7 +143,7 @@ function App() {
         {/* Sidebar Navigation - Only for authenticated users */}
         {user && <Sidebar user={user} onLogout={handleLogout} />}
 
-        <main className="main-content">
+        <Box component="main" sx={{ flex: 1, paddingY: '20px' }}>
           <Routes>
             {/* Pages Publiques */}
             <Route path="/" element={!user ? <HomePage /> : <Navigate to="/tenders" />} />
@@ -343,12 +344,12 @@ function App() {
             {/* Par défaut */}
             <Route path="*" element={<Navigate to="/tenders" />} />
           </Routes>
-        </main>
+        </Box>
 
-        <footer className="footer">
-          <p>&copy; 2025 MyNet.tn - Système de Gestion des Appels d'Offres et des Achats</p>
-        </footer>
-        </div>
+        <Box component="footer" sx={{ backgroundColor: '#F9F9F9', borderTop: '1px solid #E0E0E0', padding: '20px', textAlign: 'center', fontSize: '13px', color: '#616161' }}>
+          &copy; 2025 MyNet.tn - Système de Gestion des Appels d'Offres et des Achats
+        </Box>
+        </Box>
       </Router>
         </ToastContext.Provider>
       </DarkModeProvider>

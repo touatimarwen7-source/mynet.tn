@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Box, Container, Typography, TextField, Button, Stack, FormControlLabel, Radio, RadioGroup, Alert } from '@mui/material';
 
 export default function LeadGenerationForm() {
   const [formData, setFormData] = useState({
@@ -20,7 +21,6 @@ export default function LeadGenerationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       setSubmitted(true);
@@ -34,94 +34,93 @@ export default function LeadGenerationForm() {
   };
 
   return (
-    <div className="lead-section">
-      <div className="lead-container">
-        <div className="lead-content">
-          <h2>💌 Restez Connecté avec MyNet.tn</h2>
-          <p>Recevez les dernières mises à jour, conseils exclusifs et offres spéciales directement dans votre boîte mail</p>
-        </div>
+    <Box sx={{ backgroundColor: '#FFFFFF', paddingY: '60px', borderTop: '1px solid #E0E0E0', borderBottom: '1px solid #E0E0E0' }}>
+      <Container maxWidth="sm">
+        <Box sx={{ textAlign: 'center', marginBottom: '32px' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+            Restez Connecté avec MyNet.tn
+          </Typography>
+          <Typography sx={{ fontSize: '14px', color: '#616161' }}>
+            Recevez les dernières mises à jour, conseils exclusifs et offres spéciales directement dans votre boîte mail
+          </Typography>
+        </Box>
 
-        <form className="lead-form" onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit}>
           {submitted && (
-            <div className="success-alert">
-              ✓ Merci! Nous vous recontacterons sous 24 heures avec plus d'informations.
-            </div>
+            <Alert severity="success" sx={{ marginBottom: '24px' }}>
+              Merci! Nous vous recontacterons sous 24 heures avec plus d'informations.
+            </Alert>
           )}
 
-          <div className="form-tabs">
-            <label className={`tab-label ${formData.formType === 'demo' ? 'active' : ''}`}>
-              <input
-                type="radio"
-                name="formType"
+          <Stack spacing={2} sx={{ marginBottom: '24px' }}>
+            <RadioGroup row value={formData.formType} onChange={handleChange} name="formType">
+              <FormControlLabel
                 value="demo"
-                checked={formData.formType === 'demo'}
-                onChange={handleChange}
+                control={<Radio />}
+                label="Demander une Démo"
               />
-              📺 Demander une Démo
-            </label>
-            <label className={`tab-label ${formData.formType === 'newsletter' ? 'active' : ''}`}>
-              <input
-                type="radio"
-                name="formType"
+              <FormControlLabel
                 value="newsletter"
-                checked={formData.formType === 'newsletter'}
-                onChange={handleChange}
+                control={<Radio />}
+                label="S'abonner au Newsletter"
               />
-              📧 S'abonner au Newsletter
-            </label>
-          </div>
+            </RadioGroup>
+          </Stack>
 
-          <div className="form-grid">
-            <input
-              type="text"
+          <Stack spacing={2} sx={{ marginBottom: '24px' }}>
+            <TextField
+              fullWidth
+              label="Votre Nom Complet"
               name="name"
-              placeholder="Votre Nom Complet *"
+              placeholder="Exemple: Ahmed Ben Ali"
               value={formData.name}
               onChange={handleChange}
               required
-              className="form-input"
             />
-            <input
-              type="email"
+            <TextField
+              fullWidth
+              label="Votre Email"
               name="email"
-              placeholder="Votre Email *"
+              type="email"
+              placeholder="vous@entreprise.com"
               value={formData.email}
               onChange={handleChange}
               required
-              className="form-input"
             />
-            <input
-              type="text"
+            <TextField
+              fullWidth
+              label="Votre Entreprise"
               name="company"
-              placeholder="Votre Entreprise *"
+              placeholder="Nom de l'entreprise"
               value={formData.company}
               onChange={handleChange}
               required
-              className="form-input"
             />
-            <input
-              type="tel"
+            <TextField
+              fullWidth
+              label="Téléphone (optionnel)"
               name="phone"
-              placeholder="Téléphone (optionnel)"
+              type="tel"
+              placeholder="+216 20 000 000"
               value={formData.phone}
               onChange={handleChange}
-              className="form-input"
             />
-          </div>
+          </Stack>
 
-          <button
+          <Button
             type="submit"
-            className="submit-btn"
+            variant="contained"
+            fullWidth
             disabled={loading}
           >
-            {loading ? '⏳ Envoi en cours...' : '🚀 Envoyer ma Demande'}
-          </button>
+            {loading ? 'Envoi en cours...' : 'Envoyer ma Demande'}
+          </Button>
 
-          <p className="form-disclaimer">
+          <Typography sx={{ fontSize: '12px', color: '#616161', textAlign: 'center', marginTop: '16px', lineHeight: 1.6 }}>
             Nous respectons votre confidentialité. Aucun spam. Vous pouvez vous désabonner à tout moment.
-          </p>
-        </form>
-      </div>
-    </div>
+          </Typography>
+        </Box>
+      </Container>
+    </Box>
   );
 }

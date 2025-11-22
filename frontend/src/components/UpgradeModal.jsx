@@ -1,115 +1,100 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Box, Typography, Stack, Chip } from '@mui/material';
 import { getNextTierInfo, UPGRADE_VALUES, SERVICE_DESCRIPTIONS } from '../utils/subscriptionTiers';
 
 export default function UpgradeModal({ isOpen, onClose, currentTier, featureKey }) {
   const navigate = useNavigate();
-  const [isAnimating, setIsAnimating] = useState(true);
-
-  if (!isOpen) return null;
-
   const nextTierInfo = getNextTierInfo(currentTier?.id);
   const featureInfo = SERVICE_DESCRIPTIONS[featureKey] || {};
   const upgradeValue = UPGRADE_VALUES[currentTier?.id] || {};
 
-  const handleClose = () => {
-    setIsAnimating(false);
-    setTimeout(onClose, 300);
-  };
-
   const handleUpgrade = () => {
-    handleClose();
+    onClose();
     navigate('/subscription-tiers');
   };
 
   return (
-    <div className={`upgrade-modal-overlay ${isAnimating ? 'show' : ''}`} onClick={handleClose}>
-      <div className="upgrade-modal" onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
-        <div className="upgrade-modal-header">
-          <button className="close-btn" onClick={handleClose}>✕</button>
-          <h2>Débloquez cette fonctionnalité</h2>
-        </div>
+    <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
+      <DialogTitle sx={{ fontWeight: 600, fontSize: '18px', color: '#212121' }}>
+        Débloquez cette fonctionnalité
+      </DialogTitle>
 
-        {/* Body */}
-        <div className="upgrade-modal-body">
-          {/* Feature Icon and Name */}
-          <div className="feature-highlight">
-            <div className="feature-icon-large">{featureInfo.icon}</div>
-            <h3>{featureInfo.label}</h3>
-            <p className="feature-description">{featureInfo.description}</p>
-          </div>
+      <DialogContent sx={{ paddingY: '24px' }}>
+        <Stack spacing={3}>
+          <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ fontSize: '48px', marginBottom: '12px' }}>{featureInfo.icon}</Box>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+              {featureInfo.label}
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: '14px', color: '#616161' }}>
+              {featureInfo.description}
+            </Typography>
+          </Box>
 
-          {/* Current Status */}
-          <div className="status-section">
-            <div className="status-item">
-              <span className="status-label">Plan actuel:</span>
-              <span className="status-value">{currentTier?.name}</span>
-            </div>
+          <Stack spacing={2}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography sx={{ fontSize: '14px', color: '#616161' }}>Plan actuel:</Typography>
+              <Chip label={currentTier?.name} variant="outlined" />
+            </Box>
             {nextTierInfo && (
-              <div className="status-item">
-                <span className="status-label">Plan requis:</span>
-                <span className="status-value upgrade-badge">{nextTierInfo.name}</span>
-              </div>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography sx={{ fontSize: '14px', color: '#616161' }}>Plan requis:</Typography>
+                <Chip label={nextTierInfo.name} color="primary" />
+              </Box>
             )}
-          </div>
+          </Stack>
 
-          {/* Benefits */}
           {nextTierInfo && (
-            <div className="benefits-section">
-              <h4>Avantages supplémentaires avec {nextTierInfo.name}:</h4>
-              <ul className="benefits-list">
-                <li>
-                  <span className="benefit-icon">✓</span>
-                  <span>{upgradeValue.benefit1}</span>
-                </li>
-                <li>
-                  <span className="benefit-icon">✓</span>
-                  <span>{upgradeValue.benefit2}</span>
-                </li>
-                <li>
-                  <span className="benefit-icon">✓</span>
-                  <span>{upgradeValue.benefit3}</span>
-                </li>
-              </ul>
-            </div>
+            <Box>
+              <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+                Avantages supplémentaires:
+              </Typography>
+              <Stack spacing={1}>
+                <Typography variant="body2" sx={{ fontSize: '13px', color: '#616161' }}>
+                  ✓ {upgradeValue.benefit1}
+                </Typography>
+                <Typography variant="body2" sx={{ fontSize: '13px', color: '#616161' }}>
+                  ✓ {upgradeValue.benefit2}
+                </Typography>
+                <Typography variant="body2" sx={{ fontSize: '13px', color: '#616161' }}>
+                  ✓ {upgradeValue.benefit3}
+                </Typography>
+              </Stack>
+            </Box>
           )}
 
-          {/* Pricing Info */}
           {nextTierInfo && (
-            <div className="pricing-section">
-              <div className="price-info">
-                <span className="price-label">À partir de</span>
-                <span className="price-value">{nextTierInfo.price} TND</span>
-                <span className="price-period">/mois</span>
-              </div>
-            </div>
+            <Box sx={{ backgroundColor: '#F9F9F9', padding: '16px', borderRadius: '4px', textAlign: 'center' }}>
+              <Typography sx={{ fontSize: '12px', color: '#616161' }}>À partir de</Typography>
+              <Typography sx={{ fontSize: '24px', fontWeight: 600, color: '#0056B3' }}>
+                {nextTierInfo.price} TND
+              </Typography>
+              <Typography sx={{ fontSize: '12px', color: '#616161' }}>/mois</Typography>
+            </Box>
           )}
 
-          {/* Message if at max tier */}
           {!nextTierInfo && (
-            <div className="max-tier-message">
-              <p>✓ Vous avez accès à toutes les fonctionnalités</p>
-              <p className="subtitle">Merci de votre confiance!</p>
-            </div>
+            <Box sx={{ backgroundColor: '#e8f5e9', padding: '16px', borderRadius: '4px', textAlign: 'center' }}>
+              <Typography sx={{ fontSize: '14px', color: '#2e7d32', fontWeight: 600 }}>
+                ✓ Vous avez accès à toutes les fonctionnalités
+              </Typography>
+              <Typography sx={{ fontSize: '13px', color: '#616161' }}>Merci de votre confiance!</Typography>
+            </Box>
           )}
-        </div>
+        </Stack>
+      </DialogContent>
 
-        {/* Footer */}
-        <div className="upgrade-modal-footer">
-          <button className="btn-secondary" onClick={handleClose}>
-            Annuler
-          </button>
-          {nextTierInfo && (
-            <button className="btn-primary-upgrade" onClick={handleUpgrade}>
-              Voir les Forfaits
-            </button>
-          )}
-        </div>
-
-        {/* Decorative Elements */}
-        <div className="modal-decoration"></div>
-      </div>
-    </div>
+      <DialogActions sx={{ padding: '16px' }}>
+        <Button onClick={onClose} variant="outlined">
+          Annuler
+        </Button>
+        {nextTierInfo && (
+          <Button onClick={handleUpgrade} variant="contained">
+            Voir les Forfaits
+          </Button>
+        )}
+      </DialogActions>
+    </Dialog>
   );
 }

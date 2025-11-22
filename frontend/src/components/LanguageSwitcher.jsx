@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { useContext } from 'react';
-import { DarkModeContext } from '../contexts/DarkModeContext';
+import { Button, Menu, MenuItem, Box } from '@mui/material';
+import { useState } from 'react';
+import LanguageIcon from '@mui/icons-material/Language';
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const languages = [
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
@@ -15,26 +17,25 @@ export default function LanguageSwitcher() {
     i18n.changeLanguage(lng);
     document.documentElement.lang = lng;
     document.documentElement.dir = 'ltr';
+    setAnchorEl(null);
   };
 
   return (
-    <div className="language-switcher">
-      <button className="btn-language-toggle" title="Change language">
-        🌐
-      </button>
-      <div className="language-menu">
+    <Box>
+      <Button
+        startIcon={<LanguageIcon />}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+        size="small"
+      >
+        {i18n.language === 'fr' ? 'FR' : i18n.language === 'ar' ? 'AR' : 'EN'}
+      </Button>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
         {languages.map(lang => (
-          <button
-            key={lang.code}
-            onClick={() => handleLanguageChange(lang.code)}
-            className={`language-option ${i18n.language === lang.code ? 'active' : ''}`}
-            title={lang.name}
-          >
-            <span className="flag">{lang.flag}</span>
-            <span className="name">{lang.name}</span>
-          </button>
+          <MenuItem key={lang.code} onClick={() => handleLanguageChange(lang.code)}>
+            <span style={{ marginRight: '8px' }}>{lang.flag}</span> {lang.name}
+          </MenuItem>
         ))}
-      </div>
-    </div>
+      </Menu>
+    </Box>
   );
 }

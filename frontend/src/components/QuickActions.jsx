@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Grid, Card, CardActionArea, CardContent, Typography, Chip, Box } from '@mui/material';
 
 export default function QuickActions({ actions }) {
   const navigate = useNavigate();
@@ -11,24 +12,43 @@ export default function QuickActions({ actions }) {
     }
   };
 
+  const getPriorityColor = (priority) => {
+    const colorMap = {
+      high: '#c62828',
+      medium: '#f57c00',
+      normal: '#616161'
+    };
+    return colorMap[priority] || '#616161';
+  };
+
   return (
-    <div className="quick-actions-section">
-      <h3 className="quick-actions-title">Actions Rapides</h3>
-      <div className="quick-actions-grid">
+    <Box sx={{ padding: '24px', backgroundColor: '#F9F9F9', borderRadius: '4px' }}>
+      <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#212121', marginBottom: '20px' }}>
+        Actions Rapides
+      </Typography>
+      <Grid container spacing={2}>
         {actions.map((action, idx) => (
-          <button
-            key={idx}
-            className={`quick-action-btn action-priority-${action.priority || 'normal'}`}
-            onClick={() => handleActionClick(action)}
-            title={action.description}
-          >
-            <span className="action-label">{action.label}</span>
-            {action.badge && (
-              <span className="action-badge">{action.badge}</span>
-            )}
-          </button>
+          <Grid item xs={12} sm={6} md={4} key={idx}>
+            <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', height: '100%' }}>
+              <CardActionArea onClick={() => handleActionClick(action)} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <CardContent sx={{ flex: 1, width: '100%' }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
+                    <Typography sx={{ fontWeight: 600, color: '#212121', fontSize: '14px', flex: 1 }}>
+                      {action.label}
+                    </Typography>
+                    {action.badge && (
+                      <Chip label={action.badge} size="small" color="primary" sx={{ marginLeft: '8px' }} />
+                    )}
+                  </Box>
+                  <Typography sx={{ fontSize: '12px', color: '#616161' }}>
+                    {action.description}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Box>
   );
 }

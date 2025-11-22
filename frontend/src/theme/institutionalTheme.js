@@ -1,5 +1,5 @@
 /* ================================================
-   INSTITUTIONAL THEME - UNIFIED & STANDARDIZED
+   B2B PROFESSIONAL THEME - UNIFIED & STANDARDIZED
    Single Source of Truth for All Styling
    Material-UI Only - No Custom CSS Required
    ================================================ */
@@ -8,7 +8,7 @@ import { createTheme } from '@mui/material/styles';
 
 export const institutionalTheme = createTheme({
   // ================================================
-  // PALETTE - Institutional Color System
+  // PALETTE - B2B Professional Color System
   // ================================================
   palette: {
     primary: {

@@ -228,7 +228,7 @@ export default function Profile({ user }) {
             </Box>
 
             {!editing ? (
-              <Grid container spacing={3}>
+              <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Email

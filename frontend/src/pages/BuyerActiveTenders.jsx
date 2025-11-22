@@ -142,7 +142,7 @@ export default function BuyerActiveTenders() {
             Aucun appel d'offres actif. Créez votre premier appel maintenant!
           </Alert>
         ) : (
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             {sortedTenders.map((tender) => (
               <Grid size={{ xs: 12, md: 6 }} key={tender.id}>
                 <Card sx={{ border: '1px solid #e0e0e0', height: '100%', display: 'flex', flexDirection: 'column' }}>

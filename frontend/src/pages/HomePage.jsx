@@ -161,7 +161,7 @@ export default function HomePage() {
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           {roles.map((role) => (
             <Grid item xs={12} md={6} key={role.id}>
               <Card
@@ -264,7 +264,7 @@ export default function HomePage() {
           </Typography>
 
           {/* Stats Grid */}
-          <Grid container spacing={3} sx={{ marginBottom: '48px' }}>
+          <Grid container spacing={2} sx={{ marginBottom: '48px' }}>
             {stats.map((stat, idx) => (
               <Grid item xs={12} sm={6} md={3} key={idx}>
                 <Paper
@@ -322,7 +322,7 @@ export default function HomePage() {
             >
               Ce que Disent nos Utilisateurs
             </Typography>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
               {testimonials.map((testimonial, idx) => (
                 <Grid item xs={12} md={4} key={idx}>
                   <Paper
@@ -379,7 +379,7 @@ export default function HomePage() {
           Pourquoi Choisir MyNet.tn?
         </Typography>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           {features.map((feature, idx) => (
             <Grid item xs={12} md={4} key={idx}>
               <Card

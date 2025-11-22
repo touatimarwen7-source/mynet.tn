@@ -154,7 +154,7 @@ export default function BudgetManagement() {
           </Card>
         )}
 
-        <Grid container spacing={3} sx={{ marginBottom: '32px' }}>
+        <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
           <Grid size={{ xs: 12, md: 4 }}>
             <StatCard label="Budget Total" value={totalBudget} color="#1565c0" />
           </Grid>

@@ -78,7 +78,7 @@ export default function ContactPage() {
         <Grid container spacing={4}>
           {/* Contact Info Column */}
           <Grid item xs={12} md={4}>
-            <Stack spacing={3}>
+            <Stack spacing={2}>
               {/* Address */}
               <Card sx={{ border: '1px solid #e0e0e0' }}>
                 <CardContent sx={{ padding: '24px' }}>

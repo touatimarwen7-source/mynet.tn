@@ -44,7 +44,7 @@ export default function AboutPage() {
             📖 Notre Histoire et Vision
           </Typography>
 
-          <Grid container spacing={3} sx={{ marginBottom: '40px' }}>
+          <Grid container spacing={2} sx={{ marginBottom: '40px' }}>
             <Grid item xs={12} md={4}>
               <Card sx={{ height: '100%', border: '1px solid #e0e0e0', transition: 'all 0.3s', '&:hover': { boxShadow: '0 8px 16px rgba(0,0,0,0.1)' } }}>
                 <CardContent sx={{ padding: '32px' }}>
@@ -95,7 +95,7 @@ export default function AboutPage() {
             Nos Valeurs Fondamentales
           </Typography>
 
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             {[
               { icon: '🔐', title: 'Sécurité', desc: 'La confiance est notre priorité absolue' },
               { icon: '👁️', title: 'Transparence', desc: 'Zéro compromis sur la clarté des processus' },
@@ -125,7 +125,7 @@ export default function AboutPage() {
             👥 L'Équipe Dirigeante
           </Typography>
 
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             {[
               { name: 'Mohamed Dhaoui', role: 'Fondateur & Directeur Général', bio: 'Entrepreneur tunisien avec 15 ans d\'expérience en technologie' },
               { name: 'Fatima Belgacem', role: 'Directrice Technique', bio: 'Experte en sécurité informatique et blockchain' },

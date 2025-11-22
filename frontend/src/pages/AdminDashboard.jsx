@@ -109,7 +109,7 @@ export default function AdminDashboard() {
         </Box>
 
         {/* Stats Cards */}
-        <Grid container spacing={3} sx={{ marginBottom: '32px' }}>
+        <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
           <Grid item xs={12} sm={6} md={3}>
             <StatCard
               icon={<PeopleIcon sx={{ fontSize: 40, color: '#1565c0' }} />}

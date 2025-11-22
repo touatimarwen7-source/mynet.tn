@@ -97,7 +97,7 @@ export default function AccountSettings() {
               📬 Notifications
             </Typography>
 
-            <Stack spacing={3}>
+            <Stack spacing={2}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box>
                   <Typography sx={{ fontWeight: 600, color: '#212121' }}>Notifications par Email</Typography>

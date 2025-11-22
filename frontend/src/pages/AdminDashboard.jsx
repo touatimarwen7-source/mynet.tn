@@ -8,33 +8,31 @@ import { setPageTitle } from '../utils/pageTitle';
 
 /**
  * Admin Dashboard - Limited Permissions
- * ✅ صلاحيات محدودة تفويضها Super Admin
- * 
- * Admin يملك صلاحيات محدودة فقط:
- * - عرض المستخدمين (بدون تعديل الأدوار)
- * - عرض الإحصائيات
- * - لا يملك صلاحيات تعديل النظام أو حذف البيانات
+ * Admin has limited permissions only:
+ * - View users (no role editing)
+ * - View statistics
+ * - Cannot modify system or delete data
  */
 export default function AdminDashboard() {
   const [currentTab, setCurrentTab] = useState(0);
 
   useEffect(() => {
-    setPageTitle('لوحة التحكم - Admin');
+    setPageTitle('Tableau de Bord - Admin');
   }, []);
 
   const tabs = [
     { 
-      label: '👥 إدارة المستخدمين', 
+      label: 'Gestion des Utilisateurs', 
       icon: <SecurityIcon />, 
       component: <UserRoleManagement />,
-      description: 'عرض المستخدمين والمعلومات الأساسية (صلاحيات محدودة)',
+      description: 'Voir les utilisateurs et les informations de base (permissions limitées)',
       superAdminOnly: false
     },
     { 
-      label: '📊 الإحصائيات', 
+      label: 'Statistiques', 
       icon: <AnalyticsIcon />, 
       component: <AdminAnalytics />,
-      description: 'عرض الإحصائيات والتقارير الأساسية',
+      description: 'Voir les statistiques et rapports de base',
       superAdminOnly: false
     }
   ];
@@ -53,7 +51,7 @@ export default function AdminDashboard() {
               marginBottom: '8px',
             }}
           >
-            لوحة التحكم - Admin
+            Tableau de Bord - Admin
           </Typography>
           <Typography
             sx={{
@@ -62,10 +60,9 @@ export default function AdminDashboard() {
               marginBottom: '16px',
             }}
           >
-            ✅ صلاحيات محدودة - Limited Admin Permissions
+            Permissions Limitées - Admin
           </Typography>
           
-          {/* Info Alert */}
           <Alert 
             severity="info" 
             sx={{ 
@@ -75,7 +72,7 @@ export default function AdminDashboard() {
               color: '#1565C0'
             }}
           >
-            ℹ️ لديك صلاحيات محدودة تفويضها Super Admin. للوصول إلى جميع أدوات التحكم، اتصل بـ Super Admin
+            Vous avez des permissions limitées déléguées par le Super Admin. Pour accéder à tous les outils de contrôle, contactez le Super Admin.
           </Alert>
         </Box>
 
@@ -124,11 +121,10 @@ export default function AdminDashboard() {
           </Box>
         </Box>
 
-        {/* Footer Info */}
         <Box sx={{ marginTop: '32px', padding: '16px', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #E0E0E0' }}>
           <Typography sx={{ fontSize: '12px', color: '#999999', lineHeight: '1.6' }}>
-            <strong>ملاحظة:</strong> كـ Admin، لديك صلاحيات محدودة فقط. 
-            للوصول إلى صلاحيات التحكم الشاملة (Total Control Hub)، يجب أن تكون Super Admin.
+            <strong>Note:</strong> En tant qu'Admin, vous avez des permissions limitées uniquement. 
+            Pour accéder au contrôle complet (Total Control Hub), vous devez être Super Admin.
           </Typography>
         </Box>
       </Container>

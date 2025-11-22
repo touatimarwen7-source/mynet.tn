@@ -15,12 +15,12 @@ import { setPageTitle } from '../utils/pageTitle';
 
 /**
  * Super Admin Dashboard - Total Control Hub
- * ✅ صلاحيات التحكم الشامل (Total Control Powers)
+ * Full Control Powers
  * 
- * 1. 👥 إدارة المستخدمين والأمان
- * 2. 📄 إدارة المحتوى الديناميكي
- * 3. ⚙️ التحكم في إعدادات النظام
- * 4. 📊 المراقبة والتحليلات
+ * 1. User & Security Management
+ * 2. Dynamic Content Management
+ * 3. System Settings Control
+ * 4. Monitoring & Analytics
  */
 export default function SuperAdminDashboard() {
   const [currentTab, setCurrentTab] = useState(0);
@@ -31,34 +31,34 @@ export default function SuperAdminDashboard() {
 
   const tabs = [
     { 
-      label: '👥 إدارة المستخدمين والأمان', 
+      label: 'Gestion des Utilisateurs et Sécurité', 
       icon: <SecurityIcon />, 
       component: <UserRoleManagement />,
-      description: 'الاطلاع على جميع المستخدمين، تعديل الأدوار، حظر/فتح الحسابات، إعادة تعيين كلمات المرور'
+      description: 'Voir tous les utilisateurs, modifier les rôles, bloquer/débloquer les comptes, réinitialiser les mots de passe'
     },
     { 
-      label: '📄 إدارة المحتوى الديناميكي', 
+      label: 'Gestion du Contenu Dynamique', 
       icon: <ArticleIcon />, 
       component: <ContentManager />,
-      description: 'تعديل الصفحات الثابتة، إدارة الملفات والصور والوثائق'
+      description: 'Modifier les pages statiques, gérer les fichiers, images et documents'
     },
     { 
-      label: '🔧 إدارة الخدمات والخطط', 
+      label: 'Gestion des Services et Plans', 
       icon: <BuildIcon />, 
       component: <ServicesManager />,
-      description: 'إدارة الخدمات العامة (Feature Flags)، خطط الاشتراك، خدمات المزودين'
+      description: 'Gérer les services généraux (Feature Flags), les plans d\'abonnement, les services des fournisseurs'
     },
     { 
-      label: '⚙️ إعدادات النظام', 
+      label: 'Paramètres Système', 
       icon: <SettingsIcon />, 
       component: <SystemConfig />,
-      description: 'وضع الصيانة، Feature Toggles، Rate Limits، إعدادات الكاش'
+      description: 'Mode maintenance, Feature Toggles, Rate Limits, paramètres du cache'
     },
     { 
-      label: '📊 المراقبة والتحليلات', 
+      label: 'Surveillance et Analyse', 
       icon: <AnalyticsIcon />, 
       component: <AdminAnalytics />,
-      description: 'الإحصائيات الحية، سجلات الأنشطة، مراقبة الموارد'
+      description: 'Statistiques en direct, journaux d\'activité, surveillance des ressources'
     }
   ];
 
@@ -85,10 +85,9 @@ export default function SuperAdminDashboard() {
               marginBottom: '16px',
             }}
           >
-            ✅ صلاحيات التحكم الشامل - Super Admin Only
+            Super Admin Uniquement
           </Typography>
           
-          {/* Critical Alert */}
           <Alert 
             severity="warning" 
             sx={{ 
@@ -98,7 +97,7 @@ export default function SuperAdminDashboard() {
               color: '#E65100'
             }}
           >
-            ⚠️ أنت تستخدم حساب Super Admin - جميع التغييرات هنا تؤثر على المنصة بالكامل
+            Vous utilisez un compte Super Admin - Tous les changements ici affectent l\'ensemble de la plateforme
           </Alert>
         </Box>
 

@@ -40,7 +40,7 @@ export default function SupplierReviews() {
   });
 
   useEffect(() => {
-    setPageTitle('التقييمات والمراجعات');
+    setPageTitle('Avis et Évaluations');
     fetchReviews();
   }, [supplierId]);
 
@@ -65,7 +65,7 @@ export default function SupplierReviews() {
       setError('');
     } catch (err) {
       console.error('Error fetching reviews:', err);
-      setError('خطأ في تحميل التقييمات');
+      setError('Erreur lors du chargement des avis');
     } finally {
       setLoading(false);
     }
@@ -107,18 +107,18 @@ export default function SupplierReviews() {
       setError('');
     } catch (err) {
       console.error('Error:', err);
-      setError('خطأ في حفظ التقييم');
+      setError('Erreur lors de la sauvegarde de l\'avis');
     }
   };
 
   const handleDelete = async (reviewId) => {
-    if (!window.confirm('هل تريد حذف هذا التقييم؟')) return;
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cet avis?')) return;
     try {
       await axiosInstance.delete(`/procurement/reviews/${reviewId}`);
       fetchReviews();
     } catch (err) {
       console.error('Error:', err);
-      setError('خطأ في حذف التقييم');
+      setError('Erreur lors de la suppression de l\'avis');
     }
   };
 
@@ -135,7 +135,7 @@ export default function SupplierReviews() {
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
           <Typography variant="h4" sx={{ fontWeight: 600, color: '#0056B3' }}>
-            التقييمات والمراجعات
+            Avis et Évaluations
           </Typography>
           <Button
             variant="contained"
@@ -143,7 +143,7 @@ export default function SupplierReviews() {
             onClick={() => handleOpenDialog()}
             sx={{ backgroundColor: '#0056B3' }}
           >
-            إضافة تقييم
+            Ajouter un Avis
           </Button>
         </Box>
 
@@ -160,7 +160,7 @@ export default function SupplierReviews() {
                     </Typography>
                     <Rating value={parseFloat(stats.avgRating)} readOnly precision={0.1} />
                     <Typography variant="body2" sx={{ color: '#666', marginTop: '8px' }}>
-                      بناءً على {stats.count} تقييم
+                      Basé sur {stats.count} avis
                     </Typography>
                   </Box>
                 </Grid>
@@ -187,7 +187,7 @@ export default function SupplierReviews() {
 
         <Box>
           {reviews.length === 0 ? (
-            <Alert severity="info">لا توجد تقييمات حالياً</Alert>
+            <Alert severity="info">Aucun avis pour le moment</Alert>
           ) : (
             reviews.map((review) => (
               <Card key={review.id} sx={{ marginBottom: '16px' }}>
@@ -199,13 +199,13 @@ export default function SupplierReviews() {
                       </Typography>
                       <Rating value={review.rating} readOnly size="small" sx={{ marginBottom: '8px' }} />
                       <Typography variant="body2" sx={{ color: '#666', marginBottom: '8px' }}>
-                        <strong>من:</strong> {review.reviewer_company || review.reviewer_name}
+                        <strong>De:</strong> {review.reviewer_company || review.reviewer_name}
                       </Typography>
                       <Typography variant="body2" sx={{ color: '#333', marginBottom: '8px' }}>
                         {review.comment}
                       </Typography>
                       <Typography variant="caption" sx={{ color: '#999', marginTop: '8px', display: 'block' }}>
-                        {new Date(review.created_at).toLocaleDateString('ar-TN')}
+                        {new Date(review.created_at).toLocaleDateString('fr-TN')}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'left', sm: 'right' } }}>
@@ -215,7 +215,7 @@ export default function SupplierReviews() {
                         onClick={() => handleOpenDialog(review)}
                         sx={{ color: '#0056B3', marginRight: '8px' }}
                       >
-                        تعديل
+                        Modifier
                       </Button>
                       <Button
                         size="small"
@@ -223,7 +223,7 @@ export default function SupplierReviews() {
                         onClick={() => handleDelete(review.id)}
                         sx={{ color: '#f44336' }}
                       >
-                        حذف
+                        Supprimer
                       </Button>
                     </Grid>
                   </Grid>
@@ -235,12 +235,12 @@ export default function SupplierReviews() {
 
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
           <DialogTitle>
-            {editingId ? 'تعديل التقييم' : 'إضافة تقييم جديد'}
+            {editingId ? 'Modifier l\'Avis' : 'Ajouter un Nouvel Avis'}
           </DialogTitle>
           <DialogContent sx={{ paddingY: '20px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <Box>
-                <Typography variant="body2" sx={{ marginBottom: '8px' }}>التقييم</Typography>
+                <Typography variant="body2" sx={{ marginBottom: '8px' }}>Évaluation</Typography>
                 <Rating
                   value={formData.rating}
                   onChange={(e, value) => setFormData({ ...formData, rating: value })}
@@ -249,7 +249,7 @@ export default function SupplierReviews() {
               </Box>
               <TextField
                 fullWidth
-                label="التعليق"
+                label="Commentaire"
                 multiline
                 rows={4}
                 value={formData.comment}
@@ -258,13 +258,13 @@ export default function SupplierReviews() {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog}>إلغاء</Button>
+            <Button onClick={handleCloseDialog}>Annuler</Button>
             <Button
               onClick={handleSubmit}
               variant="contained"
               sx={{ backgroundColor: '#0056B3' }}
             >
-              {editingId ? 'تحديث' : 'إضافة'}
+              {editingId ? 'Mettre à Jour' : 'Ajouter'}
             </Button>
           </DialogActions>
         </Dialog>

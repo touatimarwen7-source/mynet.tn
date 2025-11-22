@@ -45,9 +45,9 @@ const FALLBACK_FEATURES = [
 ];
 
 const FALLBACK_PLANS = [
-  { id: 1, name: 'الخطة الأساسية', description: 'للبدء', price: 0, duration_days: 30, is_active: true },
-  { id: 2, name: 'الخطة الفضية', description: 'للنمو', price: 99, duration_days: 30, is_active: true },
-  { id: 3, name: 'الخطة الذهبية', description: 'للشركات', price: 299, duration_days: 30, is_active: true }
+  { id: 1, name: 'Plan de Base', description: 'Pour commencer', price: 0, duration_days: 30, is_active: true },
+  { id: 2, name: 'Plan Argent', description: 'Pour la croissance', price: 99, duration_days: 30, is_active: true },
+  { id: 3, name: 'Plan Or', description: 'Pour les entreprises', price: 299, duration_days: 30, is_active: true }
 ];
 
 export default function ServicesManager() {
@@ -100,7 +100,7 @@ export default function ServicesManager() {
       setErrorMsg('');
     } catch (error) {
       const formatted = errorHandler.getUserMessage(error);
-      setErrorMsg(formatted.message || 'خطأ في التحميل');
+      setErrorMsg(formatted.message || 'Erreur de chargement');
       setFeatures(FALLBACK_FEATURES);
       setPlans(FALLBACK_PLANS);
     } finally {
@@ -121,11 +121,11 @@ export default function ServicesManager() {
       setFeatures(features.map(f =>
         f.id === featureId ? { ...f, is_enabled: !currentStatus } : f
       ));
-      setSuccessMsg(`تم ${!currentStatus ? 'تفعيل' : 'إيقاف'} الخدمة "${featureName}"`);
+      setSuccessMsg(`Service "${featureName}" ${!currentStatus ? 'activé' : 'désactivé'}`);
       setTimeout(() => setSuccessMsg(''), 3000);
     } catch (error) {
       const formatted = errorHandler.getUserMessage(error);
-      setErrorMsg(formatted.message || 'خطأ في التحديث');
+      setErrorMsg(formatted.message || 'Erreur lors de la mise à jour');
     } finally {
       setSaving(false);
     }
@@ -135,8 +135,8 @@ export default function ServicesManager() {
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>الخدمات العامة</Typography>
-          <Typography variant="caption" sx={{ color: '#616161' }}>{features.length} خدمة</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>Services Généraux</Typography>
+          <Typography variant="caption" sx={{ color: '#616161' }}>{features.length} service(s)</Typography>
         </Box>
       </Box>
 
@@ -144,18 +144,18 @@ export default function ServicesManager() {
         <Table>
           <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
             <TableRow>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>الخدمة</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>المفتاح</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>الفئة</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>الحالة</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 600, color: '#212121' }}>الإجراءات</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Service</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Clé</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Catégorie</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>État</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 600, color: '#212121' }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {features.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} sx={{ textAlign: 'center', py: 3, color: '#616161' }}>
-                  لا توجد خدمات
+                  Aucun service
                 </TableCell>
               </TableRow>
             ) : (
@@ -174,7 +174,7 @@ export default function ServicesManager() {
                   </TableCell>
                   <TableCell>
                     <Chip
-                      label={feature.is_enabled ? 'مفعلة' : 'معطلة'}
+                      label={feature.is_enabled ? 'Activé' : 'Désactivé'}
                       size="small"
                       sx={{
                         backgroundColor: feature.is_enabled ? '#E8F5E9' : '#FFEBEE',
@@ -205,8 +205,8 @@ export default function ServicesManager() {
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>خطط الاشتراك</Typography>
-          <Typography variant="caption" sx={{ color: '#616161' }}>{plans.length} خطة</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>Plans d\'Abonnement</Typography>
+          <Typography variant="caption" sx={{ color: '#616161' }}>{plans.length} plan(s)</Typography>
         </Box>
         <Button
           variant="contained"
@@ -219,7 +219,7 @@ export default function ServicesManager() {
             setOpenPlanDialog(true);
           }}
         >
-          خطة جديدة
+          Nouveau Plan
         </Button>
       </Box>
 
@@ -238,13 +238,13 @@ export default function ServicesManager() {
                   <Typography variant="h5" sx={{ fontWeight: 600 }}>
                     {plan.price}
                   </Typography>
-                  <Typography sx={{ color: '#616161', ml: 1 }}>TND / شهر</Typography>
+                  <Typography sx={{ color: '#616161', ml: 1 }}>TND / mois</Typography>
                 </Box>
                 <Typography variant="caption" sx={{ color: '#616161', display: 'block', mb: 2 }}>
-                  {plan.duration_days} يوم
+                  {plan.duration_days} jour(s)
                 </Typography>
                 <Chip
-                  label={plan.is_active ? 'نشطة' : 'معطلة'}
+                  label={plan.is_active ? 'Actif' : 'Inactif'}
                   size="small"
                   sx={{
                     backgroundColor: plan.is_active ? '#E8F5E9' : '#FFEBEE',
@@ -270,7 +270,7 @@ export default function ServicesManager() {
                     }}
                     disabled={saving}
                   >
-                    تعديل
+                    Modifier
                   </Button>
                   <Button 
                     size="small" 
@@ -278,15 +278,15 @@ export default function ServicesManager() {
                     variant="outlined" 
                     sx={{ flex: 1, color: '#C62828', borderColor: '#C62828' }}
                     onClick={() => {
-                      if (window.confirm(`هل تريد حذف الخطة "${plan.name}"؟`)) {
+                      if (window.confirm(`Êtes-vous sûr de vouloir supprimer le plan "${plan.name}"?`)) {
                         setPlans(plans.filter(p => p.id !== plan.id));
-                        setSuccessMsg('تم حذف الخطة');
+                        setSuccessMsg('Plan supprimé');
                         setTimeout(() => setSuccessMsg(''), 3000);
                       }
                     }}
                     disabled={saving}
                   >
-                    حذف
+                    Supprimer
                   </Button>
                 </Box>
               </CardContent>
@@ -325,8 +325,8 @@ export default function ServicesManager() {
             }
           }}
         >
-          <Tab label="🔧 الخدمات العامة" sx={{ minWidth: 'auto' }} />
-          <Tab label="💳 خطط الاشتراك" sx={{ minWidth: 'auto' }} />
+          <Tab label="Services Généraux" sx={{ minWidth: 'auto' }} />
+          <Tab label="Plans d\'Abonnement" sx={{ minWidth: 'auto' }} />
         </Tabs>
 
         <Box sx={{ p: 3 }}>

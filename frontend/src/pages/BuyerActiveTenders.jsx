@@ -144,7 +144,7 @@ export default function BuyerActiveTenders() {
         ) : (
           <Grid container spacing={3}>
             {sortedTenders.map((tender) => (
-              <Grid item xs={12} md={6} key={tender.id}>
+              <Grid size={{ xs: 12, md: 6 }} key={tender.id}>
                 <Card sx={{ border: '1px solid #e0e0e0', height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <CardContent sx={{ padding: '24px', flex: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>

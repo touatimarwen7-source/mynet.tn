@@ -47,7 +47,7 @@ export const institutionalTheme = createTheme({
       contrastText: '#ffffff',
     },
     background: {
-      default: '#fafafa',        // Off-white background
+      default: '#F9F9F9',        // Corporate flat background
       paper: '#ffffff',          // White cards
     },
     text: {

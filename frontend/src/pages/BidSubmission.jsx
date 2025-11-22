@@ -89,7 +89,7 @@ export default function BidSubmission() {
             <Card sx={{ backgroundColor: '#f5f5f5', marginBottom: '32px', border: 'none' }}>
               <CardContent>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={4}>
+                  <Grid size={{ xs: 12, md: 4 }}>
                     <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', marginBottom: '4px' }}>
                       Budget Estimé
                     </Typography>
@@ -97,7 +97,7 @@ export default function BidSubmission() {
                       {tender?.budget_max?.toLocaleString()} TND
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid size={{ xs: 12, md: 4 }}>
                     <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', marginBottom: '4px' }}>
                       Catégorie
                     </Typography>
@@ -105,7 +105,7 @@ export default function BidSubmission() {
                       {tender?.category}
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid size={{ xs: 12, md: 4 }}>
                     <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', marginBottom: '4px' }}>
                       Date Limite
                     </Typography>

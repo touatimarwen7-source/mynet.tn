@@ -876,6 +876,8 @@ export default function CreateTender() {
   const [showExitDialog, setShowExitDialog] = useState(false);
   const [stepsCompleted, setStepsCompleted] = useState({});
   const [editingIndex, setEditingIndex] = useState(null);
+  const [showPreviewDialog, setShowPreviewDialog] = useState(false);
+  const [validationWarnings, setValidationWarnings] = useState([]);
 
   useEffect(() => {
     setPageTitle('Créer un Appel d\'Offres - Assistant');
@@ -1032,6 +1034,10 @@ export default function CreateTender() {
           setError('La description est requise');
           return false;
         }
+        if (formData.description.length < 20) {
+          setError('La description doit contenir au moins 20 caractères');
+          return false;
+        }
         break;
       case 1: // Classification
         if (!formData.category) {
@@ -1044,8 +1050,23 @@ export default function CreateTender() {
           setError('Les budgets minimum et maximum sont requis');
           return false;
         }
-        if (parseFloat(formData.budget_min) > parseFloat(formData.budget_max)) {
+        const minBudget = parseFloat(formData.budget_min);
+        const maxBudget = parseFloat(formData.budget_max);
+        
+        if (isNaN(minBudget) || isNaN(maxBudget)) {
+          setError('Les budgets doivent être des nombres valides');
+          return false;
+        }
+        if (minBudget <= 0 || maxBudget <= 0) {
+          setError('Les budgets doivent être positifs');
+          return false;
+        }
+        if (minBudget > maxBudget) {
           setError('Le budget minimum doit être inférieur au budget maximum');
+          return false;
+        }
+        if (maxBudget / minBudget > 10) {
+          setError('L\'écart entre les budgets ne doit pas dépasser 10x');
           return false;
         }
         break;
@@ -1057,8 +1078,15 @@ export default function CreateTender() {
           setError('La date de fermeture est requise');
           return false;
         }
-        if (new Date(formData.deadline) <= new Date()) {
+        const deadlineDate = new Date(formData.deadline);
+        const now = new Date();
+        if (deadlineDate <= now) {
           setError('La date de fermeture doit être dans le futur');
+          return false;
+        }
+        const daysDiff = (deadlineDate - now) / (1000 * 60 * 60 * 24);
+        if (daysDiff < 7) {
+          setError('La date de fermeture doit être au minimum 7 jours à partir de maintenant');
           return false;
         }
         break;
@@ -1067,6 +1095,28 @@ export default function CreateTender() {
     }
     setError('');
     return true;
+  };
+
+  // Validate all critical data before submission
+  const validateAllData = () => {
+    const warnings = [];
+    
+    // Check essential fields
+    if (!formData.contact_person?.trim()) warnings.push('Nom du contact manquant');
+    if (!formData.contact_email?.trim()) warnings.push('Email du contact manquant');
+    if (!formData.contact_phone?.trim()) warnings.push('Téléphone du contact manquant');
+    if (!formData.participation_eligibility?.trim()) warnings.push('Conditions de participation manquantes');
+    if (!formData.technical_specifications?.trim()) warnings.push('Spécifications techniques manquantes');
+    
+    // Check data consistency
+    if (formData.requirements.length === 0) warnings.push('Aucune exigence définie');
+    if (selectedFiles.length === 0) warnings.push('Aucune pièce jointe fournie');
+    if (Object.values(formData.evaluation_criteria).reduce((a, b) => a + b, 0) !== 100) {
+      warnings.push('Les critères d\'évaluation doivent totaliser 100%');
+    }
+    
+    setValidationWarnings(warnings);
+    return warnings.length === 0;
   };
 
   const handleNext = () => {
@@ -1086,11 +1136,24 @@ export default function CreateTender() {
 
   const totalCriteria = Object.values(formData.evaluation_criteria).reduce((a, b) => a + b, 0);
 
+  const handlePreview = () => {
+    if (validateStep(2) && validateStep(6)) {
+      const isValid = validateAllData();
+      setShowPreviewDialog(true);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     if (!validateStep(2) || !validateStep(6)) {
+      return;
+    }
+
+    // Final validation
+    if (Object.values(formData.evaluation_criteria).reduce((a, b) => a + b, 0) !== 100) {
+      setError('Les critères d\'évaluation doivent totaliser exactement 100%');
       return;
     }
 
@@ -1106,6 +1169,7 @@ export default function CreateTender() {
 
       const response = await procurementAPI.createTender(submitData);
       localStorage.removeItem('tenderDraft');
+      setShowPreviewDialog(false);
       navigate(`/tender/${response.data.tender.id}`);
     } catch (err) {
       const errorMsg = err.response?.data?.error || 'Erreur lors de la création de l\'appel d\'offres';
@@ -1252,16 +1316,60 @@ export default function CreateTender() {
 
             {/* Error Alert */}
             {error && (
-              <Alert severity="error" sx={{ marginBottom: '24px', backgroundColor: '#ffebee', color: '#c62828' }}>
-                {error}
+              <Alert 
+                severity="error" 
+                sx={{ 
+                  marginBottom: '24px', 
+                  backgroundColor: '#ffebee', 
+                  color: '#c62828',
+                  animation: 'slideIn 0.3s ease-in-out',
+                  '@keyframes slideIn': {
+                    from: { opacity: 0, transform: 'translateY(-10px)' },
+                    to: { opacity: 1, transform: 'translateY(0)' }
+                  }
+                }}
+                onClose={() => setError('')}
+              >
+                <strong>⚠️ Erreur de validation:</strong> {error}
               </Alert>
             )}
 
             {/* Auto-save Notification */}
             {autoSaved && (
-              <Alert severity="success" sx={{ marginBottom: '16px', backgroundColor: '#e8f5e9', color: '#2e7d32' }}>
-                ✓ Brouillon enregistré automatiquement
+              <Alert 
+                severity="success" 
+                sx={{ 
+                  marginBottom: '16px', 
+                  backgroundColor: '#e8f5e9', 
+                  color: '#2e7d32',
+                  animation: 'slideIn 0.3s ease-in-out',
+                  '@keyframes slideIn': {
+                    from: { opacity: 0, transform: 'translateY(-10px)' },
+                    to: { opacity: 1, transform: 'translateY(0)' }
+                  }
+                }}
+              >
+                ✓ Brouillon enregistré automatiquement à {new Date().toLocaleTimeString('fr-TN')}
               </Alert>
+            )}
+
+            {/* Data Quality Indicator */}
+            {activeStep === STEPS.length - 1 && (
+              <Box sx={{ marginBottom: '24px', padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#666' }}>
+                    📊 COMPLÉTUDE DES DONNÉES
+                  </Typography>
+                  <Typography sx={{ fontSize: '12px', fontWeight: 600, color: totalCriteria === 100 ? '#2e7d32' : '#f57c00' }}>
+                    {Math.round((Object.keys(formData).filter(k => formData[k] && formData[k] !== '' && formData[k].length > 0).length / Object.keys(formData).length) * 100)}%
+                  </Typography>
+                </Box>
+                <LinearProgress 
+                  variant="determinate" 
+                  value={Math.round((Object.keys(formData).filter(k => formData[k] && formData[k] !== '' && (Array.isArray(formData[k]) ? formData[k].length > 0 : true)).length / Object.keys(formData).length) * 100)}
+                  sx={{ height: '6px', borderRadius: '3px', backgroundColor: '#e0e0e0' }}
+                />
+              </Box>
             )}
 
             {/* Step Content */}
@@ -1287,25 +1395,42 @@ export default function CreateTender() {
               </Button>
 
               {activeStep === STEPS.length - 1 ? (
-                <Button
-                  variant="contained"
-                  onClick={handleSubmit}
-                  disabled={loading || totalCriteria !== 100}
-                  startIcon={loading ? <CircularProgress size={20} /> : <CheckCircleIcon />}
-                  sx={{
-                    flex: 1,
-                    backgroundColor: theme.palette.primary.main,
-                    color: '#ffffff',
-                    textTransform: 'none',
-                    fontWeight: 600,
-                    minHeight: '44px',
-                    fontSize: '14px',
-                    '&:hover': { backgroundColor: '#0d47a1' },
-                    '&:disabled': { backgroundColor: '#bdbdbd' }
-                  }}
-                >
-                  {loading ? 'Création en cours...' : 'Créer l\'Appel d\'Offres'}
-                </Button>
+                <>
+                  <Button
+                    variant="outlined"
+                    onClick={handlePreview}
+                    disabled={loading || totalCriteria !== 100}
+                    sx={{
+                      flex: 1,
+                      color: theme.palette.primary.main,
+                      borderColor: theme.palette.primary.main,
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      minHeight: '44px',
+                    }}
+                  >
+                    📋 Aperçu
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={handlePreview}
+                    disabled={loading || totalCriteria !== 100}
+                    startIcon={loading ? <CircularProgress size={20} /> : <CheckCircleIcon />}
+                    sx={{
+                      flex: 1,
+                      backgroundColor: theme.palette.primary.main,
+                      color: '#ffffff',
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      minHeight: '44px',
+                      fontSize: '14px',
+                      '&:hover': { backgroundColor: '#0d47a1' },
+                      '&:disabled': { backgroundColor: '#bdbdbd' }
+                    }}
+                  >
+                    {loading ? 'Création en cours...' : 'Créer l\'Appel d\'Offres'}
+                  </Button>
+                </>
               ) : (
                 <Button
                   variant="contained"
@@ -1379,6 +1504,85 @@ export default function CreateTender() {
               sx={{ color: '#d32f2f' }}
             >
               Quitter
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* Preview & Confirmation Dialog */}
+        <Dialog open={showPreviewDialog} onClose={() => setShowPreviewDialog(false)} maxWidth="sm" fullWidth>
+          <DialogTitle sx={{ backgroundColor: theme.palette.primary.main, color: '#fff', fontWeight: 600 }}>
+            📋 Aperçu de votre Appel d'Offres
+          </DialogTitle>
+          <DialogContent sx={{ paddingY: '24px' }}>
+            {/* Data Summary */}
+            <Box sx={{ backgroundColor: '#f5f5f5', padding: '16px', borderRadius: '4px', marginBottom: '16px' }}>
+              <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: theme.palette.primary.main }}>
+                ✓ Données Principales
+              </Typography>
+              <Stack spacing={1} sx={{ fontSize: '13px' }}>
+                <Box><strong>Titre:</strong> {formData.title}</Box>
+                <Box><strong>Catégorie:</strong> {formData.category}</Box>
+                <Box><strong>Budget:</strong> {parseFloat(formData.budget_min).toLocaleString('fr-TN')} - {parseFloat(formData.budget_max).toLocaleString('fr-TN')} {formData.currency}</Box>
+                <Box><strong>Fermeture:</strong> {new Date(formData.deadline).toLocaleDateString('fr-TN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Box>
+                <Box><strong>Visibilité:</strong> {formData.is_public ? '🌐 Publique' : '🔒 Privée'}</Box>
+              </Stack>
+            </Box>
+
+            {/* Data Counts */}
+            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+              <Paper sx={{ padding: '12px', backgroundColor: '#e3f2fd', textAlign: 'center' }}>
+                <Typography sx={{ fontSize: '12px', color: '#999', fontWeight: 600 }}>LOTS</Typography>
+                <Typography sx={{ fontSize: '20px', fontWeight: 700, color: theme.palette.primary.main }}>{formData.lots?.length || 0}</Typography>
+              </Paper>
+              <Paper sx={{ padding: '12px', backgroundColor: '#e8f5e9', textAlign: 'center' }}>
+                <Typography sx={{ fontSize: '12px', color: '#999', fontWeight: 600 }}>EXIGENCES</Typography>
+                <Typography sx={{ fontSize: '20px', fontWeight: 700, color: '#2e7d32' }}>{formData.requirements?.length || 0}</Typography>
+              </Paper>
+              <Paper sx={{ padding: '12px', backgroundColor: '#fff3e0', textAlign: 'center' }}>
+                <Typography sx={{ fontSize: '12px', color: '#999', fontWeight: 600 }}>PIÈCES JOINTES</Typography>
+                <Typography sx={{ fontSize: '20px', fontWeight: 700, color: '#f57c00' }}>{selectedFiles.length}</Typography>
+              </Paper>
+              <Paper sx={{ padding: '12px', backgroundColor: '#fce4ec', textAlign: 'center' }}>
+                <Typography sx={{ fontSize: '12px', color: '#999', fontWeight: 600 }}>CRITÈRES (%)</Typography>
+                <Typography sx={{ fontSize: '20px', fontWeight: 700, color: '#c2185b' }}>{totalCriteria}%</Typography>
+              </Paper>
+            </Box>
+
+            {/* Warnings if any */}
+            {validationWarnings.length > 0 && (
+              <Alert severity="warning" sx={{ marginBottom: '16px', backgroundColor: '#fff3cd', color: '#856404' }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 600, marginBottom: '8px' }}>⚠️ Avertissements:</Typography>
+                {validationWarnings.map((warning, index) => (
+                  <Typography key={index} sx={{ fontSize: '12px' }}>• {warning}</Typography>
+                ))}
+              </Alert>
+            )}
+
+            {/* Criteria Summary */}
+            <Box sx={{ backgroundColor: '#f5f5f5', padding: '12px', borderRadius: '4px', marginTop: '16px' }}>
+              <Typography variant="subtitle2" sx={{ fontSize: '12px', fontWeight: 600, marginBottom: '8px' }}>Critères d'Évaluation</Typography>
+              <Stack spacing={0.5} sx={{ fontSize: '12px' }}>
+                {Object.entries(formData.evaluation_criteria).map(([key, value]) => (
+                  <Box key={key} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>{key.charAt(0).toUpperCase() + key.slice(1)}:</span>
+                    <strong>{value}%</strong>
+                  </Box>
+                ))}
+              </Stack>
+            </Box>
+          </DialogContent>
+          <DialogActions sx={{ padding: '16px', borderTop: '1px solid #e0e0e0' }}>
+            <Button onClick={() => setShowPreviewDialog(false)} sx={{ color: '#666' }}>
+              Revenir
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              disabled={loading || totalCriteria !== 100 || validationWarnings.length > 0}
+              startIcon={loading ? <CircularProgress size={18} /> : <CheckCircleIcon />}
+              sx={{ backgroundColor: theme.palette.primary.main, color: '#fff' }}
+            >
+              {loading ? 'Création...' : 'Créer l\'Appel d\'Offres'}
             </Button>
           </DialogActions>
         </Dialog>

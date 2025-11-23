@@ -49,7 +49,11 @@ const STEPS = [
   { label: 'Classification', icon: '🏷️' },
   { label: 'Budget & Devise', icon: '💰' },
   { label: 'Lots et Articles', icon: '📦' },
+  { label: 'Conditions de Participation', icon: '🔑' },
+  { label: 'Méthode de Soumission', icon: '📤' },
   { label: 'Calendrier', icon: '📅' },
+  { label: 'Contacts et Clarifications', icon: '📞' },
+  { label: 'Spécifications Techniques', icon: '⚙️' },
   { label: 'Exigences', icon: '✅' },
   { label: 'Critères', icon: '📊' },
   { label: 'Pièces jointes', icon: '📎' },
@@ -268,7 +272,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           )}
         </Box>
       );
-    case 'step5':
+    case 'step7':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <TextField
@@ -342,7 +346,162 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           </Box>
         </Box>
       );
+    case 'step5':
+      return (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+              🔑 Conditions de Participation
+            </Typography>
+            <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+              Définissez les critères d'éligibilité et les documents requis pour participer à cet appel d'offres.
+            </Typography>
+          </Box>
+          
+          <TextField
+            fullWidth
+            label="Critères d'Éligibilité *"
+            name="participation_eligibility"
+            value={formData.participation_eligibility}
+            onChange={handleChange}
+            placeholder="Ex: Les fournisseurs doivent être enregistrés depuis au moins 2 ans, disposer d'une certification ISO 9001..."
+            multiline
+            rows={4}
+            disabled={loading}
+          />
+
+          <Box>
+            <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 1, color: '#212121' }}>
+              Documents Obligatoires
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {['Dossier d\'enregistrement fiscal', 'Carte bancaire', 'Assurance', 'Références commerciales', 'CNSS', 'Certificat de conformité'].map((doc) => (
+                <FormControlLabel
+                  key={doc}
+                  control={
+                    <Checkbox
+                      checked={formData.mandatory_documents.includes(doc)}
+                      onChange={(e) => {
+                        setFormData(prev => ({
+                          ...prev,
+                          mandatory_documents: e.target.checked
+                            ? [...prev.mandatory_documents, doc]
+                            : prev.mandatory_documents.filter(d => d !== doc)
+                        }));
+                      }}
+                      disabled={loading}
+                    />
+                  }
+                  label={doc}
+                />
+              ))}
+            </Box>
+          </Box>
+
+          <TextField
+            fullWidth
+            label="Critères de Désqualification"
+            name="disqualification_criteria"
+            value={formData.disqualification_criteria || ''}
+            onChange={(e) => setFormData(prev => ({ ...prev, disqualification_criteria: e.target.value }))}
+            placeholder="Ex: Fournisseurs avec antécédents de non-conformité, offres incomplètes..."
+            multiline
+            rows={3}
+            disabled={loading}
+            helperText="Conditions d'annulation ou de rejet d'une offre"
+          />
+        </Box>
+      );
     case 'step6':
+      return (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+              📤 Méthode de Soumission
+            </Typography>
+            <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+              Spécifiez comment les soumissionnaires doivent soumettre leurs offres.
+            </Typography>
+          </Box>
+
+          <FormControl fullWidth disabled={loading}>
+            <InputLabel>Méthode de Soumission *</InputLabel>
+            <Select
+              name="submission_method"
+              value={formData.submission_method}
+              onChange={handleChange}
+              label="Méthode de Soumission"
+            >
+              <MenuItem value="electronic">Soumission Électronique</MenuItem>
+              <MenuItem value="sealed_envelope">Enveloppe Scellée (Papier)</MenuItem>
+              <MenuItem value="hybrid">Soumission Hybride (Électronique + Papier)</MenuItem>
+              <MenuItem value="online_portal">Portail en Ligne</MenuItem>
+            </Select>
+          </FormControl>
+
+          {formData.submission_method === 'sealed_envelope' && (
+            <TextField
+              fullWidth
+              label="Instructions pour Enveloppe Scellée"
+              name="sealed_envelope_requirements"
+              value={formData.sealed_envelope_requirements}
+              onChange={handleChange}
+              placeholder="Ex: Marquer 'NE PAS OUVRIR', adresser au..., délai de réception..."
+              multiline
+              rows={3}
+              disabled={loading}
+            />
+          )}
+
+          {formData.submission_method === 'electronic' && (
+            <Alert severity="info" sx={{ backgroundColor: '#e3f2fd', color: '#01579b' }}>
+              Les offres électroniques seront cryptées avec AES-256 et traitées automatiquement selon le calendrier spécifié.
+            </Alert>
+          )}
+
+          <Paper sx={{ p: 2, backgroundColor: '#f5f5f5' }}>
+            <Typography sx={{ fontSize: '13px', fontWeight: 600, mb: 1 }}>
+              Format des Fichiers Acceptés
+            </Typography>
+            <Typography sx={{ fontSize: '12px', color: '#666' }}>
+              PDF, Word, Excel, Images (PNG, JPG), Fichiers compressés (ZIP, RAR)
+            </Typography>
+          </Paper>
+        </Box>
+      );
+    case 'step10':
+    case 'step8':
+      return (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+              📞 Contacts et Clarifications
+            </Typography>
+            <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+              Fournissez les coordonnées pour que les soumissionnaires puissent poser des questions.
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: '16px' }}>
+            <TextField fullWidth label="Nom du Contact *" name="contact_person" value={formData.contact_person} onChange={handleChange} disabled={loading} />
+            <TextField fullWidth label="Email *" name="contact_email" type="email" value={formData.contact_email} onChange={handleChange} disabled={loading} />
+          </Box>
+          <TextField fullWidth label="Téléphone *" name="contact_phone" value={formData.contact_phone} onChange={handleChange} disabled={loading} />
+        </Box>
+      );
+    case 'step9':
+      return (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+              ⚙️ Spécifications Techniques
+            </Typography>
+            <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+              Décrivez les spécifications techniques détaillées, normes, et standards requis.
+            </Typography>
+          </Box>
+          <TextField fullWidth label="Spécifications Techniques *" name="technical_specifications" value={formData.technical_specifications} onChange={(e) => setFormData(prev => ({ ...prev, technical_specifications: e.target.value }))} multiline rows={6} disabled={loading} placeholder="ISO 9001, certifications, performances minimales..." />
+        </Box>
+      );
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Box sx={{ backgroundColor: '#f5f5f5', padding: '16px', borderRadius: '4px' }}>
@@ -506,7 +665,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           )}
         </Box>
       );
-    case 'step7':
+    case 'step11':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Typography sx={{ color: '#616161', fontSize: '13px' }}>
@@ -532,7 +691,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           )}
         </Box>
       );
-    case 'step8':
+    case 'step12':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Button
@@ -583,7 +742,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           )}
         </Box>
       );
-    case 'step9':
+    case 'step13':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Alert severity="info" sx={{ backgroundColor: '#e3f2fd', color: '#01579b' }}>
@@ -627,6 +786,15 @@ export default function CreateTender() {
     alert_type: 'before_48h',
     is_public: true,
     lots: [],
+    participation_eligibility: '',
+    mandatory_documents: [],
+    disqualification_criteria: '',
+    submission_method: 'electronic',
+    sealed_envelope_requirements: '',
+    contact_person: '',
+    contact_email: '',
+    contact_phone: '',
+    technical_specifications: '',
     requirements: [],
     attachments: [],
     evaluation_criteria: {
@@ -886,7 +1054,7 @@ export default function CreateTender() {
   };
 
   const renderStepContent = () => {
-    const stepMap = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9'];
+    const stepMap = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9', 'step10', 'step11', 'step12', 'step13'];
     return (
       <StepContent
         type={stepMap[activeStep]}

@@ -48,6 +48,7 @@ const STEPS = [
   { label: 'Infos de base', icon: '📋' },
   { label: 'Classification', icon: '🏷️' },
   { label: 'Budget & Devise', icon: '💰' },
+  { label: 'Lots et Articles', icon: '📦' },
   { label: 'Calendrier', icon: '📅' },
   { label: 'Exigences', icon: '✅' },
   { label: 'Critères', icon: '📊' },
@@ -56,7 +57,7 @@ const STEPS = [
 ];
 
 // Helper component to memoize step content
-const StepContent = ({ type, formData, handleChange, loading, newRequirement, setNewRequirement, addRequirement, removeRequirement, removeAttachment, handleFileUpload, selectedFiles, handleCriteriaChange, totalCriteria, requirementType, setRequirementType, requirementPriority, setRequirementPriority, editRequirement, editingIndex, setEditingIndex }) => {
+const StepContent = ({ type, formData, handleChange, loading, newRequirement, setNewRequirement, addRequirement, removeRequirement, removeAttachment, handleFileUpload, selectedFiles, handleCriteriaChange, totalCriteria, requirementType, setRequirementType, requirementPriority, setRequirementPriority, editRequirement, editingIndex, setEditingIndex, newLot, setNewLot, addLot, removeLot, editLot, editingLotIndex, setEditingLotIndex }) => {
   switch (type) {
     case 'step1':
       return (
@@ -164,6 +165,112 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
     case 'step4':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+              📦 Lots et Articles
+            </Typography>
+            <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+              Organisez votre appel d'offres par lots (bundles) et articles. Chaque lot peut être adjugé indépendamment ou l'appel d'offres entier peut être adjugé à un seul fournisseur.
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '2fr 1fr 1fr' }, gap: '16px', mb: 2 }}>
+            <TextField
+              label="Objet du Lot/Article *"
+              placeholder="Ex: Fourniture d'ordinateurs portables"
+              value={newLot.objet}
+              onChange={(e) => setNewLot(prev => ({ ...prev, objet: e.target.value }))}
+              disabled={loading}
+              size="small"
+            />
+            <TextField
+              label="N° Lot/Article"
+              placeholder="Ex: 001"
+              value={newLot.numero}
+              onChange={(e) => setNewLot(prev => ({ ...prev, numero: e.target.value }))}
+              disabled={loading}
+              size="small"
+            />
+            <FormControl fullWidth disabled={loading} size="small">
+              <InputLabel>Type d'Adjudication</InputLabel>
+              <Select
+                value={newLot.typeAdjudication}
+                onChange={(e) => setNewLot(prev => ({ ...prev, typeAdjudication: e.target.value }))}
+                label="Type d'Adjudication"
+              >
+                <MenuItem value="lot">Par Lot</MenuItem>
+                <MenuItem value="global">Globale (Appel Entier)</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Button
+            variant="outlined"
+            startIcon={<AddIcon />}
+            onClick={addLot}
+            disabled={loading || !newLot.objet.trim()}
+            sx={{ color: '#0056B3', borderColor: '#0056B3', mb: 2 }}
+          >
+            Ajouter un Lot/Article
+          </Button>
+
+          {formData.lots && formData.lots.length > 0 && (
+            <TableContainer component={Paper} sx={{ border: '1px solid #E0E0E0' }}>
+              <Table size="small">
+                <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
+                  <TableRow>
+                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>N°</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Objet</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Adjudication</TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 600, color: '#0056B3' }}>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {formData.lots.map((lot, index) => (
+                    <TableRow key={index} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+                      <TableCell sx={{ fontSize: '13px', fontWeight: 500 }}>{lot.numero || `${index + 1}`}</TableCell>
+                      <TableCell sx={{ fontSize: '13px' }}>{lot.objet}</TableCell>
+                      <TableCell>
+                        <Chip
+                          label={lot.typeAdjudication === 'lot' ? 'Par Lot' : 'Globale'}
+                          size="small"
+                          sx={{
+                            backgroundColor: lot.typeAdjudication === 'lot' ? '#E3F2FD' : '#FFF3E0',
+                            color: lot.typeAdjudication === 'lot' ? '#0056B3' : '#E65100'
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell align="center">
+                        <Box sx={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
+                          <IconButton
+                            size="small"
+                            onClick={() => editLot(index)}
+                            disabled={loading}
+                            sx={{ color: '#0056B3' }}
+                          >
+                            ✎
+                          </IconButton>
+                          <IconButton
+                            size="small"
+                            onClick={() => removeLot(index)}
+                            disabled={loading}
+                            sx={{ color: '#d32f2f' }}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </IconButton>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Box>
+      );
+    case 'step5':
+      return (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <TextField
             fullWidth
             label="Date de Fermeture (Submission Deadline) *"
@@ -235,7 +342,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           </Box>
         </Box>
       );
-    case 'step5':
+    case 'step6':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Box sx={{ backgroundColor: '#f5f5f5', padding: '16px', borderRadius: '4px' }}>
@@ -399,7 +506,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           )}
         </Box>
       );
-    case 'step6':
+    case 'step7':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Typography sx={{ color: '#616161', fontSize: '13px' }}>
@@ -425,7 +532,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           )}
         </Box>
       );
-    case 'step7':
+    case 'step8':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Button
@@ -476,7 +583,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           )}
         </Box>
       );
-    case 'step8':
+    case 'step9':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Alert severity="info" sx={{ backgroundColor: '#e3f2fd', color: '#01579b' }}>
@@ -519,6 +626,7 @@ export default function CreateTender() {
     offer_validity_days: '90',
     alert_type: 'before_48h',
     is_public: true,
+    lots: [],
     requirements: [],
     attachments: [],
     evaluation_criteria: {
@@ -532,6 +640,8 @@ export default function CreateTender() {
   const [newRequirement, setNewRequirement] = useState('');
   const [requirementType, setRequirementType] = useState('technical');
   const [requirementPriority, setRequirementPriority] = useState('important');
+  const [newLot, setNewLot] = useState({ numero: '', objet: '', typeAdjudication: 'lot' });
+  const [editingLotIndex, setEditingLotIndex] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -620,6 +730,51 @@ export default function CreateTender() {
     setRequirementType(req.type);
     setRequirementPriority(req.priority);
     setEditingIndex(index);
+  };
+
+  const addLot = () => {
+    if (newLot.objet.trim()) {
+      const lotObj = {
+        id: Date.now(),
+        numero: newLot.numero || `${(formData.lots?.length || 0) + 1}`,
+        objet: newLot.objet.trim(),
+        typeAdjudication: newLot.typeAdjudication
+      };
+
+      if (editingLotIndex !== null) {
+        setFormData(prev => ({
+          ...prev,
+          lots: prev.lots.map((lot, i) =>
+            i === editingLotIndex ? lotObj : lot
+          )
+        }));
+        setEditingLotIndex(null);
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          lots: [...(prev.lots || []), lotObj]
+        }));
+      }
+
+      setNewLot({ numero: '', objet: '', typeAdjudication: 'lot' });
+    }
+  };
+
+  const removeLot = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      lots: prev.lots.filter((_, i) => i !== index)
+    }));
+  };
+
+  const editLot = (index) => {
+    const lot = formData.lots[index];
+    setNewLot({
+      numero: lot.numero,
+      objet: lot.objet,
+      typeAdjudication: lot.typeAdjudication
+    });
+    setEditingLotIndex(index);
   };
 
   const handleFileUpload = (e) => {
@@ -731,7 +886,7 @@ export default function CreateTender() {
   };
 
   const renderStepContent = () => {
-    const stepMap = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8'];
+    const stepMap = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9'];
     return (
       <StepContent
         type={stepMap[activeStep]}
@@ -754,6 +909,13 @@ export default function CreateTender() {
         editRequirement={editRequirement}
         editingIndex={editingIndex}
         setEditingIndex={setEditingIndex}
+        newLot={newLot}
+        setNewLot={setNewLot}
+        addLot={addLot}
+        removeLot={removeLot}
+        editLot={editLot}
+        editingLotIndex={editingLotIndex}
+        setEditingLotIndex={setEditingLotIndex}
       />
     );
   };

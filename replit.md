@@ -6,7 +6,30 @@ MyNet.tn is a production-ready B2B procurement platform for the private sector, 
 ## User Preferences
 I prefer simple language and clear explanations. I want iterative development with small, testable changes. Please ask before making any major architectural changes or introducing new dependencies. I prefer that the agent works in the `/frontend` directory and does not make changes in the `/backend` directory.
 
-## Recent Changes (November 23, 2025 - FINAL AUDIT)
+## Recent Changes (November 23, 2025 - SUPER ADMIN & CREATE-TENDER DEVELOPMENT)
+- **✅ SUPER ADMIN DASHBOARD - COMPLETE DEVELOPMENT**
+  - **Centre de Contrôle Total**: Main hub with 5-tab interface
+  - **👥 Gestion des Utilisateurs et Sécurité**: Full user management with role-based CRUD
+  - **📄 Gestion du Contenu Dynamique**: Static pages manager + coming soon sections
+  - **🔧 Gestion des Services et Plans**: Feature flags and subscription plans management
+  - **⚙️ Paramètres Système**: System configuration toggles and utilities
+  - **📊 Surveillance et Analyse**: Analytics, metrics, resource monitoring, activity logs
+  - **Status**: All 6 components functional and French-compliant
+
+- **✅ CREATE-TENDER FORM ENHANCEMENT - NEW LOT/ARTICLE STEP**
+  - **New Step 4 Added**: "📦 Lots et Articles" (Lot/Article Information)
+  - **Features**:
+    - Add/Edit/Delete lots with N°, Objet (Object), Type d'Adjudication
+    - Type d'Adjudication: "Par Lot" or "Globale (Appel Entier)"
+    - Table display with color-coded adjudication types
+    - Consultable information sections for tender details
+  - **Total Steps**: Now 9 steps (was 8)
+  - **Step Sequence**: 
+    1. Infos de base → 2. Classification → 3. Budget & Devise → 4. Lots et Articles (NEW)
+    5. Calendrier → 6. Exigences → 7. Critères → 8. Pièces jointes → 9. Révision
+  - **Status**: Fully integrated with state management and form data persistence
+
+## Previous Recent Changes (November 23, 2025 - FINAL AUDIT)
 - **✅ COMPREHENSIVE FRENCH LANGUAGE AUDIT - 100% COMPLETE**
   - **English Locale Removed**: Deleted `frontend/src/locales/en/` entire folder
   - **Language Switcher Disabled**: `LanguageSwitcher.jsx` now returns `null` (no multi-language option)

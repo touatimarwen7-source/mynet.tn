@@ -39,7 +39,7 @@ export default function Pagination({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingY: '24px',
-        backgroundColor: '#F9F9F9',
+        backgroundColor: theme.palette.background.default,
         padding: '16px 24px',
         borderRadius: '4px',
         marginTop: '24px'
@@ -60,7 +60,7 @@ export default function Pagination({
           startIcon={<ChevronLeftIcon />}
           sx={{
             textTransform: 'none',
-            color: currentPage === 1 ? '#ccc' : '#0056B3',
+            color: currentPage === 1 ? '#ccc' : theme.palette.primary.main,
             '&:disabled': { color: '#ccc' }
           }}
         >
@@ -92,13 +92,13 @@ export default function Pagination({
                   minWidth: '32px',
                   height: '32px',
                   padding: 0,
-                  backgroundColor: isActive ? '#0056B3' : 'transparent',
-                  color: isActive ? '#FFFFFF' : '#0056B3',
+                  backgroundColor: isActive ? theme.palette.primary.main : 'transparent',
+                  color: isActive ? '#FFFFFF' : theme.palette.primary.main,
                   borderRadius: '4px',
                   fontSize: '13px',
                   fontWeight: 500,
                   '&:hover': {
-                    backgroundColor: isActive ? '#0056B3' : '#f0f0f0'
+                    backgroundColor: isActive ? theme.palette.primary.main : '#f0f0f0'
                   }
                 }}
               >
@@ -115,7 +115,7 @@ export default function Pagination({
           endIcon={<ChevronRightIcon />}
           sx={{
             textTransform: 'none',
-            color: currentPage === totalPages ? '#ccc' : '#0056B3',
+            color: currentPage === totalPages ? '#ccc' : theme.palette.primary.main,
             '&:disabled': { color: '#ccc' }
           }}
         >

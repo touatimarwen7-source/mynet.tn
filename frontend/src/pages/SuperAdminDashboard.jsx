@@ -63,7 +63,7 @@ export default function SuperAdminDashboard() {
   ];
 
   return (
-    <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '100vh' }}>
+    <Box sx={{ backgroundColor: theme.palette.background.default, paddingY: '40px', minHeight: '100vh' }}>
       <Container maxWidth="lg">
         {/* Header */}
         <Box sx={{ marginBottom: '32px' }}>
@@ -135,7 +135,7 @@ export default function SuperAdminDashboard() {
 
           {/* Tab Description */}
           <Box sx={{ padding: '16px 24px', borderBottom: '1px solid #F0F0F0', backgroundColor: '#FAFAFA' }}>
-            <Typography sx={{ fontSize: '12px', color: '#666666' }}>
+            <Typography sx={{ fontSize: '12px', color: theme.palette.text.secondary }}>
               📌 {tabs[currentTab].description}
             </Typography>
           </Box>

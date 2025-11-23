@@ -144,11 +144,11 @@ export default function ServicesManager() {
         <Table>
           <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
             <TableRow>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Service</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Clé</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Catégorie</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>État</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 600, color: '#212121' }}>Actions</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Service</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Clé</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Catégorie</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>État</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -160,7 +160,7 @@ export default function ServicesManager() {
               </TableRow>
             ) : (
               features.map(feature => (
-                <TableRow key={feature.id} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+                <TableRow key={feature.id} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
                   <TableCell>
                     <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>{feature.feature_name}</Typography>
                   </TableCell>

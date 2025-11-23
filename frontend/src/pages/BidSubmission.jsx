@@ -76,7 +76,7 @@ export default function BidSubmission() {
       <Container maxWidth="md">
         <Card sx={{ border: '1px solid #e0e0e0' }}>
           <CardContent sx={{ padding: '32px' }}>
-            <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+            <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
               📝 Soumission d'Offre
             </Typography>
             <Typography sx={{ color: '#616161', marginBottom: '24px' }}>
@@ -183,7 +183,7 @@ export default function BidSubmission() {
                   sx={{
                     flex: 1,
                     color: theme.palette.primary.main,
-                    borderColor: '#0056B3',
+                    borderColor: theme.palette.primary.main,
                     textTransform: 'none',
                     fontWeight: 600,
                     minHeight: '44px',

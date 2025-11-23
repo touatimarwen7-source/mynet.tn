@@ -206,7 +206,7 @@ export default function SubscriptionTiers() {
       <Container maxWidth="lg">
         {/* Header */}
         <Box sx={{ marginBottom: '32px' }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, color: '#212121', marginBottom: '12px' }}>
+          <Typography variant="h3" sx={{ fontWeight: 700, color: theme.palette.text.primary, marginBottom: '12px' }}>
             Gestion des Plans et Services - Subscription Plans & Services
           </Typography>
           <Typography sx={{ fontSize: '14px', color: '#666', marginBottom: '24px' }}>
@@ -301,7 +301,7 @@ export default function SubscriptionTiers() {
                       {/* Header */}
                       <Box sx={{ marginBottom: '16px' }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <Typography variant="h5" sx={{ fontWeight: 700, color: '#212121' }}>
+                          <Typography variant="h5" sx={{ fontWeight: 700, color: theme.palette.text.primary }}>
                             {tier.name}
                           </Typography>
                           {!tier.active && (
@@ -318,7 +318,7 @@ export default function SubscriptionTiers() {
 
                       {/* Services */}
                       <Box sx={{ marginBottom: '16px', flex: 1 }}>
-                        <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+                        <Typography sx={{ fontSize: '12px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
                           Services ({tier.services.length}):
                         </Typography>
                         <Stack direction="column" spacing={1}>
@@ -404,11 +404,11 @@ export default function SubscriptionTiers() {
             <Table>
               <TableHead>
                 <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                  <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Nom du Service</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Description</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Utilisé dans</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Statut</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#212121' }} align="right">
+                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Nom du Service</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Description</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Utilisé dans</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Statut</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }} align="right">
                     Actions
                   </TableCell>
                 </TableRow>
@@ -429,7 +429,7 @@ export default function SubscriptionTiers() {
                                 label={t.name}
                                 size="small"
                                 variant="outlined"
-                                sx={{ borderColor: '#0056B3', color: theme.palette.primary.main }}
+                                sx={{ borderColor: theme.palette.primary.main, color: theme.palette.primary.main }}
                               />
                             ))}
                           </Stack>
@@ -477,7 +477,7 @@ export default function SubscriptionTiers() {
           <Grid container spacing={3}>
             {/* Plans Summary */}
             <Grid item xs={12}>
-              <Typography variant="h6" sx={{ fontWeight: 700, marginBottom: '16px', color: '#212121' }}>
+              <Typography variant="h6" sx={{ fontWeight: 700, marginBottom: '16px', color: theme.palette.text.primary }}>
                 📦 Résumé des Plans
               </Typography>
               <Paper sx={{ border: '1px solid #e0e0e0', overflow: 'auto' }}>
@@ -515,7 +515,7 @@ export default function SubscriptionTiers() {
 
             {/* Services Summary */}
             <Grid item xs={12}>
-              <Typography variant="h6" sx={{ fontWeight: 700, marginBottom: '16px', color: '#212121' }}>
+              <Typography variant="h6" sx={{ fontWeight: 700, marginBottom: '16px', color: theme.palette.text.primary }}>
                 ⚙️ Résumé des Services
               </Typography>
               <Paper sx={{ border: '1px solid #e0e0e0', overflow: 'auto' }}>
@@ -583,7 +583,7 @@ export default function SubscriptionTiers() {
 
               {/* Services Selection */}
               <Box>
-                <Typography sx={{ fontWeight: 600, marginBottom: '12px', color: '#212121' }}>
+                <Typography sx={{ fontWeight: 600, marginBottom: '12px', color: theme.palette.text.primary }}>
                   Sélectionner les services inclus:
                 </Typography>
                 <Box sx={{ border: '1px solid #e0e0e0', borderRadius: '4px', padding: '12px', maxHeight: '250px', overflow: 'auto' }}>

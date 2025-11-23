@@ -100,7 +100,7 @@ export default function AdminAnalytics() {
         <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: theme.palette.primary.main }}>
           📊 Statistiques Principales
         </Typography>
-        <Typography sx={{ fontSize: '12px', color: '#666666' }}>
+        <Typography sx={{ fontSize: '12px', color: theme.palette.text.secondary }}>
           Aperçu des métriques clés de la plateforme
         </Typography>
       </Box>
@@ -167,7 +167,7 @@ export default function AdminAnalytics() {
           </TableHead>
           <TableBody>
             {displayActivities.map((activity, idx) => (
-              <TableRow key={idx} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+              <TableRow key={idx} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
                 <TableCell sx={{ fontSize: '13px' }}>{activity.event}</TableCell>
                 <TableCell sx={{ fontSize: '13px' }}>{activity.user}</TableCell>
                 <TableCell sx={{ fontSize: '13px', color: '#616161' }}>{activity.timestamp}</TableCell>

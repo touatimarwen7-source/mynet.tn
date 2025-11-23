@@ -51,7 +51,7 @@ const statusLabels = {
 
 // Role colors
 const roleColors = {
-  'buyer': '#0056B3',
+  'buyer': theme.palette.primary.main,
   'supplier': '#2E7D32',
   'admin': '#F57C00',
   'super_admin': '#7B1FA2'
@@ -298,7 +298,7 @@ export default function UserRoleManagement() {
                 </TableHead>
                 <TableBody>
                   {filteredUsers.map(user => (
-                    <TableRow key={user.id} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+                    <TableRow key={user.id} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
                       <TableCell sx={{ fontSize: '13px' }}>{user.email}</TableCell>
                       <TableCell sx={{ fontSize: '13px' }}>{user.company}</TableCell>
                       <TableCell>
@@ -306,7 +306,7 @@ export default function UserRoleManagement() {
                           label={roleLabels[user.role] || user.role}
                           size="small"
                           sx={{
-                            backgroundColor: roleColors[user.role] ? `${roleColors[user.role]}20` : '#E0E0E0',
+                            backgroundColor: roleColors[user.role] ? `${roleColors[user.role]}20` : theme.palette.divider,
                             color: roleColors[user.role] || '#616161',
                             fontWeight: 500
                           }}

@@ -84,7 +84,7 @@ export default function PaymentOrders() {
               <CardContent sx={{ padding: '24px' }}>
                 <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" sx={{ marginBottom: '16px' }}>
                   <Box>
-                    <Typography sx={{ fontWeight: 600, fontSize: '16px', color: '#212121' }}>
+                    <Typography sx={{ fontWeight: 600, fontSize: '16px', color: theme.palette.text.primary }}>
                       {order.po_number || 'Numéro non défini'}
                     </Typography>
                     <Typography sx={{ fontSize: '13px', color: '#616161' }}>
@@ -106,7 +106,7 @@ export default function PaymentOrders() {
                 <Stack spacing={1} sx={{ marginBottom: '16px' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography sx={{ fontSize: '13px', color: '#616161' }}>Fournisseur:</Typography>
-                    <Typography sx={{ fontSize: '13px', fontWeight: 500, color: '#212121' }}>
+                    <Typography sx={{ fontSize: '13px', fontWeight: 500, color: theme.palette.text.primary }}>
                       {order.supplier_name || 'Non défini'}
                     </Typography>
                   </Box>
@@ -118,13 +118,13 @@ export default function PaymentOrders() {
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography sx={{ fontSize: '13px', color: '#616161' }}>Conditions de Paiement:</Typography>
-                    <Typography sx={{ fontSize: '13px', color: '#212121' }}>
+                    <Typography sx={{ fontSize: '13px', color: theme.palette.text.primary }}>
                       {order.payment_terms || 'Standard'}
                     </Typography>
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography sx={{ fontSize: '13px', color: '#616161' }}>Date de Création:</Typography>
-                    <Typography sx={{ fontSize: '13px', color: '#212121' }}>
+                    <Typography sx={{ fontSize: '13px', color: theme.palette.text.primary }}>
                       {new Date(order.created_at).toLocaleDateString('fr-TN')}
                     </Typography>
                   </Box>

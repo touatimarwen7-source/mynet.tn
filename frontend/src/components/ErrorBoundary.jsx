@@ -66,7 +66,7 @@ class ErrorBoundary extends React.Component {
             <Typography
               variant="h3"
               sx={{
-                color: '#212121',
+                color: theme.palette.text.primary,
                 fontWeight: 600,
                 marginBottom: '16px'
               }}
@@ -109,7 +109,7 @@ class ErrorBoundary extends React.Component {
                 onClick={this.handleReload}
                 sx={{
                   color: theme.palette.primary.main,
-                  borderColor: '#0056B3',
+                  borderColor: theme.palette.primary.main,
                   textTransform: 'none',
                   fontSize: '14px',
                   fontWeight: 500,

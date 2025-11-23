@@ -349,7 +349,7 @@ export default function CreateBid() {
         <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
           🔑 Conformité aux Conditions de Participation
         </Typography>
-        <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+        <Typography sx={{ fontSize: '13px', color: theme.palette.text.secondary, mb: 2 }}>
           Veuillez confirmer que vous respectez toutes les conditions d'éligibilité de cet appel d'offres.
         </Typography>
       </Box>
@@ -359,7 +359,7 @@ export default function CreateBid() {
       </Alert>
 
       <Box>
-        <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 2, color: '#212121' }}>
+        <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 2, color: theme.palette.text.primary }}>
           Documents Obligatoires
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -406,7 +406,7 @@ export default function CreateBid() {
         <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
           📦 Sélection des Lots et Articles
         </Typography>
-        <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+        <Typography sx={{ fontSize: '13px', color: theme.palette.text.secondary, mb: 2 }}>
           Sélectionnez les lots auxquels vous soumettez une offre et décomposez les articles avec leurs prix unitaires.
         </Typography>
       </Box>
@@ -527,7 +527,7 @@ export default function CreateBid() {
         <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
           📞 Informations du Fournisseur
         </Typography>
-        <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+        <Typography sx={{ fontSize: '13px', color: theme.palette.text.secondary, mb: 2 }}>
           Ces informations seront utilisées pour contacter votre entreprise concernant cette offre.
         </Typography>
       </Box>
@@ -621,7 +621,7 @@ export default function CreateBid() {
           variant="outlined"
           onClick={addTechnicalDetail}
           disabled={loading || !newTechnicalDetail.trim()}
-          sx={{ color: 'primary.main', borderColor: '#0056B3', minWidth: '44px' }}
+          sx={{ color: 'primary.main', borderColor: theme.palette.primary.main, minWidth: '44px' }}
         >
           <AddIcon />
         </Button>
@@ -792,7 +792,7 @@ export default function CreateBid() {
         component="label"
         startIcon={<UploadIcon />}
         disabled={loading}
-        sx={{ color: 'primary.main', borderColor: '#0056B3' }}
+        sx={{ color: 'primary.main', borderColor: theme.palette.primary.main }}
       >
         Télécharger des documents
         <input
@@ -1014,7 +1014,7 @@ export default function CreateBid() {
                 disabled={activeStep === 0 || loading}
                 sx={{
                   color: 'primary.main',
-                  borderColor: '#0056B3',
+                  borderColor: theme.palette.primary.main,
                   textTransform: 'none',
                   fontWeight: 600,
                   minHeight: '44px',

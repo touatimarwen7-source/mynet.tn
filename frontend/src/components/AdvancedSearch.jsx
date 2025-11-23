@@ -51,7 +51,7 @@ export default function AdvancedSearch() {
             sx={{
               fontSize: '16px',
               fontWeight: 600,
-              color: '#212121',
+              color: theme.palette.text.primary,
               marginBottom: '16px',
             }}
           >

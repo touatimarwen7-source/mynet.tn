@@ -77,7 +77,7 @@ export default function BudgetManagement() {
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
           <Box>
-            <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+            <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
               💰 Gestion des Budgets
             </Typography>
             <Typography sx={{ color: '#616161' }}>
@@ -102,7 +102,7 @@ export default function BudgetManagement() {
         {showForm && (
           <Card sx={{ marginBottom: '32px', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ padding: '24px' }}>
-              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '16px' }}>
+              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px' }}>
                 Créer un Nouveau Budget
               </Typography>
               <Stack spacing={2}>
@@ -144,7 +144,7 @@ export default function BudgetManagement() {
                     variant="outlined"
                     onClick={() => setShowForm(false)}
                     startIcon={<CancelIcon />}
-                    sx={{ color: theme.palette.primary.main, borderColor: '#0056B3' }}
+                    sx={{ color: theme.palette.primary.main, borderColor: theme.palette.primary.main }}
                   >
                     Annuler
                   </Button>
@@ -156,7 +156,7 @@ export default function BudgetManagement() {
 
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
           <Grid size={{ xs: 12, md: 4 }}>
-            <StatCard label="Budget Total" value={totalBudget} color="#0056B3" />
+            <StatCard label="Budget Total" value={totalBudget} color=theme.palette.primary.main />
           </Grid>
           <Grid size={{ xs: 12, md: 4 }}>
             <StatCard label="Total Dépensé" value={totalSpent} color="#f57c00" />
@@ -185,12 +185,12 @@ export default function BudgetManagement() {
                   const usage = (budget.spent / budget.total) * 100;
                   return (
                     <TableRow key={budget.id} sx={{ borderBottom: '1px solid #e0e0e0', '&:hover': { backgroundColor: '#fafafa' } }}>
-                      <TableCell sx={{ color: '#212121' }}>{budget.name}</TableCell>
+                      <TableCell sx={{ color: theme.palette.text.primary }}>{budget.name}</TableCell>
                       <TableCell sx={{ color: '#616161' }}>{budget.category}</TableCell>
                       <TableCell align="right" sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
                         {budget.total.toLocaleString()} TND
                       </TableCell>
-                      <TableCell align="right" sx={{ color: '#212121' }}>
+                      <TableCell align="right" sx={{ color: theme.palette.text.primary }}>
                         {budget.spent.toLocaleString()} TND
                       </TableCell>
                       <TableCell align="right" sx={{ color: '#2e7d32', fontWeight: 600 }}>
@@ -199,7 +199,7 @@ export default function BudgetManagement() {
                       <TableCell align="center">
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <LinearProgress variant="determinate" value={usage} sx={{ flex: 1 }} />
-                          <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#212121', minWidth: '40px' }}>
+                          <Typography sx={{ fontSize: '12px', fontWeight: 600, color: theme.palette.text.primary, minWidth: '40px' }}>
                             {usage.toFixed(0)}%
                           </Typography>
                         </Box>

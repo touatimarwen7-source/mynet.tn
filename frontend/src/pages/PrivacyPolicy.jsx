@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
           Politique de Confidentialité
         </Typography>
 
-        <Paper sx={{ p: 4, backgroundColor: '#F9F9F9' }}>
+        <Paper sx={{ p: 4, backgroundColor: theme.palette.background.default }}>
           <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 3 }}>
             1. Introduction
           </Typography>

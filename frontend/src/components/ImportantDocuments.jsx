@@ -3,8 +3,8 @@ import { Box, Card, CardContent, Typography, Stack, Chip, Link } from '@mui/mate
 export default function ImportantDocuments({ documents, title = 'Documents Importants' }) {
   if (!documents || documents.length === 0) {
     return (
-      <Box sx={{ padding: '24px', backgroundColor: '#F9F9F9', borderRadius: '4px' }}>
-        <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#212121', marginBottom: '16px' }}>
+      <Box sx={{ padding: '24px', backgroundColor: theme.palette.background.default, borderRadius: '4px' }}>
+        <Typography sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px' }}>
           {title}
         </Typography>
         <Typography sx={{ color: '#616161', fontSize: '14px' }}>
@@ -34,7 +34,7 @@ export default function ImportantDocuments({ documents, title = 'Documents Impor
 
   return (
     <Box sx={{ padding: '24px' }}>
-      <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#212121', marginBottom: '20px' }}>
+      <Typography sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '20px' }}>
         {title}
       </Typography>
 
@@ -46,7 +46,7 @@ export default function ImportantDocuments({ documents, title = 'Documents Impor
                 <Box sx={{ display: 'flex', gap: '12px', flex: 1 }}>
                   <Typography sx={{ fontSize: '24px' }}>{doc.icon}</Typography>
                   <Box sx={{ flex: 1 }}>
-                    <Typography sx={{ fontWeight: 600, color: '#212121', fontSize: '14px' }}>
+                    <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary, fontSize: '14px' }}>
                       {doc.title}
                     </Typography>
                     <Typography sx={{ fontSize: '12px', color: '#616161' }}>

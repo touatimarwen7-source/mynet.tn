@@ -177,7 +177,7 @@ export default function UserManagement() {
       <Container maxWidth="lg">
         {/* Header */}
         <Box sx={{ marginBottom: '32px' }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, color: '#212121', marginBottom: '12px' }}>
+          <Typography variant="h3" sx={{ fontWeight: 700, color: theme.palette.text.primary, marginBottom: '12px' }}>
             Gestion des Utilisateurs
           </Typography>
           <Typography sx={{ fontSize: '14px', color: '#666', marginBottom: '24px' }}>
@@ -276,12 +276,12 @@ export default function UserManagement() {
           <Table>
             <TableHead>
               <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Email</TableCell>
-                <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Nom</TableCell>
-                <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Rôle</TableCell>
-                <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Statut</TableCell>
-                <TableCell sx={{ fontWeight: 700, color: '#212121' }}>Dernier accès</TableCell>
-                <TableCell sx={{ fontWeight: 700, color: '#212121' }} align="right">
+                <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Email</TableCell>
+                <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Nom</TableCell>
+                <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Rôle</TableCell>
+                <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Statut</TableCell>
+                <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }}>Dernier accès</TableCell>
+                <TableCell sx={{ fontWeight: 700, color: theme.palette.text.primary }} align="right">
                   Actions
                 </TableCell>
               </TableRow>
@@ -296,7 +296,7 @@ export default function UserManagement() {
                       label={getRoleLabel(user.role)}
                       size="small"
                       variant="outlined"
-                      sx={{ borderColor: '#0056B3', color: theme.palette.primary.main }}
+                      sx={{ borderColor: theme.palette.primary.main, color: theme.palette.primary.main }}
                     />
                   </TableCell>
                   <TableCell>

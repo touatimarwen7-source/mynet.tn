@@ -34,7 +34,7 @@ export default function InvoiceManagement() {
   };
 
   return (
-    <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
+    <Box sx={{ backgroundColor: theme.palette.background.default, paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
         <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Gestion des factures
@@ -69,7 +69,7 @@ export default function InvoiceManagement() {
             </TableHead>
             <TableBody>
               {invoices.map((inv) => (
-                <TableRow key={inv.id} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+                <TableRow key={inv.id} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
                   <TableCell>{inv.id}</TableCell>
                   <TableCell>{inv.amount.toLocaleString()} TND</TableCell>
                   <TableCell>

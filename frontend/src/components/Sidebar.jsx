@@ -304,7 +304,7 @@ export default function Sidebar({ user, onLogout }) {
             {user?.email?.[0]?.toUpperCase() || 'U'}
           </Avatar>
           <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, color: '#212121', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, color: theme.palette.text.primary, overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {user?.email || 'Utilisateur'}
             </Typography>
             <Typography variant="caption" sx={{ color: '#616161' }}>
@@ -328,7 +328,7 @@ export default function Sidebar({ user, onLogout }) {
                       padding: '12px 16px',
                       margin: '4px 8px',
                       borderRadius: '4px',
-                      color: '#212121',
+                      color: theme.palette.text.primary,
                       '&:hover': { backgroundColor: '#f5f5f5' },
                     }}
                   >
@@ -358,7 +358,7 @@ export default function Sidebar({ user, onLogout }) {
                             backgroundColor: isMenuItemActive(subItem.path) ? '#e3f2fd' : 'transparent',
                             borderLeft: isMenuItemActive(subItem.path) ? '4px solid #0056B3' : 'none',
                             paddingLeft: isMenuItemActive(subItem.path) ? '44px' : '48px',
-                            color: isMenuItemActive(subItem.path) ? '#0056B3' : '#616161',
+                            color: isMenuItemActive(subItem.path) ? theme.palette.primary.main : '#616161',
                             '&:hover': {
                               backgroundColor: '#f5f5f5',
                               color: theme.palette.primary.main,
@@ -384,7 +384,7 @@ export default function Sidebar({ user, onLogout }) {
                     backgroundColor: isMenuItemActive(item.path) ? '#e3f2fd' : 'transparent',
                     borderLeft: isMenuItemActive(item.path) ? '4px solid #0056B3' : 'none',
                     paddingLeft: isMenuItemActive(item.path) ? '12px' : '16px',
-                    color: isMenuItemActive(item.path) ? '#0056B3' : '#212121',
+                    color: isMenuItemActive(item.path) ? theme.palette.primary.main : theme.palette.text.primary,
                     '&:hover': {
                       backgroundColor: '#f5f5f5',
                       color: theme.palette.primary.main,

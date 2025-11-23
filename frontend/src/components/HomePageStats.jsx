@@ -16,7 +16,7 @@ export default function HomePageStats() {
             <Typography sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, marginBottom: '8px' }}>
               {stat.number}
             </Typography>
-            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', marginBottom: '4px' }}>
+            <Typography sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '4px' }}>
               {stat.label}
             </Typography>
             <Typography sx={{ fontSize: '12px', color: '#616161' }}>

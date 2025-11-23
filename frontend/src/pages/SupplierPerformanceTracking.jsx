@@ -107,7 +107,7 @@ export default function SupplierPerformanceTracking() {
   return (
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
-        <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121', marginBottom: '32px' }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary, marginBottom: '32px' }}>
           Suivi de Performance des Fournisseurs
         </Typography>
 
@@ -119,7 +119,7 @@ export default function SupplierPerformanceTracking() {
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                     <Box>
-                      <Typography sx={{ fontWeight: 600, color: '#212121', fontSize: '18px' }}>
+                      <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary, fontSize: '18px' }}>
                         #{supplier.rank} - {supplier.name}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>

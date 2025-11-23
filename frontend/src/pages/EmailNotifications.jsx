@@ -104,7 +104,7 @@ export default function EmailNotifications() {
   return (
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
-        <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121', marginBottom: '32px' }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary, marginBottom: '32px' }}>
           Gestion des Notifications par Email
         </Typography>
 
@@ -141,12 +141,12 @@ export default function EmailNotifications() {
           <Table>
             <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Destinataire</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Sujet</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Statut</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Date d'envoi</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Ouvertures</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Actions</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Destinataire</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Sujet</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Statut</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Date d'envoi</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Ouvertures</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -133,7 +133,7 @@ export default function TenderDetail() {
           <CardContent sx={{ padding: '32px' }}>
             <Stack spacing={3}>
               <Box>
-                <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+                <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
                   {tender.title}
                 </Typography>
                 <Typography sx={{ color: '#616161', fontSize: '14px' }}>
@@ -145,7 +145,7 @@ export default function TenderDetail() {
                 <Chip
                   label={tender.status}
                   sx={{
-                    backgroundColor: tender.status === 'published' ? '#2e7d32' : '#0056B3',
+                    backgroundColor: tender.status === 'published' ? '#2e7d32' : theme.palette.primary.main,
                     color: '#ffffff',
                     fontWeight: 500,
                   }}
@@ -153,7 +153,7 @@ export default function TenderDetail() {
               </Box>
 
               <Box sx={{ borderTop: '1px solid #e0e0e0', paddingTop: '16px' }}>
-                <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+                <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
                   Description
                 </Typography>
                 <Typography sx={{ color: '#616161', lineHeight: 1.6 }}>
@@ -163,16 +163,16 @@ export default function TenderDetail() {
 
               {offers.length > 0 && (
                 <Box sx={{ borderTop: '1px solid #e0e0e0', paddingTop: '16px' }}>
-                  <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121', marginBottom: '16px' }}>
+                  <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px' }}>
                     Offres ({offers.length})
                   </Typography>
                   <Paper sx={{ overflow: 'auto', boxShadow: 'none', border: '1px solid #e0e0e0' }}>
                     <Table>
                       <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                         <TableRow>
-                          <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Fournisseur</TableCell>
-                          <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Prix</TableCell>
-                          <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Statut</TableCell>
+                          <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Fournisseur</TableCell>
+                          <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Prix</TableCell>
+                          <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Statut</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>

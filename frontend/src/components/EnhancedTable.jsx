@@ -67,9 +67,9 @@ export default function EnhancedTable({
     <TableContainer component={Paper} sx={{ boxShadow: 'none', border: '1px solid #E0E0E0', borderRadius: '4px' }}>
       <Table sx={{ backgroundColor: '#FFFFFF' }}>
         <TableHead>
-          <TableRow sx={{ backgroundColor: '#F9F9F9' }}>
+          <TableRow sx={{ backgroundColor: theme.palette.background.default }}>
             {groupBy && (
-              <TableCell sx={{ padding: '12px', backgroundColor: '#F9F9F9', width: '40px' }} />
+              <TableCell sx={{ padding: '12px', backgroundColor: theme.palette.background.default, width: '40px' }} />
             )}
             {columns.map((col) => (
               <TableCell
@@ -77,9 +77,9 @@ export default function EnhancedTable({
                 onClick={() => sortable && handleSort(col.key)}
                 sx={{
                   padding: '12px',
-                  backgroundColor: '#F9F9F9',
+                  backgroundColor: theme.palette.background.default,
                   fontWeight: 600,
-                  color: '#212121',
+                  color: theme.palette.text.primary,
                   fontSize: '14px',
                   cursor: sortable ? 'pointer' : 'default',
                   userSelect: 'none',
@@ -122,7 +122,7 @@ export default function EnhancedTable({
                       ) : (
                         <KeyboardArrowUpIcon sx={{ fontSize: '20px' }} />
                       )}
-                      <Typography sx={{ fontWeight: 600, color: '#212121' }}>
+                      <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
                         {groupName}
                       </Typography>
                       <Typography sx={{ color: '#616161', fontSize: '14px' }}>
@@ -148,7 +148,7 @@ export default function EnhancedTable({
                           key={col.key}
                           sx={{
                             padding: '12px',
-                            color: '#212121',
+                            color: theme.palette.text.primary,
                             fontSize: '14px',
                           }}
                         >
@@ -175,7 +175,7 @@ export default function EnhancedTable({
                     key={col.key}
                     sx={{
                       padding: '12px',
-                      color: '#212121',
+                      color: theme.palette.text.primary,
                       fontSize: '14px',
                     }}
                   >

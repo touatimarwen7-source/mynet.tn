@@ -84,7 +84,7 @@ export default function ContactPage() {
                   <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
                     <LocationOnIcon sx={{ color: theme.palette.primary.main, fontSize: '20px', marginTop: '2px' }} />
                     <Box>
-                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121' }}>
+                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary }}>
                         Siège Social
                       </Typography>
                     </Box>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                   <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
                     <PhoneIcon sx={{ color: theme.palette.primary.main, fontSize: '20px', marginTop: '2px' }} />
                     <Box>
-                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121' }}>
+                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary }}>
                         Téléphone
                       </Typography>
                     </Box>
@@ -138,7 +138,7 @@ export default function ContactPage() {
                   <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
                     <EmailIcon sx={{ color: theme.palette.primary.main, fontSize: '20px', marginTop: '2px' }} />
                     <Box>
-                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: '#212121' }}>
+                      <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary }}>
                         Email
                       </Typography>
                     </Box>
@@ -180,7 +180,7 @@ export default function ContactPage() {
           <Grid size={{ xs: 12, md: 8 }}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent sx={{ padding: '32px' }}>
-                <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+                <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
                   Envoyez-nous un Message
                 </Typography>
                 <Typography sx={{ color: '#616161', marginBottom: '24px' }}>

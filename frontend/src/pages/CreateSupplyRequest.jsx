@@ -460,7 +460,7 @@ export default function CreateSupplyRequest() {
         component="label"
         startIcon={<UploadIcon />}
         disabled={loading}
-        sx={{ color: 'primary.main', borderColor: '#0056B3' }}
+        sx={{ color: 'primary.main', borderColor: theme.palette.primary.main }}
       >
         Télécharger des documents
         <input type="file" multiple hidden onChange={handleFileUpload} />
@@ -670,7 +670,7 @@ export default function CreateSupplyRequest() {
                 disabled={activeStep === 0 || loading}
                 sx={{
                   color: 'primary.main',
-                  borderColor: '#0056B3',
+                  borderColor: theme.palette.primary.main,
                   textTransform: 'none',
                   fontWeight: 600,
                   minHeight: '44px',

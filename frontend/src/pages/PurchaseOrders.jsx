@@ -76,8 +76,8 @@ export default function PurchaseOrders() {
                 variant={filter === status ? 'contained' : 'outlined'}
                 onClick={() => setFilter(status)}
                 sx={{ 
-                  backgroundColor: filter === status ? '#0056B3' : 'transparent',
-                  color: filter === status ? 'white' : '#0056B3'
+                  backgroundColor: filter === status ? theme.palette.primary.main : 'transparent',
+                  color: filter === status ? 'white' : theme.palette.primary.main
                 }}
               >
                 {status || 'الكل'}

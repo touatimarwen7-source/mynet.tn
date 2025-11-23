@@ -88,7 +88,7 @@ export default function AdminDialog({
           variant="contained"
           sx={{
             textTransform: 'none',
-            backgroundColor: severity === 'danger' ? '#d32f2f' : '#0056B3',
+            backgroundColor: severity === 'danger' ? '#d32f2f' : theme.palette.primary.main,
             '&:hover': {
               backgroundColor: severity === 'danger' ? '#b71c1c' : '#004499',
             },

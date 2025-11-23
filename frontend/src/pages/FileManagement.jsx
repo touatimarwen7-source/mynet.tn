@@ -93,7 +93,7 @@ const FileManagement = () => {
   return (
     <Box sx={{ padding: '20px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#212121' }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', color: theme.palette.text.primary }}>
           إدارة الملفات
         </Typography>
         <Button
@@ -125,7 +125,7 @@ const FileManagement = () => {
       ) : (
         <TableContainer component={Paper} sx={{ backgroundColor: 'white', borderRadius: '4px' }}>
           <Table>
-            <TableHead sx={{ backgroundColor: '#F9F9F9' }}>
+            <TableHead sx={{ backgroundColor: theme.palette.background.default }}>
               <TableRow>
                 <TableCell sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>اسم الملف</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>نوع الملف</TableCell>
@@ -137,8 +137,8 @@ const FileManagement = () => {
             <TableBody>
               {files && files.length > 0 ? (
                 files.map((file) => (
-                  <TableRow key={file.id} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
-                    <TableCell sx={{ color: '#212121' }}>{file.name || file.file_name}</TableCell>
+                  <TableRow key={file.id} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
+                    <TableCell sx={{ color: theme.palette.text.primary }}>{file.name || file.file_name}</TableCell>
                     <TableCell>
                       <Chip
                         label={file.file_type || 'ملف'}
@@ -211,11 +211,11 @@ const FileManagement = () => {
                 fullWidth
                 startIcon={<CloudUploadIcon />}
                 sx={{
-                  borderColor: '#0056B3',
+                  borderColor: theme.palette.primary.main,
                   color: theme.palette.primary.main,
                   '&:hover': {
                     backgroundColor: '#F0F5FF',
-                    borderColor: '#0056B3',
+                    borderColor: theme.palette.primary.main,
                   },
                 }}
               >

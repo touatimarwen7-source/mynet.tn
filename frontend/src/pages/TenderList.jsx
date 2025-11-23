@@ -115,7 +115,7 @@ export default function TenderList() {
           sx={{
             fontSize: '32px',
             fontWeight: 500,
-            color: '#212121',
+            color: theme.palette.text.primary,
             marginBottom: '32px',
           }}
         >
@@ -188,13 +188,13 @@ export default function TenderList() {
                         height: '56px',
                       }}
                     >
-                      <TableCell sx={{ color: '#212121', fontSize: '14px', fontWeight: 500 }}>
+                      <TableCell sx={{ color: theme.palette.text.primary, fontSize: '14px', fontWeight: 500 }}>
                         {tender.title}
                       </TableCell>
                       <TableCell sx={{ color: '#616161', fontSize: '14px' }}>
                         {tender.buyer_name || 'N/A'}
                       </TableCell>
-                      <TableCell sx={{ color: '#212121', fontSize: '14px', fontWeight: 500 }} align="right">
+                      <TableCell sx={{ color: theme.palette.text.primary, fontSize: '14px', fontWeight: 500 }} align="right">
                         {tender.budget_min ? `${tender.budget_min.toLocaleString()} TND` : 'N/A'}
                       </TableCell>
                       <TableCell sx={{ color: '#616161', fontSize: '14px' }}>

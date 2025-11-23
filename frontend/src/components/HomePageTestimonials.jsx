@@ -9,14 +9,14 @@ export default function HomePageTestimonials() {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ fontSize: '20px', fontWeight: 600, color: '#212121', marginBottom: '24px' }}>
+      <Typography variant="h4" sx={{ fontSize: '20px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '24px' }}>
         Ce que Disent nos Utilisateurs
       </Typography>
       <Grid container spacing={2}>
         {testimonials.map((testimonial, idx) => (
           <Grid size={{ xs: 12, md: 4 }} key={idx}>
             <Paper sx={{ padding: '24px', backgroundColor: '#f5f5f5', border: '1px solid #e0e0e0', borderRadius: '8px', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <Typography sx={{ fontSize: '14px', color: '#212121', marginBottom: '12px', flex: 1, lineHeight: 1.6 }}>
+              <Typography sx={{ fontSize: '14px', color: theme.palette.text.primary, marginBottom: '12px', flex: 1, lineHeight: 1.6 }}>
                 "{testimonial.text}"
               </Typography>
               <Typography sx={{ fontSize: '12px', color: '#616161', fontStyle: 'italic' }}>

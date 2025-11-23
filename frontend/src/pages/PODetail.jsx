@@ -90,7 +90,7 @@ export default function PODetail() {
 
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ marginBottom: '32px', justifyContent: 'space-between' }}>
           <Box>
-            <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121' }}>
+            <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
               {po.number}
             </Typography>
             <StatusBadge status={po.status} />
@@ -107,7 +107,7 @@ export default function PODetail() {
             <Button
               variant="outlined"
               startIcon={<PrintIcon />}
-              sx={{ color: theme.palette.primary.main, borderColor: '#0056B3' }}
+              sx={{ color: theme.palette.primary.main, borderColor: theme.palette.primary.main }}
             >
               Imprimer
             </Button>

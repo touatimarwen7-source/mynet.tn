@@ -97,7 +97,7 @@ export default function BuyerAnalytics() {
   return (
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
-        <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121', marginBottom: '32px' }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary, marginBottom: '32px' }}>
           Dashboard Analytics - Acheteur
         </Typography>
 

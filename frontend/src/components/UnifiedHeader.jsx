@@ -97,7 +97,7 @@ export default function UnifiedHeader() {
         key={link.href}
         onClick={() => handleNavigate(link.href)}
         sx={{
-          color: location.pathname === link.href ? '#0056B3' : '#212121',
+          color: location.pathname === link.href ? theme.palette.primary.main : theme.palette.text.primary,
           fontWeight: location.pathname === link.href ? 600 : 500,
           textTransform: 'none',
           fontSize: '14px',
@@ -119,7 +119,7 @@ export default function UnifiedHeader() {
       position="static"
       sx={{
         backgroundColor: '#ffffff',
-        color: '#212121',
+        color: theme.palette.text.primary,
         borderBottom: '1px solid #e0e0e0',
         boxShadow: 'none',
       }}
@@ -211,7 +211,7 @@ export default function UnifiedHeader() {
                   {userName.charAt(0).toUpperCase()}
                 </Avatar>
                 <Box sx={{ minWidth: '80px' }}>
-                  <Typography variant="body2" sx={{ fontWeight: 500, color: '#212121' }}>
+                  <Typography variant="body2" sx={{ fontWeight: 500, color: theme.palette.text.primary }}>
                     {userName}
                   </Typography>
                   <Typography variant="caption" sx={{ color: '#616161' }}>
@@ -250,11 +250,11 @@ export default function UnifiedHeader() {
                 onClick={() => navigate('/login')}
                 sx={{
                   borderColor: '#e0e0e0',
-                  color: '#212121',
+                  color: theme.palette.text.primary,
                   textTransform: 'none',
                   fontWeight: 500,
                   '&:hover': {
-                    borderColor: '#0056B3',
+                    borderColor: theme.palette.primary.main,
                     color: theme.palette.primary.main,
                     backgroundColor: '#f5f5f5',
                   },
@@ -283,7 +283,7 @@ export default function UnifiedHeader() {
         {/* Mobile Menu Button */}
         <IconButton
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          sx={{ display: { xs: 'flex', md: 'none' }, color: '#212121' }}
+          sx={{ display: { xs: 'flex', md: 'none' }, color: theme.palette.text.primary }}
         >
           <MenuIcon />
         </IconButton>
@@ -305,7 +305,7 @@ export default function UnifiedHeader() {
                 onClick={() => handleNavigate(link.href)}
                 sx={{
                   backgroundColor: location.pathname === link.href ? '#e3f2fd' : 'transparent',
-                  color: location.pathname === link.href ? '#0056B3' : '#212121',
+                  color: location.pathname === link.href ? theme.palette.primary.main : theme.palette.text.primary,
                   borderLeft: location.pathname === link.href ? '4px solid #0056B3' : 'none',
                 }}
               >
@@ -319,7 +319,7 @@ export default function UnifiedHeader() {
                 onClick={() => handleNavigate(link.href)}
                 sx={{
                   backgroundColor: location.pathname === link.href ? '#e3f2fd' : 'transparent',
-                  color: location.pathname === link.href ? '#0056B3' : '#212121',
+                  color: location.pathname === link.href ? theme.palette.primary.main : theme.palette.text.primary,
                   borderLeft: location.pathname === link.href ? '4px solid #0056B3' : 'none',
                 }}
               >

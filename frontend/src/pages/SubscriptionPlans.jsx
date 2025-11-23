@@ -77,7 +77,7 @@ export default function SubscriptionPlans() {
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', marginBottom: '48px' }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, color: '#212121', marginBottom: '16px' }}>
+          <Typography variant="h3" sx={{ fontWeight: 700, color: theme.palette.text.primary, marginBottom: '16px' }}>
             Plans d'Abonnement
           </Typography>
           <Typography sx={{ fontSize: '16px', color: '#666', maxWidth: '600px', margin: '0 auto' }}>
@@ -119,7 +119,7 @@ export default function SubscriptionPlans() {
                 )}
 
                 <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '32px 24px' }}>
-                  <Typography sx={{ fontWeight: 600, fontSize: '24px', color: '#212121', marginBottom: '8px' }}>
+                  <Typography sx={{ fontWeight: 600, fontSize: '24px', color: theme.palette.text.primary, marginBottom: '8px' }}>
                     {plan.name}
                   </Typography>
                   <Typography sx={{ fontSize: '12px', color: '#666', marginBottom: '24px' }}>
@@ -145,9 +145,9 @@ export default function SubscriptionPlans() {
                     fullWidth
                     onClick={() => setSelectedPlan(plan.id)}
                     sx={{
-                      backgroundColor: plan.popular ? '#0056B3' : 'transparent',
-                      color: plan.popular ? '#fff' : '#0056B3',
-                      borderColor: '#0056B3',
+                      backgroundColor: plan.popular ? theme.palette.primary.main : 'transparent',
+                      color: plan.popular ? '#fff' : theme.palette.primary.main,
+                      borderColor: theme.palette.primary.main,
                       marginBottom: '24px',
                       fontWeight: 600,
                       '&:hover': {
@@ -167,7 +167,7 @@ export default function SubscriptionPlans() {
                         <ListItemText
                           primary={feature}
                           primaryTypographyProps={{
-                            sx: { fontSize: '14px', color: '#212121' }
+                            sx: { fontSize: '14px', color: theme.palette.text.primary }
                           }}
                         />
                       </ListItem>
@@ -181,7 +181,7 @@ export default function SubscriptionPlans() {
 
         {/* FAQ Section */}
         <Box sx={{ marginTop: '64px' }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121', marginBottom: '32px', textAlign: 'center' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary, marginBottom: '32px', textAlign: 'center' }}>
             Questions Fréquemment Posées
           </Typography>
 

@@ -22,7 +22,7 @@ export default function FinancialReports() {
   }, []);
 
   return (
-    <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
+    <Box sx={{ backgroundColor: theme.palette.background.default, paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
         <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Rapports financiers

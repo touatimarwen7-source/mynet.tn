@@ -90,7 +90,7 @@ export default function BuyerDashboard() {
             {value}
           </Typography>
         </Box>
-        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121' }}>
+        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.text.primary }}>
           {label}
         </Typography>
         <Typography sx={{ fontSize: '12px', color: '#616161', marginTop: '4px' }}>
@@ -108,7 +108,7 @@ export default function BuyerDashboard() {
       <Container maxWidth="lg">
         {/* Header */}
         <Box sx={{ marginBottom: '32px' }}>
-          <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+          <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
             Tableau de Bord Acheteur
           </Typography>
           <Typography sx={{ color: '#616161', marginBottom: '16px' }}>
@@ -170,7 +170,7 @@ export default function BuyerDashboard() {
         <Card sx={{ border: '1px solid #e0e0e0' }}>
           <CardContent sx={{ padding: 0 }}>
             <Box sx={{ padding: '24px', borderBottom: '1px solid #e0e0e0' }}>
-              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121' }}>
+              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary }}>
                 Appels d'Offres Récents
               </Typography>
             </Box>
@@ -209,7 +209,7 @@ export default function BuyerDashboard() {
                           '&:hover': { backgroundColor: '#fafafa' },
                         }}
                       >
-                        <TableCell sx={{ color: '#212121', fontSize: '14px', fontWeight: 500 }}>
+                        <TableCell sx={{ color: theme.palette.text.primary, fontSize: '14px', fontWeight: 500 }}>
                           {tender.title}
                         </TableCell>
                         <TableCell sx={{ color: theme.palette.primary.main, fontSize: '14px', fontWeight: 600 }} align="right">

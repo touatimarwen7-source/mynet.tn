@@ -249,7 +249,7 @@ export default function CreateOffer() {
 
         <Card sx={{ border: '1px solid #e0e0e0' }}>
           <CardContent sx={{ padding: '32px' }}>
-            <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+            <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
               Soumission d'Offre Sécurisée
             </Typography>
             <Typography sx={{ color: '#616161', marginBottom: '24px' }}>
@@ -359,8 +359,8 @@ export default function CreateOffer() {
                       <TableBody>
                         {offerData.line_items.map((item, idx) => (
                           <TableRow key={idx} sx={{ borderBottom: '1px solid #e0e0e0' }}>
-                            <TableCell sx={{ color: '#212121' }}>{item.description}</TableCell>
-                            <TableCell align="right" sx={{ color: '#212121' }}>{item.quantity}</TableCell>
+                            <TableCell sx={{ color: theme.palette.text.primary }}>{item.description}</TableCell>
+                            <TableCell align="right" sx={{ color: theme.palette.text.primary }}>{item.quantity}</TableCell>
                             <TableCell align="right">
                               <TextField
                                 size="small"
@@ -431,7 +431,7 @@ export default function CreateOffer() {
                   variant="outlined"
                   onClick={() => setStep(Math.max(0, step - 1))}
                   disabled={step === 0 || submitting || isDeadlinePassed}
-                  sx={{ color: theme.palette.primary.main, borderColor: '#0056B3' }}
+                  sx={{ color: theme.palette.primary.main, borderColor: theme.palette.primary.main }}
                 >
                   Précédent
                 </Button>
@@ -472,7 +472,7 @@ export default function CreateOffer() {
                   key={product.id}
                   variant="outlined"
                   onClick={() => handleSelectFromCatalog(product)}
-                  sx={{ textAlign: 'left', justifyContent: 'flex-start', color: '#212121' }}
+                  sx={{ textAlign: 'left', justifyContent: 'flex-start', color: theme.palette.text.primary }}
                 >
                   {product.description} - {product.total_amount} TND
                 </Button>

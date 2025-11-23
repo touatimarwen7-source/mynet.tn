@@ -22,8 +22,8 @@ export default function QuickActions({ actions }) {
   };
 
   return (
-    <Box sx={{ padding: '24px', backgroundColor: '#F9F9F9', borderRadius: '4px' }}>
-      <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#212121', marginBottom: '20px' }}>
+    <Box sx={{ padding: '24px', backgroundColor: theme.palette.background.default, borderRadius: '4px' }}>
+      <Typography sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '20px' }}>
         Actions Rapides
       </Typography>
       <Grid container spacing={2}>
@@ -33,7 +33,7 @@ export default function QuickActions({ actions }) {
               <CardActionArea onClick={() => handleActionClick(action)} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: 1, width: '100%' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
-                    <Typography sx={{ fontWeight: 600, color: '#212121', fontSize: '14px', flex: 1 }}>
+                    <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary, fontSize: '14px', flex: 1 }}>
                       {action.label}
                     </Typography>
                     {action.badge && (

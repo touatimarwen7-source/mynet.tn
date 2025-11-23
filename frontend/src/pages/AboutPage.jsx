@@ -20,7 +20,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '0px' }}>
+    <Box sx={{ backgroundColor: theme.palette.background.default, paddingY: '0px' }}>
       {/* Hero Section */}
       <Box
         sx={{
@@ -66,7 +66,7 @@ export default function AboutPage() {
             sx={{
               fontSize: '36px',
               fontWeight: 700,
-              color: '#212121',
+              color: theme.palette.text.primary,
               marginBottom: '48px',
               textAlign: 'center',
             }}
@@ -92,7 +92,7 @@ export default function AboutPage() {
                   sx={{
                     fontSize: '20px',
                     fontWeight: 600,
-                    color: '#212121',
+                    color: theme.palette.text.primary,
                     marginBottom: '12px',
                   }}
                 >
@@ -131,7 +131,7 @@ export default function AboutPage() {
                   sx={{
                     fontSize: '20px',
                     fontWeight: 600,
-                    color: '#212121',
+                    color: theme.palette.text.primary,
                     marginBottom: '12px',
                   }}
                 >
@@ -170,7 +170,7 @@ export default function AboutPage() {
                   sx={{
                     fontSize: '20px',
                     fontWeight: 600,
-                    color: '#212121',
+                    color: theme.palette.text.primary,
                     marginBottom: '12px',
                   }}
                 >
@@ -200,7 +200,7 @@ export default function AboutPage() {
             sx={{
               fontSize: '36px',
               fontWeight: 700,
-              color: '#212121',
+              color: theme.palette.text.primary,
               marginBottom: '48px',
               textAlign: 'center',
             }}
@@ -257,7 +257,7 @@ export default function AboutPage() {
                       sx={{
                         fontSize: '16px',
                         fontWeight: 600,
-                        color: '#212121',
+                        color: theme.palette.text.primary,
                         marginBottom: '8px',
                       }}
                     >
@@ -287,7 +287,7 @@ export default function AboutPage() {
             sx={{
               fontSize: '36px',
               fontWeight: 700,
-              color: '#212121',
+              color: theme.palette.text.primary,
               marginBottom: '48px',
               textAlign: 'center',
             }}
@@ -342,7 +342,7 @@ export default function AboutPage() {
                       sx={{
                         fontSize: '16px',
                         fontWeight: 600,
-                        color: '#212121',
+                        color: theme.palette.text.primary,
                         marginBottom: '4px',
                         textAlign: 'center',
                       }}

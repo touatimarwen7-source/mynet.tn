@@ -167,7 +167,7 @@ export default function PageEditor() {
             >
               Retour
             </Button>
-            <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121', flex: 1 }}>
+            <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary, flex: 1 }}>
               Modifier la Page: {formData.title}
             </Typography>
             <Box sx={{
@@ -317,7 +317,7 @@ export default function PageEditor() {
               {/* Actions */}
               <Card sx={{ border: '1px solid #e0e0e0', backgroundColor: '#f9f9f9' }}>
                 <CardContent>
-                  <Typography sx={{ fontWeight: 600, color: '#212121', marginBottom: '16px' }}>
+                  <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px' }}>
                     Actions
                   </Typography>
                   <Stack spacing={2}>
@@ -346,7 +346,7 @@ export default function PageEditor() {
                       variant="outlined"
                       startIcon={<PreviewIcon />}
                       onClick={() => setOpenPreview(true)}
-                      sx={{ color: theme.palette.primary.main, borderColor: '#0056B3' }}
+                      sx={{ color: theme.palette.primary.main, borderColor: theme.palette.primary.main }}
                     >
                       Aperçu
                     </Button>

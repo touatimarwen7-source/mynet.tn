@@ -17,8 +17,8 @@ export default function CreateOfferLineItems({ items, onLineItemChange, onOpenCa
           <TableBody>
             {items.map((item, idx) => (
               <TableRow key={idx} sx={{ borderBottom: '1px solid #e0e0e0' }}>
-                <TableCell sx={{ color: '#212121' }}>{item.description}</TableCell>
-                <TableCell align="right" sx={{ color: '#212121' }}>{item.quantity}</TableCell>
+                <TableCell sx={{ color: theme.palette.text.primary }}>{item.description}</TableCell>
+                <TableCell align="right" sx={{ color: theme.palette.text.primary }}>{item.quantity}</TableCell>
                 <TableCell align="right">
                   <TextField size="small" type="number" value={item.unit_price} onChange={(e) => onLineItemChange(idx, 'unit_price', e.target.value)} disabled={isDeadlinePassed} sx={{ width: '100px' }} />
                 </TableCell>

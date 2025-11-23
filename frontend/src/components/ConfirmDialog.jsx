@@ -20,7 +20,7 @@ export default function ConfirmDialog({
 }) {
   const severityColors = {
     warning: { title: '#d32f2f', button: '#d32f2f' },
-    info: { title: '#0056B3', button: '#0056B3' },
+    info: { title: theme.palette.primary.main, button: theme.palette.primary.main },
     success: { title: '#2e7d32', button: '#2e7d32' }
   };
 

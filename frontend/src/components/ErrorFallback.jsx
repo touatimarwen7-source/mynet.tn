@@ -13,7 +13,7 @@ const ErrorFallback = ({ error, resetError }) => {
     <Box
       sx={{
         padding: '24px',
-        backgroundColor: '#F9F9F9',
+        backgroundColor: theme.palette.background.default,
         borderRadius: '4px',
         border: '1px solid #E0E0E0',
         textAlign: 'center'
@@ -26,7 +26,7 @@ const ErrorFallback = ({ error, resetError }) => {
       <Typography
         variant="h5"
         sx={{
-          color: '#212121',
+          color: theme.palette.text.primary,
           fontWeight: 600,
           marginBottom: '8px'
         }}

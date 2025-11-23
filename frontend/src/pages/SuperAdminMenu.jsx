@@ -178,7 +178,7 @@ export default function SuperAdminMenu() {
         <Box sx={{ marginBottom: '40px' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
             <DashboardIcon sx={{ fontSize: '32px', color: theme.palette.primary.main }} />
-            <Typography variant="h3" sx={{ fontWeight: 700, color: '#212121' }}>
+            <Typography variant="h3" sx={{ fontWeight: 700, color: theme.palette.text.primary }}>
               قائمة وظائف Super Admin
             </Typography>
           </Box>
@@ -269,7 +269,7 @@ export default function SuperAdminMenu() {
                                 <IconComponent sx={{ color: func.color, fontSize: '22px' }} />
                               </Box>
                               <Box sx={{ flex: 1 }}>
-                                <Typography sx={{ fontWeight: 700, color: '#212121', fontSize: '15px' }}>
+                                <Typography sx={{ fontWeight: 700, color: theme.palette.text.primary, fontSize: '15px' }}>
                                   {func.title}
                                 </Typography>
                               </Box>

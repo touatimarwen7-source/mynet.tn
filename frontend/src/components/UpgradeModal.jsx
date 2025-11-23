@@ -16,7 +16,7 @@ export default function UpgradeModal({ isOpen, onClose, currentTier, featureKey 
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle sx={{ fontWeight: 600, fontSize: '18px', color: '#212121' }}>
+      <DialogTitle sx={{ fontWeight: 600, fontSize: '18px', color: theme.palette.text.primary }}>
         Débloquez cette fonctionnalité
       </DialogTitle>
 
@@ -24,7 +24,7 @@ export default function UpgradeModal({ isOpen, onClose, currentTier, featureKey 
         <Stack spacing={3}>
           <Box sx={{ textAlign: 'center' }}>
             <Box sx={{ fontSize: '48px', marginBottom: '12px' }}>{featureInfo.icon}</Box>
-            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '8px' }}>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
               {featureInfo.label}
             </Typography>
             <Typography variant="body2" sx={{ fontSize: '14px', color: '#616161' }}>
@@ -47,7 +47,7 @@ export default function UpgradeModal({ isOpen, onClose, currentTier, featureKey 
 
           {nextTierInfo && (
             <Box>
-              <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+              <Typography sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '12px' }}>
                 Avantages supplémentaires:
               </Typography>
               <Stack spacing={1}>
@@ -65,7 +65,7 @@ export default function UpgradeModal({ isOpen, onClose, currentTier, featureKey 
           )}
 
           {nextTierInfo && (
-            <Box sx={{ backgroundColor: '#F9F9F9', padding: '16px', borderRadius: '4px', textAlign: 'center' }}>
+            <Box sx={{ backgroundColor: theme.palette.background.default, padding: '16px', borderRadius: '4px', textAlign: 'center' }}>
               <Typography sx={{ fontSize: '12px', color: '#616161' }}>À partir de</Typography>
               <Typography sx={{ fontSize: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
                 {nextTierInfo.price} TND

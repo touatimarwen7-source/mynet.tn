@@ -21,7 +21,7 @@ export default function DynamicAdvertisement() {
     <Box sx={{ padding: '24px' }}>
       <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none' }}>
         <CardContent sx={{ padding: '32px' }}>
-          <Typography variant="h5" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+          <Typography variant="h5" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '12px' }}>
             {ad.title}
           </Typography>
           <Typography variant="body2" sx={{ fontSize: '14px', color: '#616161', marginBottom: '16px' }}>
@@ -45,7 +45,7 @@ export default function DynamicAdvertisement() {
                   width: '12px',
                   height: '12px',
                   borderRadius: '50%',
-                  backgroundColor: idx === currentAd ? '#0056B3' : '#E0E0E0',
+                  backgroundColor: idx === currentAd ? theme.palette.primary.main : theme.palette.divider,
                   border: 'none',
                   cursor: 'pointer',
                 }}

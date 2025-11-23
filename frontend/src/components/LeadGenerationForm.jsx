@@ -36,7 +36,7 @@ export default function LeadGenerationForm() {
     <Box sx={{ backgroundColor: '#FFFFFF', paddingY: '60px', borderTop: '1px solid #E0E0E0', borderBottom: '1px solid #E0E0E0' }}>
       <Container maxWidth="sm">
         <Box sx={{ textAlign: 'center', marginBottom: '32px' }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary, marginBottom: '12px' }}>
             Restez Connecté avec MyNet.tn
           </Typography>
           <Typography sx={{ fontSize: '14px', color: '#616161' }}>

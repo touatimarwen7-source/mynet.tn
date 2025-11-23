@@ -249,11 +249,11 @@ export default function StaticPagesManager() {
         <Table>
           <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
             <TableRow>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Titre</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Slug</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>État</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Dernière Modification</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 600, color: '#212121' }}>Actions</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Titre</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Slug</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>État</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Dernière Modification</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -265,7 +265,7 @@ export default function StaticPagesManager() {
               </TableRow>
             ) : (
               pages.map(page => (
-                <TableRow key={page.id} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+                <TableRow key={page.id} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
                   <TableCell>
                     <Box>
                       <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>{page.title}</Typography>
@@ -380,9 +380,9 @@ export default function StaticPagesManager() {
                     onClick={() => handleFormChange('status', status)}
                     disabled={saving}
                     sx={{
-                      backgroundColor: formData.status === status ? '#0056B3' : 'transparent',
-                      color: formData.status === status ? '#FFF' : '#0056B3',
-                      borderColor: '#0056B3'
+                      backgroundColor: formData.status === status ? theme.palette.primary.main : 'transparent',
+                      color: formData.status === status ? '#FFF' : theme.palette.primary.main,
+                      borderColor: theme.palette.primary.main
                     }}
                   >
                     {status === 'published' ? 'Publiée' : 'Brouillon'}

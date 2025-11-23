@@ -21,7 +21,7 @@ export default function DeliveryManagement() {
   };
 
   return (
-    <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
+    <Box sx={{ backgroundColor: theme.palette.background.default, paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
         <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Gestion des livraisons
@@ -40,7 +40,7 @@ export default function DeliveryManagement() {
             </TableHead>
             <TableBody>
               {deliveries.map((del) => (
-                <TableRow key={del.id} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+                <TableRow key={del.id} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
                   <TableCell>{del.order}</TableCell>
                   <TableCell>
                     <Chip label={del.status} size="small" sx={{ backgroundColor: getStatusColor(del.status) + '30', color: getStatusColor(del.status) }} />

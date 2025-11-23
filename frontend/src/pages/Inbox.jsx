@@ -153,7 +153,7 @@ export default function Inbox() {
               <Button
                 variant={unreadOnly ? 'contained' : 'outlined'}
                 onClick={() => { setUnreadOnly(!unreadOnly); setPage(1); }}
-                sx={{ backgroundColor: unreadOnly ? '#0056B3' : 'transparent', color: unreadOnly ? 'white' : '#0056B3' }}
+                sx={{ backgroundColor: unreadOnly ? theme.palette.primary.main : 'transparent', color: unreadOnly ? 'white' : theme.palette.primary.main }}
               >
                 غير مقروء
               </Button>

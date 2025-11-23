@@ -54,7 +54,7 @@ export default function EmailVerification() {
   }, [searchParams, navigate, addToast]);
 
   return (
-    <Box sx={{ backgroundColor: '#F9F9F9', minHeight: '100vh', paddingY: '60px' }}>
+    <Box sx={{ backgroundColor: theme.palette.background.default, minHeight: '100vh', paddingY: '60px' }}>
       <Container maxWidth="sm">
         <Card sx={{ borderRadius: '8px', textAlign: 'center' }}>
           <CardContent sx={{ padding: '48px 40px' }}>
@@ -77,7 +77,7 @@ export default function EmailVerification() {
                 <Typography variant="h5" sx={{ color: '#4CAF50', marginBottom: '16px' }}>
                   {message}
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#666666', marginBottom: '24px' }}>
+                <Typography variant="body2" sx={{ color: theme.palette.text.secondary, marginBottom: '24px' }}>
                   Vous allez être redirigé vers la connexion...
                 </Typography>
               </>

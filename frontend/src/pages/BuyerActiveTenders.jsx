@@ -156,7 +156,7 @@ export default function BuyerActiveTenders() {
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
           <Box>
-            <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+            <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
               📋 Appels d'Offres Actifs
             </Typography>
             <Typography sx={{ color: '#616161' }}>
@@ -268,7 +268,7 @@ export default function BuyerActiveTenders() {
                   </Box>
                   <CardContent sx={{ padding: '24px', flex: 1, paddingLeft: '52px' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                      <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', flex: 1 }}>
+                      <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, flex: 1 }}>
                         {tender.title}
                       </Typography>
                       <StatusBadge status="active" />
@@ -281,7 +281,7 @@ export default function BuyerActiveTenders() {
                     <Stack spacing={2} sx={{ marginBottom: '16px' }}>
                       <Box>
                         <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>Catégorie</Typography>
-                        <Typography sx={{ color: '#212121' }}>{tender.category}</Typography>
+                        <Typography sx={{ color: theme.palette.text.primary }}>{tender.category}</Typography>
                       </Box>
                       <Box>
                         <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>Budget</Typography>
@@ -291,7 +291,7 @@ export default function BuyerActiveTenders() {
                       </Box>
                       <Box>
                         <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>Date limite</Typography>
-                        <Typography sx={{ color: '#212121' }}>{formatDate(tender.deadline)}</Typography>
+                        <Typography sx={{ color: theme.palette.text.primary }}>{formatDate(tender.deadline)}</Typography>
                       </Box>
                       {tender.offers_count && (
                         <Box>
@@ -323,7 +323,7 @@ export default function BuyerActiveTenders() {
                       variant="outlined"
                       startIcon={<CompareIcon />}
                       onClick={() => navigate(`/bid-comparison/${tender.id}`)}
-                      sx={{ flex: 1, minWidth: '80px', color: theme.palette.primary.main, borderColor: '#0056B3', textTransform: 'none' }}
+                      sx={{ flex: 1, minWidth: '80px', color: theme.palette.primary.main, borderColor: theme.palette.primary.main, textTransform: 'none' }}
                     >
                       Comparer
                     </Button>
@@ -332,7 +332,7 @@ export default function BuyerActiveTenders() {
                       variant="outlined"
                       startIcon={<EditIcon />}
                       onClick={() => navigate(`/tender/${tender.id}/edit`)}
-                      sx={{ flex: 1, minWidth: '80px', color: theme.palette.primary.main, borderColor: '#0056B3', textTransform: 'none' }}
+                      sx={{ flex: 1, minWidth: '80px', color: theme.palette.primary.main, borderColor: theme.palette.primary.main, textTransform: 'none' }}
                     >
                       Modifier
                     </Button>

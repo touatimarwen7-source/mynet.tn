@@ -78,7 +78,7 @@ export default function BidComparison() {
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
         <Box sx={{ marginBottom: '32px' }}>
-          <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+          <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
             📊 Comparaison des Offres
           </Typography>
           {tender && (

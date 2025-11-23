@@ -159,7 +159,7 @@ export default function Profile({ user }) {
         {/* Header */}
         <Box sx={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
-            <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121' }}>
+            <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary }}>
               Mon Profil Professionnel
             </Typography>
             <Typography sx={{ color: '#616161', marginTop: '8px' }}>
@@ -171,7 +171,7 @@ export default function Profile({ user }) {
             startIcon={editing ? <CancelIcon /> : <EditIcon />}
             onClick={() => setEditing(!editing)}
             sx={{
-              backgroundColor: editing ? '#f57c00' : '#0056B3',
+              backgroundColor: editing ? '#f57c00' : theme.palette.primary.main,
               textTransform: 'none',
               fontWeight: 600,
               '&:hover': {
@@ -207,7 +207,7 @@ export default function Profile({ user }) {
                 {profile.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U'}
               </Box>
               <Box>
-                <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: '#212121' }}>
+                <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 600, color: theme.palette.text.primary }}>
                   {profile.full_name || profile.username}
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
@@ -232,7 +232,7 @@ export default function Profile({ user }) {
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Email
                   </Typography>
-                  <Typography sx={{ fontSize: '16px', color: '#212121', fontWeight: 500 }}>
+                  <Typography sx={{ fontSize: '16px', color: theme.palette.text.primary, fontWeight: 500 }}>
                     {profile.email}
                   </Typography>
                 </Grid>
@@ -240,7 +240,7 @@ export default function Profile({ user }) {
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Téléphone
                   </Typography>
-                  <Typography sx={{ fontSize: '16px', color: '#212121', fontWeight: 500 }}>
+                  <Typography sx={{ fontSize: '16px', color: theme.palette.text.primary, fontWeight: 500 }}>
                     {profile.phone || '—'}
                   </Typography>
                 </Grid>
@@ -248,7 +248,7 @@ export default function Profile({ user }) {
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Entreprise
                   </Typography>
-                  <Typography sx={{ fontSize: '16px', color: '#212121', fontWeight: 500 }}>
+                  <Typography sx={{ fontSize: '16px', color: theme.palette.text.primary, fontWeight: 500 }}>
                     {profile.company_name || '—'}
                   </Typography>
                 </Grid>
@@ -256,7 +256,7 @@ export default function Profile({ user }) {
                   <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', textTransform: 'uppercase', marginBottom: '8px' }}>
                     Enregistrement
                   </Typography>
-                  <Typography sx={{ fontSize: '16px', color: '#212121', fontWeight: 500 }}>
+                  <Typography sx={{ fontSize: '16px', color: theme.palette.text.primary, fontWeight: 500 }}>
                     {profile.company_registration || '—'}
                   </Typography>
                 </Grid>
@@ -330,7 +330,7 @@ export default function Profile({ user }) {
         {tabValue === 0 && (
           <Card sx={{ border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ padding: '24px' }}>
-              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '16px' }}>
+              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px' }}>
                 Secteurs d'Intérêt
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
@@ -376,7 +376,7 @@ export default function Profile({ user }) {
           <Card sx={{ border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ padding: '24px' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121' }}>
+                <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary }}>
                   Alertes de Recherche
                 </Typography>
                 <Button
@@ -435,7 +435,7 @@ export default function Profile({ user }) {
                     <Paper key={alert.id} sx={{ padding: '12px', backgroundColor: '#f5f5f5' }}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Box>
-                          <Typography sx={{ fontWeight: 600, color: '#212121' }}>{alert.keyword}</Typography>
+                          <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary }}>{alert.keyword}</Typography>
                           <Typography sx={{ fontSize: '12px', color: '#616161' }}>{alert.type === 'tender' ? 'Appel d\'Offres' : 'Fournisseur'} • {alert.created_at}</Typography>
                         </Box>
                         <Button
@@ -459,7 +459,7 @@ export default function Profile({ user }) {
         {tabValue === 2 && (
           <Card sx={{ border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ padding: '24px' }}>
-              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <HistoryIcon sx={{ color: theme.palette.primary.main }} />
                 Historique d'Activité
               </Typography>

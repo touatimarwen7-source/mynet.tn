@@ -18,7 +18,7 @@ export default function HomePageRoleCards({ onRoleClick }) {
   return (
     <Container maxWidth="lg" sx={{ paddingY: '60px' }}>
       <Box sx={{ textAlign: 'center', marginBottom: '48px' }}>
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121', marginBottom: '12px' }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '12px' }}>
           Choisissez Votre Rôle
         </Typography>
         <Typography variant="body1" sx={{ fontSize: '16px', color: '#616161' }}>
@@ -29,7 +29,7 @@ export default function HomePageRoleCards({ onRoleClick }) {
       <Grid container spacing={2}>
         {roles.map((role) => (
           <Grid size={{ xs: 12, md: 6 }} key={role.id}>
-            <Card sx={{ height: '100%', border: selectedRole === role.id ? '2px solid #0056B3' : '1px solid #e0e0e0', borderRadius: '8px', boxShadow: 'none', transition: 'all 300ms ease-in-out', cursor: 'pointer', '&:hover': { borderColor: '#0056B3', boxShadow: 'none' } }} onClick={() => setSelectedRole(role.id)}>
+            <Card sx={{ height: '100%', border: selectedRole === role.id ? '2px solid #0056B3' : '1px solid #e0e0e0', borderRadius: '8px', boxShadow: 'none', transition: 'all 300ms ease-in-out', cursor: 'pointer', '&:hover': { borderColor: theme.palette.primary.main, boxShadow: 'none' } }} onClick={() => setSelectedRole(role.id)}>
               <CardContent sx={{ padding: '32px' }}>
                 <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 500, color: theme.palette.primary.main, marginBottom: '16px' }}>
                   {role.title}
@@ -43,7 +43,7 @@ export default function HomePageRoleCards({ onRoleClick }) {
                       <ListItemIcon sx={{ minWidth: 32, color: '#2e7d32' }}>
                         <CheckCircleIcon sx={{ fontSize: 18 }} />
                       </ListItemIcon>
-                      <ListItemText primary={feature} sx={{ '& .MuiTypography-root': { fontSize: '14px', color: '#212121', fontWeight: 400 } }} />
+                      <ListItemText primary={feature} sx={{ '& .MuiTypography-root': { fontSize: '14px', color: theme.palette.text.primary, fontWeight: 400 } }} />
                     </ListItem>
                   ))}
                 </List>

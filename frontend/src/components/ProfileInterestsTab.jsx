@@ -22,7 +22,7 @@ export default function ProfileInterestsTab({ interests: initialInterests, onUpd
   return (
     <Card sx={{ border: '1px solid #e0e0e0' }}>
       <CardContent sx={{ padding: '24px' }}>
-        <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '16px' }}>
+        <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px' }}>
           Secteurs d'Intérêt
         </Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>

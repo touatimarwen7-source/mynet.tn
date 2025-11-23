@@ -107,7 +107,7 @@ export default function ReviewsList() {
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ marginBottom: '32px', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
             Avis et Évaluations
           </Typography>
           <Button

@@ -114,7 +114,7 @@ export default function POManagement() {
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ marginBottom: '32px', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#212121' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
             Gestion des Bons de Commande
           </Typography>
           <Button
@@ -162,12 +162,12 @@ export default function POManagement() {
           <Table>
             <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>N° Bon</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Fournisseur</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Montant</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Statut</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Livraison</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Actions</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>N° Bon</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Fournisseur</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Montant</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Statut</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Livraison</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

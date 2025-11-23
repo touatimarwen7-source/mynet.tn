@@ -36,7 +36,7 @@ export default function ContractManagement() {
   return (
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121', marginBottom: '8px' }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
           📜 Gestion des Contrats
         </Typography>
         <Typography sx={{ color: '#616161', marginBottom: '32px' }}>
@@ -60,8 +60,8 @@ export default function ContractManagement() {
               <TableBody>
                 {contracts.map(contract => (
                   <TableRow key={contract.id} sx={{ borderBottom: '1px solid #e0e0e0', '&:hover': { backgroundColor: '#fafafa' } }}>
-                    <TableCell sx={{ color: '#212121', fontWeight: 600 }}>{contract.number}</TableCell>
-                    <TableCell sx={{ color: '#212121' }}>{contract.supplier}</TableCell>
+                    <TableCell sx={{ color: theme.palette.text.primary, fontWeight: 600 }}>{contract.number}</TableCell>
+                    <TableCell sx={{ color: theme.palette.text.primary }}>{contract.supplier}</TableCell>
                     <TableCell align="right" sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
                       {contract.amount.toLocaleString()} TND
                     </TableCell>
@@ -82,7 +82,7 @@ export default function ContractManagement() {
                           size="small"
                           variant="outlined"
                           startIcon={<VisibilityIcon />}
-                          sx={{ color: theme.palette.primary.main, borderColor: '#0056B3', textTransform: 'none' }}
+                          sx={{ color: theme.palette.primary.main, borderColor: theme.palette.primary.main, textTransform: 'none' }}
                         >
                           Voir
                         </Button>

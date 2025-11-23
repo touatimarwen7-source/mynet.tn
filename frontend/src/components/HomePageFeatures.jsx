@@ -18,17 +18,17 @@ export default function HomePageFeatures() {
 
   return (
     <Box>
-      <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: '#212121', textAlign: 'center', marginBottom: '48px' }}>
+      <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: theme.palette.text.primary, textAlign: 'center', marginBottom: '48px' }}>
         Pourquoi Choisir MyNet.tn?
       </Typography>
       <Grid container spacing={2}>
         {features.map((feature, idx) => (
           <Grid size={{ xs: 12, md: 4 }} key={idx}>
-            <Card sx={{ backgroundColor: '#ffffff', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '32px 24px', textAlign: 'center', transition: 'all 200ms ease-in-out', '&:hover': { borderColor: '#0056B3', boxShadow: 'none', transform: 'translateY(-4px)' } }}>
+            <Card sx={{ backgroundColor: '#ffffff', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '32px 24px', textAlign: 'center', transition: 'all 200ms ease-in-out', '&:hover': { borderColor: theme.palette.primary.main, boxShadow: 'none', transform: 'translateY(-4px)' } }}>
               <Box sx={{ marginBottom: '16px' }}>
                 {feature.icon}
               </Box>
-              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
+              <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '12px' }}>
                 {feature.title}
               </Typography>
               <Typography sx={{ fontSize: '14px', color: '#616161', lineHeight: 1.6 }}>

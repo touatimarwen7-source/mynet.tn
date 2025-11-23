@@ -1,8 +1,21 @@
 const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
-const { checkDuplicateReview } = require('./businessLogicEnhancements');
 
 const router = express.Router();
+
+// Helper function: Check for duplicate review
+const checkDuplicateReview = async (db, reviewerId, reviewedUserId) => {
+  try {
+    const result = await db.query(
+      'SELECT id FROM reviews WHERE reviewer_id = $1 AND reviewed_user_id = $2 AND is_deleted = false',
+      [reviewerId, reviewedUserId]
+    );
+    return result.rows.length > 0;
+  } catch (error) {
+    console.error('Error checking duplicate review:', error);
+    return false;
+  }
+};
 
 // Add a review - ISSUE FIX #3: Add input validation + duplicate check
 router.post('/', authMiddleware, async (req, res) => {

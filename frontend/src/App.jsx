@@ -69,7 +69,7 @@ const SupplierCatalog = lazy(() => import('./pages/SupplierCatalog'));
 const SupplierProfile = lazy(() => import('./pages/SupplierProfile'));
 const SupplierInvoices = lazy(() => import('./pages/SupplierInvoices'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-const SuperAdminDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
+const SuperAdminMenuDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
 const MFASetup = lazy(() => import('./pages/MFASetup'));
 const AuditLogViewer = lazy(() => import('./pages/AuditLogViewer'));
 const HealthMonitoring = lazy(() => import('./pages/HealthMonitoring'));
@@ -97,6 +97,7 @@ const SupplierAnalytics = lazy(() => import('./pages/SupplierAnalytics'));
 const SupplierPerformanceTracking = lazy(() => import('./pages/SupplierPerformanceTracking'));
 const SubscriptionPlans = lazy(() => import('./pages/SubscriptionPlans'));
 const PageEditor = lazy(() => import('./pages/PageEditor'));
+const SuperAdminMenu = lazy(() => import('./pages/SuperAdminMenu'));
 
 const LoadingFallback = () => (
   <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
@@ -436,7 +437,11 @@ function App() {
             />
 
               {/* Administration */}
-              {/* Super Admin - Centre de Contrôle Total CRUD */}
+              {/* Super Admin - Menu & CRUD */}
+              <Route 
+              path="/super-admin-menu" 
+              element={user?.role === 'super_admin' ? <SuperAdminMenu /> : <Navigate to="/tenders" />} 
+            />
               <Route 
               path="/super-admin" 
               element={user?.role === 'super_admin' ? <SuperAdminCRUD /> : <Navigate to="/tenders" />} 

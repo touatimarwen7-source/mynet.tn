@@ -135,7 +135,7 @@ export default function DirectSupplyRequest() {
       case 0:
         return (
           <Box>
-            <Typography variant="h6" sx={{ marginBottom: '20px', color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ marginBottom: '20px', color: theme.palette.primary.main }}>
               Étape 1: Sélectionner un fournisseur
             </Typography>
             {loading ? (
@@ -164,7 +164,7 @@ export default function DirectSupplyRequest() {
       case 1:
         return (
           <Box>
-            <Typography variant="h6" sx={{ marginBottom: '20px', color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ marginBottom: '20px', color: theme.palette.primary.main }}>
               Étape 2: Détails du produit
             </Typography>
             <Grid container spacing={2}>
@@ -232,7 +232,7 @@ export default function DirectSupplyRequest() {
       case 2:
         return (
           <Box>
-            <Typography variant="h6" sx={{ marginBottom: '20px', color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ marginBottom: '20px', color: theme.palette.primary.main }}>
               Étape 3: Budget et notes
             </Typography>
             <Grid container spacing={2}>
@@ -265,7 +265,7 @@ export default function DirectSupplyRequest() {
       case 3:
         return (
           <Box>
-            <Typography variant="h6" sx={{ marginBottom: '20px', color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ marginBottom: '20px', color: theme.palette.primary.main }}>
               Étape 4: Confirmation
             </Typography>
             <Paper sx={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
@@ -296,7 +296,7 @@ export default function DirectSupplyRequest() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="body2" sx={{ color: '#666' }}>Budget:</Typography>
-                  <Typography variant="body1" sx={{ fontWeight: 600, color: '#0056B3' }}>
+                  <Typography variant="body1" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
                     {parseFloat(formData.budget).toFixed(3)} DT
                   </Typography>
                 </Grid>
@@ -333,11 +333,11 @@ export default function DirectSupplyRequest() {
           <Button
             startIcon={<ArrowBackIcon />}
             onClick={() => navigate('/tenders')}
-            sx={{ color: '#0056B3', marginBottom: '20px' }}
+            sx={{ color: theme.palette.primary.main, marginBottom: '20px' }}
           >
             Retour
           </Button>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#0056B3' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
             Demande de Fourniture Directe
           </Typography>
           <Typography variant="body2" sx={{ color: '#666', marginTop: '8px' }}>
@@ -380,7 +380,7 @@ export default function DirectSupplyRequest() {
               startIcon={<SendIcon />}
               onClick={handleSubmit}
               disabled={submitting}
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               {submitting ? <CircularProgress size={24} /> : 'Envoyer la demande'}
             </Button>
@@ -388,7 +388,7 @@ export default function DirectSupplyRequest() {
             <Button
               variant="contained"
               onClick={handleNext}
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               Suivant
             </Button>

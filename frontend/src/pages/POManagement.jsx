@@ -101,7 +101,7 @@ export default function POManagement() {
     return (
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
-          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
             Gestion des Bons de Commande
           </Typography>
           <TableSkeleton rows={5} columns={6} />
@@ -121,7 +121,7 @@ export default function POManagement() {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => navigate('/po-create')}
-            sx={{ backgroundColor: '#0056B3' }}
+            sx={{ backgroundColor: theme.palette.primary.main }}
           >
             Nouveau Bon de Commande
           </Button>
@@ -173,7 +173,7 @@ export default function POManagement() {
             <TableBody>
               {paginatedPOs.map((po) => (
                 <TableRow key={po.id} hover>
-                  <TableCell sx={{ color: '#0056B3', fontWeight: 500 }}>{po.number}</TableCell>
+                  <TableCell sx={{ color: theme.palette.primary.main, fontWeight: 500 }}>{po.number}</TableCell>
                   <TableCell>{po.supplier}</TableCell>
                   <TableCell>{po.amount.toLocaleString()} {po.currency}</TableCell>
                   <TableCell>
@@ -186,7 +186,7 @@ export default function POManagement() {
                         size="small"
                         startIcon={<VisibilityIcon />}
                         onClick={() => navigate(`/po-detail/${po.id}`)}
-                        sx={{ color: '#0056B3' }}
+                        sx={{ color: theme.palette.primary.main }}
                       >
                         Détails
                       </Button>
@@ -194,7 +194,7 @@ export default function POManagement() {
                         size="small"
                         startIcon={<EditIcon />}
                         onClick={() => navigate(`/po-edit/${po.id}`)}
-                        sx={{ color: '#0056B3' }}
+                        sx={{ color: theme.palette.primary.main }}
                       >
                         Modifier
                       </Button>

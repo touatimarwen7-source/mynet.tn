@@ -98,7 +98,7 @@ export default function TenderList() {
     return (
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
-          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
             Appels d'Offres
           </Typography>
           <TableSkeleton rows={5} columns={5} />
@@ -158,22 +158,22 @@ export default function TenderList() {
               <Table>
                 <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                   <TableRow sx={{ height: '56px' }}>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }}>
                       Titre
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }}>
                       Entreprise
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }} align="right">
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }} align="right">
                       Budget
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }}>
                       Date limite
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }}>
                       Statut
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }} align="center">
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }} align="center">
                       Actions
                     </TableCell>
                   </TableRow>
@@ -225,7 +225,7 @@ export default function TenderList() {
                           variant="contained"
                           onClick={() => handleParticipate(tender.id)}
                           sx={{
-                            backgroundColor: '#0056B3',
+                            backgroundColor: theme.palette.primary.main,
                             textTransform: 'none',
                             fontWeight: 500,
                             fontSize: '12px',

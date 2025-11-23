@@ -122,7 +122,7 @@ export default function SupplierReviews() {
   if (loading) {
     return (
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Container>
     );
   }
@@ -131,14 +131,14 @@ export default function SupplierReviews() {
     <Box sx={{ backgroundColor: '#f9f9f9', paddingY: '40px', minHeight: '100vh' }}>
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#0056B3' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
             Avis et Évaluations
           </Typography>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => handleOpenDialog()}
-            sx={{ backgroundColor: '#0056B3' }}
+            sx={{ backgroundColor: theme.palette.primary.main }}
           >
             Ajouter un Avis
           </Button>
@@ -152,7 +152,7 @@ export default function SupplierReviews() {
               <Grid container spacing={3} alignItems="center">
                 <Grid item xs={12} sm={3}>
                   <Box sx={{ textAlign: 'center' }}>
-                    <Typography variant="h3" sx={{ fontWeight: 600, color: '#0056B3' }}>
+                    <Typography variant="h3" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
                       {stats.avgRating}
                     </Typography>
                     <Rating value={parseFloat(stats.avgRating)} readOnly precision={0.1} />
@@ -210,7 +210,7 @@ export default function SupplierReviews() {
                         size="small"
                         startIcon={<EditIcon />}
                         onClick={() => handleOpenDialog(review)}
-                        sx={{ color: '#0056B3', marginRight: '8px' }}
+                        sx={{ color: theme.palette.primary.main, marginRight: '8px' }}
                       >
                         Modifier
                       </Button>
@@ -259,7 +259,7 @@ export default function SupplierReviews() {
             <Button
               onClick={handleSubmit}
               variant="contained"
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               {editingId ? 'Mettre à Jour' : 'Ajouter'}
             </Button>

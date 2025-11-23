@@ -22,7 +22,7 @@ export default function InvoiceGeneration() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="md">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Génération de facture
         </Typography>
         <Card sx={{ border: '1px solid #E0E0E0' }}>
@@ -41,7 +41,7 @@ export default function InvoiceGeneration() {
                 <TextField fullWidth label="Description" name="description" multiline rows={4} value={invoiceData.description} onChange={handleChange} />
               </Grid>
               <Grid item xs={12}>
-                <Button variant="contained" fullWidth sx={{ backgroundColor: '#0056B3' }} onClick={handleGenerate}>
+                <Button variant="contained" fullWidth sx={{ backgroundColor: theme.palette.primary.main }} onClick={handleGenerate}>
                   Générer la facture
                 </Button>
               </Grid>

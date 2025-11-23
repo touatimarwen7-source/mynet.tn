@@ -94,7 +94,7 @@ export default function ReviewsList() {
     return (
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
-          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
             Avis et Évaluations
           </Typography>
           <TableSkeleton rows={5} columns={6} />
@@ -113,7 +113,7 @@ export default function ReviewsList() {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            sx={{ backgroundColor: '#0056B3' }}
+            sx={{ backgroundColor: theme.palette.primary.main }}
           >
             Laisser un Avis
           </Button>
@@ -139,7 +139,7 @@ export default function ReviewsList() {
                 <Stack spacing={2}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                     <Box>
-                      <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '8px' }}>
+                      <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '8px' }}>
                         {review.supplier}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
@@ -150,7 +150,7 @@ export default function ReviewsList() {
                       </Box>
                     </Box>
                     <Stack direction="row" spacing={1}>
-                      <Button size="small" startIcon={<EditIcon />} sx={{ color: '#0056B3' }}>
+                      <Button size="small" startIcon={<EditIcon />} sx={{ color: theme.palette.primary.main }}>
                         Modifier
                       </Button>
                       <Button size="small" startIcon={<DeleteIcon />} sx={{ color: '#c62828' }}>
@@ -180,7 +180,7 @@ export default function ReviewsList() {
                     )}
                   </Stack>
 
-                  <Typography sx={{ fontSize: '12px', color: '#0056B3', cursor: 'pointer' }}>
+                  <Typography sx={{ fontSize: '12px', color: theme.palette.primary.main, cursor: 'pointer' }}>
                     👍 Utile ({review.helpful})
                   </Typography>
                 </Stack>

@@ -140,7 +140,7 @@ export default function Profile({ user }) {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Box>
     );
   }
@@ -195,7 +195,7 @@ export default function Profile({ user }) {
                   width: '80px',
                   height: '80px',
                   borderRadius: '50%',
-                  backgroundColor: '#0056B3',
+                  backgroundColor: theme.palette.primary.main,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -213,7 +213,7 @@ export default function Profile({ user }) {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                   <Chip
                     label={profile.role === 'buyer' ? 'Acheteur' : profile.role === 'supplier' ? 'Fournisseur' : 'Administrateur'}
-                    sx={{ backgroundColor: '#0056B3', color: 'white', fontWeight: 600 }}
+                    sx={{ backgroundColor: theme.palette.primary.main, color: 'white', fontWeight: 600 }}
                   />
                   {profile.is_verified && (
                     <Chip
@@ -342,7 +342,7 @@ export default function Profile({ user }) {
                       key={idx}
                       label={interest}
                       onDelete={() => removeInterest(idx)}
-                      sx={{ backgroundColor: '#e3f2fd', color: '#0056B3' }}
+                      sx={{ backgroundColor: '#e3f2fd', color: theme.palette.primary.main }}
                     />
                   ))
                 )}
@@ -383,7 +383,7 @@ export default function Profile({ user }) {
                   variant="contained"
                   onClick={() => setShowAlertForm(!showAlertForm)}
                   sx={{
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     textTransform: 'none',
                     fontWeight: 600,
                   }}
@@ -460,7 +460,7 @@ export default function Profile({ user }) {
           <Card sx={{ border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ padding: '24px' }}>
               <Typography variant="h4" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <HistoryIcon sx={{ color: '#0056B3' }} />
+                <HistoryIcon sx={{ color: theme.palette.primary.main }} />
                 Historique d'Activité
               </Typography>
               <List>
@@ -469,7 +469,7 @@ export default function Profile({ user }) {
                 ) : (
                   activity.slice(0, 10).map((activity_item, idx) => (
                     <ListItem key={idx}>
-                      <ListItemIcon sx={{ minWidth: 40, color: '#0056B3' }}>
+                      <ListItemIcon sx={{ minWidth: 40, color: theme.palette.primary.main }}>
                         {activity_item.type === 'login' ? '📥' : activity_item.type === 'update' ? '📝' : activity_item.type === 'tender' ? '📄' : '🎯'}
                       </ListItemIcon>
                       <ListItemText

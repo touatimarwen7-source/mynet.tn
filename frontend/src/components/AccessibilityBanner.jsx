@@ -11,7 +11,7 @@ export default function AccessibilityBanner() {
       severity="info"
       sx={{
         backgroundColor: '#e3f2fd',
-        color: '#0056B3',
+        color: theme.palette.primary.main,
         border: '1px solid #0056B3',
         marginBottom: '16px',
         display: 'flex',

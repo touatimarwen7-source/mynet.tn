@@ -83,7 +83,7 @@ export default function PODetail() {
         <Button
           startIcon={<ArrowBackIcon />}
           onClick={() => navigate('/po-management')}
-          sx={{ color: '#0056B3', marginBottom: '24px' }}
+          sx={{ color: theme.palette.primary.main, marginBottom: '24px' }}
         >
           Retour
         </Button>
@@ -100,14 +100,14 @@ export default function PODetail() {
               variant="contained"
               startIcon={<EditIcon />}
               onClick={() => navigate(`/po-edit/${po.id}`)}
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               Modifier
             </Button>
             <Button
               variant="outlined"
               startIcon={<PrintIcon />}
-              sx={{ color: '#0056B3', borderColor: '#0056B3' }}
+              sx={{ color: theme.palette.primary.main, borderColor: '#0056B3' }}
             >
               Imprimer
             </Button>
@@ -118,7 +118,7 @@ export default function PODetail() {
           <Grid item xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
-                <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+                <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
                   Informations Fournisseur
                 </Typography>
                 <Stack spacing={1}>
@@ -142,7 +142,7 @@ export default function PODetail() {
           <Grid item xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
-                <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+                <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
                   Détails du Bon
                 </Typography>
                 <Stack spacing={1}>
@@ -166,7 +166,7 @@ export default function PODetail() {
 
         <Card sx={{ marginBottom: '32px', border: '1px solid #e0e0e0' }}>
           <CardContent>
-            <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+            <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
               Articles du Bon
             </Typography>
             <Table>
@@ -206,7 +206,7 @@ export default function PODetail() {
                 </Box>
                 <Box sx={{ borderLeft: '1px solid #e0e0e0', paddingLeft: '32px' }}>
                   <Typography sx={{ fontSize: '12px', color: '#666' }}>Total</Typography>
-                  <Typography sx={{ fontWeight: 700, fontSize: '18px', color: '#0056B3' }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '18px', color: theme.palette.primary.main }}>
                     {po.total.toLocaleString()} {po.currency}
                   </Typography>
                 </Box>

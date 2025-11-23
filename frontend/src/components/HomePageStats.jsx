@@ -13,7 +13,7 @@ export default function HomePageStats() {
       {stats.map((stat, idx) => (
         <Grid size={{ xs: 12, sm: 6, md: 3 }} key={idx}>
           <Paper sx={{ padding: '32px 24px', textAlign: 'center', backgroundColor: '#f5f5f5', border: '1px solid #e0e0e0', borderRadius: '8px' }}>
-            <Typography sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', marginBottom: '8px' }}>
+            <Typography sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, marginBottom: '8px' }}>
               {stat.number}
             </Typography>
             <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', marginBottom: '4px' }}>

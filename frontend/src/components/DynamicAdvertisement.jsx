@@ -29,7 +29,7 @@ export default function DynamicAdvertisement() {
           </Typography>
           <Button 
             variant="contained" 
-            sx={{ backgroundColor: '#0056B3', color: '#FFFFFF' }}
+            sx={{ backgroundColor: theme.palette.primary.main, color: '#FFFFFF' }}
             onClick={() => {}}
           >
             {ad.cta}

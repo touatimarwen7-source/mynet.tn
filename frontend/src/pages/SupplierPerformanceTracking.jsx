@@ -95,7 +95,7 @@ export default function SupplierPerformanceTracking() {
     return (
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
-          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
             Suivi de Performance des Fournisseurs
           </Typography>
           <TableSkeleton rows={5} columns={6} />
@@ -166,7 +166,7 @@ export default function SupplierPerformanceTracking() {
                   <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginTop: '16px' }}>
                     <Box sx={{ backgroundColor: '#f5f5f5', padding: '12px', borderRadius: '4px' }}>
                       <Typography sx={{ fontSize: '12px', color: '#666' }}>Commandes</Typography>
-                      <Typography sx={{ fontWeight: 600, color: '#0056B3' }}>{supplier.completedOrders}</Typography>
+                      <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main }}>{supplier.completedOrders}</Typography>
                     </Box>
                     <Box sx={{ backgroundColor: '#f5f5f5', padding: '12px', borderRadius: '4px' }}>
                       <Typography sx={{ fontSize: '12px', color: '#666' }}>À l'heure</Typography>
@@ -182,7 +182,7 @@ export default function SupplierPerformanceTracking() {
         {/* Performance Ranking Table */}
         <Card sx={{ border: '1px solid #e0e0e0' }}>
           <CardContent>
-            <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+            <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
               Classement Détaillé
             </Typography>
             <Paper sx={{ border: '1px solid #e0e0e0' }}>
@@ -200,7 +200,7 @@ export default function SupplierPerformanceTracking() {
                 <TableBody>
                   {suppliers.map((supplier) => (
                     <TableRow key={supplier.id} hover>
-                      <TableCell sx={{ color: '#0056B3', fontWeight: 700 }}>#{supplier.rank}</TableCell>
+                      <TableCell sx={{ color: theme.palette.primary.main, fontWeight: 700 }}>#{supplier.rank}</TableCell>
                       <TableCell sx={{ fontWeight: 600 }}>{supplier.name}</TableCell>
                       <TableCell>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -219,7 +219,7 @@ export default function SupplierPerformanceTracking() {
                       <TableCell>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <Box sx={{ flex: 1, height: '4px', backgroundColor: '#e0e0e0', borderRadius: '2px', position: 'relative' }}>
-                            <Box sx={{ position: 'absolute', top: 0, left: 0, height: '100%', width: `${supplier.qualityScore}%`, backgroundColor: '#0056B3', borderRadius: '2px' }} />
+                            <Box sx={{ position: 'absolute', top: 0, left: 0, height: '100%', width: `${supplier.qualityScore}%`, backgroundColor: theme.palette.primary.main, borderRadius: '2px' }} />
                           </Box>
                           <Typography sx={{ fontSize: '12px', fontWeight: 600, width: '30px' }}>{supplier.qualityScore}%</Typography>
                         </Box>

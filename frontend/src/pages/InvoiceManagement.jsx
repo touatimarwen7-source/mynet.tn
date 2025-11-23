@@ -36,7 +36,7 @@ export default function InvoiceManagement() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Gestion des factures
         </Typography>
 
@@ -49,7 +49,7 @@ export default function InvoiceManagement() {
             <Grid item xs={12} sm={6} md={3} key={idx}>
               <Box sx={{ backgroundColor: '#FFF', p: 2, borderRadius: '8px', border: '1px solid #E0E0E0' }}>
                 <Typography sx={{ color: '#616161', fontSize: '12px' }}>{stat.label}</Typography>
-                <Typography sx={{ fontWeight: 600, fontSize: '20px', color: '#0056B3' }}>{stat.value}</Typography>
+                <Typography sx={{ fontWeight: 600, fontSize: '20px', color: theme.palette.primary.main }}>{stat.value}</Typography>
               </Box>
             </Grid>
           ))}
@@ -59,12 +59,12 @@ export default function InvoiceManagement() {
           <Table>
             <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>N° de facture</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Montant</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Statut</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date d'échéance</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Actions</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>N° de facture</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Montant</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Statut</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date d'échéance</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -78,8 +78,8 @@ export default function InvoiceManagement() {
                   <TableCell>{inv.date}</TableCell>
                   <TableCell>{inv.dueDate}</TableCell>
                   <TableCell align="center">
-                    <Button size="small" startIcon={<VisibilityIcon />} sx={{ color: '#0056B3', mr: 1 }}>Afficher</Button>
-                    <Button size="small" startIcon={<DownloadIcon />} sx={{ color: '#0056B3' }}>Télécharger</Button>
+                    <Button size="small" startIcon={<VisibilityIcon />} sx={{ color: theme.palette.primary.main, mr: 1 }}>Afficher</Button>
+                    <Button size="small" startIcon={<DownloadIcon />} sx={{ color: theme.palette.primary.main }}>Télécharger</Button>
                   </TableCell>
                 </TableRow>
               ))}

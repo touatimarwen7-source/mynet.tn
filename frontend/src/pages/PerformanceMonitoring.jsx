@@ -17,7 +17,7 @@ export default function PerformanceMonitoring() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Surveillance des performances
         </Typography>
 

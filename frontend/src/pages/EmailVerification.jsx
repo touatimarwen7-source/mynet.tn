@@ -60,7 +60,7 @@ export default function EmailVerification() {
           <CardContent sx={{ padding: '48px 40px' }}>
             {status === 'verifying' && (
               <>
-                <CircularProgress sx={{ color: '#0056B3', marginBottom: '24px' }} />
+                <CircularProgress sx={{ color: theme.palette.primary.main, marginBottom: '24px' }} />
                 <Typography variant="h6">{message}</Typography>
               </>
             )}
@@ -97,7 +97,7 @@ export default function EmailVerification() {
                 </Alert>
                 <Button
                   variant="contained"
-                  sx={{ backgroundColor: '#0056B3' }}
+                  sx={{ backgroundColor: theme.palette.primary.main }}
                   onClick={() => navigate('/password-reset')}
                 >
                   Demander un nouveau lien

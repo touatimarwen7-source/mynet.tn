@@ -92,7 +92,7 @@ export default function EmailNotifications() {
     return (
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
-          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
             Notifications par Email
           </Typography>
           <TableSkeleton rows={5} columns={6} />
@@ -152,7 +152,7 @@ export default function EmailNotifications() {
             <TableBody>
               {paginatedEmails.map((email) => (
                 <TableRow key={email.id} hover>
-                  <TableCell sx={{ color: '#0056B3', fontWeight: 500 }}>{email.recipient}</TableCell>
+                  <TableCell sx={{ color: theme.palette.primary.main, fontWeight: 500 }}>{email.recipient}</TableCell>
                   <TableCell>{email.subject}</TableCell>
                   <TableCell>
                     <StatusBadge status={email.status} />
@@ -165,7 +165,7 @@ export default function EmailNotifications() {
                         <Button
                           size="small"
                           startIcon={<SendIcon />}
-                          sx={{ color: '#0056B3' }}
+                          sx={{ color: theme.palette.primary.main }}
                         >
                           Envoyer
                         </Button>

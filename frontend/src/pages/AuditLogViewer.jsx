@@ -174,7 +174,7 @@ export default function AuditLogViewer() {
             <Button variant="outlined" startIcon={<ClearIcon />} onClick={handleClearFilters}>
               إعادة تعيين
             </Button>
-            <Button variant="contained" startIcon={<DownloadIcon />} onClick={handleExport} sx={{ backgroundColor: '#0056B3' }}>
+            <Button variant="contained" startIcon={<DownloadIcon />} onClick={handleExport} sx={{ backgroundColor: theme.palette.primary.main }}>
               تصدير
             </Button>
           </Stack>
@@ -187,7 +187,7 @@ export default function AuditLogViewer() {
               <Typography sx={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
                 إجمالي السجلات
               </Typography>
-              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#0056B3' }}>
+              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: theme.palette.primary.main }}>
                 {filteredLogs.length}
               </Typography>
             </CardContent>
@@ -217,7 +217,7 @@ export default function AuditLogViewer() {
         {/* Table */}
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>
-            <CircularProgress sx={{ color: '#0056B3' }} />
+            <CircularProgress sx={{ color: theme.palette.primary.main }} />
           </Box>
         ) : (
           <Paper sx={{ border: '1px solid #e0e0e0', overflow: 'auto' }}>

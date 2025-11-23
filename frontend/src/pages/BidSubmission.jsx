@@ -66,7 +66,7 @@ export default function BidSubmission() {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Box>
     );
   }
@@ -92,7 +92,7 @@ export default function BidSubmission() {
                     <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', marginBottom: '4px' }}>
                       Budget Estimé
                     </Typography>
-                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3' }}>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.primary.main }}>
                       {tender?.budget_max?.toLocaleString()} TND
                     </Typography>
                   </Grid>
@@ -100,7 +100,7 @@ export default function BidSubmission() {
                     <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', marginBottom: '4px' }}>
                       Catégorie
                     </Typography>
-                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3' }}>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.primary.main }}>
                       {tender?.category}
                     </Typography>
                   </Grid>
@@ -108,7 +108,7 @@ export default function BidSubmission() {
                     <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', marginBottom: '4px' }}>
                       Date Limite
                     </Typography>
-                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3' }}>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.primary.main }}>
                       {new Date(tender?.deadline).toLocaleDateString('fr-FR')}
                     </Typography>
                   </Grid>
@@ -182,7 +182,7 @@ export default function BidSubmission() {
                   startIcon={<CancelIcon />}
                   sx={{
                     flex: 1,
-                    color: '#0056B3',
+                    color: theme.palette.primary.main,
                     borderColor: '#0056B3',
                     textTransform: 'none',
                     fontWeight: 600,

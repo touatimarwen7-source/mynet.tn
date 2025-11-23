@@ -346,7 +346,7 @@ export default function CreateBid() {
   const Step2Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
           🔑 Conformité aux Conditions de Participation
         </Typography>
         <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -403,7 +403,7 @@ export default function CreateBid() {
   const Step3Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
           📦 Sélection des Lots et Articles
         </Typography>
         <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -467,7 +467,7 @@ export default function CreateBid() {
           variant="contained"
           onClick={addLineItem}
           disabled={loading || !newLineItem.lot_id || !newLineItem.description.trim() || !newLineItem.quantity || !newLineItem.unit_price}
-          sx={{ backgroundColor: '#0056B3', color: '#ffffff', textTransform: 'none', fontWeight: 600 }}
+          sx={{ backgroundColor: theme.palette.primary.main, color: '#ffffff', textTransform: 'none', fontWeight: 600 }}
           startIcon={<AddIcon />}
         >
           Ajouter l'Article
@@ -479,12 +479,12 @@ export default function CreateBid() {
           <Table size="small">
             <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Lot</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Article</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>Quantité</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>Prix Unitaire</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>Total</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 600, color: '#0056B3' }}>Action</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Lot</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Article</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Quantité</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Prix Unitaire</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Total</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -494,7 +494,7 @@ export default function CreateBid() {
                   <TableCell sx={{ fontSize: '13px' }}>{item.description}</TableCell>
                   <TableCell align="right" sx={{ fontSize: '13px' }}>{item.quantity} {item.unit}</TableCell>
                   <TableCell align="right" sx={{ fontSize: '13px' }}>{item.unit_price.toFixed(2)} TND</TableCell>
-                  <TableCell align="right" sx={{ fontSize: '13px', fontWeight: 600, color: '#0056B3' }}>{item.total.toFixed(2)} TND</TableCell>
+                  <TableCell align="right" sx={{ fontSize: '13px', fontWeight: 600, color: theme.palette.primary.main }}>{item.total.toFixed(2)} TND</TableCell>
                   <TableCell align="center">
                     <IconButton size="small" onClick={() => removeLineItem(index)} disabled={loading} sx={{ color: '#d32f2f' }}>
                       <DeleteIcon fontSize="small" />
@@ -503,8 +503,8 @@ export default function CreateBid() {
                 </TableRow>
               ))}
               <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                <TableCell colSpan={4} align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>TOTAL:</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3', fontSize: '15px' }}>{formData.total_amount} TND</TableCell>
+                <TableCell colSpan={4} align="right" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>TOTAL:</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: theme.palette.primary.main, fontSize: '15px' }}>{formData.total_amount} TND</TableCell>
                 <TableCell />
               </TableRow>
             </TableBody>
@@ -524,7 +524,7 @@ export default function CreateBid() {
   const Step4Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
           📞 Informations du Fournisseur
         </Typography>
         <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -1031,7 +1031,7 @@ export default function CreateBid() {
                   startIcon={loading ? <CircularProgress size={20} /> : <CheckCircleIcon />}
                   sx={{
                     flex: 1,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 600,
@@ -1050,7 +1050,7 @@ export default function CreateBid() {
                   disabled={loading}
                   sx={{
                     flex: 1,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 600,

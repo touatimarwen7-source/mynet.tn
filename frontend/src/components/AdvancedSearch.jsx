@@ -97,7 +97,7 @@ export default function AdvancedSearch() {
               onChange={(e) => setKeywords(e.target.value)}
               variant="outlined"
               InputProps={{
-                endAdornment: <SearchIcon sx={{ color: '#0056B3', marginRight: '8px' }} />,
+                endAdornment: <SearchIcon sx={{ color: theme.palette.primary.main, marginRight: '8px' }} />,
               }}
             />
           </Grid>
@@ -144,7 +144,7 @@ export default function AdvancedSearch() {
             startIcon={<SearchIcon />}
             sx={{
               padding: '10px 24px',
-              backgroundColor: '#0056B3',
+              backgroundColor: theme.palette.primary.main,
               color: '#FFFFFF',
               fontSize: '14px',
               fontWeight: 500,

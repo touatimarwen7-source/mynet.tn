@@ -252,7 +252,7 @@ export default function SystemConfig() {
                   fullWidth
                   onClick={handleCacheClean}
                   disabled={updating}
-                  sx={{ backgroundColor: '#0056B3' }}
+                  sx={{ backgroundColor: theme.palette.primary.main }}
                 >
                   Nettoyer le Cache
                 </Button>

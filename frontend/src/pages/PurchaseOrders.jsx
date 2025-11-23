@@ -57,7 +57,7 @@ export default function PurchaseOrders() {
   if (loading) {
     return (
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Container>
     );
   }
@@ -66,7 +66,7 @@ export default function PurchaseOrders() {
     <Box sx={{ backgroundColor: '#f9f9f9', paddingY: '40px', minHeight: '100vh' }}>
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#0056B3' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
             أوامر الشراء
           </Typography>
           <Box sx={{ display: 'flex', gap: '8px' }}>
@@ -119,7 +119,7 @@ export default function PurchaseOrders() {
                       <Button
                         size="small"
                         startIcon={<DownloadIcon />}
-                        sx={{ color: '#0056B3' }}
+                        sx={{ color: theme.palette.primary.main }}
                       >
                         تحميل
                       </Button>

@@ -17,7 +17,7 @@ export default function HealthMonitoring() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Surveillance de la santé du système
         </Typography>
 
@@ -28,7 +28,7 @@ export default function HealthMonitoring() {
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
                     <Typography sx={{ fontWeight: 600 }}>{stat.name}</Typography>
-                    <Typography sx={{ color: '#0056B3', fontWeight: 600 }}>{stat.value}%</Typography>
+                    <Typography sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>{stat.value}%</Typography>
                   </Box>
                   <LinearProgress variant="determinate" value={stat.value} sx={{ height: '8px', borderRadius: '4px' }} />
                 </CardContent>

@@ -30,7 +30,7 @@ export default function ProfileInterestsTab({ interests: initialInterests, onUpd
             <Typography sx={{ color: '#999', fontStyle: 'italic' }}>Aucun secteur défini</Typography>
           ) : (
             interests.map((interest, idx) => (
-              <Chip key={idx} label={interest} onDelete={() => removeInterest(idx)} sx={{ backgroundColor: '#e3f2fd', color: '#0056B3' }} />
+              <Chip key={idx} label={interest} onDelete={() => removeInterest(idx)} sx={{ backgroundColor: '#e3f2fd', color: theme.palette.primary.main }} />
             ))
           )}
         </Box>

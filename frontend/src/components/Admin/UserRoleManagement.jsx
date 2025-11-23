@@ -288,12 +288,12 @@ export default function UserRoleManagement() {
               <Table>
                 <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Email</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Entreprise</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Rôle</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Statut</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date d\'Adhésion</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Actions</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Email</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Entreprise</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Rôle</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Statut</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date d\'Adhésion</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -327,13 +327,13 @@ export default function UserRoleManagement() {
                       <TableCell align="center">
                         <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
                           <IconButton size="small" onClick={() => handleEditRole(user)} disabled={updating} title="Modifier">
-                            <EditIcon sx={{ fontSize: '18px', color: '#0056B3' }} />
+                            <EditIcon sx={{ fontSize: '18px', color: theme.palette.primary.main }} />
                           </IconButton>
                           <IconButton size="small" onClick={() => handleBlockUser(user.id, user.status)} disabled={updating} title={user.status === 'active' ? 'Bloquer' : 'Débloquer'}>
                             <BlockIcon sx={{ fontSize: '18px', color: '#F57C00' }} />
                           </IconButton>
                           <IconButton size="small" onClick={() => handleResetPassword(user.email)} disabled={updating} title="Réinitialiser le mot de passe">
-                            <LockResetIcon sx={{ fontSize: '18px', color: '#0056B3' }} />
+                            <LockResetIcon sx={{ fontSize: '18px', color: theme.palette.primary.main }} />
                           </IconButton>
                           <IconButton size="small" onClick={() => handleDeleteUser(user.id, user.email)} disabled={updating} title="Supprimer">
                             <DeleteForeverIcon sx={{ fontSize: '18px', color: '#C62828' }} />
@@ -371,7 +371,7 @@ export default function UserRoleManagement() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)} disabled={updating}>Annuler</Button>
-          <Button onClick={handleSaveRole} variant="contained" sx={{ backgroundColor: '#0056B3' }} disabled={updating}>
+          <Button onClick={handleSaveRole} variant="contained" sx={{ backgroundColor: theme.palette.primary.main }} disabled={updating}>
             {updating ? <CircularProgress size={20} sx={{ color: '#FFF' }} /> : 'Enregistrer'}
           </Button>
         </DialogActions>

@@ -377,7 +377,7 @@ export default function CreateInvoice() {
           startIcon={<AddIcon />}
           sx={{
             marginTop: '12px',
-            backgroundColor: '#0056B3',
+            backgroundColor: theme.palette.primary.main,
             color: '#ffffff',
             textTransform: 'none',
           }}
@@ -790,7 +790,7 @@ export default function CreateInvoice() {
                   startIcon={loading ? <CircularProgress size={20} /> : <CheckCircleIcon />}
                   sx={{
                     flex: 1,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 600,
@@ -806,7 +806,7 @@ export default function CreateInvoice() {
                   disabled={loading}
                   sx={{
                     flex: 1,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 600,

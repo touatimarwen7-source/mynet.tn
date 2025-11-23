@@ -126,7 +126,7 @@ export default function ArchiveManagement() {
               startIcon={<CloudUploadIcon />}
               onClick={handleCreateBackup}
               disabled={isProcessing || loading}
-              sx={{ backgroundColor: '#0056B3', color: 'white', '&:hover': { backgroundColor: '#004399' } }}
+              sx={{ backgroundColor: theme.palette.primary.main, color: 'white', '&:hover': { backgroundColor: '#004399' } }}
             >
               {isProcessing ? 'Création en cours...' : 'Créer Sauvegarde'}
             </Button>
@@ -149,7 +149,7 @@ export default function ArchiveManagement() {
               <Typography sx={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
                 Total des sauvegardes
               </Typography>
-              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#0056B3' }}>
+              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: theme.palette.primary.main }}>
                 {backupsList.length}
               </Typography>
             </CardContent>
@@ -179,7 +179,7 @@ export default function ArchiveManagement() {
         {/* Backups Table */}
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>
-            <CircularProgress sx={{ color: '#0056B3' }} />
+            <CircularProgress sx={{ color: theme.palette.primary.main }} />
           </Box>
         ) : (
           <Paper sx={{ border: '1px solid #e0e0e0', overflow: 'auto' }}>
@@ -236,7 +236,7 @@ export default function ArchiveManagement() {
                             variant="outlined"
                             startIcon={<DownloadIcon />}
                             onClick={() => handleDownloadBackup(backup)}
-                            sx={{ borderColor: '#0056B3', color: '#0056B3' }}
+                            sx={{ borderColor: '#0056B3', color: theme.palette.primary.main }}
                           >
                             تحميل
                           </Button>
@@ -269,7 +269,7 @@ export default function ArchiveManagement() {
 
         {/* Restore Dialog */}
         <Dialog open={openDialog} onClose={() => !isProcessing && setOpenDialog(false)} maxWidth="sm" fullWidth>
-          <DialogTitle sx={{ backgroundColor: '#0056B3', color: 'white', fontWeight: 'bold' }}>
+          <DialogTitle sx={{ backgroundColor: theme.palette.primary.main, color: 'white', fontWeight: 'bold' }}>
             تأكيد الاسترجاع
           </DialogTitle>
           <DialogContent sx={{ padding: '20px' }}>

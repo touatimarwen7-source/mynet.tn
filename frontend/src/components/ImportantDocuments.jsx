@@ -76,7 +76,7 @@ export default function ImportantDocuments({ documents, title = 'Documents Impor
                   href={doc.action.path}
                   sx={{
                     fontSize: '13px',
-                    color: '#0056B3',
+                    color: theme.palette.primary.main,
                     textDecoration: 'none',
                     fontWeight: 500,
                     '&:hover': { textDecoration: 'underline' }

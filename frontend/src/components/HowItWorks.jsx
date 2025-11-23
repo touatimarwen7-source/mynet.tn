@@ -42,7 +42,7 @@ export default function HowItWorks() {
                 <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', height: '100%' }}>
                   <CardContent sx={{ padding: '32px', textAlign: 'center' }}>
                     <Box sx={{ fontSize: '48px', marginBottom: '16px' }}>{step.icon}</Box>
-                    <Box sx={{ fontSize: '32px', fontWeight: 700, color: '#0056B3', marginBottom: '12px' }}>{step.number}</Box>
+                    <Box sx={{ fontSize: '32px', fontWeight: 700, color: theme.palette.primary.main, marginBottom: '12px' }}>{step.number}</Box>
                     <Typography variant="h5" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
                       {step.title}
                     </Typography>
@@ -66,7 +66,7 @@ export default function HowItWorks() {
                 <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none', height: '100%' }}>
                   <CardContent sx={{ padding: '32px', textAlign: 'center' }}>
                     <Box sx={{ fontSize: '48px', marginBottom: '16px' }}>{step.icon}</Box>
-                    <Box sx={{ fontSize: '32px', fontWeight: 700, color: '#0056B3', marginBottom: '12px' }}>{step.number}</Box>
+                    <Box sx={{ fontSize: '32px', fontWeight: 700, color: theme.palette.primary.main, marginBottom: '12px' }}>{step.number}</Box>
                     <Typography variant="h5" sx={{ fontSize: '18px', fontWeight: 600, color: '#212121', marginBottom: '12px' }}>
                       {step.title}
                     </Typography>

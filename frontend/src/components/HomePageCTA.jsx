@@ -5,7 +5,7 @@ export default function HomePageCTA() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ backgroundColor: '#0056B3', color: '#ffffff', paddingY: '80px', backgroundImage: 'linear-gradient(135deg, #0056B3 0%, #0d47a1 100%)' }}>
+    <Box sx={{ backgroundColor: theme.palette.primary.main, color: '#ffffff', paddingY: '80px', backgroundImage: 'linear-gradient(135deg, #0056B3 0%, #0d47a1 100%)' }}>
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="h2" sx={{ fontSize: '36px', fontWeight: 500, marginBottom: '16px' }}>
@@ -15,7 +15,7 @@ export default function HomePageCTA() {
             Rejoignez plus de 1,200 organisations qui font confiance à MyNet.tn
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: 'center', marginBottom: '24px' }}>
-            <Button variant="contained" onClick={() => navigate('/register')} sx={{ backgroundColor: '#ffffff', color: '#0056B3', textTransform: 'none', fontWeight: 600, padding: '14px 32px', minHeight: '48px', fontSize: '16px', '&:hover': { backgroundColor: '#f5f5f5' } }}>
+            <Button variant="contained" onClick={() => navigate('/register')} sx={{ backgroundColor: '#ffffff', color: theme.palette.primary.main, textTransform: 'none', fontWeight: 600, padding: '14px 32px', minHeight: '48px', fontSize: '16px', '&:hover': { backgroundColor: '#f5f5f5' } }}>
               Demander une Démonstration
             </Button>
             <Button variant="outlined" onClick={() => navigate('/login')} sx={{ borderColor: '#ffffff', color: '#ffffff', textTransform: 'none', fontWeight: 600, padding: '14px 32px', minHeight: '48px', fontSize: '16px', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', borderColor: '#ffffff' } }}>

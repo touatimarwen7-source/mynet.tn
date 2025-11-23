@@ -146,7 +146,7 @@ export default function BuyerActiveTenders() {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Box>
     );
   }
@@ -168,7 +168,7 @@ export default function BuyerActiveTenders() {
             startIcon={<AddIcon />}
             onClick={() => navigate('/create-tender')}
             sx={{
-              backgroundColor: '#0056B3',
+              backgroundColor: theme.palette.primary.main,
               textTransform: 'none',
               fontWeight: 600,
               '&:hover': { backgroundColor: '#0d47a1' },
@@ -222,7 +222,7 @@ export default function BuyerActiveTenders() {
                   size="small"
                   startIcon={<DownloadIcon />}
                   onClick={() => handleExport('json')}
-                  sx={{ textTransform: 'none', color: '#0056B3' }}
+                  sx={{ textTransform: 'none', color: theme.palette.primary.main }}
                 >
                   JSON
                 </Button>
@@ -230,7 +230,7 @@ export default function BuyerActiveTenders() {
                   size="small"
                   startIcon={<DownloadIcon />}
                   onClick={() => handleExport('csv')}
-                  sx={{ textTransform: 'none', color: '#0056B3' }}
+                  sx={{ textTransform: 'none', color: theme.palette.primary.main }}
                 >
                   CSV
                 </Button>
@@ -285,7 +285,7 @@ export default function BuyerActiveTenders() {
                       </Box>
                       <Box>
                         <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>Budget</Typography>
-                        <Typography sx={{ color: '#0056B3', fontWeight: 600 }}>
+                        <Typography sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
                           {tender.budget_max?.toLocaleString()} {tender.currency}
                         </Typography>
                       </Box>
@@ -296,7 +296,7 @@ export default function BuyerActiveTenders() {
                       {tender.offers_count && (
                         <Box>
                           <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>Offres reçues</Typography>
-                          <Typography sx={{ color: '#0056B3', fontWeight: 600 }}>📊 {tender.offers_count}</Typography>
+                          <Typography sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>📊 {tender.offers_count}</Typography>
                         </Box>
                       )}
                     </Stack>
@@ -311,7 +311,7 @@ export default function BuyerActiveTenders() {
                       sx={{
                         flex: 1,
                         minWidth: '80px',
-                        backgroundColor: '#0056B3',
+                        backgroundColor: theme.palette.primary.main,
                         textTransform: 'none',
                         '&:hover': { backgroundColor: '#0d47a1' },
                       }}
@@ -323,7 +323,7 @@ export default function BuyerActiveTenders() {
                       variant="outlined"
                       startIcon={<CompareIcon />}
                       onClick={() => navigate(`/bid-comparison/${tender.id}`)}
-                      sx={{ flex: 1, minWidth: '80px', color: '#0056B3', borderColor: '#0056B3', textTransform: 'none' }}
+                      sx={{ flex: 1, minWidth: '80px', color: theme.palette.primary.main, borderColor: '#0056B3', textTransform: 'none' }}
                     >
                       Comparer
                     </Button>
@@ -332,7 +332,7 @@ export default function BuyerActiveTenders() {
                       variant="outlined"
                       startIcon={<EditIcon />}
                       onClick={() => navigate(`/tender/${tender.id}/edit`)}
-                      sx={{ flex: 1, minWidth: '80px', color: '#0056B3', borderColor: '#0056B3', textTransform: 'none' }}
+                      sx={{ flex: 1, minWidth: '80px', color: theme.palette.primary.main, borderColor: '#0056B3', textTransform: 'none' }}
                     >
                       Modifier
                     </Button>

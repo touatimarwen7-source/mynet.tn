@@ -93,7 +93,7 @@ export default function Login() {
               sx={{
                 fontSize: '28px',
                 fontWeight: 500,
-                color: '#0056B3',
+                color: theme.palette.primary.main,
                 marginBottom: '8px',
                 textAlign: 'center',
               }}
@@ -104,13 +104,13 @@ export default function Login() {
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '8px', marginBottom: '16px' }}>
               <Link 
                 href="/password-reset"
-                sx={{ fontSize: '13px', color: '#0056B3', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+                sx={{ fontSize: '13px', color: theme.palette.primary.main, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
               >
                 Mot de passe oublié?
               </Link>
               <Link 
                 href="/register"
-                sx={{ fontSize: '13px', color: '#0056B3', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+                sx={{ fontSize: '13px', color: theme.palette.primary.main, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
               >
                 Créer un compte
               </Link>
@@ -175,7 +175,7 @@ export default function Login() {
                 disabled={form.isSubmitting || !form.isDirty}
                 sx={{
                   minHeight: '44px',
-                  backgroundColor: '#0056B3',
+                  backgroundColor: theme.palette.primary.main,
                   textTransform: 'none',
                   fontWeight: 500,
                   fontSize: '16px',
@@ -185,7 +185,7 @@ export default function Login() {
               >
                 {form.isSubmitting ? (
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CircularProgress size={20} sx={{ color: '#0056B3' }} />
+                    <CircularProgress size={20} sx={{ color: theme.palette.primary.main }} />
                     Connexion en cours...
                   </Box>
                 ) : (
@@ -199,7 +199,7 @@ export default function Login() {
               <Link
                 href="/register"
                 sx={{
-                  color: '#0056B3',
+                  color: theme.palette.primary.main,
                   textDecoration: 'none',
                   fontWeight: 500,
                   '&:hover': { textDecoration: 'underline' },

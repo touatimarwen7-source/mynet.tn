@@ -46,7 +46,7 @@ export default function AdminAnalytics() {
         setActivities(activitiesRes.data || activitiesRes);
       } catch {
         setStats([
-          { label: 'Utilisateurs Actifs', value: '1,254', change: '+12%', icon: <PeopleIcon />, color: '#0056B3' },
+          { label: 'Utilisateurs Actifs', value: '1,254', change: '+12%', icon: <PeopleIcon />, color: theme.palette.primary.main },
           { label: 'Appels d\'Offres Ouverts', value: '342', change: '+8%', icon: <TrendingUpIcon />, color: '#2E7D32' },
           { label: 'Offres Envoyées', value: '1,847', change: '+25%', icon: <StorageIcon />, color: '#F57C00' },
           { label: 'Erreurs', value: '3', change: '-2%', icon: <ErrorIcon />, color: '#C62828' }
@@ -79,7 +79,7 @@ export default function AdminAnalytics() {
   }
 
   const displayStats = stats.length > 0 ? stats : [
-    { label: 'Utilisateurs Actifs', value: '1,254', change: '+12%', icon: <PeopleIcon />, color: '#0056B3' },
+    { label: 'Utilisateurs Actifs', value: '1,254', change: '+12%', icon: <PeopleIcon />, color: theme.palette.primary.main },
     { label: 'Appels d\'Offres Ouverts', value: '342', change: '+8%', icon: <TrendingUpIcon />, color: '#2E7D32' },
     { label: 'Offres Envoyées', value: '1,847', change: '+25%', icon: <StorageIcon />, color: '#F57C00' },
     { label: 'Erreurs', value: '3', change: '-2%', icon: <ErrorIcon />, color: '#C62828' }
@@ -97,7 +97,7 @@ export default function AdminAnalytics() {
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: '#0056B3' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: theme.palette.primary.main }}>
           📊 Statistiques Principales
         </Typography>
         <Typography sx={{ fontSize: '12px', color: '#666666' }}>
@@ -128,7 +128,7 @@ export default function AdminAnalytics() {
         ))}
       </Grid>
 
-      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3', mt: 4 }}>
+      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main, mt: 4 }}>
         Utilisation des Ressources
       </Typography>
 
@@ -152,7 +152,7 @@ export default function AdminAnalytics() {
         ))}
       </Grid>
 
-      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3', mt: 4 }}>
+      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main, mt: 4 }}>
         Activités Récentes
       </Typography>
 
@@ -160,9 +160,9 @@ export default function AdminAnalytics() {
         <Table>
           <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
             <TableRow>
-              <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Événement</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Utilisateur</TableCell>
-              <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Heure</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Événement</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Utilisateur</TableCell>
+              <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Heure</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

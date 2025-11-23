@@ -243,7 +243,7 @@ export default function Register() {
                   sx={{
                     fontSize: '28px',
                     fontWeight: 500,
-                    color: '#0056B3',
+                    color: theme.palette.primary.main,
                     marginBottom: '16px',
                   }}
                 >
@@ -368,7 +368,7 @@ export default function Register() {
                 <Link
                   href="/login"
                   sx={{
-                    color: '#0056B3',
+                    color: theme.palette.primary.main,
                     textDecoration: 'none',
                     fontWeight: 500,
                     '&:hover': { textDecoration: 'underline' },
@@ -400,7 +400,7 @@ export default function Register() {
                 sx={{
                   fontSize: '28px',
                   fontWeight: 500,
-                  color: '#0056B3',
+                  color: theme.palette.primary.main,
                   marginBottom: '8px',
                 }}
               >
@@ -652,7 +652,7 @@ export default function Register() {
                     textTransform: 'none',
                     fontWeight: 500,
                     fontSize: '16px',
-                    color: '#0056B3',
+                    color: theme.palette.primary.main,
                     borderColor: '#0056B3',
                     '&:hover': { 
                       backgroundColor: '#f0f7ff',
@@ -671,7 +671,7 @@ export default function Register() {
                     disabled={loading}
                     sx={{
                       minHeight: '44px',
-                      backgroundColor: '#0056B3',
+                      backgroundColor: theme.palette.primary.main,
                       textTransform: 'none',
                       fontWeight: 500,
                       fontSize: '16px',
@@ -688,7 +688,7 @@ export default function Register() {
                     disabled={loading}
                     sx={{
                       minHeight: '44px',
-                      backgroundColor: '#0056B3',
+                      backgroundColor: theme.palette.primary.main,
                       textTransform: 'none',
                       fontWeight: 500,
                       fontSize: '16px',
@@ -713,7 +713,7 @@ export default function Register() {
               <Link
                 href="/login"
                 sx={{
-                  color: '#0056B3',
+                  color: theme.palette.primary.main,
                   textDecoration: 'none',
                   fontWeight: 500,
                   '&:hover': { textDecoration: 'underline' },

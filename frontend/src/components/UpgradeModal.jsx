@@ -67,7 +67,7 @@ export default function UpgradeModal({ isOpen, onClose, currentTier, featureKey 
           {nextTierInfo && (
             <Box sx={{ backgroundColor: '#F9F9F9', padding: '16px', borderRadius: '4px', textAlign: 'center' }}>
               <Typography sx={{ fontSize: '12px', color: '#616161' }}>À partir de</Typography>
-              <Typography sx={{ fontSize: '24px', fontWeight: 600, color: '#0056B3' }}>
+              <Typography sx={{ fontSize: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
                 {nextTierInfo.price} TND
               </Typography>
               <Typography sx={{ fontSize: '12px', color: '#616161' }}>/mois</Typography>

@@ -83,7 +83,7 @@ export default function MySupplyRequests() {
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Container>
     );
   }
@@ -92,14 +92,14 @@ export default function MySupplyRequests() {
     <Box sx={{ backgroundColor: '#f9f9f9', paddingY: '40px', minHeight: '100vh' }}>
       <Container maxWidth="lg">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#0056B3' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
             Demandes d'Achat Direct
           </Typography>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => navigate('/direct-supply-request')}
-            sx={{ backgroundColor: '#0056B3' }}
+            sx={{ backgroundColor: theme.palette.primary.main }}
           >
             طلب جديد
           </Button>
@@ -142,7 +142,7 @@ export default function MySupplyRequests() {
         ) : (
           <TableContainer component={Paper}>
             <Table>
-              <TableHead sx={{ backgroundColor: '#0056B3' }}>
+              <TableHead sx={{ backgroundColor: theme.palette.primary.main }}>
                 <TableRow>
                   <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>المنتج</TableCell>
                   <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>الفئة</TableCell>
@@ -159,7 +159,7 @@ export default function MySupplyRequests() {
                     <TableCell sx={{ fontWeight: 500 }}>{request.title}</TableCell>
                     <TableCell>{request.category}</TableCell>
                     <TableCell>{request.quantity} {request.unit}</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
                       {parseFloat(request.budget).toFixed(3)}
                     </TableCell>
                     <TableCell>
@@ -176,7 +176,7 @@ export default function MySupplyRequests() {
                       <Button
                         size="small"
                         startIcon={<VisibilityIcon />}
-                        sx={{ color: '#0056B3', marginRight: '8px' }}
+                        sx={{ color: theme.palette.primary.main, marginRight: '8px' }}
                       >
                         عرض
                       </Button>

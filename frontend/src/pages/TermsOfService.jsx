@@ -10,12 +10,12 @@ export default function TermsOfService() {
   return (
     <Container maxWidth="lg" sx={{ py: 6 }}>
       <Box sx={{ maxWidth: '900px', mx: 'auto' }}>
-        <Typography variant="h2" sx={{ mb: 4, color: '#0056B3', fontWeight: 600 }}>
+        <Typography variant="h2" sx={{ mb: 4, color: theme.palette.primary.main, fontWeight: 600 }}>
           Conditions d'Utilisation
         </Typography>
 
         <Paper sx={{ p: 4, backgroundColor: '#F9F9F9' }}>
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 3 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 3 }}>
             1. Acceptation des Conditions
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -23,7 +23,7 @@ export default function TermsOfService() {
             veuillez cesser l'utilisation immédiatement.
           </Typography>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             2. Licence d'Utilisation
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -31,7 +31,7 @@ export default function TermsOfService() {
             la Plateforme conformément à ces conditions.
           </Typography>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             3. Responsabilités de l'Utilisateur
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -45,7 +45,7 @@ export default function TermsOfService() {
             <Typography>• Ne pas utiliser la Plateforme à des fins illégales</Typography>
           </Box>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             4. Contenu de l'Utilisateur
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -53,7 +53,7 @@ export default function TermsOfService() {
             une licence pour l'utiliser sur la Plateforme.
           </Typography>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             5. Limitation de Responsabilité
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -61,7 +61,7 @@ export default function TermsOfService() {
             fonctionnera sans interruption ou erreur.
           </Typography>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             6. Interdictions
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -75,7 +75,7 @@ export default function TermsOfService() {
             <Typography>• Utiliser la Plateforme à titre commercial sans permission</Typography>
           </Box>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             7. Résiliation
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -83,7 +83,7 @@ export default function TermsOfService() {
             Vous pouvez résilier votre compte à tout moment.
           </Typography>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             8. Modifications
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>
@@ -91,7 +91,7 @@ export default function TermsOfService() {
             entrent en vigueur immédiatement après publication.
           </Typography>
 
-          <Typography variant="h4" sx={{ mb: 3, color: '#0056B3', mt: 4 }}>
+          <Typography variant="h4" sx={{ mb: 3, color: theme.palette.primary.main, mt: 4 }}>
             9. Loi Applicable
           </Typography>
           <Typography sx={{ mb: 2, lineHeight: 1.8 }}>

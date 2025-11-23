@@ -90,7 +90,7 @@ class ErrorBoundary extends React.Component {
                 variant="contained"
                 onClick={this.handleReset}
                 sx={{
-                  backgroundColor: '#0056B3',
+                  backgroundColor: theme.palette.primary.main,
                   color: '#FFFFFF',
                   textTransform: 'none',
                   fontSize: '14px',
@@ -108,7 +108,7 @@ class ErrorBoundary extends React.Component {
                 variant="outlined"
                 onClick={this.handleReload}
                 sx={{
-                  color: '#0056B3',
+                  color: theme.palette.primary.main,
                   borderColor: '#0056B3',
                   textTransform: 'none',
                   fontSize: '14px',

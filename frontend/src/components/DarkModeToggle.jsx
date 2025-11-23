@@ -10,7 +10,7 @@ export default function DarkModeToggle() {
       onClick={toggleDarkMode}
       title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       sx={{
-        color: '#0056B3',
+        color: theme.palette.primary.main,
         '&:hover': {
           backgroundColor: '#f5f5f5'
         }

@@ -32,7 +32,7 @@ export default function NotificationCenter() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="md">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Centre de notifications
         </Typography>
         <Card sx={{ border: '1px solid #E0E0E0' }}>
@@ -51,7 +51,7 @@ export default function NotificationCenter() {
                         </Box>
                       }
                     />
-                    <Button size="small" sx={{ color: '#0056B3' }}>Supprimer</Button>
+                    <Button size="small" sx={{ color: theme.palette.primary.main }}>Supprimer</Button>
                   </ListItem>
                   {idx < notifications.length - 1 && <Divider />}
                 </Box>

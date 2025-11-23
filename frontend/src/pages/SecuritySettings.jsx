@@ -18,7 +18,7 @@ export default function SecuritySettings() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="md">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Paramètres de sécurité
         </Typography>
 
@@ -55,7 +55,7 @@ export default function SecuritySettings() {
             <List>
               <ListItem>
                 <ListItemText primary="Navigateur actuel" secondary="Dernière activité: Maintenant" />
-                <Button size="small" sx={{ color: '#0056B3' }}>Déconnecter</Button>
+                <Button size="small" sx={{ color: theme.palette.primary.main }}>Déconnecter</Button>
               </ListItem>
             </List>
           </CardContent>

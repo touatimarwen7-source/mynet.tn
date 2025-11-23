@@ -106,7 +106,7 @@ const SuperAdminMenu = lazy(() => import('./pages/SuperAdminMenu'));
 
 const LoadingFallback = () => (
   <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-    <CircularProgress sx={{ color: '#0056B3' }} />
+    <CircularProgress sx={{ color: theme.palette.primary.main }} />
   </Container>
 );
 

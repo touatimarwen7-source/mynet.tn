@@ -13,7 +13,7 @@ export default function MFASetup() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="md">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Authentification à deux facteurs
         </Typography>
 
@@ -35,7 +35,7 @@ export default function MFASetup() {
                   </Box>
                 </Box>
                 <TextField fullWidth label="Entrez le code d'authentification" variant="outlined" sx={{ mb: 2 }} />
-                <Button variant="contained" fullWidth sx={{ backgroundColor: '#0056B3' }} onClick={() => setMfaEnabled(true)}>
+                <Button variant="contained" fullWidth sx={{ backgroundColor: theme.palette.primary.main }} onClick={() => setMfaEnabled(true)}>
                   Confirmer et activer
                 </Button>
               </Box>

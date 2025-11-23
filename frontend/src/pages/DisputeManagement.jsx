@@ -21,18 +21,18 @@ export default function DisputeManagement() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Gestion des litiges
         </Typography>
         <Paper sx={{ border: '1px solid #E0E0E0', borderRadius: '8px', overflow: 'hidden' }}>
           <Table>
             <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Commande</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Type</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Statut</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Action</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Commande</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Type</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Statut</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -45,7 +45,7 @@ export default function DisputeManagement() {
                   </TableCell>
                   <TableCell>{d.date}</TableCell>
                   <TableCell align="center">
-                    <Button size="small" sx={{ color: '#0056B3' }}>Détails</Button>
+                    <Button size="small" sx={{ color: theme.palette.primary.main }}>Détails</Button>
                   </TableCell>
                 </TableRow>
               ))}

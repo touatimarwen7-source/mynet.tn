@@ -31,7 +31,7 @@ export default function HomePageRoleCards({ onRoleClick }) {
           <Grid size={{ xs: 12, md: 6 }} key={role.id}>
             <Card sx={{ height: '100%', border: selectedRole === role.id ? '2px solid #0056B3' : '1px solid #e0e0e0', borderRadius: '8px', boxShadow: 'none', transition: 'all 300ms ease-in-out', cursor: 'pointer', '&:hover': { borderColor: '#0056B3', boxShadow: 'none' } }} onClick={() => setSelectedRole(role.id)}>
               <CardContent sx={{ padding: '32px' }}>
-                <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 500, color: '#0056B3', marginBottom: '16px' }}>
+                <Typography variant="h3" sx={{ fontSize: '24px', fontWeight: 500, color: theme.palette.primary.main, marginBottom: '16px' }}>
                   {role.title}
                 </Typography>
                 <Typography variant="body1" sx={{ color: '#616161', marginBottom: '24px', lineHeight: 1.6 }}>
@@ -47,7 +47,7 @@ export default function HomePageRoleCards({ onRoleClick }) {
                     </ListItem>
                   ))}
                 </List>
-                <Button fullWidth variant="contained" onClick={() => handleStartTrial(role.id)} sx={{ backgroundColor: '#0056B3', textTransform: 'none', fontWeight: 500, padding: '12px 24px', minHeight: '44px', '&:hover': { backgroundColor: '#0d47a1' } }}>
+                <Button fullWidth variant="contained" onClick={() => handleStartTrial(role.id)} sx={{ backgroundColor: theme.palette.primary.main, textTransform: 'none', fontWeight: 500, padding: '12px 24px', minHeight: '44px', '&:hover': { backgroundColor: '#0d47a1' } }}>
                   Commencer Essai Gratuit
                 </Button>
               </CardContent>

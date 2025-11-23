@@ -513,7 +513,7 @@ export default function SuperAdminCRUD() {
 
       {/* CREATE/EDIT PAGE DIALOG */}
       <Dialog open={openDialog && (dialogType === 'createPage' || dialogType === 'editPage')} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 600, color: '#0056B3' }}>
+        <DialogTitle sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
           {dialogType === 'createPage' ? 'Créer une Page' : 'Éditer la Page'}
         </DialogTitle>
         <DialogContent sx={{ paddingTop: '20px' }}>
@@ -555,7 +555,7 @@ export default function SuperAdminCRUD() {
 
       {/* VIEW PAGE DIALOG */}
       <Dialog open={openDialog && dialogType === 'viewPage'} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 600, color: '#0056B3' }}>
+        <DialogTitle sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
           {selectedItem?.title}
         </DialogTitle>
         <DialogContent sx={{ paddingTop: '20px' }}>
@@ -575,7 +575,7 @@ export default function SuperAdminCRUD() {
 
       {/* UPLOAD FILE DIALOG */}
       <Dialog open={openDialog && dialogType === 'uploadFile'} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 600, color: '#0056B3' }}>
+        <DialogTitle sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
           Télécharger un Fichier
         </DialogTitle>
         <DialogContent sx={{ paddingTop: '20px' }}>
@@ -598,7 +598,7 @@ export default function SuperAdminCRUD() {
 
       {/* ADD DOCUMENT DIALOG */}
       <Dialog open={openDialog && dialogType === 'addDocument'} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 600, color: '#0056B3' }}>
+        <DialogTitle sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
           Ajouter un Document
         </DialogTitle>
         <DialogContent sx={{ paddingTop: '20px' }}>

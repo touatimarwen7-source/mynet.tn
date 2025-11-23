@@ -66,7 +66,7 @@ export default function SupplierAnalytics() {
     return (
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
-          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
             Analytics - Fournisseur
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }}>
@@ -93,9 +93,9 @@ export default function SupplierAnalytics() {
                 <Stack spacing={1}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography sx={{ fontSize: '12px', color: '#666' }}>Offres Totales</Typography>
-                    <AssignmentTurnedInIcon sx={{ color: '#0056B3', fontSize: '24px' }} />
+                    <AssignmentTurnedInIcon sx={{ color: theme.palette.primary.main, fontSize: '24px' }} />
                   </Box>
-                  <Typography sx={{ fontSize: '28px', fontWeight: 700, color: '#0056B3' }}>
+                  <Typography sx={{ fontSize: '28px', fontWeight: 700, color: theme.palette.primary.main }}>
                     {analytics.kpis.totalOffers}
                   </Typography>
                   <Typography sx={{ fontSize: '12px', color: '#999' }}>
@@ -161,7 +161,7 @@ export default function SupplierAnalytics() {
         {/* Performance Chart */}
         <Card sx={{ marginBottom: '32px', border: '1px solid #e0e0e0' }}>
           <CardContent>
-            <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+            <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
               Performance Mensuelle
             </Typography>
             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
@@ -169,7 +169,7 @@ export default function SupplierAnalytics() {
                 <Box key={i} sx={{ padding: '16px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
                   <Typography sx={{ fontWeight: 600, marginBottom: '8px' }}>{month.month}</Typography>
                   <Typography sx={{ fontSize: '14px', color: '#666' }}>
-                    Offres: <span style={{ fontWeight: 600, color: '#0056B3' }}>{month.offers}</span>
+                    Offres: <span style={{ fontWeight: 600, color: theme.palette.primary.main }}>{month.offers}</span>
                   </Typography>
                   <Typography sx={{ fontSize: '14px', color: '#666' }}>
                     Acceptées: <span style={{ fontWeight: 600, color: '#2e7d32' }}>{month.accepted}</span>
@@ -183,7 +183,7 @@ export default function SupplierAnalytics() {
         {/* Recent Orders */}
         <Card sx={{ border: '1px solid #e0e0e0' }}>
           <CardContent>
-            <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+            <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
               Commandes Récentes
             </Typography>
             <Paper sx={{ border: '1px solid #e0e0e0' }}>
@@ -199,7 +199,7 @@ export default function SupplierAnalytics() {
                 <TableBody>
                   {analytics.recentOrders.map((order) => (
                     <TableRow key={order.id} hover>
-                      <TableCell sx={{ color: '#0056B3', fontWeight: 600 }}>{order.id}</TableCell>
+                      <TableCell sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>{order.id}</TableCell>
                       <TableCell>{order.buyer}</TableCell>
                       <TableCell>{order.amount.toLocaleString()} TND</TableCell>
                       <TableCell>

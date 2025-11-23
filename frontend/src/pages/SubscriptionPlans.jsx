@@ -103,7 +103,7 @@ export default function SubscriptionPlans() {
                     top: '-12px',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#fff',
                     padding: '6px 16px',
                     borderRadius: '20px',
@@ -127,7 +127,7 @@ export default function SubscriptionPlans() {
                   </Typography>
 
                   <Box sx={{ marginBottom: '32px' }}>
-                    <Typography sx={{ fontSize: '32px', fontWeight: 700, color: '#0056B3' }}>
+                    <Typography sx={{ fontSize: '32px', fontWeight: 700, color: theme.palette.primary.main }}>
                       {plan.price}
                       <span style={{ fontSize: '14px', fontWeight: 400, color: '#666' }}>
                         {plan.period && ` ${plan.period}`}
@@ -189,7 +189,7 @@ export default function SubscriptionPlans() {
             <Grid item xs={12} md={6}>
               <Card sx={{ border: '1px solid #e0e0e0' }}>
                 <CardContent>
-                  <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '12px' }}>
+                  <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '12px' }}>
                     Puis-je changer de plan?
                   </Typography>
                   <Typography sx={{ fontSize: '14px', color: '#666' }}>
@@ -202,7 +202,7 @@ export default function SubscriptionPlans() {
             <Grid item xs={12} md={6}>
               <Card sx={{ border: '1px solid #e0e0e0' }}>
                 <CardContent>
-                  <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '12px' }}>
+                  <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '12px' }}>
                     Y a-t-il une période d'essai?
                   </Typography>
                   <Typography sx={{ fontSize: '14px', color: '#666' }}>
@@ -215,7 +215,7 @@ export default function SubscriptionPlans() {
             <Grid item xs={12} md={6}>
               <Card sx={{ border: '1px solid #e0e0e0' }}>
                 <CardContent>
-                  <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '12px' }}>
+                  <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '12px' }}>
                     Que se passe-t-il si j'annule?
                   </Typography>
                   <Typography sx={{ fontSize: '14px', color: '#666' }}>
@@ -228,7 +228,7 @@ export default function SubscriptionPlans() {
             <Grid item xs={12} md={6}>
               <Card sx={{ border: '1px solid #e0e0e0' }}>
                 <CardContent>
-                  <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '12px' }}>
+                  <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '12px' }}>
                     Offrez-vous des rabais?
                   </Typography>
                   <Typography sx={{ fontSize: '14px', color: '#666' }}>

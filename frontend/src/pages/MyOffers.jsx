@@ -37,7 +37,7 @@ export default function MyOffers() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Mes offres
         </Typography>
         {loading ? <CircularProgress /> : (
@@ -45,11 +45,11 @@ export default function MyOffers() {
             <Table>
               <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Appel d'offres</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Prix</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Statut</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Actions</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Appel d'offres</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Prix</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Statut</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -62,7 +62,7 @@ export default function MyOffers() {
                     </TableCell>
                     <TableCell>{offer.date}</TableCell>
                     <TableCell align="center">
-                      <Button size="small" startIcon={<EditIcon />} sx={{ color: '#0056B3', mr: 1 }}>Modifier</Button>
+                      <Button size="small" startIcon={<EditIcon />} sx={{ color: theme.palette.primary.main, mr: 1 }}>Modifier</Button>
                       <Button size="small" startIcon={<DeleteIcon />} sx={{ color: '#C62828' }}>Supprimer</Button>
                     </TableCell>
                   </TableRow>

@@ -89,7 +89,7 @@ export default function BudgetManagement() {
             startIcon={<AddIcon />}
             onClick={() => setShowForm(!showForm)}
             sx={{
-              backgroundColor: '#0056B3',
+              backgroundColor: theme.palette.primary.main,
               textTransform: 'none',
               fontWeight: 600,
               '&:hover': { backgroundColor: '#0d47a1' },
@@ -144,7 +144,7 @@ export default function BudgetManagement() {
                     variant="outlined"
                     onClick={() => setShowForm(false)}
                     startIcon={<CancelIcon />}
-                    sx={{ color: '#0056B3', borderColor: '#0056B3' }}
+                    sx={{ color: theme.palette.primary.main, borderColor: '#0056B3' }}
                   >
                     Annuler
                   </Button>
@@ -171,13 +171,13 @@ export default function BudgetManagement() {
             <Table>
               <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                 <TableRow sx={{ height: '56px' }}>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Nom du Budget</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Catégorie</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="right">Total</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="right">Dépensé</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="right">Restant</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Utilisation</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Actions</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Nom du Budget</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Catégorie</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="right">Total</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="right">Dépensé</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="right">Restant</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Utilisation</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -187,7 +187,7 @@ export default function BudgetManagement() {
                     <TableRow key={budget.id} sx={{ borderBottom: '1px solid #e0e0e0', '&:hover': { backgroundColor: '#fafafa' } }}>
                       <TableCell sx={{ color: '#212121' }}>{budget.name}</TableCell>
                       <TableCell sx={{ color: '#616161' }}>{budget.category}</TableCell>
-                      <TableCell align="right" sx={{ color: '#0056B3', fontWeight: 600 }}>
+                      <TableCell align="right" sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
                         {budget.total.toLocaleString()} TND
                       </TableCell>
                       <TableCell align="right" sx={{ color: '#212121' }}>
@@ -205,7 +205,7 @@ export default function BudgetManagement() {
                         </Box>
                       </TableCell>
                       <TableCell align="center">
-                        <Button size="small" startIcon={<EditIcon />} sx={{ color: '#0056B3', textTransform: 'none' }}>
+                        <Button size="small" startIcon={<EditIcon />} sx={{ color: theme.palette.primary.main, textTransform: 'none' }}>
                           Éditer
                         </Button>
                       </TableCell>

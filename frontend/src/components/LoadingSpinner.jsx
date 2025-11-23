@@ -16,7 +16,7 @@ export default function LoadingSpinner({ message = 'Chargement en cours...' }) {
         gap: '16px'
       }}
     >
-      <CircularProgress sx={{ color: '#0056B3' }} size={50} />
+      <CircularProgress sx={{ color: theme.palette.primary.main }} size={50} />
       {message && (
         <Typography sx={{ color: '#616161', fontSize: '14px' }}>
           {message}

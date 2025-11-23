@@ -76,7 +76,7 @@ export default function BuyerDashboard() {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Box>
     );
   }
@@ -86,7 +86,7 @@ export default function BuyerDashboard() {
       <CardContent sx={{ padding: '24px' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
           <Typography sx={{ fontSize: '48px' }}>{icon}</Typography>
-          <Typography sx={{ fontSize: '28px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ fontSize: '28px', fontWeight: 600, color: theme.palette.primary.main }}>
             {value}
           </Typography>
         </Box>
@@ -116,10 +116,10 @@ export default function BuyerDashboard() {
           </Typography>
           <Button
             variant="contained"
-            startIcon={<AddIcon sx={{ fontSize: '20px', color: '#0056B3', marginRight: '8px' }} />}
+            startIcon={<AddIcon sx={{ fontSize: '20px', color: theme.palette.primary.main, marginRight: '8px' }} />}
             onClick={() => navigate('/create-tender')}
             sx={{
-              backgroundColor: '#0056B3',
+              backgroundColor: theme.palette.primary.main,
               textTransform: 'none',
               fontWeight: 600,
               '&:hover': { backgroundColor: '#0d47a1' },
@@ -178,16 +178,16 @@ export default function BuyerDashboard() {
               <Table>
                 <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                   <TableRow sx={{ height: '56px' }}>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }}>
                       Titre
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }} align="right">
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }} align="right">
                       Budget
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }}>
                       Statut
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3', textTransform: 'uppercase', fontSize: '12px' }} align="center">
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }} align="center">
                       Action
                     </TableCell>
                   </TableRow>
@@ -212,7 +212,7 @@ export default function BuyerDashboard() {
                         <TableCell sx={{ color: '#212121', fontSize: '14px', fontWeight: 500 }}>
                           {tender.title}
                         </TableCell>
-                        <TableCell sx={{ color: '#0056B3', fontSize: '14px', fontWeight: 600 }} align="right">
+                        <TableCell sx={{ color: theme.palette.primary.main, fontSize: '14px', fontWeight: 600 }} align="right">
                           {tender.budget_max} TND
                         </TableCell>
                         <TableCell>
@@ -227,10 +227,10 @@ export default function BuyerDashboard() {
                         <TableCell align="center">
                           <Button
                             size="small"
-                            startIcon={<VisibilityIcon sx={{ fontSize: '20px', color: '#0056B3', marginRight: '8px' }} />}
+                            startIcon={<VisibilityIcon sx={{ fontSize: '20px', color: theme.palette.primary.main, marginRight: '8px' }} />}
                             onClick={() => navigate(`/tender/${tender.id}`)}
                             sx={{
-                              color: '#0056B3',
+                              color: theme.palette.primary.main,
                               textTransform: 'none',
                               fontWeight: 500,
                             }}

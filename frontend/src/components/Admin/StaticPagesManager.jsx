@@ -238,7 +238,7 @@ export default function StaticPagesManager() {
           startIcon={<AddIcon />}
           onClick={handleOpenCreateDialog}
           disabled={saving}
-          sx={{ backgroundColor: '#0056B3' }}
+          sx={{ backgroundColor: theme.palette.primary.main }}
         >
           Nouvelle Page
         </Button>
@@ -299,7 +299,7 @@ export default function StaticPagesManager() {
                       size="small"
                       onClick={() => handleOpenEditDialog(page)}
                       disabled={saving}
-                      sx={{ color: '#0056B3' }}
+                      sx={{ color: theme.palette.primary.main }}
                     >
                       <EditIcon fontSize="small" />
                     </IconButton>
@@ -411,7 +411,7 @@ export default function StaticPagesManager() {
           <Button
             onClick={handleSavePage}
             variant="contained"
-            sx={{ backgroundColor: '#0056B3' }}
+            sx={{ backgroundColor: theme.palette.primary.main }}
             disabled={saving}
           >
             {saving ? <CircularProgress size={20} sx={{ color: '#FFF' }} /> : (isCreating ? 'Créer' : 'Enregistrer')}

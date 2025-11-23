@@ -112,7 +112,7 @@ export default function PasswordReset() {
               sx={{
                 fontSize: '28px',
                 fontWeight: 500,
-                color: '#0056B3',
+                color: theme.palette.primary.main,
                 marginBottom: '24px',
                 textAlign: 'center',
               }}
@@ -154,7 +154,7 @@ export default function PasswordReset() {
                   fullWidth
                   variant="contained"
                   sx={{
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     marginTop: '24px',
                     padding: '12px',
                   }}
@@ -182,7 +182,7 @@ export default function PasswordReset() {
                   fullWidth
                   variant="contained"
                   sx={{
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     marginTop: '24px',
                     padding: '12px',
                   }}
@@ -220,7 +220,7 @@ export default function PasswordReset() {
                   fullWidth
                   variant="contained"
                   sx={{
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     marginTop: '24px',
                     padding: '12px',
                   }}

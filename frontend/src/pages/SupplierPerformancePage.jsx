@@ -30,7 +30,7 @@ const SupplierPerformancePage = () => {
 
       <TableContainer component={Card}>
         <Table>
-          <TableHead sx={{ backgroundColor: '#0056B3' }}>
+          <TableHead sx={{ backgroundColor: theme.palette.primary.main }}>
             <TableRow>
               <TableCell sx={{ color: '#fff' }}>Company</TableCell>
               <TableCell sx={{ color: '#fff' }}>Rating</TableCell>

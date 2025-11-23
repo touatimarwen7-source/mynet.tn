@@ -19,7 +19,7 @@ export default function FeaturesPage() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3, textAlign: 'center' }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3, textAlign: 'center' }}>
           Nos fonctionnalités
         </Typography>
         <Grid container spacing={3}>
@@ -27,7 +27,7 @@ export default function FeaturesPage() {
             <Grid item xs={12} sm={6} md={4} key={idx}>
               <Card sx={{ border: '1px solid #E0E0E0', height: '100%' }}>
                 <CardContent>
-                  <Typography sx={{ fontSize: '18px', fontWeight: 600, mb: 1, color: '#0056B3' }}>{f.title}</Typography>
+                  <Typography sx={{ fontSize: '18px', fontWeight: 600, mb: 1, color: theme.palette.primary.main }}>{f.title}</Typography>
                   <Typography sx={{ color: '#616161' }}>{f.desc}</Typography>
                 </CardContent>
               </Card>

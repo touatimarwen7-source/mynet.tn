@@ -54,7 +54,7 @@ const AnalyticsDashboard = () => {
               <Typography variant="body2" sx={{ color: '#666', mb: 1 }}>
                 {key.replace(/_/g, ' ').toUpperCase()}
               </Typography>
-              <Typography variant="h5" sx={{ color: '#0056B3', fontWeight: 'bold' }}>
+              <Typography variant="h5" sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>
                 {typeof value === 'number' ? value.toFixed(2) : value}
               </Typography>
             </Card>

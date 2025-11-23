@@ -102,7 +102,7 @@ export default function UnifiedHeader() {
           textTransform: 'none',
           fontSize: '14px',
           '&:hover': {
-            color: '#0056B3',
+            color: theme.palette.primary.main,
             backgroundColor: 'transparent',
           },
           borderBottom: location.pathname === link.href ? '2px solid #0056B3' : 'none',
@@ -144,7 +144,7 @@ export default function UnifiedHeader() {
             minWidth: '150px',
             fontSize: '24px',
             fontWeight: 600,
-            color: '#0056B3',
+            color: theme.palette.primary.main,
             '&:hover': { color: '#0d47a1' },
           }}
         >
@@ -203,7 +203,7 @@ export default function UnifiedHeader() {
                   sx={{
                     width: 36,
                     height: 36,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     fontSize: '14px',
                     fontWeight: 600,
                   }}
@@ -255,7 +255,7 @@ export default function UnifiedHeader() {
                   fontWeight: 500,
                   '&:hover': {
                     borderColor: '#0056B3',
-                    color: '#0056B3',
+                    color: theme.palette.primary.main,
                     backgroundColor: '#f5f5f5',
                   },
                 }}
@@ -266,7 +266,7 @@ export default function UnifiedHeader() {
                 variant="contained"
                 onClick={() => navigate('/register')}
                 sx={{
-                  backgroundColor: '#0056B3',
+                  backgroundColor: theme.palette.primary.main,
                   textTransform: 'none',
                   fontWeight: 500,
                   '&:hover': {

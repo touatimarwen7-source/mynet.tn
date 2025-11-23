@@ -170,7 +170,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
               📦 Lots et Articles
             </Typography>
             <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -213,7 +213,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
             startIcon={<AddIcon />}
             onClick={addLot}
             disabled={loading || !newLot.objet.trim()}
-            sx={{ color: '#0056B3', borderColor: '#0056B3', mb: 2 }}
+            sx={{ color: theme.palette.primary.main, borderColor: '#0056B3', mb: 2 }}
           >
             Ajouter un Lot/Article
           </Button>
@@ -223,10 +223,10 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
               <Table size="small">
                 <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>N°</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Objet</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Adjudication</TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 600, color: '#0056B3' }}>Actions</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>N°</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Objet</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Adjudication</TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -250,7 +250,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
                             size="small"
                             onClick={() => editLot(index)}
                             disabled={loading}
-                            sx={{ color: '#0056B3' }}
+                            sx={{ color: theme.palette.primary.main }}
                           >
                             ✎
                           </IconButton>
@@ -350,7 +350,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
               🔑 Conditions de Participation
             </Typography>
             <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -416,7 +416,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
               📤 Méthode de Soumission
             </Typography>
             <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -474,7 +474,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
               📞 Contacts et Clarifications
             </Typography>
             <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -492,7 +492,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: theme.palette.primary.main }}>
               ⚙️ Spécifications Techniques
             </Typography>
             <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
@@ -560,7 +560,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
                   disabled={loading || !newRequirement.trim()}
                   sx={{
                     flex: 1,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 600,
@@ -645,7 +645,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
                         size="small"
                         onClick={() => editRequirement(index)}
                         disabled={loading}
-                        sx={{ color: '#0056B3' }}
+                        sx={{ color: theme.palette.primary.main }}
                       >
                         ✎
                       </IconButton>
@@ -699,7 +699,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
             component="label"
             startIcon={<UploadIcon />}
             disabled={loading}
-            sx={{ color: '#0056B3', borderColor: '#0056B3' }}
+            sx={{ color: theme.palette.primary.main, borderColor: '#0056B3' }}
           >
             Télécharger des fichiers
             <input
@@ -749,7 +749,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
             Veuillez vérifier tous les détails avant de soumettre votre appel d'offres.
           </Alert>
           <Paper sx={{ padding: '16px', backgroundColor: '#f5f5f5' }}>
-            <Typography variant="h6" sx={{ color: '#0056B3', marginBottom: '12px' }}>Résumé</Typography>
+            <Typography variant="h6" sx={{ color: theme.palette.primary.main, marginBottom: '12px' }}>Résumé</Typography>
             <Stack spacing={1} sx={{ fontSize: '13px' }}>
               <Box><strong>Titre:</strong> {formData.title}</Box>
               <Box><strong>Catégorie:</strong> {formData.category}</Box>
@@ -1098,7 +1098,7 @@ export default function CreateTender() {
               sx={{ 
                 fontSize: '28px', 
                 fontWeight: 500, 
-                color: '#0056B3', 
+                color: theme.palette.primary.main, 
                 marginBottom: '8px' 
               }}
             >
@@ -1156,7 +1156,7 @@ export default function CreateTender() {
                 onClick={handlePrevious}
                 disabled={activeStep === 0 || loading}
                 sx={{
-                  color: '#0056B3',
+                  color: theme.palette.primary.main,
                   borderColor: '#0056B3',
                   textTransform: 'none',
                   fontWeight: 600,
@@ -1174,7 +1174,7 @@ export default function CreateTender() {
                   startIcon={loading ? <CircularProgress size={20} /> : <CheckCircleIcon />}
                   sx={{
                     flex: 1,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 600,
@@ -1193,7 +1193,7 @@ export default function CreateTender() {
                   disabled={loading}
                   sx={{
                     flex: 1,
-                    backgroundColor: '#0056B3',
+                    backgroundColor: theme.palette.primary.main,
                     color: '#ffffff',
                     textTransform: 'none',
                     fontWeight: 600,
@@ -1248,7 +1248,7 @@ export default function CreateTender() {
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setShowExitDialog(false)} sx={{ color: '#0056B3' }}>
+            <Button onClick={() => setShowExitDialog(false)} sx={{ color: theme.palette.primary.main }}>
               Continuer
             </Button>
             <Button

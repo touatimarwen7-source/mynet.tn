@@ -38,7 +38,7 @@ export default function SuperAdminMenu() {
       title: 'Gestion des Pages Statiques',
       description: 'Créer, modifier et supprimer les pages statiques du site',
       icon: FileIcon,
-      color: '#0056B3',
+      color: theme.palette.primary.main,
       route: '/super-admin',
       category: 'Contenu',
       features: ['Créer page', 'Modifier page', 'Publier/Brouillon', 'Supprimer page'],
@@ -177,7 +177,7 @@ export default function SuperAdminMenu() {
         {/* Header */}
         <Box sx={{ marginBottom: '40px' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-            <DashboardIcon sx={{ fontSize: '32px', color: '#0056B3' }} />
+            <DashboardIcon sx={{ fontSize: '32px', color: theme.palette.primary.main }} />
             <Typography variant="h3" sx={{ fontWeight: 700, color: '#212121' }}>
               قائمة وظائف Super Admin
             </Typography>
@@ -196,7 +196,7 @@ export default function SuperAdminMenu() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ color: '#0056B3' }} />
+                  <SearchIcon sx={{ color: theme.palette.primary.main }} />
                 </InputAdornment>
               ),
             }}
@@ -227,7 +227,7 @@ export default function SuperAdminMenu() {
                 marginBottom: '16px',
                 borderRadius: '4px',
               }}>
-                <Typography sx={{ fontWeight: 700, color: '#0056B3', fontSize: '14px' }}>
+                <Typography sx={{ fontWeight: 700, color: theme.palette.primary.main, fontSize: '14px' }}>
                   {category}
                 </Typography>
               </Box>
@@ -343,7 +343,7 @@ export default function SuperAdminMenu() {
             <Grid item xs={12} sm={4}>
               <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
                 <CardContent>
-                  <Typography sx={{ fontSize: '32px', fontWeight: 700, color: '#0056B3' }}>
+                  <Typography sx={{ fontSize: '32px', fontWeight: 700, color: theme.palette.primary.main }}>
                     {adminFunctions.length}
                   </Typography>
                   <Typography sx={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>

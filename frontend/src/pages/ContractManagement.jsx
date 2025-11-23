@@ -48,13 +48,13 @@ export default function ContractManagement() {
             <Table>
               <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                 <TableRow sx={{ height: '56px' }}>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Numéro</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Fournisseur</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="right">Montant</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Statut</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date Début</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date Fin</TableCell>
-                  <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Actions</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Numéro</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Fournisseur</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="right">Montant</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Statut</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date Début</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date Fin</TableCell>
+                  <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -62,7 +62,7 @@ export default function ContractManagement() {
                   <TableRow key={contract.id} sx={{ borderBottom: '1px solid #e0e0e0', '&:hover': { backgroundColor: '#fafafa' } }}>
                     <TableCell sx={{ color: '#212121', fontWeight: 600 }}>{contract.number}</TableCell>
                     <TableCell sx={{ color: '#212121' }}>{contract.supplier}</TableCell>
-                    <TableCell align="right" sx={{ color: '#0056B3', fontWeight: 600 }}>
+                    <TableCell align="right" sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
                       {contract.amount.toLocaleString()} TND
                     </TableCell>
                     <TableCell>
@@ -82,7 +82,7 @@ export default function ContractManagement() {
                           size="small"
                           variant="outlined"
                           startIcon={<VisibilityIcon />}
-                          sx={{ color: '#0056B3', borderColor: '#0056B3', textTransform: 'none' }}
+                          sx={{ color: theme.palette.primary.main, borderColor: '#0056B3', textTransform: 'none' }}
                         >
                           Voir
                         </Button>

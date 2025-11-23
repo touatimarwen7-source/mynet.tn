@@ -71,7 +71,7 @@ export default function TenderDetail() {
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
           <Box sx={{ marginBottom: '24px' }}>
-            <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} sx={{ color: '#0056B3', marginBottom: '16px' }} />
+            <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} sx={{ color: theme.palette.primary.main, marginBottom: '16px' }} />
           </Box>
           <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
             <Box>
@@ -121,7 +121,7 @@ export default function TenderDetail() {
           onClick={() => navigate('/tenders')}
           sx={{
             marginBottom: '24px',
-            color: '#0056B3',
+            color: theme.palette.primary.main,
             textTransform: 'none',
             fontWeight: 500,
           }}

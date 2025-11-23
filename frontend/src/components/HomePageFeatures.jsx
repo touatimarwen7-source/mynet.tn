@@ -8,12 +8,12 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 export default function HomePageFeatures() {
   const features = [
-    { icon: <SecurityIcon sx={{ fontSize: '40px', color: '#0056B3' }} />, title: 'Sécurité Entreprise', description: 'Chiffrement AES-256, authentification 2FA, et audit complet' },
-    { icon: <TrendingUpIcon sx={{ fontSize: '40px', color: '#0056B3' }} />, title: 'Performant', description: 'Infrastructure cloud scalable avec 99.9% d\'uptime' },
-    { icon: <GroupIcon sx={{ fontSize: '40px', color: '#0056B3' }} />, title: 'Support Premium', description: 'Équipe d\'experts disponible 24/7' },
-    { icon: <InventoryIcon sx={{ fontSize: '40px', color: '#0056B3' }} />, title: 'Analytics Avancées', description: 'Tableaux de bord détaillés et rapports en temps réel' },
-    { icon: <LanguageIcon sx={{ fontSize: '40px', color: '#0056B3' }} />, title: 'Multi-Devises', description: 'Support dinars, euros et autres devises' },
-    { icon: <PhoneAndroidIcon sx={{ fontSize: '40px', color: '#0056B3' }} />, title: 'Mobile Ready', description: 'Interface responsive pour tous les appareils' },
+    { icon: <SecurityIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Sécurité Entreprise', description: 'Chiffrement AES-256, authentification 2FA, et audit complet' },
+    { icon: <TrendingUpIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Performant', description: 'Infrastructure cloud scalable avec 99.9% d\'uptime' },
+    { icon: <GroupIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Support Premium', description: 'Équipe d\'experts disponible 24/7' },
+    { icon: <InventoryIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Analytics Avancées', description: 'Tableaux de bord détaillés et rapports en temps réel' },
+    { icon: <LanguageIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Multi-Devises', description: 'Support dinars, euros et autres devises' },
+    { icon: <PhoneAndroidIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Mobile Ready', description: 'Interface responsive pour tous les appareils' },
   ];
 
   return (

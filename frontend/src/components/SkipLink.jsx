@@ -8,7 +8,7 @@ export default function SkipLink() {
         position: 'absolute',
         top: '-40px',
         left: 0,
-        backgroundColor: '#0056B3',
+        backgroundColor: theme.palette.primary.main,
         color: '#fff',
         padding: '8px 16px',
         zIndex: 1000,

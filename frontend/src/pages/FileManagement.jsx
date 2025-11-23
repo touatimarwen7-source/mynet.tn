@@ -101,7 +101,7 @@ const FileManagement = () => {
           startIcon={<CloudUploadIcon />}
           onClick={() => setOpenDialog(true)}
           sx={{
-            backgroundColor: '#0056B3',
+            backgroundColor: theme.palette.primary.main,
             color: 'white',
             '&:hover': { backgroundColor: '#004399' },
             borderRadius: '4px',
@@ -127,11 +127,11 @@ const FileManagement = () => {
           <Table>
             <TableHead sx={{ backgroundColor: '#F9F9F9' }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 'bold', color: '#0056B3' }}>اسم الملف</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', color: '#0056B3' }}>نوع الملف</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', color: '#0056B3' }}>الحجم</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', color: '#0056B3' }}>تاريخ الإنشاء</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', color: '#0056B3' }}>الإجراءات</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>اسم الملف</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>نوع الملف</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>الحجم</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>تاريخ الإنشاء</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>الإجراءات</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -160,7 +160,7 @@ const FileManagement = () => {
                               href={file.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              sx={{ color: '#0056B3' }}
+                              sx={{ color: theme.palette.primary.main }}
                             >
                               <DownloadIcon fontSize="small" />
                             </IconButton>
@@ -193,7 +193,7 @@ const FileManagement = () => {
 
       {/* Upload Dialog */}
       <Dialog open={openDialog} onClose={() => !uploading && setOpenDialog(false)}>
-        <DialogTitle sx={{ backgroundColor: '#0056B3', color: 'white', fontWeight: 'bold' }}>
+        <DialogTitle sx={{ backgroundColor: theme.palette.primary.main, color: 'white', fontWeight: 'bold' }}>
           رفع ملف جديد
         </DialogTitle>
         <DialogContent sx={{ padding: '20px', minWidth: '400px' }}>
@@ -212,7 +212,7 @@ const FileManagement = () => {
                 startIcon={<CloudUploadIcon />}
                 sx={{
                   borderColor: '#0056B3',
-                  color: '#0056B3',
+                  color: theme.palette.primary.main,
                   '&:hover': {
                     backgroundColor: '#F0F5FF',
                     borderColor: '#0056B3',
@@ -243,7 +243,7 @@ const FileManagement = () => {
             onClick={handleUpload}
             disabled={!selectedFile || uploading}
             variant="contained"
-            sx={{ backgroundColor: '#0056B3', color: 'white' }}
+            sx={{ backgroundColor: theme.palette.primary.main, color: 'white' }}
           >
             {uploading ? <CircularProgress size={24} /> : 'رفع'}
           </Button>

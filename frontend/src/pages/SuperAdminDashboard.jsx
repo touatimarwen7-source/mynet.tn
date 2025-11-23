@@ -72,7 +72,7 @@ export default function SuperAdminDashboard() {
             sx={{
               fontSize: '32px',
               fontWeight: 600,
-              color: '#0056B3',
+              color: theme.palette.primary.main,
               marginBottom: '8px',
             }}
           >
@@ -115,7 +115,7 @@ export default function SuperAdminDashboard() {
                 color: '#616161',
                 padding: '12px 16px',
                 '&.Mui-selected': {
-                  color: '#0056B3',
+                  color: theme.palette.primary.main,
                   backgroundColor: '#F0F4FF'
                 }
               }

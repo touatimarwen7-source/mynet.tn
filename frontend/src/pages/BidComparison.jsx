@@ -49,7 +49,7 @@ export default function BidComparison() {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Box>
     );
   }
@@ -97,12 +97,12 @@ export default function BidComparison() {
                 <Table>
                   <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                     <TableRow>
-                      <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Fournisseur</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Montant Total</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Délai de Livraison</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Conditions de Paiement</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Statut</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Score</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Fournisseur</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Montant Total</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Délai de Livraison</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Conditions de Paiement</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Statut</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Score</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -111,7 +111,7 @@ export default function BidComparison() {
                         <TableCell sx={{ fontSize: '13px' }}>
                           {offer.supplier_name || 'N/A'}
                         </TableCell>
-                        <TableCell sx={{ fontSize: '13px', fontWeight: 600, color: '#0056B3' }}>
+                        <TableCell sx={{ fontSize: '13px', fontWeight: 600, color: theme.palette.primary.main }}>
                           {parseFloat(offer.total_amount).toFixed(2)} {offer.currency || 'TND'}
                         </TableCell>
                         <TableCell sx={{ fontSize: '13px' }}>
@@ -142,7 +142,7 @@ export default function BidComparison() {
 
         {tender && (
           <Paper sx={{ marginTop: '32px', padding: '16px', backgroundColor: '#f5f5f5' }}>
-            <Typography sx={{ fontWeight: 600, marginBottom: '12px', color: '#0056B3' }}>
+            <Typography sx={{ fontWeight: 600, marginBottom: '12px', color: theme.palette.primary.main }}>
               📋 Résumé de l'Appel d'Offres
             </Typography>
             <Typography sx={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>

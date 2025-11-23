@@ -300,7 +300,7 @@ export default function Sidebar({ user, onLogout }) {
       {/* Header */}
       <Box sx={{ padding: '24px 16px', borderBottom: '1px solid #e0e0e0' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-          <Avatar sx={{ width: 36, height: 36, backgroundColor: '#0056B3', fontSize: '16px', fontWeight: 600 }}>
+          <Avatar sx={{ width: 36, height: 36, backgroundColor: theme.palette.primary.main, fontSize: '16px', fontWeight: 600 }}>
             {user?.email?.[0]?.toUpperCase() || 'U'}
           </Avatar>
           <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -332,7 +332,7 @@ export default function Sidebar({ user, onLogout }) {
                       '&:hover': { backgroundColor: '#f5f5f5' },
                     }}
                   >
-                    {IconComponent && <IconComponent sx={{ marginRight: '12px', fontSize: '20px', color: '#0056B3' }} />}
+                    {IconComponent && <IconComponent sx={{ marginRight: '12px', fontSize: '20px', color: theme.palette.primary.main }} />}
                     <ListItemText
                       primary={item.label}
                       sx={{ margin: 0, '& .MuiTypography-root': { fontSize: '14px', fontWeight: 500 } }}
@@ -361,7 +361,7 @@ export default function Sidebar({ user, onLogout }) {
                             color: isMenuItemActive(subItem.path) ? '#0056B3' : '#616161',
                             '&:hover': {
                               backgroundColor: '#f5f5f5',
-                              color: '#0056B3',
+                              color: theme.palette.primary.main,
                             },
                           }}
                         >
@@ -387,11 +387,11 @@ export default function Sidebar({ user, onLogout }) {
                     color: isMenuItemActive(item.path) ? '#0056B3' : '#212121',
                     '&:hover': {
                       backgroundColor: '#f5f5f5',
-                      color: '#0056B3',
+                      color: theme.palette.primary.main,
                     },
                   }}
                 >
-                  {IconComponent && <IconComponent sx={{ marginRight: '12px', fontSize: '20px', color: '#0056B3' }} />}
+                  {IconComponent && <IconComponent sx={{ marginRight: '12px', fontSize: '20px', color: theme.palette.primary.main }} />}
                   <ListItemText
                     primary={item.label}
                     sx={{ margin: 0, '& .MuiTypography-root': { fontSize: '14px', fontWeight: 500 } }}
@@ -437,7 +437,7 @@ export default function Sidebar({ user, onLogout }) {
           left: '12px',
           top: '76px',
           zIndex: 100,
-          backgroundColor: '#0056B3',
+          backgroundColor: theme.palette.primary.main,
           color: '#ffffff',
           '&:hover': { backgroundColor: '#0d47a1' },
         }}

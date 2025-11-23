@@ -58,7 +58,7 @@ const ErrorFallback = ({ error, resetError }) => {
         onClick={resetError}
         startIcon={<RefreshIcon />}
         sx={{
-          backgroundColor: '#0056B3',
+          backgroundColor: theme.palette.primary.main,
           color: '#FFFFFF',
           textTransform: 'none',
           fontSize: '14px',

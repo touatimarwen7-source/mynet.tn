@@ -19,7 +19,7 @@ export default function OfferAnalysis() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Analyse des offres
         </Typography>
 
@@ -30,7 +30,7 @@ export default function OfferAnalysis() {
                 <CardContent>
                   <Typography sx={{ color: '#616161', fontSize: '12px' }}>{item.title}</Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                    <Typography sx={{ fontWeight: 600, fontSize: '20px', color: '#0056B3', mr: 1 }}>
+                    <Typography sx={{ fontWeight: 600, fontSize: '20px', color: theme.palette.primary.main, mr: 1 }}>
                       {item.value}
                     </Typography>
                     <TrendingUpIcon sx={{ color: item.trend === 'up' ? '#4caf50' : '#ff9800', fontSize: 20 }} />
@@ -42,7 +42,7 @@ export default function OfferAnalysis() {
         </Grid>
 
         <Card sx={{ border: '1px solid #E0E0E0' }}>
-          <CardHeader title="Comparaison des offres" action={<Button size="small" sx={{ color: '#0056B3' }}>Exporter</Button>} />
+          <CardHeader title="Comparaison des offres" action={<Button size="small" sx={{ color: theme.palette.primary.main }}>Exporter</Button>} />
           <CardContent>
             <Typography sx={{ color: '#999' }}>Chargement du graphique en cours...</Typography>
           </CardContent>

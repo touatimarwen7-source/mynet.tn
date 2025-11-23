@@ -83,7 +83,7 @@ export default function AdminForm({
           disabled={loading}
           sx={{
             textTransform: 'none',
-            backgroundColor: '#0056B3',
+            backgroundColor: theme.palette.primary.main,
             '&:hover': { backgroundColor: '#004499' },
           }}
         >

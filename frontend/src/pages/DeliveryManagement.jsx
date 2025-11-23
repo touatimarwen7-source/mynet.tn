@@ -23,19 +23,19 @@ export default function DeliveryManagement() {
   return (
     <Box sx={{ backgroundColor: '#F9F9F9', paddingY: '40px', minHeight: '80vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: '#0056B3', mb: 3 }}>
+        <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 600, color: theme.palette.primary.main, mb: 3 }}>
           Gestion des livraisons
         </Typography>
         <Paper sx={{ border: '1px solid #E0E0E0', borderRadius: '8px', overflow: 'hidden' }}>
           <Table>
             <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Commande</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Statut</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Localisation</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Date d'arrivée prévue</TableCell>
-                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }} align="center">Actions</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Commande</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Statut</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Localisation</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Date d'arrivée prévue</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }} align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -49,7 +49,7 @@ export default function DeliveryManagement() {
                   <TableCell>{del.date}</TableCell>
                   <TableCell>{del.eta}</TableCell>
                   <TableCell align="center">
-                    <Button size="small" startIcon={<TrackChangesIcon />} sx={{ color: '#0056B3' }}>Suivre</Button>
+                    <Button size="small" startIcon={<TrackChangesIcon />} sx={{ color: theme.palette.primary.main }}>Suivre</Button>
                   </TableCell>
                 </TableRow>
               ))}

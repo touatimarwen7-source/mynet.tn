@@ -115,7 +115,7 @@ export default function SupplierRequests() {
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#0056B3' }} />
+        <CircularProgress sx={{ color: theme.palette.primary.main }} />
       </Container>
     );
   }
@@ -123,7 +123,7 @@ export default function SupplierRequests() {
   return (
     <Box sx={{ backgroundColor: '#f9f9f9', paddingY: '40px', minHeight: '100vh' }}>
       <Container maxWidth="lg">
-        <Typography variant="h4" sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '30px' }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '30px' }}>
           Demandes Reçues
         </Typography>
 
@@ -164,7 +164,7 @@ export default function SupplierRequests() {
         ) : (
           <TableContainer component={Paper}>
             <Table>
-              <TableHead sx={{ backgroundColor: '#0056B3' }}>
+              <TableHead sx={{ backgroundColor: theme.palette.primary.main }}>
                 <TableRow>
                   <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>اسم المشتري</TableCell>
                   <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>المنتج</TableCell>
@@ -181,7 +181,7 @@ export default function SupplierRequests() {
                     <TableCell sx={{ fontWeight: 500 }}>{request.buyer_company}</TableCell>
                     <TableCell>{request.title}</TableCell>
                     <TableCell>{request.quantity} {request.unit}</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
                       {parseFloat(request.budget).toFixed(3)}
                     </TableCell>
                     <TableCell>
@@ -198,7 +198,7 @@ export default function SupplierRequests() {
                       <Button
                         size="small"
                         startIcon={<VisibilityIcon />}
-                        sx={{ color: '#0056B3', marginRight: '4px' }}
+                        sx={{ color: theme.palette.primary.main, marginRight: '4px' }}
                       >
                         عرض
                       </Button>

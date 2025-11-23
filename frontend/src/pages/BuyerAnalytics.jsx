@@ -82,7 +82,7 @@ export default function BuyerAnalytics() {
     return (
       <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
         <Container maxWidth="lg">
-          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: '#0056B3' }}>
+          <Typography sx={{ marginBottom: '24px', fontWeight: 600, color: theme.palette.primary.main }}>
             Analytics - Acheteur
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }}>
@@ -109,9 +109,9 @@ export default function BuyerAnalytics() {
                 <Stack spacing={1}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography sx={{ fontSize: '12px', color: '#666' }}>Appels Totaux</Typography>
-                    <AssignmentIcon sx={{ color: '#0056B3', fontSize: '24px' }} />
+                    <AssignmentIcon sx={{ color: theme.palette.primary.main, fontSize: '24px' }} />
                   </Box>
-                  <Typography sx={{ fontSize: '28px', fontWeight: 700, color: '#0056B3' }}>
+                  <Typography sx={{ fontSize: '28px', fontWeight: 700, color: theme.palette.primary.main }}>
                     {analytics.kpis.totalTenders}
                   </Typography>
                 </Stack>
@@ -173,7 +173,7 @@ export default function BuyerAnalytics() {
           <Grid item xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
-                <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+                <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
                   Dépenses Mensuelles
                 </Typography>
                 <Typography sx={{ fontSize: '12px', color: '#999', marginBottom: '16px' }}>
@@ -189,7 +189,7 @@ export default function BuyerAnalytics() {
           <Grid item xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
-                <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+                <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
                   Appels par Catégorie
                 </Typography>
                 <Typography sx={{ fontSize: '12px', color: '#999', marginBottom: '16px' }}>
@@ -199,7 +199,7 @@ export default function BuyerAnalytics() {
                   {analytics.tendersByCategory.map((cat, i) => (
                     <Box key={i} sx={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
                       <Typography sx={{ fontSize: '12px', color: '#666' }}>{cat.name}</Typography>
-                      <Typography sx={{ fontWeight: 700, color: '#0056B3' }}>{cat.value}</Typography>
+                      <Typography sx={{ fontWeight: 700, color: theme.palette.primary.main }}>{cat.value}</Typography>
                     </Box>
                   ))}
                 </Box>
@@ -211,7 +211,7 @@ export default function BuyerAnalytics() {
         {/* Top Suppliers */}
         <Card sx={{ border: '1px solid #e0e0e0' }}>
           <CardContent>
-            <Typography sx={{ fontWeight: 600, color: '#0056B3', marginBottom: '16px' }}>
+            <Typography sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '16px' }}>
               Top Fournisseurs
             </Typography>
             <Paper sx={{ border: '1px solid #e0e0e0' }}>
@@ -227,7 +227,7 @@ export default function BuyerAnalytics() {
                 <TableBody>
                   {analytics.topSuppliers.map((supplier) => (
                     <TableRow key={supplier.rank} hover>
-                      <TableCell sx={{ color: '#0056B3', fontWeight: 600 }}>#{supplier.rank}</TableCell>
+                      <TableCell sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>#{supplier.rank}</TableCell>
                       <TableCell>{supplier.name}</TableCell>
                       <TableCell>{supplier.tenders}</TableCell>
                       <TableCell sx={{ fontWeight: 600 }}>{supplier.amount.toLocaleString()} TND</TableCell>

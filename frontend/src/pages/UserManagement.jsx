@@ -230,7 +230,7 @@ export default function UserManagement() {
               variant="contained"
               startIcon={<AddIcon />}
               onClick={handleAddUser}
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               Ajouter Utilisateur
             </Button>
@@ -244,7 +244,7 @@ export default function UserManagement() {
               <Typography sx={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
                 Total des utilisateurs
               </Typography>
-              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#0056B3' }}>
+              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: theme.palette.primary.main }}>
                 {users.length}
               </Typography>
             </CardContent>
@@ -296,7 +296,7 @@ export default function UserManagement() {
                       label={getRoleLabel(user.role)}
                       size="small"
                       variant="outlined"
-                      sx={{ borderColor: '#0056B3', color: '#0056B3' }}
+                      sx={{ borderColor: '#0056B3', color: theme.palette.primary.main }}
                     />
                   </TableCell>
                   <TableCell>
@@ -396,7 +396,7 @@ export default function UserManagement() {
             <Button
               onClick={dialogType === 'edit' ? handleSaveUser : handleSaveNewUser}
               variant="contained"
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               {dialogType === 'edit' ? 'Mettre à jour' : 'Créer'}
             </Button>

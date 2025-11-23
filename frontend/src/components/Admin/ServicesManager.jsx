@@ -211,7 +211,7 @@ export default function ServicesManager() {
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          sx={{ backgroundColor: '#0056B3' }}
+          sx={{ backgroundColor: theme.palette.primary.main }}
           disabled={saving}
           onClick={() => {
             setEditingPlan(null);
@@ -228,7 +228,7 @@ export default function ServicesManager() {
           <Grid item xs={12} sm={6} md={4} key={plan.id}>
             <Card sx={{ border: '1px solid #E0E0E0', boxShadow: 'none', height: '100%' }}>
               <CardContent>
-                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: '#0056B3' }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: theme.palette.primary.main }}>
                   {plan.name}
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#616161', display: 'block', mb: 2 }}>
@@ -319,7 +319,7 @@ export default function ServicesManager() {
               color: '#616161',
               padding: '12px 16px',
               '&.Mui-selected': {
-                color: '#0056B3',
+                color: theme.palette.primary.main,
                 backgroundColor: '#F0F4FF'
               }
             }

@@ -112,7 +112,7 @@ export default function PaymentOrders() {
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography sx={{ fontSize: '13px', color: '#616161' }}>Montant Total:</Typography>
-                    <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#0056B3' }}>
+                    <Typography sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.primary.main }}>
                       {formatCurrency(order.total_amount, order.currency)}
                     </Typography>
                   </Box>

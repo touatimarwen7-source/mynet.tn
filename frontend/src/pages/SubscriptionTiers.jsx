@@ -237,7 +237,7 @@ export default function SubscriptionTiers() {
               variant="contained"
               startIcon={<AddIcon />}
               onClick={handleAddTier}
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               Créer un Plan
             </Button>
@@ -250,7 +250,7 @@ export default function SubscriptionTiers() {
                 <Typography sx={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
                   Total des plans
                 </Typography>
-                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#0056B3' }}>
+                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: theme.palette.primary.main }}>
                   {tiers.length}
                 </Typography>
               </CardContent>
@@ -311,7 +311,7 @@ export default function SubscriptionTiers() {
                         <Typography sx={{ fontSize: '14px', color: '#666', marginBottom: '12px' }}>
                           {tier.description}
                         </Typography>
-                        <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#0056B3', marginBottom: '8px' }}>
+                        <Typography sx={{ fontSize: '24px', fontWeight: 700, color: theme.palette.primary.main, marginBottom: '8px' }}>
                           {tier.price}
                         </Typography>
                       </Box>
@@ -429,7 +429,7 @@ export default function SubscriptionTiers() {
                                 label={t.name}
                                 size="small"
                                 variant="outlined"
-                                sx={{ borderColor: '#0056B3', color: '#0056B3' }}
+                                sx={{ borderColor: '#0056B3', color: theme.palette.primary.main }}
                               />
                             ))}
                           </Stack>
@@ -497,7 +497,7 @@ export default function SubscriptionTiers() {
                         <TableCell sx={{ fontWeight: 600 }}>{tier.name}</TableCell>
                         <TableCell>{tier.price}</TableCell>
                         <TableCell>{tier.services.length} services</TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>{tier.subscriberCount}</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>{tier.subscriberCount}</TableCell>
                         <TableCell>
                           <Chip
                             label={tier.active ? 'Actif' : 'Inactif'}
@@ -611,7 +611,7 @@ export default function SubscriptionTiers() {
                     />
                   ))}
                 </Box>
-                <Typography sx={{ fontSize: '12px', color: '#0056B3', marginTop: '12px', fontWeight: 600 }}>
+                <Typography sx={{ fontSize: '12px', color: theme.palette.primary.main, marginTop: '12px', fontWeight: 600 }}>
                   {selectedServices.length} service(s) sélectionné(s)
                 </Typography>
               </Box>
@@ -622,7 +622,7 @@ export default function SubscriptionTiers() {
             <Button
               onClick={handleSaveTier}
               variant="contained"
-              sx={{ backgroundColor: '#0056B3' }}
+              sx={{ backgroundColor: theme.palette.primary.main }}
             >
               {tierDialogType === 'edit' ? 'Mettre à jour' : 'Créer'}
             </Button>

@@ -54,7 +54,7 @@ export default function FeatureControl() {
               <Typography sx={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
                 Total des fonctionnalités
               </Typography>
-              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#0056B3' }}>
+              <Typography sx={{ fontSize: '24px', fontWeight: 700, color: theme.palette.primary.main }}>
                 {features.length}
               </Typography>
             </CardContent>
@@ -92,7 +92,7 @@ export default function FeatureControl() {
               marginBottom: '16px',
               borderRadius: '4px',
             }}>
-              <Typography sx={{ fontWeight: 700, color: '#0056B3', fontSize: '14px' }}>
+              <Typography sx={{ fontWeight: 700, color: theme.palette.primary.main, fontSize: '14px' }}>
                 {category}
               </Typography>
             </Box>

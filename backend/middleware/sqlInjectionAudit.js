@@ -78,8 +78,8 @@ const sqlInjectionDetector = (req, res, next) => {
       JSON.stringify(auditEntry) + '\n'
     );
 
-    console.warn('🚨 [SQL INJECTION AUDIT]', auditEntry.message);
-    console.warn('   Details:', JSON.stringify(suspicious));
+    // Warning tracking removed;
+    // Warning tracking removed);
   }
 
   next();
@@ -125,7 +125,7 @@ function recordQueryAudit(query, values, userId, safe = true) {
 
   // Log if not safe
   if (!safe) {
-    console.error('❌ [UNSAFE QUERY DETECTED]', record);
+    // Error tracking removed;
   }
 }
 

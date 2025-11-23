@@ -230,8 +230,8 @@ const validationMiddleware = (req, res, next) => {
   });
 
   if (containsSuspiciousPatterns(allInput)) {
-    console.warn(`⚠️ SECURITY: Suspicious input detected from ${req.ip}`);
-    console.warn(`   Endpoint: ${req.method} ${req.path}`);
+    // Warning tracking removed;
+    // Warning tracking removed;
     // Don't block - let controller handle validation
     // But we're alerted to potential attack
   }

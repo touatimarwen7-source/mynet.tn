@@ -47,10 +47,10 @@ const globalErrorHandler = (err, req, res, next) => {
   if (err.statusCode >= 500) {
     // Error trackedLog, null, 2));
     if (process.env.NODE_ENV === 'development') {
-      console.error('Stack:', err.stack);
+      // Error tracking removed;
     }
   } else if (err.statusCode >= 400) {
-    console.warn('🟡 [CLIENT ERROR]', JSON.stringify(errorLog, null, 2));
+    // Warning tracking removed);
   }
 
   // Handle specific error types

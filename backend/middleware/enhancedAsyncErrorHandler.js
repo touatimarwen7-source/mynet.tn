@@ -25,7 +25,7 @@ const enhancedAsyncHandler = (operationName, timeoutMs = 30000) => {
         );
 
         const duration = Date.now() - startTime;
-        console.log(`✅ [${operationName}] Success (${duration}ms)`);
+        // Tracking removed`);
 
         return result;
       } catch (error) {
@@ -48,7 +48,7 @@ const enhancedAsyncHandler = (operationName, timeoutMs = 30000) => {
 
         // Check for SQL injection patterns in error
         if (error.message && detectSQLInjectionPattern(error.message)) {
-          console.warn('🚨 Potential SQL injection detected in error message');
+          // Warning tracking removed;
         }
 
         // Pass to global error handler

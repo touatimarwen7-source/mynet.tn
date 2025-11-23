@@ -22,7 +22,7 @@ async function safeQuery(query, params = []) {
     return result;
   } catch (error) {
     // Log error but don't crash
-    console.error('⚠️ Query error:', error.message);
+    // Error tracking removed;
     throw error;
   } finally {
     if (client) {
@@ -53,7 +53,7 @@ function augmentPoolWithSafeMethods(pool) {
       // Use pool's built-in query which doesn't require explicit connection
       return await originalQuery(query, params);
     } catch (error) {
-      console.error('Pool query error:', error.message);
+      // Error tracking removed;
       throw error;
     }
   };

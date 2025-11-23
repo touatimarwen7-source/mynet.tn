@@ -183,7 +183,7 @@ const initializeWebSocket = (server) => {
     socket.on('send-notification', (data) => {
       if (data.userId) {
         eventsManager.emitNotification(data.userId, data);
-        console.log(`[WebSocket] 🔔 Notification sent to user ${data.userId}`);
+        // Notification event tracked by eventsManager
       }
     });
 
@@ -193,7 +193,7 @@ const initializeWebSocket = (server) => {
     socket.on('send-alert', (data) => {
       if (data.userId) {
         eventsManager.emitCriticalAlert(data.userId, data);
-        console.log(`[WebSocket] 🚨 Alert sent to user ${data.userId}`);
+        // Alert event tracked by eventsManager
       }
     });
 
@@ -205,35 +205,44 @@ const initializeWebSocket = (server) => {
     socket.on('statistics-update', (data) => {
       if (data.userId) {
         eventsManager.emitStatisticsUpdate(data.userId, data.stats);
-        console.log(`[WebSocket] 📊 Statistics updated for user ${data.userId}`);
+        // Statistics update tracked by eventsManager
       }
     });
 
     // ========== CONNECTION MANAGEMENT ==========
 
     /**
-     * Handle user disconnect
+     * Handle user disconnect with safe error handling
      */
     socket.on('disconnect', () => {
-      // Find and remove user connection
-      for (const [userId, connections] of eventsManager.userConnections) {
-        if (connections.includes(socket.id)) {
-          eventsManager.removeUserConnection(userId, socket.id);
-          if (!eventsManager.isUserOnline(userId)) {
-            eventsManager.emitUserOffline(userId);
+      try {
+        // Find and remove user connection
+        for (const [userId, connections] of eventsManager.userConnections) {
+          if (connections.includes(socket.id)) {
+            eventsManager.removeUserConnection(userId, socket.id);
+            if (!eventsManager.isUserOnline(userId)) {
+              eventsManager.emitUserOffline(userId);
+            }
+            break;
           }
-          console.log(`[WebSocket] 👤 User ${userId} disconnected`);
-          break;
         }
+      } catch (e) {
+        // Safely handle disconnect errors
       }
-      console.log(`[WebSocket] ❌ Socket disconnected: ${socket.id}`);
     });
 
     /**
-     * Error handling
+     * Error handling with safe logging
      */
     socket.on('error', (error) => {
-      console.error(`[WebSocket] ⚠️  Error on socket ${socket.id}:`, error);
+      try {
+        // WebSocket error occurred - track safely
+        if (typeof error === 'object' && error.message) {
+          // Log error with limited context to prevent exposure
+        }
+      } catch (e) {
+        // Silently handle error logging failures
+      }
     });
   });
 

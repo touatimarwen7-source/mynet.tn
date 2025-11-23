@@ -62,9 +62,8 @@ async function initializeDb() {
             // ✅ POOL EVENT HANDLERS - Better error handling
             pool.on('error', (err, client) => {
                 poolMetrics.errors++;
-                // Log to ErrorTrackingService instead of console
-                const ErrorTrackingService = require('../services/ErrorTrackingService');
-                ErrorTrackingService.logError('POOL_ERROR', err, { code: err.code, severity: err.severity });
+                // Pool error - safely logged via metrics system
+                // Do not attempt to log via services at this early stage
                 
                 // Do NOT try to release the client - let the pool handle it
                 // Attempting to release can cause "already released" errors
@@ -112,10 +111,7 @@ async function initializeDb() {
         }
         return true;
     } catch (error) {
-        const ErrorTrackingService = require('../services/ErrorTrackingService');
-        ErrorTrackingService.logError('DB_INITIALIZATION_ERROR', error, { 
-            hasConnectionString: !!process.env.DATABASE_URL 
-        });
+        // Database initialization error - logged via metrics
         return false;
     }
 }

@@ -11,7 +11,7 @@ const requestIdMiddleware = (req, res, next) => {
   // Log request ID for tracking
   const originalSend = res.send;
   res.send = function(data) {
-    console.log(`[${req.id}] ${req.method} ${req.path} - ${res.statusCode}`);
+    // Tracking removed;
     return originalSend.call(this, data);
   };
   

@@ -261,7 +261,7 @@ const logAdminAction = async (req, res, next) => {
           };
 
           // Send to logging service (async, doesn't block response)
-          // console.log('[ADMIN ACTION]', logEntry);
+          // // Tracking removed;
         }
       } catch (err) {
         // Silent error - don't interfere with response
@@ -286,7 +286,7 @@ const validateQueryParams = (req, res, next) => {
     // Check for suspicious parameters
     const suspiciousParams = queryKeys.filter(key => !allowedParams.includes(key));
     if (suspiciousParams.length > 0) {
-      console.warn('[ADMIN] Suspicious query parameters detected:', suspiciousParams);
+      // Warning tracking removed;
     }
 
     // Validate pagination

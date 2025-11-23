@@ -47,12 +47,14 @@ import { setPageTitle } from '../utils/pageTitle';
 
 const STEPS = [
   { label: 'Offre de base', icon: '📋' },
+  { label: 'Conformité conditions', icon: '🔑' },
+  { label: 'Informations fournisseur', icon: '📞' },
   { label: 'Détails techniques', icon: '🔧' },
   { label: 'Proposition financière', icon: '💰', secure: true },
   { label: 'Conditions paiement', icon: '🏦', secure: true },
   { label: 'Délais livraison', icon: '📦' },
-  { label: 'Documents', icon: '📎' },
-  { label: 'Déclaration', icon: '✔️' },
+  { label: 'Documents justificatifs', icon: '📎' },
+  { label: 'Déclarations', icon: '✔️' },
   { label: 'Révision finale', icon: '🔐' }
 ];
 
@@ -76,7 +78,15 @@ export default function CreateBid() {
     attachments: [],
     warranty_period: '',
     compliance_statement: false,
-    confidential_info_statement: false
+    confidential_info_statement: false,
+    eligibility_compliance: false,
+    mandatory_documents_confirmed: [],
+    supplier_name: '',
+    supplier_contact_person: '',
+    supplier_email: '',
+    supplier_phone: '',
+    supplier_address: '',
+    supplier_registration_number: ''
   });
 
   const [newTechnicalDetail, setNewTechnicalDetail] = useState('');
@@ -167,13 +177,25 @@ export default function CreateBid() {
           return false;
         }
         break;
-      case 1: // Technical Details
+      case 1: // Eligibility Compliance
+        if (!formData.eligibility_compliance) {
+          setError('Vous devez confirmer la conformité aux conditions');
+          return false;
+        }
+        break;
+      case 2: // Supplier Info
+        if (!formData.supplier_name.trim() || !formData.supplier_email.trim() || !formData.supplier_phone.trim()) {
+          setError('Les informations du fournisseur sont requises');
+          return false;
+        }
+        break;
+      case 3: // Technical Details
         if (technicalDetails.length === 0) {
           setError('Au moins un détail technique est requis');
           return false;
         }
         break;
-      case 2: // Financial Proposal
+      case 4: // Financial Proposal
         if (!formData.total_amount) {
           setError('Le montant total est requis');
           return false;
@@ -183,19 +205,19 @@ export default function CreateBid() {
           return false;
         }
         break;
-      case 3: // Payment Terms
+      case 5: // Payment Terms
         if (!formData.payment_terms) {
           setError('Les conditions de paiement sont requises');
           return false;
         }
         break;
-      case 4: // Delivery
+      case 6: // Delivery
         if (!formData.delivery_time) {
           setError('Le délai de livraison est requis');
           return false;
         }
         break;
-      case 6: // Declaration
+      case 8: // Declaration
         if (!formData.compliance_statement || !formData.confidential_info_statement) {
           setError('Vous devez accepter toutes les déclarations');
           return false;
@@ -227,7 +249,7 @@ export default function CreateBid() {
     e.preventDefault();
     setError('');
 
-    if (!validateStep(2) || !validateStep(3) || !validateStep(6)) {
+    if (!validateStep(0) || !validateStep(1) || !validateStep(2) || !validateStep(4) || !validateStep(5) || !validateStep(8)) {
       return;
     }
 
@@ -281,8 +303,139 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 2: Technical Details
+  // Step 2: Eligibility & Compliance
   const Step2Content = () => (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+          🔑 Conformité aux Conditions de Participation
+        </Typography>
+        <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+          Veuillez confirmer que vous respectez toutes les conditions d'éligibilité de cet appel d'offres.
+        </Typography>
+      </Box>
+
+      <Alert severity="warning" sx={{ backgroundColor: '#fff3cd', color: '#856404' }}>
+        Vérifiez que vous possédez tous les documents obligatoires avant de soumettre votre offre.
+      </Alert>
+
+      <Box>
+        <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 2, color: '#212121' }}>
+          Documents Obligatoires
+        </Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {['Dossier d\'enregistrement fiscal', 'Carte bancaire', 'Assurance', 'Références commerciales', 'CNSS', 'Certificat de conformité'].map((doc) => (
+            <FormControlLabel
+              key={doc}
+              control={
+                <Checkbox
+                  checked={formData.mandatory_documents_confirmed.includes(doc)}
+                  onChange={(e) => {
+                    setFormData(prev => ({
+                      ...prev,
+                      mandatory_documents_confirmed: e.target.checked
+                        ? [...prev.mandatory_documents_confirmed, doc]
+                        : prev.mandatory_documents_confirmed.filter(d => d !== doc)
+                    }));
+                  }}
+                  disabled={loading}
+                />
+              }
+              label={<Typography sx={{ fontSize: '13px' }}>{doc}</Typography>}
+            />
+          ))}
+        </Box>
+      </Box>
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={formData.eligibility_compliance}
+            onChange={(e) => setFormData(prev => ({ ...prev, eligibility_compliance: e.target.checked }))}
+            disabled={loading}
+          />
+        }
+        label={<Typography sx={{ fontSize: '13px' }}>Je certifie que je respecte toutes les conditions d'éligibilité *</Typography>}
+      />
+    </Box>
+  );
+
+  // Step 3: Supplier Information
+  const Step3Content = () => (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+          📞 Informations du Fournisseur
+        </Typography>
+        <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+          Ces informations seront utilisées pour contacter votre entreprise concernant cette offre.
+        </Typography>
+      </Box>
+
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: '16px' }}>
+        <TextField
+          fullWidth
+          label="Nom de l'Entreprise *"
+          name="supplier_name"
+          value={formData.supplier_name}
+          onChange={handleChange}
+          disabled={loading}
+        />
+        <TextField
+          fullWidth
+          label="N° d'Immatriculation *"
+          name="supplier_registration_number"
+          value={formData.supplier_registration_number}
+          onChange={handleChange}
+          disabled={loading}
+        />
+      </Box>
+
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: '16px' }}>
+        <TextField
+          fullWidth
+          label="Personne de Contact *"
+          name="supplier_contact_person"
+          value={formData.supplier_contact_person}
+          onChange={handleChange}
+          disabled={loading}
+        />
+        <TextField
+          fullWidth
+          label="Email *"
+          type="email"
+          name="supplier_email"
+          value={formData.supplier_email}
+          onChange={handleChange}
+          disabled={loading}
+        />
+      </Box>
+
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: '16px' }}>
+        <TextField
+          fullWidth
+          label="Téléphone *"
+          name="supplier_phone"
+          value={formData.supplier_phone}
+          onChange={handleChange}
+          disabled={loading}
+        />
+        <TextField
+          fullWidth
+          label="Adresse"
+          name="supplier_address"
+          value={formData.supplier_address}
+          onChange={handleChange}
+          disabled={loading}
+          multiline
+          rows={1}
+        />
+      </Box>
+    </Box>
+  );
+
+  // Step 4: Technical Details (OLD Step 2)
+  const Step4Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Box sx={{ display: 'flex', gap: '8px' }}>
         <TextField
@@ -331,8 +484,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 3: Financial Proposal (SECURE)
-  const Step3Content = () => (
+  // Step 5: Financial Proposal (SECURE) (OLD Step 3)
+  const Step5Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Alert severity="warning" sx={{ backgroundColor: '#fff3cd', color: '#856404', display: 'flex', alignItems: 'center', gap: '8px' }}>
         <LockIcon sx={{ fontSize: '18px' }} />
@@ -384,8 +537,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 4: Payment Terms (SECURE)
-  const Step4Content = () => (
+  // Step 6: Payment Terms (SECURE) (OLD Step 4)
+  const Step6Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Alert severity="warning" sx={{ backgroundColor: '#fff3cd', color: '#856404', display: 'flex', alignItems: 'center', gap: '8px' }}>
         <LockIcon sx={{ fontSize: '18px' }} />
@@ -436,8 +589,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 5: Delivery
-  const Step5Content = () => (
+  // Step 7: Delivery (OLD Step 5)
+  const Step7Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <TextField
         fullWidth
@@ -461,8 +614,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 6: Documents
-  const Step6Content = () => (
+  // Step 8: Documents (OLD Step 6)
+  const Step8Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Button
         variant="outlined"
@@ -514,8 +667,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 7: Declaration
-  const Step7Content = () => (
+  // Step 9: Declaration (OLD Step 7)
+  const Step9Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Paper sx={{ padding: '16px', backgroundColor: 'success.light' }}>
         <Typography variant="h6" sx={{ color: 'success.dark', marginBottom: '12px' }}>
@@ -554,7 +707,7 @@ export default function CreateBid() {
   );
 
   // Step 8: Final Review
-  const Step8Content = () => (
+  const Step10Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Alert severity="success" sx={{ backgroundColor: 'success.light', color: 'success.dark' }}>
         ✓ Toutes les étapes ont été complétées. Prêt à soumettre l'offre.
@@ -588,6 +741,8 @@ export default function CreateBid() {
       case 5: return <Step6Content />;
       case 6: return <Step7Content />;
       case 7: return <Step8Content />;
+      case 8: return <Step9Content />;
+      case 9: return <Step10Content />;
       default: return null;
     }
   };

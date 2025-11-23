@@ -5,9 +5,14 @@ const performanceMiddleware = (req, res, next) => {
   res.on('finish', () => {
     const duration = Date.now() - startTime;
     
-    // Warn if response takes too long
+    // Track slow requests
     if (duration > 1000) {
-      console.warn(`⚠️ SLOW REQUEST: ${req.method} ${req.path} took ${duration}ms`);
+      const performanceMetrics = require('../utils/performanceMetrics');
+      performanceMetrics.recordSlowRequest({
+        method: req.method,
+        path: req.path,
+        duration
+      });
     }
     
     // Track response time

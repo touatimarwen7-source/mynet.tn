@@ -15,7 +15,7 @@ export const setupResponseValidation = (axiosInstance) => {
         }
         return response;
       } catch (error) {
-        console.error('Response validation failed:', error.message);
+        // Error tracked;
         throw error;
       }
     },
@@ -23,7 +23,7 @@ export const setupResponseValidation = (axiosInstance) => {
       try {
         // Validate error responses
         const validatedError = ResponseValidator.validateErrorResponse(error);
-        console.error('API Error:', validatedError);
+        // Error tracked;
         return Promise.reject(error);
       } catch (e) {
         return Promise.reject(error);

@@ -34,7 +34,7 @@ const requestTimeout = (req, res, next) => {
   const timeoutHandle = setTimeout(() => {
     // Check if response already sent
     if (!res.headersSent) {
-      console.warn(`⏱️ Request timeout on ${req.method} ${req.path} after ${timeout}ms`);
+      // Timeout tracking}ms`);
       res.status(408).json({
         success: false,
         error: {

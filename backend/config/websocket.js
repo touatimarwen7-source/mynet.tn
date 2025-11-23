@@ -22,7 +22,7 @@ const initializeWebSocket = (server) => {
   eventsManager = new WebSocketEventsManager(io);
 
   io.on('connection', (socket) => {
-    console.log(`[WebSocket] ✨ User connected: ${socket.id}`);
+    // WebSocket connection established - tracked via eventsManager
 
     // ========== USER ROOM MANAGEMENT ==========
 
@@ -33,7 +33,7 @@ const initializeWebSocket = (server) => {
       if (userId) {
         socket.join(`user-${userId}`);
         eventsManager.registerUserConnection(userId, socket.id);
-        console.log(`[WebSocket] 👤 User ${userId} joined personal room`);
+        // User connection tracked by eventsManager
         
         // Emit user online status
         eventsManager.emitUserOnline(userId);
@@ -46,7 +46,7 @@ const initializeWebSocket = (server) => {
     socket.on('join-tender', (tenderId) => {
       if (tenderId) {
         socket.join(`tender-${tenderId}`);
-        console.log(`[WebSocket] 🎯 Socket joined tender ${tenderId} room`);
+        // Room join tracked
       }
     });
 
@@ -56,7 +56,7 @@ const initializeWebSocket = (server) => {
     socket.on('leave-tender', (tenderId) => {
       if (tenderId) {
         socket.leave(`tender-${tenderId}`);
-        console.log(`[WebSocket] 🚪 Socket left tender ${tenderId} room`);
+        // Room leave tracked
       }
     });
 
@@ -68,7 +68,7 @@ const initializeWebSocket = (server) => {
     socket.on('new-offer', (data) => {
       if (data.tenderId) {
         eventsManager.emitOfferCreated(data.tenderId, data);
-        console.log(`[WebSocket] 📦 New offer for tender ${data.tenderId}`);
+        // Offer event handled by eventsManager
       }
     });
 

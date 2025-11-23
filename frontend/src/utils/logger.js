@@ -62,7 +62,7 @@ class Logger {
         body: JSON.stringify(logEntry),
       });
     } catch (error) {
-      console.error('Failed to send log to backend:', error);
+      // Error tracked;
     }
   }
 

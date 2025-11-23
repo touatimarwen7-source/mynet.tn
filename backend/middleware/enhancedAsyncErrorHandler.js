@@ -44,7 +44,7 @@ const enhancedAsyncHandler = (operationName, timeoutMs = 30000) => {
           statusCode: error.statusCode || 500
         };
 
-        console.error(`❌ [${operationName}] Error:`, errorLog);
+        // Error trackedLog);
 
         // Check for SQL injection patterns in error
         if (error.message && detectSQLInjectionPattern(error.message)) {

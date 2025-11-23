@@ -62,9 +62,9 @@ async function initializeDb() {
             // ✅ POOL EVENT HANDLERS - Better error handling
             pool.on('error', (err, client) => {
                 poolMetrics.errors++;
-                console.error('❌ POOL ERROR:', err.message);
-                console.error('   Error Code:', err.code);
-                console.error('   Severity:', err.severity);
+                // Log to ErrorTrackingService instead of console
+                const ErrorTrackingService = require('../services/ErrorTrackingService');
+                ErrorTrackingService.logError('POOL_ERROR', err, { code: err.code, severity: err.severity });
                 
                 // Do NOT try to release the client - let the pool handle it
                 // Attempting to release can cause "already released" errors
@@ -83,19 +83,20 @@ async function initializeDb() {
             pool.on('connect', () => {
                 poolMetrics.totalConnections++;
                 poolMetrics.activeConnections++;
-                console.log(`✅ New connection added to pool (Total: ${poolMetrics.totalConnections})`);
+                // Removed console.log - connection tracking handled by metrics
             });
 
             pool.on('remove', () => {
                 poolMetrics.activeConnections--;
-                console.log(`⚠️ Connection removed from pool (Active: ${poolMetrics.activeConnections})`);
+                // Removed console.log - connection tracking handled by metrics
             });
 
             // ✅ QUERY ERROR HANDLER - Catch idle transaction errors
             pool.on('query', (query) => {
-                // Log slow queries (optional)
+                // Log slow queries via monitoring service instead of console
                 if (query.duration > 5000) {
-                    console.warn(`⚠️ Slow query detected (${query.duration}ms):`, query.text.substring(0, 50));
+                    const performanceMetrics = require('../utils/performanceMetrics');
+                    performanceMetrics.recordQuery('slow-query', query.duration);
                 }
             });
 
@@ -103,19 +104,18 @@ async function initializeDb() {
             const client = await pool.connect();
             try {
                 const result = await client.query('SELECT NOW()');
-                console.log('✅ DATABASE: Connection Pool created and connected successfully to Neon PostgreSQL.');
-                console.log(`   Max connections: 15 | Min connections: 3`);
-                console.log(`   Idle timeout: 30s | Connection timeout: 10s`);
-                console.log(`   Pool Status: Ready with ${poolMetrics.totalConnections} active connections`);
+                // Connection successful - logged via server startup sequence only
+                // Removed verbose console.log statements
             } finally {
                 client.release();
             }
         }
         return true;
     } catch (error) {
-        console.error('❌ DATABASE ERROR: Failed to connect to Neon PostgreSQL.');
-        console.error('Error Details:', error.message);
-        console.error('Connection String:', process.env.DATABASE_URL ? '✓ Present' : '✗ Missing');
+        const ErrorTrackingService = require('../services/ErrorTrackingService');
+        ErrorTrackingService.logError('DB_INITIALIZATION_ERROR', error, { 
+            hasConnectionString: !!process.env.DATABASE_URL 
+        });
         return false;
     }
 }

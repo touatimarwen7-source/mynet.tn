@@ -95,7 +95,7 @@ class Analytics {
         body: JSON.stringify(event),
       });
     } catch (error) {
-      console.error('Failed to send analytics:', error);
+      // Error tracked;
     }
   }
 

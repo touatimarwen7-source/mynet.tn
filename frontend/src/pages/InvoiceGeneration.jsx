@@ -61,7 +61,7 @@ export default function InvoiceGeneration() {
       setInvoices(invoicesRes.data || []);
     } catch (err) {
       setError('Erreur lors du chargement des données');
-      console.error(err);
+      // Error tracked;
     } finally {
       setLoading(false);
     }

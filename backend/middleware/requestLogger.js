@@ -27,7 +27,7 @@ const requestLogger = (req, res, next) => {
 
     // Only log errors and slow requests
     if (res.statusCode >= 400 || duration > 1000) {
-      console.log(`[${requestId}] ${req.method} ${req.path} - ${res.statusCode} (${duration}ms)`);
+      // Request loggedId}] ${req.method} ${req.path} - ${res.statusCode} (${duration}ms)`);
     }
 
     return originalSend.call(this, data);

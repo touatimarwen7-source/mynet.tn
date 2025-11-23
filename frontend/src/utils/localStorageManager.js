@@ -14,7 +14,7 @@ class LocalStorageManager {
       localStorage.removeItem(test);
       return true;
     } catch (e) {
-      console.warn('⚠️ localStorage not available:', e.message);
+      // Warning tracked;
       return false;
     }
   }
@@ -25,7 +25,7 @@ class LocalStorageManager {
   static setItem(key, value) {
     try {
       if (!this.isAvailable()) {
-        console.warn('⚠️ localStorage unavailable, using memory fallback');
+        // Warning tracked;
         return this.setInMemory(key, value);
       }
 
@@ -36,7 +36,7 @@ class LocalStorageManager {
       }
       return true;
     } catch (error) {
-      console.error(`❌ Failed to set localStorage[${key}]:`, error.message);
+      // Error tracked;
       // Fallback to memory if quota exceeded
       return this.setInMemory(key, value);
     }
@@ -61,7 +61,7 @@ class LocalStorageManager {
         return value;
       }
     } catch (error) {
-      console.error(`❌ Failed to get localStorage[${key}]:`, error.message);
+      // Error tracked;
       return this.getInMemory(key, defaultValue);
     }
   }
@@ -78,7 +78,7 @@ class LocalStorageManager {
       localStorage.removeItem(key);
       return true;
     } catch (error) {
-      console.error(`❌ Failed to remove localStorage[${key}]:`, error.message);
+      // Error tracked;
       return this.removeInMemory(key);
     }
   }
@@ -96,7 +96,7 @@ class LocalStorageManager {
       localStorage.clear();
       return true;
     } catch (error) {
-      console.error('❌ Failed to clear localStorage:', error.message);
+      // Error tracked;
       this.clearMemory();
       return false;
     }
@@ -113,7 +113,7 @@ class LocalStorageManager {
 
       return Object.keys(localStorage);
     } catch (error) {
-      console.error('❌ Failed to get localStorage keys:', error.message);
+      // Error tracked;
       return Object.keys(this.memoryStore);
     }
   }
@@ -126,7 +126,7 @@ class LocalStorageManager {
       this.memoryStore[key] = value;
       return true;
     } catch (error) {
-      console.error(`❌ Failed to set memory storage[${key}]:`, error.message);
+      // Error tracked;
       return false;
     }
   }

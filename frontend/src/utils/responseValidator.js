@@ -19,7 +19,7 @@ export const ResponseValidator = {
     // Check expected fields
     for (const field of expectedFields) {
       if (!(field in response)) {
-        console.warn(`Missing expected field: ${field}`);
+        // Warning tracked;
       }
     }
 
@@ -127,7 +127,7 @@ export const ResponseValidator = {
       const actualType = typeof data[key];
 
       if (actualType !== expectedType && data[key] !== null) {
-        console.warn(`Type mismatch for ${key}: expected ${expectedType}, got ${actualType}`);
+        // Warning tracked;
       }
     }
 

@@ -45,7 +45,7 @@ const globalErrorHandler = (err, req, res, next) => {
 
   // Log based on severity
   if (err.statusCode >= 500) {
-    console.error('🔴 [SERVER ERROR]', JSON.stringify(errorLog, null, 2));
+    // Error trackedLog, null, 2));
     if (process.env.NODE_ENV === 'development') {
       console.error('Stack:', err.stack);
     }

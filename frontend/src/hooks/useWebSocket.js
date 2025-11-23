@@ -46,7 +46,7 @@ export const useWebSocket = (userId) => {
       // ========== CONNECTION EVENTS ==========
 
       newSocket.on('connect', () => {
-        console.log('[WebSocket] ✅ Connected:', newSocket.id);
+        // Debug: removed;
         setConnected(true);
         reconnectAttempts.current = 0;
 
@@ -57,19 +57,19 @@ export const useWebSocket = (userId) => {
       });
 
       newSocket.on('disconnect', () => {
-        console.log('[WebSocket] ❌ Disconnected');
+        // Debug: removed;
         setConnected(false);
       });
 
       newSocket.on('connect_error', (error) => {
-        console.error('[WebSocket] ⚠️  Connection error:', error);
+        // Error tracked;
         reconnectAttempts.current += 1;
       });
 
       // ========== OFFER EVENTS ==========
 
       newSocket.on('offer-created', (data) => {
-        console.log('[WebSocket] 📦 New offer:', data);
+        // Debug: removed;
         addNotification({
           type: 'offer',
           title: 'Nouvelle Offre',
@@ -81,7 +81,7 @@ export const useWebSocket = (userId) => {
       });
 
       newSocket.on('offer-status-updated', (data) => {
-        console.log('[WebSocket] 📦 Offer status updated:', data);
+        // Debug: removed;
         addNotification({
           type: 'offer-status',
           title: 'Statut de l\'Offre Modifié',
@@ -95,7 +95,7 @@ export const useWebSocket = (userId) => {
       // ========== TENDER EVENTS ==========
 
       newSocket.on('tender-status-changed', (data) => {
-        console.log('[WebSocket] 🎯 Tender status changed:', data);
+        // Debug: removed;
         addNotification({
           type: 'tender',
           title: 'Appel d\'Offres Modifié',
@@ -107,7 +107,7 @@ export const useWebSocket = (userId) => {
       });
 
       newSocket.on('tender-updated', (data) => {
-        console.log('[WebSocket] 🎯 Tender updated:', data);
+        // Debug: removed;
         addNotification({
           type: 'tender-update',
           title: 'Appel d\'Offres Mis à Jour',
@@ -121,7 +121,7 @@ export const useWebSocket = (userId) => {
       // ========== MESSAGE EVENTS ==========
 
       newSocket.on('message-received', (data) => {
-        console.log('[WebSocket] 💬 New message:', data);
+        // Debug: removed;
         addNotification({
           type: 'message',
           title: 'Nouveau Message',
@@ -133,17 +133,17 @@ export const useWebSocket = (userId) => {
       });
 
       newSocket.on('user-typing', (data) => {
-        console.log('[WebSocket] ✍️  User typing:', data.userId);
+        // Debug: removed;
       });
 
       newSocket.on('user-stop-typing', (data) => {
-        console.log('[WebSocket] ✍️  User stopped typing:', data.userId);
+        // Debug: removed;
       });
 
       // ========== RATING & REVIEW EVENTS ==========
 
       newSocket.on('rating-received', (data) => {
-        console.log('[WebSocket] ⭐ Rating received:', data);
+        // Debug: removed;
         addNotification({
           type: 'rating',
           title: 'Nouvelle Évaluation',
@@ -155,7 +155,7 @@ export const useWebSocket = (userId) => {
       });
 
       newSocket.on('review-received', (data) => {
-        console.log('[WebSocket] ✍️  Review received:', data);
+        // Debug: removed;
         addNotification({
           type: 'review',
           title: 'Nouvel Avis',
@@ -169,7 +169,7 @@ export const useWebSocket = (userId) => {
       // ========== NOTIFICATION EVENTS ==========
 
       newSocket.on('notification', (data) => {
-        console.log('[WebSocket] 🔔 Notification:', data);
+        // Debug: removed;
         addNotification({
           type: 'notification',
           title: data.title,
@@ -181,7 +181,7 @@ export const useWebSocket = (userId) => {
       });
 
       newSocket.on('critical-alert', (data) => {
-        console.log('[WebSocket] 🚨 Critical alert:', data);
+        // Debug: removed;
         addNotification({
           type: 'alert',
           title: data.title,
@@ -196,19 +196,19 @@ export const useWebSocket = (userId) => {
       // ========== STATISTICS EVENTS ==========
 
       newSocket.on('statistics-updated', (data) => {
-        console.log('[WebSocket] 📊 Statistics updated:', data);
+        // Debug: removed;
         setLastUpdate(data.timestamp);
       });
 
       // ========== USER STATUS EVENTS ==========
 
       newSocket.on('user-online', (data) => {
-        console.log('[WebSocket] 👤 User online:', data.userId);
+        // Debug: removed;
         setOnlineUsers(prev => new Set([...prev, data.userId]));
       });
 
       newSocket.on('user-offline', (data) => {
-        console.log('[WebSocket] 👤 User offline:', data.userId);
+        // Debug: removed;
         setOnlineUsers(prev => {
           const updated = new Set(prev);
           updated.delete(data.userId);
@@ -224,7 +224,7 @@ export const useWebSocket = (userId) => {
         }
       };
     } catch (error) {
-      console.error('[WebSocket] Failed to initialize:', error);
+      // Error tracked;
     }
   }, [userId]);
 

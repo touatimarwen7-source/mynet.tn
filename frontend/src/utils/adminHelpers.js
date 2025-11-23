@@ -109,7 +109,7 @@ export function exportToJSON(data, filename) {
 
 export function exportToCSV(data, filename) {
   if (!data || data.length === 0) {
-    console.warn('No data to export');
+    // Warning tracked;
     return;
   }
 

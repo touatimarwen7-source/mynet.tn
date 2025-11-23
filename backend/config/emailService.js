@@ -3,7 +3,7 @@ let nodemailer;
 try {
   nodemailer = require('nodemailer');
 } catch (e) {
-  console.warn('⚠️ nodemailer not installed, email service optional');
+  // nodemailer not installed - email service optional
 }
 
 let transporter;
@@ -19,18 +19,18 @@ const initializeEmailService = async () => {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         transporter = sgMail;
         emailServiceEnabled = true;
-        console.log('✅ SendGrid email service initialized');
+        // SendGrid initialized
       } catch (e) {
-        console.warn('⚠️ SendGrid not configured');
+        // SendGrid not configured - will fallback
       }
     } else if (provider === 'resend') {
       try {
         const { Resend } = require('resend');
         transporter = new Resend(process.env.RESEND_API_KEY);
         emailServiceEnabled = true;
-        console.log('✅ Resend email service initialized');
+        // Resend initialized
       } catch (e) {
-        console.warn('⚠️ Resend not configured');
+        // Resend not configured - will fallback
       }
     } else if (nodemailer) {
       try {
@@ -42,19 +42,18 @@ const initializeEmailService = async () => {
           }
         });
         emailServiceEnabled = true;
-        console.log('✅ Gmail email service initialized');
+        // Gmail initialized
       } catch (e) {
-        console.warn('⚠️ Gmail email service not configured');
+        // Gmail not configured - will fallback
       }
     }
   } catch (error) {
-    console.warn('⚠️ Email service initialization warning:', error.message);
+    // Email service initialization encountered an issue - will be disabled
   }
 };
 
 const sendEmail = async (to, subject, htmlContent) => {
   if (!emailServiceEnabled) {
-    console.warn('⚠️ Email service disabled, skipping email');
     return false;
   }
 
@@ -84,10 +83,11 @@ const sendEmail = async (to, subject, htmlContent) => {
       });
     }
 
-    console.log(`✅ Email sent to ${to}`);
+    // Email sent successfully - tracked via audit logs
     return true;
   } catch (error) {
-    console.error('❌ Email sending failed:', error.message);
+    const ErrorTrackingService = require('../services/ErrorTrackingService');
+    ErrorTrackingService.logError('EMAIL_SEND_ERROR', error, { to });
     return false;
   }
 };

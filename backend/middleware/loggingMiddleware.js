@@ -7,19 +7,21 @@ const loggingMiddleware = (req, res, next) => {
   
   res.json = function(data) {
     const duration = Date.now() - startTime;
-    const logEntry = {
-      timestamp: new Date().toISOString(),
-      method: req.method,
-      path: req.path,
-      status: res.statusCode,
-      duration: `${duration}ms`,
-      userId: req.user?.id || 'anonymous',
-      ip: req.ip
-    };
     
-    // Log errors
+    // Track HTTP errors safely
     if (res.statusCode >= 400) {
-      console.error(`[${logEntry.status}] ${logEntry.method} ${logEntry.path}`, logEntry);
+      try {
+        const ErrorTrackingService = require('../services/ErrorTrackingService');
+        if (ErrorTrackingService && ErrorTrackingService.logError) {
+          ErrorTrackingService.logError('HTTP_ERROR', new Error(`${res.statusCode} ${req.method} ${req.path}`), {
+            method: req.method,
+            path: req.path,
+            duration: `${duration}ms`
+          });
+        }
+      } catch (e) {
+        // Silently ignore if ErrorTrackingService not available
+      }
     }
     
     // Call original json

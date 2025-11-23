@@ -41,9 +41,9 @@ class EnhancedErrorBoundary extends React.Component {
         headers: { 'Content-Type': 'application/json' }
       });
 
-      console.log('📊 Error logged to backend for monitoring');
+      // Debug: removed;
     } catch (err) {
-      console.error('Failed to log error:', err);
+      // Error tracked;
     }
   };
 

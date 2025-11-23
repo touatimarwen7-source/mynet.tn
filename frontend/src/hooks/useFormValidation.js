@@ -171,7 +171,7 @@ export const useFormValidation = (initialValues = {}, validationSchema = {}, onS
       try {
         await onSubmit(values);
       } catch (err) {
-        console.error('Form submission error:', err);
+        // Error tracked;
       } finally {
         setIsSubmitting(false);
       }

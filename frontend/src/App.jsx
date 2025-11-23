@@ -96,6 +96,7 @@ const BuyerAnalytics = lazy(() => import('./pages/BuyerAnalytics'));
 const SupplierAnalytics = lazy(() => import('./pages/SupplierAnalytics'));
 const SupplierPerformanceTracking = lazy(() => import('./pages/SupplierPerformanceTracking'));
 const SubscriptionPlans = lazy(() => import('./pages/SubscriptionPlans'));
+const PageEditor = lazy(() => import('./pages/PageEditor'));
 
 const LoadingFallback = () => (
   <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
@@ -445,6 +446,16 @@ function App() {
               path="/admin" 
               element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/tenders" />} 
             />
+              {/* Page Editor */}
+              <Route 
+              path="/super-admin/page-editor" 
+              element={user?.role === 'super_admin' ? <PageEditor /> : <Navigate to="/tenders" />} 
+            />
+              <Route 
+              path="/super-admin/page-editor/:pageId" 
+              element={user?.role === 'super_admin' ? <PageEditor /> : <Navigate to="/tenders" />} 
+            />
+
               {/* Super Admin Only Routes */}
               <Route 
               path="/super-admin/audit-logs" 

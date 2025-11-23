@@ -86,10 +86,8 @@ export default function SuperAdminCRUD() {
   };
 
   const handleEditPage = (page) => {
-    setSelectedItem(page);
-    setFormData({ title: page.title, slug: page.slug, description: '', status: page.status });
-    setDialogType('editPage');
-    setOpenDialog(true);
+    // Navigate to dedicated page editor for rich editing experience
+    window.location.href = `/super-admin/page-editor/${page.id}`;
   };
 
   const handleDeletePage = (page) => {

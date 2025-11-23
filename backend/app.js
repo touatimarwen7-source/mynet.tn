@@ -28,6 +28,7 @@ const bidComparisonRoutes = require('./routes/bidComparisonRoutes');
 const performanceTrackingRoutes = require('./routes/performanceTrackingRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const emailRoutes = require('./routes/emailRoutes');
+const superAdminRoutes = require('./routes/superAdminRoutes');
 const { ipMiddleware } = require('./middleware/ipMiddleware');
 let initializeEmailService;
 try {
@@ -125,6 +126,7 @@ app.get('/', (req, res) => {
             auth: '/api/auth',
             procurement: '/api/procurement',
             admin: '/api/admin',
+            'super-admin': '/api/super-admin',
             search: '/api/search',
             messaging: '/api/messaging',
             documents: '/api/documents/pdf',
@@ -136,6 +138,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/procurement', procurementRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/super-admin', superAdminRoutes);
 app.use('/api/admin/features', featureFlagRoutes);
 app.use('/api/admin/supplier-features', supplierFeatureRoutes);
 app.use('/api/company-profile', companyProfileRoutes);

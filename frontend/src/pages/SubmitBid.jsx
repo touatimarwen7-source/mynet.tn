@@ -213,6 +213,12 @@ export default function SubmitBid() {
           </Typography>
           {tender && (
             <Box>
+              <Typography sx={{ fontSize: '14px', color: '#0056B3', mb: '8px', fontWeight: 700 }}>
+                🔐 ID Référence (Plateforme): <strong>{tender.id || 'N/A'}</strong>
+              </Typography>
+              <Typography sx={{ fontSize: '13px', color: '#666666', mb: '4px' }}>
+                <strong>N° Consultation:</strong> {tender.consultation_number}
+              </Typography>
               <Typography sx={{ fontSize: '14px', color: '#666666', mb: '8px' }}>
                 {tender.title}
               </Typography>
@@ -237,16 +243,6 @@ export default function SubmitBid() {
                 📊 ملخص المناقصة
               </Typography>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Box>
-                    <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
-                      الميزانية المتوقعة
-                    </Typography>
-                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3' }}>
-                      {tender?.budget_min} - {tender?.budget_max} TND
-                    </Typography>
-                  </Box>
-                </Grid>
                 <Grid item xs={12} sm={6} md={3}>
                   <Box>
                     <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>

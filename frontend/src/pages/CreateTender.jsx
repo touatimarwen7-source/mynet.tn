@@ -1285,7 +1285,7 @@ export default function CreateTender() {
                   </Button>
                   <Button
                     variant="contained"
-                    onClick={() => setShowPreview(true)}
+                    onClick={handleSubmit}
                     disabled={loading || totalCriteria !== 100}
                     startIcon={loading ? <CircularProgress size={20} /> : <CheckCircleIcon />}
                     sx={{

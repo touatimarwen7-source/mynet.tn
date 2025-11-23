@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -22,6 +23,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function AccountSettings() {
+  const theme = institutionalTheme;
   const [settings, setSettings] = useState({
     email_notifications: true,
     sms_notifications: false,

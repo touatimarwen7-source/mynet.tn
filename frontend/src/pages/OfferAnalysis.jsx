@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Grid, Typography, Button } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function OfferAnalysis() {
+  const theme = institutionalTheme;
   const analysis = [
     { title: 'Prix moyen', value: '15 000 TND', trend: 'up' },
     { title: 'Prix minimum', value: '5 000 TND', trend: 'down' },

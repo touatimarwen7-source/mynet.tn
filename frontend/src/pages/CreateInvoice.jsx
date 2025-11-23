@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Container,
@@ -56,6 +57,7 @@ const STEPS = [
 ];
 
 export default function CreateInvoice() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const { supplyRequestId } = useParams();
   const [activeStep, setActiveStep] = useState(0);

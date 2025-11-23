@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -62,6 +63,7 @@ const STEPS = [
 
 // Helper component to memoize step content
 const StepContent = ({ type, formData, handleChange, loading, newRequirement, setNewRequirement, addRequirement, removeRequirement, removeAttachment, handleFileUpload, selectedFiles, handleCriteriaChange, totalCriteria, requirementType, setRequirementType, requirementPriority, setRequirementPriority, editRequirement, editingIndex, setEditingIndex, newLot, setNewLot, addLot, removeLot, editLot, editingLotIndex, setEditingLotIndex }) => {
+  const theme = institutionalTheme;
   switch (type) {
     case 'step1':
       return (
@@ -768,6 +770,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
 };
 
 export default function CreateTender() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -26,6 +27,7 @@ import { setPageTitle } from '../utils/pageTitle';
 import axiosInstance from '../services/axiosConfig';
 
 export default function SupplierReviews() {
+  const theme = institutionalTheme;
   const { supplierId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);

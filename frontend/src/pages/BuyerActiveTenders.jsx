@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -34,6 +35,7 @@ import StatusBadge from '../components/StatusBadge';
 import { exportToJSON, exportToCSV, prepareDataForExport } from '../utils/exportUtils';
 
 export default function BuyerActiveTenders() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [tenders, setTenders] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Table, TableHead, TableBody, TableRow, TableCell, Paper, Button, Chip, Typography } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function DisputeManagement() {
+  const theme = institutionalTheme;
   const disputes = [
     { id: 1, order: 'ORD-001', type: 'Qualité du produit', status: 'En examen', date: '2024-11-20' },
     { id: 2, order: 'ORD-002', type: 'Retard de livraison', status: 'Résolu', date: '2024-11-18' },

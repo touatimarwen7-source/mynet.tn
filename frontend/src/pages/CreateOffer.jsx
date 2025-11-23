@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -40,6 +41,7 @@ import { useToast } from '../contexts/AppContext';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function CreateOffer() {
+  const theme = institutionalTheme;
   const { tenderId } = useParams();
   const navigate = useNavigate();
   const { addToast } = useToast();

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -24,6 +25,7 @@ import { procurementAPI } from '../api';
 import TokenManager from '../services/tokenManager';
 
 export default function TenderDetail() {
+  const theme = institutionalTheme;
   const { id } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -19,6 +20,7 @@ import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function BidSubmission() {
+  const theme = institutionalTheme;
   const { tenderId } = useParams();
   const navigate = useNavigate();
   const [tender, setTender] = useState(null);

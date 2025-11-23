@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -15,6 +16,7 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function AboutPage() {
+  const theme = institutionalTheme;
   useEffect(() => {
     setPageTitle('À Propos de MyNet.tn');
   }, []);

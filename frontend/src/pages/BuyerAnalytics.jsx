@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -34,6 +35,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { TableSkeleton } from '../components/SkeletonLoader';
 
 export default function BuyerAnalytics() {
+  const theme = institutionalTheme;
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -24,6 +25,7 @@ import { setPageTitle } from '../utils/pageTitle';
 import { companyProfileAPI } from '../api';
 
 export default function CompanyProfileAdmin() {
+  const theme = institutionalTheme;
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

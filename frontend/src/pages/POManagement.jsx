@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -31,6 +32,7 @@ import Pagination from '../components/Pagination';
 const ITEMS_PER_PAGE = 10;
 
 export default function POManagement() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [pos, setPos] = useState([]);
   const [loading, setLoading] = useState(true);

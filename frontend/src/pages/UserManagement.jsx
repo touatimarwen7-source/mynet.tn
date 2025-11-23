@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -29,6 +30,7 @@ import BlockIcon from '@mui/icons-material/Block';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 export default function UserManagement() {
+  const theme = institutionalTheme;
   const [users, setUsers] = useState([
     {
       id: 1,

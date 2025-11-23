@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -27,6 +28,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function BudgetManagement() {
+  const theme = institutionalTheme;
   const [budgets, setBudgets] = useState([
     { id: 1, name: 'Budget Fournitures', total: 50000, spent: 32500, remaining: 17500, category: 'Fournitures', year: 2025 },
     { id: 2, name: 'Budget Services', total: 80000, spent: 45000, remaining: 35000, category: 'Services', year: 2025 },

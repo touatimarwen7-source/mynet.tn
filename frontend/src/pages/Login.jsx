@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -20,6 +21,7 @@ import TokenManager from '../services/tokenManager';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function Login() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const { addToast } = useToast();
   const [apiError, setApiError] = useState('');

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Tabs, Tab, Typography, Alert } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -23,6 +24,7 @@ import { setPageTitle } from '../utils/pageTitle';
  * 4. Monitoring & Analytics
  */
 export default function SuperAdminDashboard() {
+  const theme = institutionalTheme;
   const [currentTab, setCurrentTab] = useState(0);
 
   useEffect(() => {

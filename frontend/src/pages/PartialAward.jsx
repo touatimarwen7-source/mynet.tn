@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Grid, Typography, Button, TextField } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function PartialAward() {
+  const theme = institutionalTheme;
   const offers = [
     { id: 1, supplier: 'supplier1@test.tn', amount: 5000, qty: 10, unit: 'unité' },
     { id: 2, supplier: 'supplier2@test.tn', amount: 4800, qty: 15, unit: 'unité' }

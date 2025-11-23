@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -19,6 +20,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function MyOffers() {
+  const theme = institutionalTheme;
   const [offers, setOffers] = useState([
     { id: 1, tender: 'Fournitures de bureau', price: 5000, status: 'Acceptée', date: '2024-11-20' },
     { id: 2, tender: 'Équipements informatiques', price: 75000, status: 'En attente', date: '2024-11-21' }

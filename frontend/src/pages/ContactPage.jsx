@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -20,6 +21,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function ContactPage() {
+  const theme = institutionalTheme;
   setPageTitle('Contact et Support');
 
   const [formData, setFormData] = useState({

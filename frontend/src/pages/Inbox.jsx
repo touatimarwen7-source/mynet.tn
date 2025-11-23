@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -29,6 +30,7 @@ import { setPageTitle } from '../utils/pageTitle';
 import axiosInstance from '../services/axiosConfig';
 
 export default function Inbox() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -20,6 +21,7 @@ import { setPageTitle } from '../utils/pageTitle';
 import { formatDate } from '../utils/dateFormatter';
 
 export default function ContractManagement() {
+  const theme = institutionalTheme;
   const [contracts, setContracts] = useState([
     { id: 1, number: 'CTR-2025-001', supplier: 'Fournisseur A', amount: 40000, status: 'signed', start_date: new Date(), end_date: new Date(Date.now() + 90*24*60*60*1000) },
     { id: 2, number: 'CTR-2025-002', supplier: 'Fournisseur B', amount: 52000, status: 'draft', start_date: new Date(), end_date: new Date(Date.now() + 120*24*60*60*1000) }

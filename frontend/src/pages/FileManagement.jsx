@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Box,
   Button,
@@ -26,6 +27,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { useSuperAdmin } from '../contexts/SuperAdminContext';
 
 const FileManagement = () => {
+  const theme = institutionalTheme;
   const { files, loadingFiles, uploadFile, deleteFile, fetchFiles, errorFiles } = useSuperAdmin();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);

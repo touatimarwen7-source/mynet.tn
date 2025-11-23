@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -39,6 +40,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ClearIcon from '@mui/icons-material/Clear';
 
 function TabPanel({ children, value, index }) {
+  const theme = institutionalTheme;
   return (
     <div hidden={value !== index}>
       {value === index && <Box sx={{ paddingTop: '24px' }}>{children}</Box>}
@@ -47,6 +49,7 @@ function TabPanel({ children, value, index }) {
 }
 
 export default function SubscriptionTiers() {
+  const theme = institutionalTheme;
   const [tabValue, setTabValue] = useState(0);
 
   const [tiers, setTiers] = useState([

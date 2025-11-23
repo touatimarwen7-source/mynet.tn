@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Table, TableHead, TableBody, TableRow, TableCell, Paper, Button, Chip, Typography } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function MonitoringSubmissions() {
+  const theme = institutionalTheme;
   const submissions = [
     { id: 1, user: 'supplier1@test.tn', offer: 'Offre #1', status: 'Acceptée', date: '2024-11-20' },
     { id: 2, user: 'supplier2@test.tn', offer: 'Offre #2', status: 'En examen', date: '2024-11-21' },

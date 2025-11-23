@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Typography, Button, TextField, Alert, List, ListItem, ListItemText } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function MFASetup() {
+  const theme = institutionalTheme;
   const [mfaEnabled, setMfaEnabled] = useState(false);
 
   useEffect(() => {

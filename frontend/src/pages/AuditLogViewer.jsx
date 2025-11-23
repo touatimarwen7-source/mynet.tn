@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -24,6 +25,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useSuperAdmin } from '../contexts/SuperAdminContext';
 
 export default function AuditLogViewer() {
+  const theme = institutionalTheme;
   const { auditLogs, loading, error, fetchAuditLogs } = useSuperAdmin();
   const [filter, setFilter] = useState('');
   const [actionFilter, setActionFilter] = useState('');

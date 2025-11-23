@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -28,6 +29,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useSuperAdmin } from '../contexts/SuperAdminContext';
 
 export default function ArchiveManagement() {
+  const theme = institutionalTheme;
   const { backups, loading, error, fetchBackups, createBackup, restoreBackup } = useSuperAdmin();
   
   const [openDialog, setOpenDialog] = useState(false);

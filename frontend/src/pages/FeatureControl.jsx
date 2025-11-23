@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, Typography, List, ListItem, ListItemText, Switch, Stack, Alert, Chip } from '@mui/material';
 
 export default function FeatureControl() {
+  const theme = institutionalTheme;
   const [features, setFeatures] = useState([
     { id: 1, name: 'Appels d\'offres généraux', enabled: true, category: 'Core', description: 'Système principal d\'appels d\'offres' },
     { id: 2, name: 'Offres directes', enabled: true, category: 'Core', description: 'Requêtes d\'approvisionnement direct' },

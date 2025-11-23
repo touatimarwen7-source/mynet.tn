@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function FeaturesPage() {
+  const theme = institutionalTheme;
   const features = [
     { title: 'Facile à utiliser', desc: 'Interface simple et intuitive pour tous' },
     { title: 'Sécurisé et fiable', desc: 'Niveaux de sécurité et de protection les plus élevés' },

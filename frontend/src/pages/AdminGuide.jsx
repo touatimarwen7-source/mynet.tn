@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, Typography, Alert } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function AdminGuide() {
+  const theme = institutionalTheme;
   useEffect(() => {
     setPageTitle('Guide de l\'Administrateur');
   }, []);

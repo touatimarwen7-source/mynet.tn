@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -29,6 +30,7 @@ import Pagination from '../components/Pagination';
 const ITEMS_PER_PAGE = 10;
 
 export default function EmailNotifications() {
+  const theme = institutionalTheme;
   const [emails, setEmails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');

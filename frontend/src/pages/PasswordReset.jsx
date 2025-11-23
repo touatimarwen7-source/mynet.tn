@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Container,
@@ -19,6 +20,7 @@ import axiosInstance from '../services/axiosConfig';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function PasswordReset() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { addToast } = useToast();

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -18,6 +19,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function InvoiceManagement() {
+  const theme = institutionalTheme;
   const invoices = [
     { id: 'INV-001', amount: 50000, status: 'Payée', date: '2024-11-15', dueDate: '2024-11-20' },
     { id: 'INV-002', amount: 75000, status: 'En attente', date: '2024-11-18', dueDate: '2024-11-25' },

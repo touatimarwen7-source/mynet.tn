@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Container,
@@ -29,6 +30,7 @@ import { authAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function Register() {
+  const theme = institutionalTheme;
   const [searchParams] = useSearchParams();
   const roleFromUrl = searchParams.get('role') || 'supplier';
   const navigate = useNavigate();

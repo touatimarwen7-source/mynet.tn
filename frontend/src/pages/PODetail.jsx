@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -22,6 +23,7 @@ import PrintIcon from '@mui/icons-material/Print';
 import { StatusBadge } from '../components/StatusBadge';
 
 export default function PODetail() {
+  const theme = institutionalTheme;
   const { id } = useParams();
   const navigate = useNavigate();
   const [po, setPo] = useState(null);

@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -37,6 +38,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { SuperAdminContext } from '../contexts/SuperAdminContext';
 
 function TabPanel({ children, value, index }) {
+  const theme = institutionalTheme;
   return (
     <div hidden={value !== index}>
       {value === index && <Box sx={{ paddingTop: '24px' }}>{children}</Box>}
@@ -45,6 +47,7 @@ function TabPanel({ children, value, index }) {
 }
 
 export default function SuperAdminCRUD() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const context = useContext(SuperAdminContext);
   

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useParams } from 'react-router-dom';
 import {
   Container,
@@ -20,6 +21,7 @@ import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function BidComparison() {
+  const theme = institutionalTheme;
   const { tenderId } = useParams();
   const [tender, setTender] = useState(null);
   const [offers, setOffers] = useState([]);

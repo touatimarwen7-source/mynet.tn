@@ -1,9 +1,11 @@
 // Supplier Performance Tracking - TURN 3 ENHANCEMENT
 import React, { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Box, Card, Grid, Typography, LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import axios from 'axios';
 
 const SupplierPerformancePage = () => {
+  const theme = institutionalTheme;
   const [topSuppliers, setTopSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
 

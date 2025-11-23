@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -20,6 +21,7 @@ import {
 import { TableSkeleton } from '../components/SkeletonLoader';
 
 export default function SupplierPerformanceTracking() {
+  const theme = institutionalTheme;
   const [loading, setLoading] = useState(true);
   const [suppliers, setSuppliers] = useState([]);
 

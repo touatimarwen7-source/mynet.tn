@@ -1,8 +1,10 @@
 import { Container, Typography, Box, Paper } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 import { setPageTitle } from '../utils/pageTitle';
 import { useEffect } from 'react';
 
 export default function PrivacyPolicy() {
+  const theme = institutionalTheme;
   useEffect(() => {
     setPageTitle('Politique de Confidentialité');
   }, []);

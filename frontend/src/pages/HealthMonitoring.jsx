@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Typography, LinearProgress, Grid } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function HealthMonitoring() {
+  const theme = institutionalTheme;
   const systemStats = [
     { name: 'Serveur de base de données', value: 45 },
     { name: 'Utilisation mémoire', value: 62 },

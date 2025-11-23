@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, List, ListItem, ListItemText, Switch, Typography } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function NotificationPreferences() {
+  const theme = institutionalTheme;
   const prefs = [
     { name: 'Notifications par courrier électronique', enabled: true },
     { name: 'Notifications par SMS', enabled: false },

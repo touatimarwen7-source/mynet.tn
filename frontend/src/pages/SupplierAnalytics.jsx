@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -22,6 +23,7 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import { TableSkeleton } from '../components/SkeletonLoader';
 
 export default function SupplierAnalytics() {
+  const theme = institutionalTheme;
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
 

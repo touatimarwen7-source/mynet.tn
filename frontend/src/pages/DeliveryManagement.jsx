@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Table, TableHead, TableBody, TableRow, TableCell, Paper, Button, Chip, Typography, Grid } from '@mui/material';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function DeliveryManagement() {
+  const theme = institutionalTheme;
   const deliveries = [
     { id: 1, order: 'ORD-001', status: 'En cours de livraison', location: 'Tunis', date: '2024-11-22', eta: '2024-11-23' },
     { id: 2, order: 'ORD-002', status: 'Livrée', location: 'Sousse', date: '2024-11-20', eta: '2024-11-20' },

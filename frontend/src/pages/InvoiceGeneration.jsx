@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, TextField, Button, Grid, Alert, Typography } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function InvoiceGeneration() {
+  const theme = institutionalTheme;
   const [invoiceData, setInvoiceData] = useState({
     clientName: '', orderNumber: '', amount: '', description: ''
   });

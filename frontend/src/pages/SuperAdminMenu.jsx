@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -29,6 +30,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function SuperAdminMenu() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 

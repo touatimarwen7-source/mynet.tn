@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Grid, Typography, LinearProgress } from '@mui/material';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function PerformanceMonitoring() {
+  const theme = institutionalTheme;
   const metrics = [
     { name: 'Temps de réponse du serveur', value: 95, target: 99 },
     { name: 'Vitesse de chargement des pages', value: 87, target: 90 },

@@ -1,10 +1,12 @@
 // Analytics Dashboard - TURN 3 ENHANCEMENT
 import React, { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Box, Card, Grid, Typography, CircularProgress } from '@mui/material';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import axios from 'axios';
 
 const AnalyticsDashboard = () => {
+  const theme = institutionalTheme;
   const [stats, setStats] = useState(null);
   const [trends, setTrends] = useState([]);
   const [distribution, setDistribution] = useState([]);

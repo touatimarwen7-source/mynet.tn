@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -18,6 +19,7 @@ import { setPageTitle } from '../utils/pageTitle';
 import axiosInstance from '../services/axiosConfig';
 
 export default function MessageDetail() {
+  const theme = institutionalTheme;
   const { messageId } = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = useState(null);

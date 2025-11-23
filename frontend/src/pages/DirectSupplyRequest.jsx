@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -29,6 +30,7 @@ import { procurementAPI } from '../api';
 const steps = ['Sélectionner un fournisseur', 'Détails du produit', 'Budget et notes', 'Confirmation'];
 
 export default function DirectSupplyRequest() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -27,6 +28,7 @@ import { debounce, optimizedSearch } from '../utils/searchOptimization';
 const ITEMS_PER_PAGE = 10;
 
 export default function TenderList() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [tenders, setTenders] = useState([]);
   const [loading, setLoading] = useState(true);

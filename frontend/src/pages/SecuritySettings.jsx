@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Typography, Button, Alert, List, ListItem, ListItemText, Divider } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function SecuritySettings() {
+  const theme = institutionalTheme;
   const settings = [
     { title: 'Pare-feu', description: 'Protection avancée contre les attaques', status: 'Activé' },
     { title: 'Chiffrement', description: 'Chiffrage du protocole SSL/TLS', status: 'Activé' },

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -30,6 +31,7 @@ import { setPageTitle } from '../utils/pageTitle';
 import { directSupplyAPI } from '../api';
 
 export default function SupplierRequests() {
+  const theme = institutionalTheme;
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

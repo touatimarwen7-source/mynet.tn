@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, CardHeader, Typography, Grid, Button, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function FinancialReports() {
+  const theme = institutionalTheme;
   const stats = [
     { label: 'Revenu total', value: '500 000 TND' },
     { label: 'Frais administratifs', value: '50 000 TND' },

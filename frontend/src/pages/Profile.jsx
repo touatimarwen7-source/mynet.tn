@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -38,6 +39,7 @@ import { authAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function Profile({ user }) {
+  const theme = institutionalTheme;
   useEffect(() => {
     setPageTitle('Mon Profil Professionnel');
   }, []);

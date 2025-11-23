@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -18,6 +19,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import StarIcon from '@mui/icons-material/Star';
 
 export default function SubscriptionPlans() {
+  const theme = institutionalTheme;
   const plans = [
     {
       id: 'starter',

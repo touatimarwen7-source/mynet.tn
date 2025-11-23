@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -16,6 +17,7 @@ import { useToast } from '../contexts/AppContext';
 import axiosInstance from '../services/axiosConfig';
 
 export default function EmailVerification() {
+  const theme = institutionalTheme;
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { addToast } = useToast();

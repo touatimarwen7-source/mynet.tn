@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Card, CardContent, Grid, Typography, Button, List, ListItem } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function PricingPage() {
+  const theme = institutionalTheme;
   const plans = [
     { name: 'Basique', price: 'Gratuit', features: ['Jusqu\'à 5 appels d\'offres', 'Support de base', 'Rapports simples'] },
     { name: 'Professionnel', price: '50 TND', features: ['Appels d\'offres illimités', 'Support prioritaire', 'Rapports avancés'] },

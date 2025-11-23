@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Container, Box, Tabs, Tab, Typography, Alert } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
@@ -14,6 +15,7 @@ import { setPageTitle } from '../utils/pageTitle';
  * - Cannot modify system or delete data
  */
 export default function AdminDashboard() {
+  const theme = institutionalTheme;
   const [currentTab, setCurrentTab] = useState(0);
 
   useEffect(() => {

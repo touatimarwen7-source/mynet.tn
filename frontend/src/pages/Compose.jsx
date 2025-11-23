@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -17,6 +18,7 @@ import { setPageTitle } from '../utils/pageTitle';
 import axiosInstance from '../services/axiosConfig';
 
 export default function Compose() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const [receivers, setReceivers] = useState([]);
   const [loading, setLoading] = useState(true);

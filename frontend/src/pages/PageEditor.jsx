@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -23,6 +24,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import PreviewIcon from '@mui/icons-material/Preview';
 
 export default function PageEditor() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const { pageId } = useParams();
   const [loading, setLoading] = useState(true);

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -19,6 +20,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { setPageTitle } from '../utils/pageTitle';
 
 export default function NotificationCenter() {
+  const theme = institutionalTheme;
   const notifications = [
     { id: 1, type: 'success', icon: <CheckCircleIcon sx={{ color: '#4caf50' }} />, title: 'Offre acceptée', message: 'Votre offre sur l\'appel d\'offres #1 a été acceptée', time: 'Il y a 1 heure' },
     { id: 2, type: 'warning', icon: <WarningIcon sx={{ color: '#ff9800' }} />, title: 'En attente de validation', message: 'Votre offre est en cours d\'examen', time: 'Il y a 2 heures' },

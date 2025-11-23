@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Container,
   Box,
@@ -29,6 +30,7 @@ const statusColors = {
 };
 
 export default function PurchaseOrders() {
+  const theme = institutionalTheme;
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

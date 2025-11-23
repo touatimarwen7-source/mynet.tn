@@ -227,13 +227,6 @@ export default function CreateOffer() {
       return;
     }
 
-    // Validate total doesn't exceed budget
-    const totalAmount = parseFloat(getTotalBidAmount());
-    if (tender.budget_max && totalAmount > tender.budget_max) {
-      setError(`Le total (${totalAmount.toFixed(2)} TND) dépasse le budget (${tender.budget_max} TND)`);
-      return;
-    }
-
     // Validate files
     const invalidFiles = offerData.attachments.filter(file => {
       const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];

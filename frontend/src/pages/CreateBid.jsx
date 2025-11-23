@@ -766,8 +766,8 @@ export default function CreateBid() {
   const handleSubmit = async () => {
     if (!validateStep()) return;
 
-    // Validate line items with budget
-    const lineItemsCheck = validateLineItems(formData.line_items, tender?.budget_max);
+    // Validate line items
+    const lineItemsCheck = validateLineItems(formData.line_items);
     if (!lineItemsCheck.valid) {
       setError(lineItemsCheck.error);
       return;

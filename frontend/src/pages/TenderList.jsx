@@ -167,7 +167,7 @@ export default function TenderList() {
                       Entreprise
                     </TableCell>
                     <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }} align="right">
-                      Budget
+                      Catégorie
                     </TableCell>
                     <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, textTransform: 'uppercase', fontSize: '12px' }}>
                       Date limite
@@ -197,7 +197,7 @@ export default function TenderList() {
                         {tender.buyer_name || 'N/A'}
                       </TableCell>
                       <TableCell sx={{ color: theme.palette.text.primary, fontSize: '14px', fontWeight: 500 }} align="right">
-                        {tender.budget_min ? `${tender.budget_min.toLocaleString()} TND` : 'N/A'}
+                        {tender.category || 'N/A'}
                       </TableCell>
                       <TableCell sx={{ color: '#616161', fontSize: '14px' }}>
                         {formatDate(tender.deadline)}

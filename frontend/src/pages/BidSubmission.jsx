@@ -256,20 +256,10 @@ export default function BidSubmission() {
                 <Grid item xs={12} sm={6} md={3}>
                   <Box>
                     <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
-                      الميزانية
-                    </Typography>
-                    <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3' }}>
-                      {tender?.budget_min} - {tender?.budget_max} TND
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Box>
-                    <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
                       الفئة
                     </Typography>
                     <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3' }}>
-                      {tender?.category}
+                      {tender?.category || 'N/A'}
                     </Typography>
                   </Box>
                 </Grid>

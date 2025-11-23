@@ -311,9 +311,6 @@ export default function BidComparison() {
             </Typography>
             <Stack spacing={1}>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>
-                <strong>الميزانية:</strong> {tender.budget_min} - {tender.budget_max} {tender.currency}
-              </Typography>
-              <Typography sx={{ fontSize: '13px', color: '#666' }}>
                 <strong>الموعد النهائي:</strong> {new Date(tender.deadline).toLocaleDateString('ar-TN')}
               </Typography>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>

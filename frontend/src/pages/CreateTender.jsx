@@ -167,8 +167,8 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
               <Typography sx={{ fontSize: '12px', color: '#999999' }}>
                 ✓ Soyez précis et descriptif
               </Typography>
-              <Typography sx={{ fontSize: '12px', color: formData.title.length > 80 ? '#FF6F00' : '#999999' }}>
-                {formData.title.length}/100 caractères
+              <Typography sx={{ fontSize: '12px', color: (formData.title || '').length > 80 ? '#FF6F00' : '#999999' }}>
+                {(formData.title || '').length}/100 caractères
               </Typography>
             </Box>
           </Box>
@@ -202,9 +202,9 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
             />
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px', mt: '6px' }}>
               <Typography sx={{ fontSize: '12px', color: '#999999' }}>
-                💡 Minimum 20 caractères | Actuel: {formData.description.length}
+                💡 Minimum 20 caractères | Actuel: {(formData.description || '').length}
               </Typography>
-              {formData.description.length >= 20 && (
+              {(formData.description || '').length >= 20 && (
                 <Typography sx={{ fontSize: '12px', color: '#4CAF50', fontWeight: 600 }}>
                   ✓ Valide
                 </Typography>
@@ -915,13 +915,13 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
             </Box>
           </Box>
 
-          {formData.requirements.length > 0 && (
+          {(formData.requirements || []).length > 0 && (
             <Box>
               <Typography sx={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: theme.palette.text.primary }}>
-                Exigences ({formData.requirements.length})
+                Exigences ({(formData.requirements || []).length})
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                {formData.requirements.map((req, index) => (
+                {(formData.requirements || []).map((req, index) => (
                   <Paper
                     key={index}
                     sx={{
@@ -1112,7 +1112,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
               <Box><strong>Budget:</strong> {formData.budget_min} - {formData.budget_max} {formData.currency}</Box>
               <Box><strong>Fermeture:</strong> {new Date(formData.deadline).toLocaleDateString('fr-TN')}</Box>
               <Box><strong>Public:</strong> {formData.is_public ? 'Oui' : 'Non'}</Box>
-              <Box><strong>Exigences:</strong> {formData.requirements.length}</Box>
+              <Box><strong>Exigences:</strong> {(formData.requirements || []).length}</Box>
               <Box><strong>Pièces jointes:</strong> {selectedFiles.length}</Box>
             </Stack>
           </Paper>

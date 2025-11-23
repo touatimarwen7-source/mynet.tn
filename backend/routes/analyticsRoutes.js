@@ -1,47 +1,31 @@
-// Analytics Dashboard Routes - TURN 3 ENHANCEMENT
+// Analytics Dashboard Routes - OPTIMIZED
 const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
+const QueryOptimizer = require('../utils/queryOptimizer');
+const { cacheMiddleware } = require('../middleware/cacheMiddleware');
 const router = express.Router();
 
-// Get dashboard statistics for buyers
-router.get('/dashboard/buyer', authMiddleware, async (req, res) => {
+// Get dashboard statistics for buyers (optimized + cached)
+router.get('/dashboard/buyer', authMiddleware, cacheMiddleware(600), async (req, res) => {
   try {
     const db = req.app.get('db');
     const userId = req.user.id;
 
-    const stats = await db.query(`
-      SELECT
-        (SELECT COUNT(*) FROM tenders WHERE buyer_id = $1 AND is_deleted = false) as total_tenders,
-        (SELECT COUNT(*) FROM tenders WHERE buyer_id = $1 AND status = 'open' AND is_deleted = false) as active_tenders,
-        (SELECT COUNT(*) FROM offers WHERE (SELECT buyer_id FROM tenders WHERE tenders.id = offers.tender_id) = $1 AND is_deleted = false) as total_offers_received,
-        (SELECT COUNT(*) FROM purchase_orders WHERE buyer_id = $1 AND status = 'confirmed' AND is_deleted = false) as confirmed_orders,
-        (SELECT COALESCE(SUM(total_amount), 0) FROM purchase_orders WHERE buyer_id = $1 AND is_deleted = false) as total_spending,
-        (SELECT AVG(average_rating) FROM users WHERE id IN (SELECT supplier_id FROM offers WHERE (SELECT buyer_id FROM tenders WHERE tenders.id = offers.tender_id) = $1) AND is_deleted = false) as avg_supplier_rating
-    `, [userId]);
-
-    res.json(stats.rows[0]);
+    const result = await QueryOptimizer.getBuyerAnalytics(db, userId);
+    res.json(result.rows[0] || {});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Get dashboard statistics for suppliers
-router.get('/dashboard/supplier', authMiddleware, async (req, res) => {
+// Get dashboard statistics for suppliers (optimized + cached)
+router.get('/dashboard/supplier', authMiddleware, cacheMiddleware(600), async (req, res) => {
   try {
     const db = req.app.get('db');
     const userId = req.user.id;
 
-    const stats = await db.query(`
-      SELECT
-        (SELECT COUNT(*) FROM offers WHERE supplier_id = $1 AND is_deleted = false) as total_offers_submitted,
-        (SELECT COUNT(*) FROM offers WHERE supplier_id = $1 AND status = 'accepted' AND is_deleted = false) as accepted_offers,
-        (SELECT COUNT(*) FROM purchase_orders WHERE supplier_id = $1 AND status = 'confirmed' AND is_deleted = false) as confirmed_orders,
-        (SELECT COALESCE(SUM(total_amount), 0) FROM purchase_orders WHERE supplier_id = $1 AND status = 'confirmed' AND is_deleted = false) as total_revenue,
-        (SELECT COUNT(*) FROM reviews WHERE reviewed_user_id = $1 AND is_deleted = false) as total_reviews,
-        (SELECT average_rating FROM users WHERE id = $1) as avg_rating
-    `, [userId]);
-
-    res.json(stats.rows[0]);
+    const result = await QueryOptimizer.getSupplierAnalytics(db, userId);
+    res.json(result.rows[0] || {});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

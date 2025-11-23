@@ -1,25 +1,18 @@
-// Bid Analytics - TURN 3 ENHANCEMENT
+// Bid Analytics - OPTIMIZED
 const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
+const QueryOptimizer = require('../utils/queryOptimizer');
+const { cacheMiddleware } = require('../middleware/cacheMiddleware');
 const router = express.Router();
 
-// Get bid statistics for a tender
-router.get('/tender/:tenderId', authMiddleware, async (req, res) => {
+// Get bid statistics for a tender (optimized + cached)
+router.get('/tender/:tenderId', authMiddleware, cacheMiddleware(600), async (req, res) => {
   try {
     const { tenderId } = req.params;
     const db = req.app.get('db');
 
-    const stats = await db.query(`
-      SELECT
-        (SELECT COUNT(*) FROM offers WHERE tender_id = $1 AND is_deleted = false) as total_bids,
-        (SELECT COUNT(*) FROM offers WHERE tender_id = $1 AND status = 'accepted' AND is_deleted = false) as accepted_bids,
-        (SELECT AVG(price) FROM offers WHERE tender_id = $1 AND is_deleted = false) as avg_bid_price,
-        (SELECT MIN(price) FROM offers WHERE tender_id = $1 AND is_deleted = false) as lowest_bid,
-        (SELECT MAX(price) FROM offers WHERE tender_id = $1 AND is_deleted = false) as highest_bid,
-        (SELECT AVG((SELECT average_rating FROM users WHERE users.id = offers.supplier_id)) FROM offers WHERE tender_id = $1 AND is_deleted = false) as avg_supplier_rating
-    `, [tenderId]);
-
-    res.json(stats.rows[0]);
+    const stats = await QueryOptimizer.getBidAnalytics(db, tenderId);
+    res.json(stats.rows[0] || {});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

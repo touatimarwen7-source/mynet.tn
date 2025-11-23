@@ -1,24 +1,17 @@
-// Supplier Performance Tracking - TURN 3 ENHANCEMENT
+// Supplier Performance Tracking - OPTIMIZED
 const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
+const QueryOptimizer = require('../utils/queryOptimizer');
+const { cacheMiddleware } = require('../middleware/cacheMiddleware');
 const router = express.Router();
 
-// Get supplier performance score
-router.get('/supplier/:supplierId', authMiddleware, async (req, res) => {
+// Get supplier performance score (optimized + cached)
+router.get('/supplier/:supplierId', authMiddleware, cacheMiddleware(600), async (req, res) => {
   try {
     const { supplierId } = req.params;
     const db = req.app.get('db');
 
-    const performance = await db.query(`
-      SELECT
-        (SELECT COUNT(*) FROM offers WHERE supplier_id = $1 AND status = 'accepted' AND is_deleted = false) as completed_orders,
-        (SELECT COUNT(*) FROM offers WHERE supplier_id = $1 AND is_deleted = false) as total_offers,
-        (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = $1 AND is_deleted = false) as avg_rating,
-        (SELECT COUNT(*) FROM reviews WHERE reviewed_user_id = $1 AND rating >= 4 AND is_deleted = false) as positive_reviews,
-        (SELECT COUNT(*) FROM reviews WHERE reviewed_user_id = $1 AND is_deleted = false) as total_reviews,
-        (SELECT verified FROM users WHERE id = $1) as verified,
-        (SELECT EXTRACT(EPOCH FROM (NOW() - created_at)) / 86400 FROM users WHERE id = $1) as days_active
-    `, [supplierId]);
+    const performance = await QueryOptimizer.getSupplierPerformance(db, supplierId);
 
     if (performance.rows.length === 0) {
       return res.status(404).json({ error: 'Supplier not found' });
@@ -28,7 +21,6 @@ router.get('/supplier/:supplierId', authMiddleware, async (req, res) => {
     const completionRate = (perf.completed_orders / perf.total_offers) * 100 || 0;
     const ratingScore = (perf.avg_rating * 20) || 0;
     const reviewScore = (perf.positive_reviews / perf.total_reviews) * 100 || 0;
-
     const overallScore = (completionRate * 0.4 + ratingScore * 0.4 + reviewScore * 0.2);
 
     res.json({

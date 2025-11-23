@@ -1,6 +1,7 @@
 /**
  * 🔄 DATABASE BACKUP SERVICE
  * Manages automated backups, restores, and backup lifecycle
+ * Environment variables: MAX_BACKUPS, BACKUP_DIR
  */
 
 const fs = require('fs');
@@ -10,8 +11,8 @@ const { promisify } = require('util');
 const { getPool } = require('../../config/db');
 
 const execAsync = promisify(exec);
-const BACKUP_DIR = path.join(__dirname, '../../backups');
-const MAX_BACKUPS = 30; // Keep last 30 backups
+const BACKUP_DIR = process.env.BACKUP_DIR || path.join(__dirname, '../../backups');
+const MAX_BACKUPS = parseInt(process.env.MAX_BACKUPS) || 30;
 const BACKUP_PREFIX = 'mynet_backup_';
 
 class BackupService {
@@ -111,7 +112,9 @@ class BackupService {
       return {
         success: true,
         count: backups.length,
-        backups
+        backups,
+        maxRetained: MAX_BACKUPS,
+        backupDir: BACKUP_DIR
       };
     } catch (error) {
       console.error('❌ Failed to list backups:', error.message);

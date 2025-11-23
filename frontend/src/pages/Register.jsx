@@ -278,7 +278,7 @@ export default function Register() {
                         sx={{
                           fontSize: '18px',
                           fontWeight: 600,
-                          color: '#212121',
+                          color: theme.palette.text.primary,
                           marginBottom: '8px',
                         }}
                       >
@@ -298,7 +298,7 @@ export default function Register() {
                               sx={{
                                 '& .MuiTypography-root': {
                                   fontSize: '12px',
-                                  color: '#212121',
+                                  color: theme.palette.text.primary,
                                 },
                               }}
                             />
@@ -331,7 +331,7 @@ export default function Register() {
                         sx={{
                           fontSize: '18px',
                           fontWeight: 600,
-                          color: '#212121',
+                          color: theme.palette.text.primary,
                           marginBottom: '8px',
                         }}
                       >
@@ -351,7 +351,7 @@ export default function Register() {
                               sx={{
                                 '& .MuiTypography-root': {
                                   fontSize: '12px',
-                                  color: '#212121',
+                                  color: theme.palette.text.primary,
                                 },
                               }}
                             />
@@ -424,7 +424,7 @@ export default function Register() {
                       sx={{
                         '& .MuiTypography-root': {
                           fontSize: '14px',
-                          color: '#212121',
+                          color: theme.palette.text.primary,
                           fontWeight: 400,
                         },
                       }}
@@ -458,7 +458,7 @@ export default function Register() {
               {currentStep === 0 && (
                 <>
                   <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', mb: 2 }}>
+                    <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.text.primary, mb: 2 }}>
                       Informations Générales
                     </Typography>
                     <Divider sx={{ mb: 2 }} />
@@ -525,7 +525,7 @@ export default function Register() {
               {currentStep === 1 && (
                 <>
                   <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', mb: 2 }}>
+                    <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.text.primary, mb: 2 }}>
                       Informations de l'Entreprise
                     </Typography>
                     <Divider sx={{ mb: 2 }} />
@@ -557,7 +557,7 @@ export default function Register() {
               {currentStep === 2 && (
                 <>
                   <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', mb: 2 }}>
+                    <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.text.primary, mb: 2 }}>
                       Informations de l'Activité
                     </Typography>
                     <Divider sx={{ mb: 2 }} />

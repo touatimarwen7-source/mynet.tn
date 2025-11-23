@@ -135,5 +135,41 @@
     "totalOffers": "Offres Totales",
     "earnings": "Revenus",
     "recentActivity": "Activité Récente"
+  },
+  "admin": {
+    "title": "Centre d'Administration",
+    "users": "Utilisateurs",
+    "content": "Contenu",
+    "settings": "Paramètres",
+    "analytics": "Analytique",
+    "auditLogs": "Journaux d'Audit"
+  },
+  "errors": {
+    "unauthorized": "Non autorisé",
+    "forbidden": "Accès refusé",
+    "notFound": "Non trouvé",
+    "serverError": "Erreur serveur",
+    "badRequest": "Mauvaise demande",
+    "timeout": "Délai d'expiration",
+    "networkError": "Erreur réseau"
+  },
+  "pagination": {
+    "page": "Page",
+    "of": "de",
+    "perPage": "Par page",
+    "rowsPerPage": "Lignes par page",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "first": "Premier",
+    "last": "Dernier"
+  },
+  "status": {
+    "active": "Actif",
+    "inactive": "Inactif",
+    "pending": "En attente",
+    "completed": "Complété",
+    "cancelled": "Annulé",
+    "rejected": "Rejeté",
+    "approved": "Approuvé"
   }
 }

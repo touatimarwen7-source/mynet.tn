@@ -51,7 +51,7 @@ export default function CompanyProfile() {
   useEffect(() => {
     setPageTitle('Profil d\'Entreprise');
     fetchCompanyProfile();
-  }, []);
+  }, [setPageTitle]);
 
   const fetchCompanyProfile = async () => {
     try {
@@ -158,7 +158,7 @@ export default function CompanyProfile() {
         À PROPOS DE L'ENTREPRISE
       </Typography>
       <Paper sx={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '4px', marginBottom: '20px' }}>
-        <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.8, color: '#212121' }}>
+        <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.8, color: theme.palette.text.primary }}>
           {companyData?.presentation.description}
         </Typography>
       </Paper>
@@ -170,7 +170,7 @@ export default function CompanyProfile() {
               <Typography variant="subtitle2" sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '8px' }}>
                 SPÉCIALISATION
               </Typography>
-              <Typography variant="body2" sx={{ color: '#212121' }}>
+              <Typography variant="body2" sx={{ color: theme.palette.text.primary }}>
                 {companyData?.presentation.specialization}
               </Typography>
             </CardContent>
@@ -182,7 +182,7 @@ export default function CompanyProfile() {
               <Typography variant="subtitle2" sx={{ fontWeight: 600, color: theme.palette.primary.main, marginBottom: '8px' }}>
                 ZONE DE COUVERTURE
               </Typography>
-              <Typography variant="body2" sx={{ color: '#212121' }}>
+              <Typography variant="body2" sx={{ color: theme.palette.text.primary }}>
                 {companyData?.presentation.coverage}
               </Typography>
             </CardContent>
@@ -342,7 +342,7 @@ export default function CompanyProfile() {
 
       {showSearch && (
         <Box>
-          <Typography variant="subtitle1" sx={{ fontWeight: 600, marginBottom: '16px', color: '#212121' }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600, marginBottom: '16px', color: theme.palette.text.primary }}>
             Résultats ({searchResults.length})
           </Typography>
           {searchResults.length === 0 ? (
@@ -396,7 +396,7 @@ export default function CompanyProfile() {
                   <CallIcon sx={{ color: theme.palette.primary.main }} />
                   <Box>
                     <Typography variant="caption" sx={{ color: '#666666' }}>Téléphone</Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 500, color: '#212121' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 500, color: theme.palette.text.primary }}>
                       {companyData?.contact.phone}
                     </Typography>
                   </Box>
@@ -405,7 +405,7 @@ export default function CompanyProfile() {
                   <EmailIcon sx={{ color: theme.palette.primary.main }} />
                   <Box>
                     <Typography variant="caption" sx={{ color: '#666666' }}>Email</Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 500, color: '#212121' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 500, color: theme.palette.text.primary }}>
                       {companyData?.contact.email}
                     </Typography>
                   </Box>
@@ -414,7 +414,7 @@ export default function CompanyProfile() {
                   <LocationOnIcon sx={{ color: theme.palette.primary.main, marginTop: '2px' }} />
                   <Box>
                     <Typography variant="caption" sx={{ color: '#666666' }}>Adresse</Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 500, color: '#212121' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 500, color: theme.palette.text.primary }}>
                       {companyData?.contact.address}
                     </Typography>
                   </Box>

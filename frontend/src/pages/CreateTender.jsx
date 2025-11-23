@@ -231,7 +231,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
                 </TableHead>
                 <TableBody>
                   {formData.lots.map((lot, index) => (
-                    <TableRow key={index} sx={{ '&:hover': { backgroundColor: '#F9F9F9' } }}>
+                    <TableRow key={index} sx={{ '&:hover': { backgroundColor: theme.palette.background.default } }}>
                       <TableCell sx={{ fontSize: '13px', fontWeight: 500 }}>{lot.numero || `${index + 1}`}</TableCell>
                       <TableCell sx={{ fontSize: '13px' }}>{lot.objet}</TableCell>
                       <TableCell>
@@ -371,7 +371,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           />
 
           <Box>
-            <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 1, color: '#212121' }}>
+            <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 1, color: theme.palette.text.primary }}>
               Documents Obligatoires
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -505,7 +505,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Box sx={{ backgroundColor: '#f5f5f5', padding: '16px', borderRadius: '4px' }}>
-            <Typography sx={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#212121' }}>
+            <Typography sx={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: theme.palette.text.primary }}>
               {editingIndex !== null ? 'Modifier l\'Exigence' : 'Ajouter une Exigence'}
             </Typography>
             
@@ -597,7 +597,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
 
           {formData.requirements.length > 0 && (
             <Box>
-              <Typography sx={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#212121' }}>
+              <Typography sx={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: theme.palette.text.primary }}>
                 Exigences ({formData.requirements.length})
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -614,7 +614,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
                     }}
                   >
                     <Box sx={{ flex: 1 }}>
-                      <Typography sx={{ fontSize: '13px', color: '#212121', marginBottom: '4px' }}>
+                      <Typography sx={{ fontSize: '13px', color: theme.palette.text.primary, marginBottom: '4px' }}>
                         {req.text}
                       </Typography>
                       <Box sx={{ display: 'flex', gap: '8px' }}>
@@ -714,9 +714,9 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
               <Table size="small">
                 <TableHead>
                   <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                    <TableCell sx={{ fontWeight: 600, color: '#212121' }}>Nom du fichier</TableCell>
-                    <TableCell align="right" sx={{ fontWeight: 600, color: '#212121' }}>Taille</TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 600, color: '#212121' }}>Action</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Nom du fichier</TableCell>
+                    <TableCell align="right" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Taille</TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

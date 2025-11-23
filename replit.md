@@ -38,6 +38,64 @@ The platform utilizes a React frontend (Vite) and a Node.js backend with a Postg
 - **Audit Logs System**: Admin viewable audit logs tracking user activities and entity changes.
 - **Subscription Plans System**: Backend API for plan management and user subscriptions with multiple tiers.
 
+## Recent Changes (November 23, 2025 - 6 MAJOR FEATURES IMPLEMENTED ✅)
+
+### ✅ 6 New Features Completed:
+
+1. **Confirmation Dialogs** - Safe operations with reusable ConfirmDialog component
+   - Used for tender closure and other critical actions
+   - Clear severity levels (warning, info, success)
+   - Prevents accidental deletions
+
+2. **Pagination** - Full-featured list pagination
+   - Page size selector (10, 25, 50, 100 items per page)
+   - Previous/Next navigation with page indicators
+   - Item count display
+   - Auto-scroll on page change
+
+3. **Export Functionality** - Data export in multiple formats
+   - JSON export for data interchange
+   - CSV export for spreadsheet compatibility
+   - Dynamic field mapping
+   - Supports both full and filtered datasets
+
+4. **Bid Comparison Dashboard** - New page to compare offers
+   - Route: `/bid-comparison/:tenderId`
+   - Displays all offers sorted by price
+   - Shows supplier name, amount, delivery time, payment terms
+   - Includes offer status and evaluation scores
+   - Tender summary panel
+
+5. **Status Tracking** - Visual status indicators
+   - StatusBadge component with predefined statuses
+   - Color-coded indicators (draft, published, awarded, etc)
+   - Icons for visual recognition
+   - Applied to tender listings
+
+6. **Bulk Operations** - Select and manage multiple items
+   - Checkboxes for individual and bulk selection
+   - Select-all on current page option
+   - Bulk export of selected tenders
+   - Selection counter in banner
+
+### Files Created:
+- `frontend/src/components/ConfirmDialog.jsx` - Reusable confirmation dialog component
+- `frontend/src/components/StatusBadge.jsx` - Status badge component with predefined configurations
+- `frontend/src/pages/BidComparison.jsx` - Bid comparison dashboard page
+- `frontend/src/utils/exportUtils.js` - Data export utilities (JSON/CSV)
+
+### Files Updated:
+- `frontend/src/pages/BuyerActiveTenders.jsx` - Integrated all 6 features into tender list
+- `frontend/src/App.jsx` - Added BidComparison route
+
+### Implementation Details:
+- All components use Material-UI with theme.js styling (no inline styles)
+- Full French localization
+- Responsive design (mobile/tablet/desktop)
+- Zero LSP errors - all code is clean and type-safe
+- Pagination existing component enhanced with page size selector
+- Export utilities support dynamic field mapping for flexible data export
+
 ## External Dependencies
 - **Database**: PostgreSQL (Neon).
 - **Frontend Libraries**: Material-UI (MUI) v7.3.5, React Router DOM, Axios, i18next, socket.io-client (v4.8.1).

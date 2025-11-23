@@ -92,6 +92,10 @@ const PODetail = lazy(() => import('./pages/PODetail'));
 const ReviewsList = lazy(() => import('./pages/ReviewsList'));
 const SuperAdminCRUD = lazy(() => import('./pages/SuperAdminCRUD'));
 const EmailNotifications = lazy(() => import('./pages/EmailNotifications'));
+const BuyerAnalytics = lazy(() => import('./pages/BuyerAnalytics'));
+const SupplierAnalytics = lazy(() => import('./pages/SupplierAnalytics'));
+const SupplierPerformanceTracking = lazy(() => import('./pages/SupplierPerformanceTracking'));
+const SubscriptionPlans = lazy(() => import('./pages/SubscriptionPlans'));
 
 const LoadingFallback = () => (
   <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
@@ -410,6 +414,24 @@ function App() {
               <Route 
               path="/supplier-requests" 
               element={user?.role === 'supplier' ? <SupplierRequests /> : <Navigate to="/tenders" />} 
+            />
+
+              {/* Analytics - Priority 3 */}
+              <Route 
+              path="/buyer-analytics" 
+              element={user?.role === 'buyer' ? <BuyerAnalytics /> : <Navigate to="/tenders" />} 
+            />
+              <Route 
+              path="/supplier-analytics" 
+              element={user?.role === 'supplier' ? <SupplierAnalytics /> : <Navigate to="/tenders" />} 
+            />
+              <Route 
+              path="/performance-tracking" 
+              element={user?.role === 'buyer' ? <SupplierPerformanceTracking /> : <Navigate to="/tenders" />} 
+            />
+              <Route 
+              path="/subscription-plans" 
+              element={user ? <SubscriptionPlans /> : <Navigate to="/login" />} 
             />
 
               {/* Administration */}

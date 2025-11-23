@@ -30,7 +30,11 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const emailRoutes = require('./routes/emailRoutes');
 const superAdminRoutes = require('./routes/superAdminRoutes');
 const backupRoutes = require('./routes/backupRoutes');
+const passwordResetRoutes = require('./routes/passwordResetRoutes');
 const { ipMiddleware } = require('./middleware/ipMiddleware');
+const { requestTimeout } = require('./middleware/timeoutMiddleware');
+const { perUserLimiter, apiLimiters } = require('./middleware/perUserRateLimiting');
+const { sqlInjectionDetector } = require('./middleware/sqlInjectionAudit');
 let initializeEmailService;
 try {
   initializeEmailService = require('./config/emailService').initializeEmailService;
@@ -85,6 +89,12 @@ const loginLimiter = rateLimit({
 app.use('/api/', limiter);
 app.use('/api/auth/login', loginLimiter);
 app.use('/api/auth/register', loginLimiter);
+
+// ⏱️ REQUEST TIMEOUT ENFORCEMENT (NEW)
+app.use(requestTimeout);
+
+// 🔍 SQL INJECTION DETECTION & AUDIT (NEW)
+app.use(sqlInjectionDetector);
 
 app.use(ipMiddleware);
 
@@ -189,6 +199,9 @@ app.use('/api/email', emailRoutes);
 
 // 🔄 CRITICAL FIX #4: Backup management routes
 app.use('/api/backups', backupRoutes);
+
+// 🔐 PASSWORD RESET & EMAIL VERIFICATION ROUTES
+app.use('/api/auth/password-reset', passwordResetRoutes);
 
 // Initialize email service
 initializeEmailService();

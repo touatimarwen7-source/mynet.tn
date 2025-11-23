@@ -1,3 +1,4 @@
+const { KeyManagementHelper } = require('../utils/keyManagementHelper');
 const { Pool } = require('pg');
 
 let pool;
@@ -40,7 +41,7 @@ async function initializeDb() {
     try {
         if (!pool) {
             pool = new Pool({
-                connectionString: process.env.DATABASE_URL,
+                connectionString: KeyManagementHelper.getRequiredEnv("DATABASE_URL"),
                 ssl: {
                     rejectUnauthorized: false
                 },

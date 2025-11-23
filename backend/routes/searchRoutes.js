@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const SearchService = require('../services/SearchService');
 const authMiddleware = require('../middleware/authMiddleware');
+const { buildPaginationQuery } = require('../utils/paginationHelper');
 
 // ISSUE FIX #1: Add authentication
 router.get('/tenders', authMiddleware, async (req, res) => {

@@ -58,6 +58,9 @@ const swaggerSpec = require('./config/swagger');
 
 const app = express();
 
+// ✅ CRITICAL FIX: Trust proxy for rate limiting & X-Forwarded-For headers
+app.set('trust proxy', 1);
+
 // ISSUE FIX #6: CORS & CSRF Protection
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');

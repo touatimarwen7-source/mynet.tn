@@ -471,7 +471,6 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           </Paper>
         </Box>
       );
-    case 'step10':
     case 'step8':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -504,6 +503,7 @@ const StepContent = ({ type, formData, handleChange, loading, newRequirement, se
           <TextField fullWidth label="Spécifications Techniques *" name="technical_specifications" value={formData.technical_specifications} onChange={(e) => setFormData(prev => ({ ...prev, technical_specifications: e.target.value }))} multiline rows={6} disabled={loading} placeholder="ISO 9001, certifications, performances minimales..." />
         </Box>
       );
+    case 'step10':
       return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Box sx={{ backgroundColor: '#f5f5f5', padding: '16px', borderRadius: '4px' }}>

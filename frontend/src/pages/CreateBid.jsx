@@ -49,6 +49,7 @@ const STEPS = [
   { label: 'Offre de base', icon: '📋' },
   { label: 'Conformité conditions', icon: '🔑' },
   { label: 'Informations fournisseur', icon: '📞' },
+  { label: 'Sélection lots & articles', icon: '📦' },
   { label: 'Détails techniques', icon: '🔧' },
   { label: 'Proposition financière', icon: '💰', secure: true },
   { label: 'Conditions paiement', icon: '🏦', secure: true },
@@ -66,6 +67,8 @@ export default function CreateBid() {
   const [tender, setTender] = useState(null);
   const [formData, setFormData] = useState({
     tender_id: tenderId,
+    selected_lots: [],
+    line_items: [],
     total_amount: '',
     currency: 'TND',
     technical_proposal: '',
@@ -92,6 +95,7 @@ export default function CreateBid() {
 
   const [newTechnicalDetail, setNewTechnicalDetail] = useState('');
   const [technicalDetails, setTechnicalDetails] = useState([]);
+  const [newLineItem, setNewLineItem] = useState({ lot_id: '', description: '', quantity: '', unit_price: '', unit: 'pièce' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -127,7 +131,8 @@ export default function CreateBid() {
   const autoSaveDraft = useCallback(() => {
     const draftData = {
       ...formData,
-      technical_details_array: technicalDetails
+      technical_details_array: technicalDetails,
+      line_items: formData.line_items
     };
     localStorage.setItem(`bidDraft_${tenderId}`, JSON.stringify(draftData));
     setAutoSaved(true);
@@ -151,6 +156,33 @@ export default function CreateBid() {
 
   const removeTechnicalDetail = (index) => {
     setTechnicalDetails(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const addLineItem = () => {
+    if (newLineItem.lot_id && newLineItem.description.trim() && newLineItem.quantity && newLineItem.unit_price) {
+      const lineItem = {
+        id: Date.now(),
+        ...newLineItem,
+        quantity: parseFloat(newLineItem.quantity),
+        unit_price: parseFloat(newLineItem.unit_price),
+        total: parseFloat(newLineItem.quantity) * parseFloat(newLineItem.unit_price)
+      };
+      setFormData(prev => ({
+        ...prev,
+        line_items: [...prev.line_items, lineItem],
+        total_amount: (parseFloat(prev.total_amount) || 0) + lineItem.total
+      }));
+      setNewLineItem({ lot_id: '', description: '', quantity: '', unit_price: '', unit: 'pièce' });
+    }
+  };
+
+  const removeLineItem = (index) => {
+    const lineItem = formData.line_items[index];
+    setFormData(prev => ({
+      ...prev,
+      line_items: prev.line_items.filter((_, i) => i !== index),
+      total_amount: Math.max(0, (parseFloat(prev.total_amount) || 0) - lineItem.total)
+    }));
   };
 
   const handleFileUpload = (e) => {
@@ -190,13 +222,19 @@ export default function CreateBid() {
           return false;
         }
         break;
-      case 3: // Technical Details
+      case 3: // Lots & Line Items
+        if (!formData.line_items || formData.line_items.length === 0) {
+          setError('Au moins un article de lot est requis');
+          return false;
+        }
+        break;
+      case 4: // Technical Details
         if (technicalDetails.length === 0) {
           setError('Au moins un détail technique est requis');
           return false;
         }
         break;
-      case 4: // Financial Proposal
+      case 5: // Financial Proposal
         if (!formData.total_amount) {
           setError('Le montant total est requis');
           return false;
@@ -206,19 +244,19 @@ export default function CreateBid() {
           return false;
         }
         break;
-      case 5: // Payment Terms
+      case 6: // Payment Terms
         if (!formData.payment_terms) {
           setError('Les conditions de paiement sont requises');
           return false;
         }
         break;
-      case 6: // Delivery
+      case 7: // Delivery
         if (!formData.delivery_time) {
           setError('Le délai de livraison est requis');
           return false;
         }
         break;
-      case 8: // Declaration
+      case 9: // Declaration
         if (!formData.compliance_statement || !formData.confidential_info_statement) {
           setError('Vous devez accepter toutes les déclarations');
           return false;
@@ -250,7 +288,7 @@ export default function CreateBid() {
     e.preventDefault();
     setError('');
 
-    if (!validateStep(0) || !validateStep(1) || !validateStep(2) || !validateStep(4) || !validateStep(5) || !validateStep(8)) {
+    if (!validateStep(0) || !validateStep(1) || !validateStep(2) || !validateStep(3) || !validateStep(5) || !validateStep(6) || !validateStep(9)) {
       return;
     }
 
@@ -361,8 +399,129 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 3: Supplier Information
+  // Step 3: Lots & Line Items (NEW)
   const Step3Content = () => (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
+          📦 Sélection des Lots et Articles
+        </Typography>
+        <Typography sx={{ fontSize: '13px', color: '#666666', mb: 2 }}>
+          Sélectionnez les lots auxquels vous soumettez une offre et décomposez les articles avec leurs prix unitaires.
+        </Typography>
+      </Box>
+
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', backgroundColor: '#f9f9f9', p: 2, borderRadius: '4px' }}>
+        <FormControl fullWidth disabled={loading || !tender?.lots?.length}>
+          <InputLabel>Lot *</InputLabel>
+          <Select
+            value={newLineItem.lot_id}
+            onChange={(e) => setNewLineItem(prev => ({ ...prev, lot_id: e.target.value }))}
+            label="Lot *"
+          >
+            <MenuItem value=""><em>-- Sélectionner un lot --</em></MenuItem>
+            {tender?.lots?.map((lot) => (
+              <MenuItem key={lot.id} value={lot.id}>
+                {lot.numero} - {lot.objet}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <TextField
+          fullWidth
+          label="Description de l'Article *"
+          value={newLineItem.description}
+          onChange={(e) => setNewLineItem(prev => ({ ...prev, description: e.target.value }))}
+          placeholder="Ex: Ordinateur portable 15 pouces"
+          disabled={loading}
+        />
+
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '2fr 1fr 1fr' }, gap: '16px' }}>
+          <TextField
+            label="Quantité *"
+            type="number"
+            inputProps={{ step: '1', min: '1' }}
+            value={newLineItem.quantity}
+            onChange={(e) => setNewLineItem(prev => ({ ...prev, quantity: e.target.value }))}
+            disabled={loading}
+          />
+          <TextField
+            label="Unité"
+            value={newLineItem.unit}
+            onChange={(e) => setNewLineItem(prev => ({ ...prev, unit: e.target.value }))}
+            disabled={loading}
+            placeholder="pièce, kg, h..."
+          />
+          <TextField
+            label="Prix Unitaire (TND) *"
+            type="number"
+            inputProps={{ step: '0.01', min: '0' }}
+            value={newLineItem.unit_price}
+            onChange={(e) => setNewLineItem(prev => ({ ...prev, unit_price: e.target.value }))}
+            disabled={loading}
+          />
+        </Box>
+
+        <Button
+          variant="contained"
+          onClick={addLineItem}
+          disabled={loading || !newLineItem.lot_id || !newLineItem.description.trim() || !newLineItem.quantity || !newLineItem.unit_price}
+          sx={{ backgroundColor: '#0056B3', color: '#ffffff', textTransform: 'none', fontWeight: 600 }}
+          startIcon={<AddIcon />}
+        >
+          Ajouter l'Article
+        </Button>
+      </Box>
+
+      {formData.line_items.length > 0 && (
+        <TableContainer component={Paper} sx={{ border: '1px solid #E0E0E0' }}>
+          <Table size="small">
+            <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Lot</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: '#0056B3' }}>Article</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>Quantité</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>Prix Unitaire</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>Total</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 600, color: '#0056B3' }}>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {formData.line_items.map((item, index) => (
+                <TableRow key={item.id}>
+                  <TableCell sx={{ fontSize: '13px' }}>{item.lot_id}</TableCell>
+                  <TableCell sx={{ fontSize: '13px' }}>{item.description}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: '13px' }}>{item.quantity} {item.unit}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: '13px' }}>{item.unit_price.toFixed(2)} TND</TableCell>
+                  <TableCell align="right" sx={{ fontSize: '13px', fontWeight: 600, color: '#0056B3' }}>{item.total.toFixed(2)} TND</TableCell>
+                  <TableCell align="center">
+                    <IconButton size="small" onClick={() => removeLineItem(index)} disabled={loading} sx={{ color: '#d32f2f' }}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+              <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
+                <TableCell colSpan={4} align="right" sx={{ fontWeight: 600, color: '#0056B3' }}>TOTAL:</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: '#0056B3', fontSize: '15px' }}>{formData.total_amount} TND</TableCell>
+                <TableCell />
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+
+      {formData.line_items.length === 0 && (
+        <Alert severity="info" sx={{ backgroundColor: '#e3f2fd', color: '#01579b' }}>
+          Aucun article ajouté. Veuillez ajouter au moins un article de lot.
+        </Alert>
+      )}
+    </Box>
+  );
+
+  // Step 4: Supplier Information (was Step 3)
+  const Step4Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Box sx={{ pb: 2, borderBottom: '1px solid #e0e0e0' }}>
         <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#0056B3' }}>
@@ -445,8 +604,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 4: Technical Details (OLD Step 2)
-  const Step4Content = () => (
+  // Step 5: Technical Details (was Step 4)
+  const Step5Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Box sx={{ display: 'flex', gap: '8px' }}>
         <TextField
@@ -495,8 +654,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 5: Financial Proposal (SECURE) (OLD Step 3)
-  const Step5Content = () => (
+  // Step 6: Financial Proposal (SECURE) (was Step 5)
+  const Step6Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Alert severity="warning" sx={{ backgroundColor: '#fff3cd', color: '#856404', display: 'flex', alignItems: 'center', gap: '8px' }}>
         <LockIcon sx={{ fontSize: '18px' }} />
@@ -548,8 +707,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 6: Payment Terms (SECURE) (OLD Step 4)
-  const Step6Content = () => (
+  // Step 7: Payment Terms (SECURE) (OLD Step 6)
+  const Step7Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Alert severity="warning" sx={{ backgroundColor: '#fff3cd', color: '#856404', display: 'flex', alignItems: 'center', gap: '8px' }}>
         <LockIcon sx={{ fontSize: '18px' }} />
@@ -600,8 +759,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 7: Delivery (OLD Step 5)
-  const Step7Content = () => (
+  // Step 8: Delivery (OLD Step 7)
+  const Step8Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <TextField
         fullWidth
@@ -625,8 +784,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 8: Documents (OLD Step 6)
-  const Step8Content = () => (
+  // Step 9: Documents (was Step 8)
+  const Step9Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Button
         variant="outlined"
@@ -678,8 +837,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 9: Declaration (OLD Step 7)
-  const Step9Content = () => (
+  // Step 10: Declaration (was Step 9)
+  const Step10Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Paper sx={{ padding: '16px', backgroundColor: 'success.light' }}>
         <Typography variant="h6" sx={{ color: 'success.dark', marginBottom: '12px' }}>
@@ -717,8 +876,8 @@ export default function CreateBid() {
     </Box>
   );
 
-  // Step 8: Final Review
-  const Step10Content = () => (
+  // Step 11: Final Review (Révision finale)
+  const Step11Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Alert severity="success" sx={{ backgroundColor: 'success.light', color: 'success.dark' }}>
         ✓ Toutes les étapes ont été complétées. Prêt à soumettre l'offre.
@@ -754,6 +913,7 @@ export default function CreateBid() {
       case 7: return <Step8Content />;
       case 8: return <Step9Content />;
       case 9: return <Step10Content />;
+      case 10: return <Step11Content />;
       default: return null;
     }
   };

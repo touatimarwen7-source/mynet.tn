@@ -6,6 +6,7 @@ import {
   Button,
   Typography
 } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function ConfirmDialog({ 
   open, 
@@ -18,6 +19,7 @@ export default function ConfirmDialog({
   severity = 'warning',
   loading = false 
 }) {
+  const theme = institutionalTheme;
   const severityColors = {
     warning: { title: '#d32f2f', button: '#d32f2f' },
     info: { title: theme.palette.primary.main, button: theme.palette.primary.main },

@@ -8,6 +8,7 @@ import {
   Box,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import institutionalTheme from '../../theme/theme';
 
 /**
  * Reusable dialog component to eliminate Dialog duplication

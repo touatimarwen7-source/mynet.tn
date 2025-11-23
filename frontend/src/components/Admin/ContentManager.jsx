@@ -10,6 +10,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import StorageIcon from '@mui/icons-material/Storage';
 import DescriptionIcon from '@mui/icons-material/Description';
 import StaticPagesManager from './StaticPagesManager';
+import institutionalTheme from '../../theme/theme';
 
 export default function ContentManager() {
   const [currentTab, setCurrentTab] = useState(0);

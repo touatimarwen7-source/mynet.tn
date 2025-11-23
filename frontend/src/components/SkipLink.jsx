@@ -1,6 +1,8 @@
 import { Box, Link } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function SkipLink() {
+  const theme = institutionalTheme;
   return (
     <Link
       href="#main-content"

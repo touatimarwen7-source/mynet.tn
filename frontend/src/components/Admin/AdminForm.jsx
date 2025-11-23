@@ -9,6 +9,7 @@ import {
   Button,
   Stack,
 } from '@mui/material';
+import institutionalTheme from '../../theme/theme';
 
 /**
  * Reusable form component

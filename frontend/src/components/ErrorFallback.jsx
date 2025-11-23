@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Button, Alert } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import WarningIcon from '@mui/icons-material/Warning';
+import institutionalTheme from '../theme/theme';
 
 /**
  * Error Fallback Component
@@ -9,6 +10,7 @@ import WarningIcon from '@mui/icons-material/Warning';
  * Used with Suspense and Error Boundaries
  */
 const ErrorFallback = ({ error, resetError }) => {
+  const theme = institutionalTheme;
   return (
     <Box
       sx={{

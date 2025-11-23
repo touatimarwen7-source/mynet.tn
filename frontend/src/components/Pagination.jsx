@@ -1,6 +1,7 @@
 import { Box, Button, Typography, Stack } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import institutionalTheme from '../theme/theme';
 
 /**
  * Pagination Component
@@ -13,6 +14,7 @@ export default function Pagination({
   itemsPerPage = 10,
   totalItems = 0 
 }) {
+  const theme = institutionalTheme;
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 

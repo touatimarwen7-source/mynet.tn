@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 import { IconButton } from '@mui/material';
 import { DarkModeContext } from '../contexts/DarkModeContext';
+import institutionalTheme from '../theme/theme';
 
 export default function DarkModeToggle() {
+  const theme = institutionalTheme;
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (

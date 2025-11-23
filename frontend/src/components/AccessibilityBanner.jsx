@@ -1,7 +1,9 @@
 import { Box, Alert, CloseIcon, IconButton } from '@mui/material';
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 
 export default function AccessibilityBanner() {
+  const theme = institutionalTheme;
   const [open, setOpen] = useState(true);
 
   if (!open) return null;

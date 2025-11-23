@@ -166,6 +166,12 @@ export default function TenderAwarding() {
           </Typography>
           {tender && (
             <Box>
+              <Typography sx={{ fontSize: '13px', color: '#666666', mb: '4px' }}>
+                <strong>N° Consultation:</strong> {tender.consultation_number}
+              </Typography>
+              <Typography sx={{ fontSize: '13px', color: '#666666', mb: '4px' }}>
+                <strong>ID Référence:</strong> {tender.reference_id}
+              </Typography>
               <Typography sx={{ fontSize: '14px', color: '#666666', mb: '8px' }}>
                 {tender.title}
               </Typography>

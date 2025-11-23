@@ -340,9 +340,17 @@ export default function CreateOffer() {
             <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 500, color: theme.palette.text.primary, marginBottom: '8px' }}>
               Soumission d'Offre Sécurisée
             </Typography>
-            <Typography sx={{ color: '#616161', marginBottom: '24px' }}>
-              Appel d'offres: <strong>{tender.title}</strong>
-            </Typography>
+            <Box sx={{ marginBottom: '24px' }}>
+              <Typography sx={{ color: '#616161', mb: '8px' }}>
+                <strong>N° Consultation:</strong> {tender.consultation_number}
+              </Typography>
+              <Typography sx={{ color: '#616161', mb: '8px' }}>
+                <strong>ID Référence:</strong> {tender.reference_id}
+              </Typography>
+              <Typography sx={{ color: '#616161' }}>
+                <strong>Appel d'offres:</strong> {tender.title}
+              </Typography>
+            </Box>
 
             <Stepper activeStep={step} sx={{ marginBottom: '32px' }}>
               <Step>

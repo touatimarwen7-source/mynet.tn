@@ -311,6 +311,12 @@ export default function BidComparison() {
             </Typography>
             <Stack spacing={1}>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>
+                <strong>N° Consultation:</strong> {tender.consultation_number || 'N/A'}
+              </Typography>
+              <Typography sx={{ fontSize: '13px', color: '#666' }}>
+                <strong>ID Référence:</strong> {tender.reference_id || 'N/A'}
+              </Typography>
+              <Typography sx={{ fontSize: '13px', color: '#666' }}>
                 <strong>الموعد النهائي:</strong> {new Date(tender.deadline).toLocaleDateString('ar-TN')}
               </Typography>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>

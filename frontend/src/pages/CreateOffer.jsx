@@ -342,13 +342,10 @@ export default function CreateOffer() {
             </Typography>
             <Box sx={{ marginBottom: '24px' }}>
               <Typography sx={{ color: '#0056B3', mb: '12px', fontWeight: 700, fontSize: '14px' }}>
-                🔐 ID Plateforme: <strong>{tender.id || 'N/A'}</strong>
+                🔐 ID Référence (Plateforme): <strong>{tender.id || 'N/A'}</strong>
               </Typography>
               <Typography sx={{ color: '#616161', mb: '8px' }}>
                 <strong>N° Consultation:</strong> {tender.consultation_number}
-              </Typography>
-              <Typography sx={{ color: '#616161', mb: '8px' }}>
-                <strong>ID Référence:</strong> {tender.reference_id}
               </Typography>
               <Typography sx={{ color: '#616161' }}>
                 <strong>Appel d'offres:</strong> {tender.title}

@@ -75,7 +75,6 @@ const REQUIREMENT_PRIORITIES = [
 const getInitialFormData = () => ({
   platform_id: '',
   consultation_number: '',
-  reference_id: '',
   title: '',
   description: '',
   category: 'technology',
@@ -117,46 +116,25 @@ const StepOne = ({ formData, handleChange, loading }) => {
   
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Consultation Number & Reference ID */}
-      <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        <Box>
-          <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#212121', mb: '8px' }}>
-            N° Consultation *
-          </Typography>
-          <TextField
-            fullWidth
-            placeholder="Ex: CONS-2024-001"
-            name="consultation_number"
-            value={formData.consultation_number}
-            onChange={handleChange}
-            disabled={loading}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '4px',
-                backgroundColor: '#FAFAFA',
-              },
-            }}
-          />
-        </Box>
-        <Box>
-          <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#212121', mb: '8px' }}>
-            ID Référence *
-          </Typography>
-          <TextField
-            fullWidth
-            placeholder="Ex: REF-2024-TNS-001"
-            name="reference_id"
-            value={formData.reference_id}
-            onChange={handleChange}
-            disabled={loading}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '4px',
-                backgroundColor: '#FAFAFA',
-              },
-            }}
-          />
-        </Box>
+      {/* Consultation Number */}
+      <Box>
+        <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#212121', mb: '8px' }}>
+          N° Consultation *
+        </Typography>
+        <TextField
+          fullWidth
+          placeholder="Ex: CONS-2024-001"
+          name="consultation_number"
+          value={formData.consultation_number}
+          onChange={handleChange}
+          disabled={loading}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '4px',
+              backgroundColor: '#FAFAFA',
+            },
+          }}
+        />
       </Box>
 
       {/* Title */}

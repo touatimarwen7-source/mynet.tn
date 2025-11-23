@@ -233,13 +233,10 @@ export default function BidSubmission() {
           {tender && (
             <Box>
               <Typography sx={{ fontSize: '14px', color: '#0056B3', mb: '8px', fontWeight: 700 }}>
-                🔐 ID Plateforme: <strong>{tender.id || 'N/A'}</strong>
+                🔐 ID Référence (Plateforme): <strong>{tender.id || 'N/A'}</strong>
               </Typography>
               <Typography sx={{ fontSize: '13px', color: '#666666', mb: '4px' }}>
                 <strong>N° Consultation:</strong> {tender.consultation_number}
-              </Typography>
-              <Typography sx={{ fontSize: '13px', color: '#666666', mb: '4px' }}>
-                <strong>ID Référence:</strong> {tender.reference_id}
               </Typography>
               <Typography sx={{ fontSize: '14px', color: '#666666' }}>
                 {tender.title}

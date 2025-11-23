@@ -307,7 +307,7 @@ export default function BidComparison() {
         {tender && (
           <Paper sx={{ marginTop: '32px', padding: '16px', backgroundColor: '#f5f5f5' }}>
             <Typography sx={{ fontWeight: 700, marginBottom: '12px', color: theme.palette.primary.main, fontSize: '14px' }}>
-              🔐 ID Plateforme: <strong>{tender.id || 'N/A'}</strong>
+              🔐 ID Référence (Plateforme): <strong>{tender.id || 'N/A'}</strong>
             </Typography>
             <Typography sx={{ fontWeight: 600, marginBottom: '12px', color: theme.palette.primary.main }}>
               📋 ملخص المناقصة
@@ -315,9 +315,6 @@ export default function BidComparison() {
             <Stack spacing={1}>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>
                 <strong>N° Consultation:</strong> {tender.consultation_number || 'N/A'}
-              </Typography>
-              <Typography sx={{ fontSize: '13px', color: '#666' }}>
-                <strong>ID Référence:</strong> {tender.reference_id || 'N/A'}
               </Typography>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>
                 <strong>الموعد النهائي:</strong> {new Date(tender.deadline).toLocaleDateString('ar-TN')}

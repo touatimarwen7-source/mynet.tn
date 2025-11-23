@@ -28,6 +28,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PaymentIcon from '@mui/icons-material/Payment';
+import institutionalTheme from '../theme/theme';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
@@ -58,6 +59,7 @@ const iconMap = {
 };
 
 export default function Sidebar({ user, onLogout }) {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState({});

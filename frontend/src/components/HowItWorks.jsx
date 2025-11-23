@@ -1,6 +1,8 @@
 import { Box, Container, Typography, Grid, Card, CardContent, Stack } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function HowItWorks() {
+  const theme = institutionalTheme;
   const buyerSteps = [
     { number: 1, title: 'Créer un Appel d\'Offres', description: 'Définissez vos besoins, fixez les critères et publiez en quelques clics', icon: '📝' },
     { number: 2, title: 'Recevoir les Offres', description: 'Collectez les propositions de fournisseurs qualifiés en temps réel', icon: '📨' },

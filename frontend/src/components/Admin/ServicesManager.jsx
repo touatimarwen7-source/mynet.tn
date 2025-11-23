@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Box,
   Tabs,
@@ -28,12 +29,19 @@ import {
   FormControlLabel
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import institutionalTheme from '../theme/theme';
 import DeleteIcon from '@mui/icons-material/Delete';
+import institutionalTheme from '../theme/theme';
 import AddIcon from '@mui/icons-material/Add';
+import institutionalTheme from '../theme/theme';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import institutionalTheme from '../theme/theme';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import institutionalTheme from '../theme/theme';
 import adminAPI from '../../services/adminAPI';
+import institutionalTheme from '../theme/theme';
 import { errorHandler } from '../../utils/errorHandler';
+import institutionalTheme from '../theme/theme';
 
 // Fallback data for features
 const FALLBACK_FEATURES = [
@@ -51,6 +59,7 @@ const FALLBACK_PLANS = [
 ];
 
 export default function ServicesManager() {
+  const theme = institutionalTheme;
   const [currentTab, setCurrentTab] = useState(0);
   const [features, setFeatures] = useState([]);
   const [plans, setPlans] = useState([]);

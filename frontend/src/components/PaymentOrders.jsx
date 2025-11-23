@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Box, Container, Typography, Stack, Card, CardContent, Button, Chip } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 import { procurementAPI } from '../api';
+import institutionalTheme from '../theme/theme';
 
 export default function PaymentOrders() {
+  const theme = institutionalTheme;
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');

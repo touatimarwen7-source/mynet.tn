@@ -5,8 +5,10 @@ import GroupIcon from '@mui/icons-material/Group';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LanguageIcon from '@mui/icons-material/Language';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import institutionalTheme from '../theme/theme';
 
 export default function HomePageFeatures() {
+  const theme = institutionalTheme;
   const features = [
     { icon: <SecurityIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Sécurité Entreprise', description: 'Chiffrement AES-256, authentification 2FA, et audit complet' },
     { icon: <TrendingUpIcon sx={{ fontSize: '40px', color: theme.palette.primary.main }} />, title: 'Performant', description: 'Infrastructure cloud scalable avec 99.9% d\'uptime' },

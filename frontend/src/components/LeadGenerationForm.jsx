@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Box, Container, Typography, TextField, Button, Stack, FormControlLabel, Radio, RadioGroup, Alert } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function LeadGenerationForm() {
+  const theme = institutionalTheme;
   const [formData, setFormData] = useState({
     name: '',
     email: '',

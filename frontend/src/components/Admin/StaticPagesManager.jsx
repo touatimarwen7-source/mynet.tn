@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Box,
   Button,
@@ -25,11 +26,17 @@ import {
   Chip
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import institutionalTheme from '../theme/theme';
 import DeleteIcon from '@mui/icons-material/Delete';
+import institutionalTheme from '../theme/theme';
 import AddIcon from '@mui/icons-material/Add';
+import institutionalTheme from '../theme/theme';
 import InfoIcon from '@mui/icons-material/Info';
+import institutionalTheme from '../theme/theme';
 import adminAPI from '../../services/adminAPI';
+import institutionalTheme from '../theme/theme';
 import { errorHandler } from '../../utils/errorHandler';
+import institutionalTheme from '../theme/theme';
 
 const FALLBACK_PAGES = [
   { 
@@ -68,6 +75,7 @@ const FALLBACK_PAGES = [
 ];
 
 export default function StaticPagesManager() {
+  const theme = institutionalTheme;
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openPageDialog, setOpenPageDialog] = useState(false);

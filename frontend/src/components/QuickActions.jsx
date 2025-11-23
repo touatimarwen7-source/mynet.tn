@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import institutionalTheme from '../theme/theme';
 import { Grid, Card, CardActionArea, CardContent, Typography, Chip, Box } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function QuickActions({ actions }) {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
 
   const handleActionClick = (action) => {

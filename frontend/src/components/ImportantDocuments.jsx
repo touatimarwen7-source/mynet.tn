@@ -1,6 +1,8 @@
 import { Box, Card, CardContent, Typography, Stack, Chip, Link } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function ImportantDocuments({ documents, title = 'Documents Importants' }) {
+  const theme = institutionalTheme;
   if (!documents || documents.length === 0) {
     return (
       <Box sx={{ padding: '24px', backgroundColor: theme.palette.background.default, borderRadius: '4px' }}>

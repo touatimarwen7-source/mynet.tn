@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Box, Container, Card, CardContent, Button, List, ListItem, ListItemIcon, ListItemText, Typography, Grid } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import institutionalTheme from '../theme/theme';
 
 export default function HomePageRoleCards({ onRoleClick }) {
+  const theme = institutionalTheme;
   const [selectedRole, setSelectedRole] = useState(null);
 
   const roles = [

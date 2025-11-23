@@ -1,7 +1,9 @@
 import { Box, Container, Typography, Stack, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import institutionalTheme from '../theme/theme';
 
 export default function HomePageCTA() {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
 
   return (

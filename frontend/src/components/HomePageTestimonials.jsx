@@ -1,6 +1,8 @@
 import { Grid, Paper, Typography, Box } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function HomePageTestimonials() {
+  const theme = institutionalTheme;
   const testimonials = [
     { text: 'MyNet.tn a révolutionné notre processus d\'achat. Plus de transparence, moins de papiers, et une meilleure gestion des fournisseurs.', author: '— Directeur des Achats, Entreprise Manufacturière' },
     { text: 'Accès à plus d\'opportunités commerciales. La plateforme est facile à utiliser et les outils d\'offres sont complets.', author: '— Responsable Commercial, PME de Fournitures' },

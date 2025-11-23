@@ -1,6 +1,8 @@
 import { Box, Card, CardContent, Typography, LinearProgress, Stack, Chip } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function DashboardCards({ cards }) {
+  const theme = institutionalTheme;
   const getStatusColor = (status) => {
     const statusMap = {
       active: 'success',

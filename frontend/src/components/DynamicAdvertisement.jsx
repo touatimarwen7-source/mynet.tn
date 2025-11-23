@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Box, Card, CardContent, Typography, Button, Stack, IconButton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import institutionalTheme from '../theme/theme';
 
 export default function DynamicAdvertisement() {
+  const theme = institutionalTheme;
   const [advertisements] = useState([
     { id: 1, type: 'success', title: 'Succès Client', message: 'Banque Tunisienne adopte MyNet.tn pour gérer 500M TND d\'achats annuels', cta: 'En savoir plus' },
     { id: 2, type: 'webinar', title: 'Webinaire Gratuit', message: 'Masterclass: Optimiser vos appels d\'offres avec l\'IA - Jeudi 20h', cta: 'S\'inscrire gratuitement' },

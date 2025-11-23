@@ -22,6 +22,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import LogoutIcon from '@mui/icons-material/Logout';
 import TokenManager from '../services/tokenManager';
 import NotificationCenter from './NotificationCenter';
+import institutionalTheme from '../theme/theme';
 
 export default function UnifiedHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -32,6 +33,7 @@ export default function UnifiedHeader() {
   const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const theme = institutionalTheme;
 
   useEffect(() => {
     const checkAuth = () => {

@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import institutionalTheme from '../theme/theme';
 import { Box, Card, CardContent, Typography, Chip, TextField, Button, Stack } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function ProfileInterestsTab({ interests: initialInterests, onUpdate }) {
+  const theme = institutionalTheme;
   const [interests, setInterests] = useState(initialInterests);
   const [newInterest, setNewInterest] = useState('');
 

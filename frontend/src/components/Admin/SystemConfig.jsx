@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Box,
   Switch,
@@ -14,11 +15,16 @@ import {
   CircularProgress
 } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
+import institutionalTheme from '../theme/theme';
 import WarningIcon from '@mui/icons-material/Warning';
+import institutionalTheme from '../theme/theme';
 import adminAPI from '../../services/adminAPI';
+import institutionalTheme from '../theme/theme';
 import { errorHandler } from '../../utils/errorHandler';
+import institutionalTheme from '../theme/theme';
 
 export default function SystemConfig() {
+  const theme = institutionalTheme;
   const [config, setConfig] = useState({
     maintenanceMode: false,
     emailNotifications: true,

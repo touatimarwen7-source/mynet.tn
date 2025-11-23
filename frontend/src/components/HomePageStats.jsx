@@ -1,6 +1,8 @@
 import { Grid, Paper, Typography } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function HomePageStats() {
+  const theme = institutionalTheme;
   const stats = [
     { number: '50M+', label: 'Dinars', description: 'Montants d\'appels d\'offres traités' },
     { number: '1,200+', label: 'Organisations', description: 'Acheteurs et fournisseurs' },

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Box,
   Card,
@@ -16,12 +17,18 @@ import {
   Alert
 } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import institutionalTheme from '../theme/theme';
 import PeopleIcon from '@mui/icons-material/People';
+import institutionalTheme from '../theme/theme';
 import StorageIcon from '@mui/icons-material/Storage';
+import institutionalTheme from '../theme/theme';
 import ErrorIcon from '@mui/icons-material/Error';
+import institutionalTheme from '../theme/theme';
 import adminAPI from '../../services/adminAPI';
+import institutionalTheme from '../theme/theme';
 
 export default function AdminAnalytics() {
+  const theme = institutionalTheme;
   const [stats, setStats] = useState([]);
   const [resourceUsage, setResourceUsage] = useState([]);
   const [activities, setActivities] = useState([]);

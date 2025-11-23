@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import institutionalTheme from '../theme/theme';
 import {
   Table,
   TableContainer,
@@ -13,10 +14,14 @@ import {
   Typography,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import institutionalTheme from '../theme/theme';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import institutionalTheme from '../theme/theme';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import institutionalTheme from '../theme/theme';
 
 export default function EnhancedTable({
+  const theme = institutionalTheme;
   data = [],
   columns = [],
   sortable = true,

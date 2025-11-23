@@ -1,10 +1,12 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 /**
  * Loading Spinner Component
  * Displays centered loading animation with optional message
  */
 export default function LoadingSpinner({ message = 'Chargement en cours...' }) {
+  const theme = institutionalTheme;
   return (
     <Box
       sx={{

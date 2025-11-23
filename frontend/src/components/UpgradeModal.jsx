@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Box, Typography, Stack, Chip } from '@mui/material';
 import { getNextTierInfo, UPGRADE_VALUES, SERVICE_DESCRIPTIONS } from '../utils/subscriptionTiers';
+import institutionalTheme from '../theme/theme';
 
 export default function UpgradeModal({ isOpen, onClose, currentTier, featureKey }) {
+  const theme = institutionalTheme;
   const navigate = useNavigate();
   const nextTierInfo = getNextTierInfo(currentTier?.id);
   const featureInfo = SERVICE_DESCRIPTIONS[featureKey] || {};

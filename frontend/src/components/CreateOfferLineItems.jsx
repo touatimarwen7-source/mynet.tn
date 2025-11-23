@@ -1,6 +1,8 @@
 import { Box, Paper, Table, TableHead, TableBody, TableRow, TableCell, TextField, Button } from '@mui/material';
+import institutionalTheme from '../theme/theme';
 
 export default function CreateOfferLineItems({ items, onLineItemChange, onOpenCatalog, isDeadlinePassed, getTotalBidAmount }) {
+  const theme = institutionalTheme;
   return (
     <Box>
       <Paper sx={{ overflow: 'hidden' }}>

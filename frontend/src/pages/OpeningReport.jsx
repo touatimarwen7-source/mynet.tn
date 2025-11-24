@@ -10,8 +10,31 @@ import DownloadIcon from '@mui/icons-material/Download';
 import PrintIcon from '@mui/icons-material/Print';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
+
+// Constants for Opening Report styling
+const OPENING_REPORT_CONSTANTS = {
+  COLORS: {
+    PRIMARY: institutionalTheme.palette.primary.main,
+    SUCCESS: '#4caf50',
+    ERROR: '#d32f2f',
+    BACKGROUND_LIGHT: '#F5F5F5',
+    BORDER: '#E0E0E0',
+    TEXT_SECONDARY: '#666666',
+    TEXT_MUTED: '#999999'
+  },
+  SPACING: {
+    LARGE: 40,
+    MEDIUM: 24,
+    SMALL: 16,
+    TINY: 8
+  },
+  BORDER_RADIUS: 4,
+  MIN_HEIGHT_FULL: '100vh'
+};
 
 export default function OpeningReport() {
   const theme = institutionalTheme;
@@ -22,6 +45,7 @@ export default function OpeningReport() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [exportDialog, setExportDialog] = useState(false);
+  const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
     setPageTitle('محضر الفتح');
@@ -31,10 +55,18 @@ export default function OpeningReport() {
   const loadOpeningReport = async () => {
     try {
       setLoading(true);
+      setError('');
       const res = await procurementAPI.get(`/opening-reports/tenders/${tenderId}/opening-report`);
+      
+      if (!res.data.success || !res.data.report) {
+        setError('لم يتم العثور على محضر الفتح');
+        return;
+      }
+      
       setReport(res.data.report);
     } catch (err) {
-      setError('خطأ: ' + err.message);
+      const message = err?.response?.data?.message || err.message || 'خطأ في تحميل البيانات';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -42,107 +74,269 @@ export default function OpeningReport() {
 
   const handleExport = async (format) => {
     try {
+      setExporting(true);
       const res = await procurementAPI.get(`/opening-reports/${report.id}/export?format=${format}`);
-      const dataStr = JSON.stringify(res.data, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `opening-report-${tenderId}.${format}`;
-      link.click();
-      setExportDialog(false);
+      
+      if (res.data.success) {
+        const dataStr = JSON.stringify(res.data.report, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `محضر-الفتح-${tenderId}-${Date.now()}.${format}`;
+        link.click();
+        URL.revokeObjectURL(url);
+        setExportDialog(false);
+      }
     } catch (err) {
-      setError('خطأ في التنزيل');
+      setError('خطأ في تنزيل الملف: ' + (err.message || 'Unknown error'));
+    } finally {
+      setExporting(false);
     }
   };
 
   if (loading) {
-    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}><CircularProgress /></Box>;
+    return (
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        minHeight: OPENING_REPORT_CONSTANTS.MIN_HEIGHT_FULL 
+      }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (!report) {
-    return <Container maxWidth="md" sx={{ py: '40px' }}><Alert severity="error">{error}</Alert></Container>;
+    return (
+      <Container maxWidth="md" sx={{ py: `${OPENING_REPORT_CONSTANTS.SPACING.LARGE}px` }}>
+        <Alert severity="error" onClose={() => navigate(-1)}>
+          {error || 'خطأ: لم يتم العثور على محضر الفتح'}
+        </Alert>
+      </Container>
+    );
   }
 
-  const offersData = Array.isArray(report.offers_data) ? report.offers_data : JSON.parse(report.offers_data || '[]');
+  const offersData = Array.isArray(report.offers_data) 
+    ? report.offers_data 
+    : (typeof report.offers_data === 'string' 
+      ? JSON.parse(report.offers_data) 
+      : []);
 
   return (
-    <Box sx={{ backgroundColor: '#FAFAFA', paddingY: '40px', minHeight: '100vh' }}>
+    <Box sx={{ 
+      backgroundColor: OPENING_REPORT_CONSTANTS.COLORS.BACKGROUND_LIGHT, 
+      paddingY: `${OPENING_REPORT_CONSTANTS.SPACING.LARGE}px`, 
+      minHeight: OPENING_REPORT_CONSTANTS.MIN_HEIGHT_FULL,
+      direction: 'rtl'
+    }}>
       <Container maxWidth="lg">
-        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} sx={{ mb: '16px' }}>رجوع</Button>
+        <Button 
+          startIcon={<ArrowBackIcon />} 
+          onClick={() => navigate(-1)} 
+          sx={{ mb: `${OPENING_REPORT_CONSTANTS.SPACING.SMALL}px` }}
+        >
+          رجوع
+        </Button>
 
-        <Card sx={{ border: '1px solid #E0E0E0', borderRadius: '4px', mb: '24px' }}>
-          <CardContent sx={{ padding: '24px' }}>
-            <Typography variant="h4" sx={{ color: theme.palette.primary.main, mb: '8px' }}>📋 محضر الفتح</Typography>
-            <Typography sx={{ fontSize: '14px', color: '#666666' }}>تقرير رسمي بتفاصيل جميع العروض</Typography>
+        {error && (
+          <Alert severity="error" onClose={() => setError('')} sx={{ mb: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` }}>
+            {error}
+          </Alert>
+        )}
+
+        {/* Header Card */}
+        <Card sx={{ 
+          border: `1px solid ${OPENING_REPORT_CONSTANTS.COLORS.BORDER}`, 
+          borderRadius: `${OPENING_REPORT_CONSTANTS.BORDER_RADIUS}px`, 
+          mb: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` 
+        }}>
+          <CardContent sx={{ padding: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` }}>
+            <Typography 
+              variant="h4" 
+              sx={{ color: OPENING_REPORT_CONSTANTS.COLORS.PRIMARY, mb: `${OPENING_REPORT_CONSTANTS.SPACING.TINY}px` }}
+            >
+              📋 محضر الفتح
+            </Typography>
+            <Typography sx={{ fontSize: '14px', color: OPENING_REPORT_CONSTANTS.COLORS.TEXT_SECONDARY }}>
+              تقرير رسمي بتفاصيل جميع العروض المستلمة
+            </Typography>
           </CardContent>
         </Card>
 
-        <Card sx={{ border: '1px solid #E0E0E0', borderRadius: '4px', mb: '24px' }}>
-          <CardContent sx={{ padding: '24px' }}>
-            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', mb: '24px' }}>
-              <Box><Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#999999' }}>رقم المناقصة</Typography>
-                <Typography sx={{ fontSize: '16px', fontWeight: 500 }}>#{report.tender_number || 'N/A'}</Typography>
+        {/* Info Card */}
+        <Card sx={{ 
+          border: `1px solid ${OPENING_REPORT_CONSTANTS.COLORS.BORDER}`, 
+          borderRadius: `${OPENING_REPORT_CONSTANTS.BORDER_RADIUS}px`, 
+          mb: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` 
+        }}>
+          <CardContent sx={{ padding: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` }}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: `${OPENING_REPORT_CONSTANTS.SPACING.SMALL}px`, mb: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` }}>
+              <Box>
+                <Typography sx={{ fontSize: '12px', fontWeight: 600, color: OPENING_REPORT_CONSTANTS.COLORS.TEXT_MUTED }}>
+                  رقم المناقصة
+                </Typography>
+                <Typography sx={{ fontSize: '16px', fontWeight: 500 }}>
+                  #{report.tender_number || 'N/A'}
+                </Typography>
               </Box>
-              <Box><Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#999999' }}>وقت الفتح</Typography>
-                <Typography sx={{ fontSize: '16px', fontWeight: 500 }}>{new Date(report.opened_at).toLocaleString('ar-TN')}</Typography>
+              <Box>
+                <Typography sx={{ fontSize: '12px', fontWeight: 600, color: OPENING_REPORT_CONSTANTS.COLORS.TEXT_MUTED }}>
+                  وقت الفتح
+                </Typography>
+                <Typography sx={{ fontSize: '16px', fontWeight: 500 }}>
+                  {new Date(report.opened_at).toLocaleString('ar-TN')}
+                </Typography>
               </Box>
             </Box>
 
-            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', p: '16px', backgroundColor: '#F5F5F5', borderRadius: '4px' }}>
-              <Box><Typography sx={{ fontSize: '12px', color: '#666666' }}>العروض الكلية</Typography>
-                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: theme.palette.primary.main }}>{report.total_offers_received || 0}</Typography>
+            {/* Statistics */}
+            <Box sx={{ 
+              display: 'grid', 
+              gridTemplateColumns: '1fr 1fr 1fr', 
+              gap: `${OPENING_REPORT_CONSTANTS.SPACING.SMALL}px`, 
+              p: `${OPENING_REPORT_CONSTANTS.SPACING.SMALL}px`, 
+              backgroundColor: OPENING_REPORT_CONSTANTS.COLORS.BACKGROUND_LIGHT, 
+              borderRadius: `${OPENING_REPORT_CONSTANTS.BORDER_RADIUS}px` 
+            }}>
+              <Box>
+                <Typography sx={{ fontSize: '12px', color: OPENING_REPORT_CONSTANTS.COLORS.TEXT_SECONDARY }}>
+                  العروض الكلية
+                </Typography>
+                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: OPENING_REPORT_CONSTANTS.COLORS.PRIMARY }}>
+                  {report.total_offers_received || 0}
+                </Typography>
               </Box>
-              <Box><Typography sx={{ fontSize: '12px', color: '#666666' }}>الصالحة</Typography>
-                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#4caf50' }}>{report.total_valid_offers || 0}</Typography>
+              <Box>
+                <Typography sx={{ fontSize: '12px', color: OPENING_REPORT_CONSTANTS.COLORS.TEXT_SECONDARY }}>
+                  الصالحة
+                </Typography>
+                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: OPENING_REPORT_CONSTANTS.COLORS.SUCCESS }}>
+                  {report.total_valid_offers || 0}
+                </Typography>
               </Box>
-              <Box><Typography sx={{ fontSize: '12px', color: '#666666' }}>غير الصالحة</Typography>
-                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#d32f2f' }}>{report.total_invalid_offers || 0}</Typography>
+              <Box>
+                <Typography sx={{ fontSize: '12px', color: OPENING_REPORT_CONSTANTS.COLORS.TEXT_SECONDARY }}>
+                  غير الصالحة
+                </Typography>
+                <Typography sx={{ fontSize: '24px', fontWeight: 700, color: OPENING_REPORT_CONSTANTS.COLORS.ERROR }}>
+                  {report.total_invalid_offers || 0}
+                </Typography>
               </Box>
             </Box>
           </CardContent>
         </Card>
 
-        <Card sx={{ border: '1px solid #E0E0E0', borderRadius: '4px', mb: '24px' }}>
-          <CardContent sx={{ padding: '24px' }}>
-            <Typography variant="h6" sx={{ mb: '16px', fontWeight: 600 }}>📊 العروض</Typography>
+        {/* Offers Table Card */}
+        <Card sx={{ 
+          border: `1px solid ${OPENING_REPORT_CONSTANTS.COLORS.BORDER}`, 
+          borderRadius: `${OPENING_REPORT_CONSTANTS.BORDER_RADIUS}px`, 
+          mb: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` 
+        }}>
+          <CardContent sx={{ padding: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` }}>
+            <Typography variant="h6" sx={{ mb: `${OPENING_REPORT_CONSTANTS.SPACING.SMALL}px`, fontWeight: 600 }}>
+              📊 العروض المستلمة ({offersData.length})
+            </Typography>
             <Box sx={{ overflowX: 'auto' }}>
               <Table>
                 <TableHead>
-                  <TableRow sx={{ backgroundColor: '#F5F5F5' }}>
+                  <TableRow sx={{ backgroundColor: OPENING_REPORT_CONSTANTS.COLORS.BACKGROUND_LIGHT }}>
                     <TableCell sx={{ fontWeight: 600 }}>المورد</TableCell>
                     <TableCell sx={{ fontWeight: 600 }}>المبلغ</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>الوقت</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>وقت الاستلام</TableCell>
                     <TableCell sx={{ fontWeight: 600 }}>الحالة</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {offersData.map((offer, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell>{offer.supplier_name}</TableCell>
-                      <TableCell>{offer.total_amount.toLocaleString('ar-TN', { minimumFractionDigits: 2 })}</TableCell>
-                      <TableCell>{new Date(offer.submitted_at).toLocaleString('ar-TN')}</TableCell>
-                      <TableCell><Chip icon={<VerifiedIcon />} label="مستقبل" color="success" size="small" /></TableCell>
+                  {offersData && offersData.length > 0 ? (
+                    offersData.map((offer, idx) => (
+                      <TableRow key={idx} hover>
+                        <TableCell>{offer.supplier_name || 'Unknown'}</TableCell>
+                        <TableCell>
+                          {(offer.total_amount || 0).toLocaleString('ar-TN', { 
+                            style: 'currency',
+                            currency: 'TND',
+                            minimumFractionDigits: 2 
+                          })}
+                        </TableCell>
+                        <TableCell>
+                          {new Date(offer.submitted_at).toLocaleString('ar-TN')}
+                        </TableCell>
+                        <TableCell>
+                          {offer.is_valid ? (
+                            <Chip 
+                              icon={<CheckCircleIcon />} 
+                              label="صالح" 
+                              color="success" 
+                              size="small" 
+                            />
+                          ) : (
+                            <Chip 
+                              icon={<ErrorIcon />} 
+                              label="غير صالح" 
+                              size="small" 
+                              sx={{ backgroundColor: OPENING_REPORT_CONSTANTS.COLORS.ERROR, color: '#fff' }}
+                            />
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={4} align="center">
+                        لا توجد عروض
+                      </TableCell>
                     </TableRow>
-                  ))}
+                  )}
                 </TableBody>
               </Table>
             </Box>
           </CardContent>
         </Card>
 
-        <Stack direction="row" spacing={2} sx={{ mb: '24px' }}>
-          <Button startIcon={<PrintIcon />} onClick={() => window.print()} variant="outlined">طباعة</Button>
-          <Button startIcon={<DownloadIcon />} onClick={() => setExportDialog(true)} variant="contained" sx={{ backgroundColor: theme.palette.primary.main }}>تنزيل</Button>
+        {/* Action Buttons */}
+        <Stack direction="row" spacing={2} sx={{ mb: `${OPENING_REPORT_CONSTANTS.SPACING.MEDIUM}px` }}>
+          <Button 
+            startIcon={<PrintIcon />} 
+            onClick={() => window.print()} 
+            variant="outlined"
+          >
+            طباعة
+          </Button>
+          <Button 
+            startIcon={<DownloadIcon />} 
+            onClick={() => setExportDialog(true)} 
+            variant="contained" 
+            sx={{ backgroundColor: OPENING_REPORT_CONSTANTS.COLORS.PRIMARY }}
+            disabled={exporting}
+          >
+            {exporting ? 'جاري التنزيل...' : 'تنزيل'}
+          </Button>
         </Stack>
 
+        {/* Export Dialog */}
         <Dialog open={exportDialog} onClose={() => setExportDialog(false)}>
           <DialogTitle>تنزيل محضر الفتح</DialogTitle>
-          <DialogContent><Typography>اختر صيغة التنزيل:</Typography></DialogContent>
+          <DialogContent sx={{ minWidth: '300px', direction: 'rtl' }}>
+            <Typography>اختر الصيغة المطلوبة:</Typography>
+          </DialogContent>
           <DialogActions>
             <Button onClick={() => setExportDialog(false)}>إلغاء</Button>
-            <Button onClick={() => handleExport('json')} variant="contained">JSON</Button>
-            <Button onClick={() => handleExport('pdf')} variant="contained">PDF</Button>
+            <Button 
+              onClick={() => handleExport('json')} 
+              variant="contained"
+              disabled={exporting}
+            >
+              JSON
+            </Button>
+            <Button 
+              onClick={() => handleExport('pdf')} 
+              variant="contained"
+              disabled={exporting}
+            >
+              PDF
+            </Button>
           </DialogActions>
         </Dialog>
       </Container>

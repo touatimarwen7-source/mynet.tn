@@ -48,6 +48,8 @@ const schemaQueries = [
         first_offer_at TIMESTAMP WITH TIME ZONE,
         is_archived BOOLEAN DEFAULT FALSE,
         archived_at TIMESTAMP WITH TIME ZONE,
+        allow_partial_award BOOLEAN DEFAULT FALSE,
+        max_winners INTEGER DEFAULT 1,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         created_by INTEGER,

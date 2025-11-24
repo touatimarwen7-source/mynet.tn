@@ -20,6 +20,15 @@ class AwardNotificationService {
 
       const tender = tenderResult.rows[0];
 
+      // Validate partial award constraint
+      if (!tender.allow_partial_award && winnersIds.length > 1) {
+        throw new Error(`This tender allows only 1 winner (partial award disabled). You selected ${winnersIds.length} winners.`);
+      }
+
+      if (tender.max_winners && winnersIds.length > tender.max_winners) {
+        throw new Error(`Maximum ${tender.max_winners} winner(s) allowed. You selected ${winnersIds.length}.`);
+      }
+
       for (const winnerId of winnersIds) {
         await pool.query(
           'UPDATE offers SET award_status = $1, awarded_at = NOW() WHERE id = $2',

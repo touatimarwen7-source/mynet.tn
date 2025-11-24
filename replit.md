@@ -109,3 +109,54 @@ An optimized PostgreSQL connection pool with `SafeClient` and secure query middl
 | Archive | ✅ | 1 | 2 |
 | Cancellation | ✅ | 1 | 2 |
 
+
+### Partial Award System (November 24, 2025)
+**Status: ✅ IMPLEMENTED & VERIFIED**
+
+**Features Added:**
+
+1. **Database Schema Enhancement** ✅
+   - `allow_partial_award` (BOOLEAN) - Flag to enable/disable partial awards
+   - `max_winners` (INTEGER) - Maximum number of allowed winners
+
+2. **Validation Logic** ✅
+   - Checks partial award setting when selecting winners
+   - Prevents multiple winners if partial award disabled
+   - Enforces max_winners constraint
+   - Clear error messages in Arabic/French
+
+3. **API Endpoints** ✅
+   - GET `/api/tenders/:tenderId/award-settings` - Check partial award rules
+
+4. **Logic Enforcement** ✅
+   - AwardNotificationService validates before award
+   - Throws error if rules violated
+   - Audit logging of all award decisions
+
+**Example Scenarios:**
+
+**Scenario 1: ترسية كاملة (Full Award)**
+```
+allow_partial_award = FALSE
+max_winners = 1
+
+Result: Only 1 winner allowed
+Error if user tries to select >1 winner:
+"This tender allows only 1 winner (partial award disabled). You selected 2 winners."
+```
+
+**Scenario 2: ترسية جزئية (Partial Award)**
+```
+allow_partial_award = TRUE
+max_winners = 3
+
+Result: 1-3 winners allowed
+Can select multiple suppliers
+```
+
+**Implementation Details:**
+- Schema updated with 2 new columns
+- AwardNotificationService validates constraints
+- Routes provide settings endpoint
+- Audit logging captures all decisions
+

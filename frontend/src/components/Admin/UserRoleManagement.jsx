@@ -121,13 +121,9 @@ export default function UserRoleManagement() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      try {
-        const response = await adminAPI.users.getAll(currentPage, ITEMS_PER_PAGE, search);
-        setUsers(response.data || response);
-      } catch {
-        setUsers(FALLBACK_USERS);
-      }
       setErrorMsg('');
+      const response = await adminAPI.users.getAll(currentPage, ITEMS_PER_PAGE, search);
+      setUsers(response.data || response);
     } catch (error) {
       const formatted = errorHandler.getUserMessage(error);
       setErrorMsg(formatted.message || 'Erreur lors du chargement des utilisateurs');
@@ -161,10 +157,9 @@ export default function UserRoleManagement() {
 
     try {
       setUpdating(true);
-      try {
-        await adminAPI.users.updateRole(editingUser.id, selectedRole);
-      } catch {
-      }
+      setErrorMsg('');
+      
+      await adminAPI.users.updateRole(editingUser.id, selectedRole);
       
       setUsers(users.map(u =>
         u.id === editingUser.id ? { ...u, role: selectedRole } : u
@@ -183,11 +178,10 @@ export default function UserRoleManagement() {
   const handleBlockUser = async (userId, currentStatus) => {
     try {
       setUpdating(true);
+      setErrorMsg('');
       const newStatus = currentStatus === 'active' ? 'blocked' : 'active';
-      try {
-        await adminAPI.users.toggleBlock(userId, newStatus === 'blocked');
-      } catch {
-      }
+      
+      await adminAPI.users.toggleBlock(userId, newStatus === 'blocked');
       
       setUsers(users.map(u =>
         u.id === userId ? { ...u, status: newStatus } : u
@@ -205,13 +199,11 @@ export default function UserRoleManagement() {
   const handleResetPassword = async (email) => {
     try {
       setUpdating(true);
+      setErrorMsg('');
       const user = users.find(u => u.email === email);
       if (!user) throw new Error('Utilisateur non trouvé');
       
-      try {
-        await adminAPI.users.resetPassword(user.id);
-      } catch {
-      }
+      await adminAPI.users.resetPassword(user.id);
       
       setSuccessMsg(`Email de réinitialisation envoyé à ${email}`);
       setTimeout(() => setSuccessMsg(''), 3000);
@@ -228,10 +220,9 @@ export default function UserRoleManagement() {
 
     try {
       setUpdating(true);
-      try {
-        await adminAPI.users.delete(userId);
-      } catch {
-      }
+      setErrorMsg('');
+      
+      await adminAPI.users.delete(userId);
       
       setUsers(users.filter(u => u.id !== userId));
       setSuccessMsg(`Utilisateur ${email} supprimé`);

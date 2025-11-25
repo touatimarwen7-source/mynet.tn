@@ -1,10 +1,14 @@
 const { getPool } = require('../config/db');
 const AuditLogService = require('./AuditLogService');
+const DataMapper = require('../helpers/DataMapper');
 
 class ReviewService {
     async createReview(reviewData, buyerId, ipAddress) {
         const pool = getPool();
-        const { offer_id, supplier_id, rating, comment, po_id } = reviewData;
+        
+        // Map frontend data to database schema
+        const mappedData = DataMapper.mapReview(reviewData);
+        const { offer_id, supplier_id, rating, comment, po_id } = mappedData;
 
         if (rating < 1 || rating > 5) {
             throw new Error('Rating must be between 1 and 5');

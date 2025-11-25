@@ -1,4 +1,5 @@
 const { getPool } = require('../config/db');
+const DataMapper = require('../helpers/DataMapper');
 
 // جميع الميزات المتاحة
 const ALL_FEATURES = [
@@ -22,13 +23,16 @@ class SubscriptionService {
     async createSubscriptionPlan(planData) {
         const pool = getPool();
         try {
+            // Map frontend data to database schema
+            const mappedData = DataMapper.mapSubscription(planData);
+            
             const result = await pool.query(
                 `INSERT INTO subscription_plans 
                  (name, description, price, currency, duration_days, features, 
                   max_tenders, max_offers, max_products, storage_limit, is_active)
                  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, TRUE)
                  RETURNING *`,
-                [planData.name, planData.description, planData.price, planData.currency || 'TND',
+                [mappedData.plan_id || planData.name, planData.description, planData.price, planData.currency || 'TND',
                  planData.duration_days, JSON.stringify(planData.features || {}),
                  planData.max_tenders, planData.max_offers, planData.max_products || 50, 
                  planData.storage_limit || 5]

@@ -3,6 +3,7 @@ const { getPool } = require('../config/db');
 const Message = require('../models/Message');
 const AuditLogService = require('./AuditLogService');
 const NotificationService = require('./NotificationService');
+const DataMapper = require('../helpers/DataMapper');
 
 class ChatService {
     /**
@@ -27,8 +28,10 @@ class ChatService {
                 throw new Error('Unauthorized access to this conversation');
             }
             
+            // Map frontend data to database schema
+            const mappedData = DataMapper.mapMessage(messageData);
             const message = new Message({
-                ...messageData,
+                ...mappedData,
                 sender_id: userId
             });
             

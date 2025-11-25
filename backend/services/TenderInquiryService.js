@@ -5,6 +5,7 @@
 
 const { getPool } = require('../config/db');
 const AuditLogService = require('./AuditLogService');
+const DataMapper = require('../helpers/DataMapper');
 
 class TenderInquiryService {
   /**

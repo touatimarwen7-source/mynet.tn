@@ -2,6 +2,7 @@ const { getPool } = require('../config/db');
 const Offer = require('../models/Offer');
 const crypto = require('crypto');
 const KeyManagementService = require('../security/KeyManagementService');
+const DataMapper = require('../helpers/DataMapper');
 
 class OfferService {
     // 🚀 PERFORMANCE: Batch processing queue
@@ -66,7 +67,10 @@ class OfferService {
 
     async createOffer(offerData, userId) {
         const pool = getPool();
-        const offer = new Offer(offerData);
+        
+        // Map frontend data to database schema
+        const mappedData = DataMapper.mapOffer(offerData);
+        const offer = new Offer(mappedData);
         
         try {
             const offerNumber = this.generateOfferNumber();

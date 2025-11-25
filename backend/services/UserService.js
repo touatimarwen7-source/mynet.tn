@@ -1,11 +1,15 @@
 const { getPool } = require('../config/db');
 const KeyManagementService = require('../security/KeyManagementService');
 const User = require('../models/User');
+const DataMapper = require('../helpers/DataMapper');
 
 class UserService {
     async createUser(userData) {
         const pool = getPool();
-        const user = new User(userData);
+        
+        // Map frontend data to database schema
+        const mappedData = DataMapper.mapUser(userData);
+        const user = new User(mappedData);
         
         try {
             const { hash, salt } = KeyManagementService.hashPassword(userData.password);

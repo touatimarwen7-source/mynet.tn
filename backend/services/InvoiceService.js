@@ -1,6 +1,7 @@
 
 const { getPool } = require('../config/db');
 const Invoice = require('../models/Invoice');
+const DataMapper = require('../helpers/DataMapper');
 
 class InvoiceService {
   async createInvoice(invoiceData) {
@@ -22,10 +23,12 @@ class InvoiceService {
       // Generate invoice number
       const invoiceNumber = `INV-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
+      // Map frontend data to database schema
+      const mappedData = DataMapper.mapInvoice(invoiceData);
       const invoice = new Invoice({
-        ...invoiceData,
+        ...mappedData,
         invoice_number: invoiceNumber,
-        total: parseFloat(invoiceData.amount) + parseFloat(invoiceData.tax || 0)
+        total: parseFloat(mappedData.amount) + parseFloat(mappedData.tax || 0)
       });
 
       const result = await client.query(

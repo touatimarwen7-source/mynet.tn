@@ -119,7 +119,7 @@ class Analytics {
   /**
    * Export analytics data
    */
-  export() {
+  exportData() {
     return {
       stats: this.getStats(),
       events: this.events,

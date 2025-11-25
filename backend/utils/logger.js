@@ -61,6 +61,7 @@ class Logger {
 
     // Console output with color
     const colorCode = this.getColorCode(level);
+    console.log(
       `${colorCode}[${level}]${'\x1b[0m'} ${this.name}: ${message}`,
       data
     );

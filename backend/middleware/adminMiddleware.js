@@ -400,12 +400,17 @@ const adminErrorHandler = (err, req, res, next) => {
 
   // Log admin errors
   if (req.user?.role === 'super_admin') {
-      ...errorResponse,
-      path: req.path,
-      method: req.method,
-      userId: req.user.id,
-      stack: err.stack
-    });
+    // Emit admin error event if available
+    const io = req.app.get('io');
+    if (io) {
+      io.to(`admin`).emit('admin-error', {
+        ...errorResponse,
+        path: req.path,
+        method: req.method,
+        userId: req.user.id,
+        stack: err.stack
+      });
+    }
   }
 
   const statusCode = err.statusCode || err.status || 500;

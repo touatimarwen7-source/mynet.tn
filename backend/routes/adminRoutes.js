@@ -16,8 +16,8 @@ router.get('/audit-logs/export', adminController.exportAuditLogs);
 // ===== إدارة المستخدمين =====
 router.get('/users', adminController.getAllUsers);
 router.get('/users/:id', validateIdMiddleware('id'), adminController.getUserDetails);
-router.put('/users/:id/role', adminController.updateUserRole);
-router.post('/users/:id/block', adminController.blockUser);
+router.put('/users/:id/role', validateIdMiddleware('id'), adminController.updateUserRole);
+router.post('/users/:id/block', validateIdMiddleware('id'), adminController.blockUser);
 router.post('/users/:id/unblock', adminController.unblockUser);
 router.post('/users/:id/reset-password', adminController.resetUserPassword);
 
@@ -74,6 +74,6 @@ router.get('/analytics/activities', adminController.getRecentActivities);
 router.get('/analytics/users', adminController.getUserStatistics);
 
 // ===== نسخة احتياطية من المسارات القديمة =====
-router.put('/users/:id/block', adminController.blockUser);
+router.put('/users/:id/block', validateIdMiddleware('id'), adminController.blockUser);
 
 module.exports = router;

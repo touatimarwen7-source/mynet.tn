@@ -119,7 +119,7 @@ class Logger {
   /**
    * Export logs as JSON
    */
-  export() {
+  exportLogs() {
     return JSON.stringify(this.logs, null, 2);
   }
 

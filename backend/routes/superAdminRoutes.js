@@ -50,7 +50,7 @@ router.post('/files',
   adminMiddleware.validateFileUpload,
   superAdminController.uploadFile
 );
-router.delete('/files/:id', adminMiddleware.adminMutationLimiter, superAdminController.deleteFile);
+router.delete('/files/:id', validateIdMiddleware('id'), adminMiddleware.adminMutationLimiter, superAdminController.deleteFile);
 
 // ===== 3. DOCUMENT MANAGEMENT =====
 router.get('/documents', superAdminController.listDocuments);
@@ -63,8 +63,8 @@ router.post('/emails/send', superAdminController.sendEmail);
 
 // ===== 5. USER MANAGEMENT =====
 router.get('/users', superAdminController.listUsers);
-router.put('/users/:id/role', adminMiddleware.adminMutationLimiter, superAdminController.updateUserRole);
-router.post('/users/:id/block', adminMiddleware.adminMutationLimiter, superAdminController.blockUser);
+router.put('/users/:id/role', validateIdMiddleware('id'), adminMiddleware.adminMutationLimiter, superAdminController.updateUserRole);
+router.post('/users/:id/block', validateIdMiddleware('id'), adminMiddleware.adminMutationLimiter, superAdminController.blockUser);
 router.post('/users/:id/unblock', adminMiddleware.adminMutationLimiter, superAdminController.unblockUser);
 
 // ===== 6. AUDIT LOGS =====
@@ -86,6 +86,6 @@ router.delete('/subscription-plans/:id', validateIdMiddleware('id'), superAdminC
 
 // ===== 10. FEATURE CONTROL =====
 router.get('/features', superAdminController.listFeatures);
-router.put('/features/:id/toggle', superAdminController.toggleFeature);
+router.put('/features/:id/toggle', validateIdMiddleware('id'), superAdminController.toggleFeature);
 
 module.exports = router;

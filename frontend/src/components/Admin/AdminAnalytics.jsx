@@ -39,28 +39,12 @@ export default function AdminAnalytics() {
       setLoading(true);
       setError('');
 
-      try {
-        const [statsRes, activitiesRes] = await Promise.all([
-          adminAPI.analytics.getStats(),
-          adminAPI.analytics.getActivities()
-        ]);
-        setStats(statsRes.data || statsRes);
-        setActivities(activitiesRes.data || activitiesRes);
-      } catch {
-        setStats([
-          { label: 'Utilisateurs Actifs', value: '1,254', change: '+12%', icon: <PeopleIcon />, color: theme.palette.primary.main },
-          { label: 'Appels d\'Offres Ouverts', value: '342', change: '+8%', icon: <TrendingUpIcon />, color: '#2E7D32' },
-          { label: 'Offres Envoyées', value: '1,847', change: '+25%', icon: <StorageIcon />, color: '#F57C00' },
-          { label: 'Erreurs', value: '3', change: '-2%', icon: <ErrorIcon />, color: '#C62828' }
-        ]);
-        
-        setActivities([
-          { event: 'Nouvel utilisateur enregistré', timestamp: 'Il y a 2 heures', user: 'Entreprise XYZ' },
-          { event: 'Nouvel appel d\'offre', timestamp: 'Il y a 5 heures', user: 'Administrateur' },
-          { event: 'Offre envoyée', timestamp: 'Il y a 8 heures', user: 'Entreprise ABC' },
-          { event: 'Sauvegarde système', timestamp: 'Aujourd\'hui 02:30', user: 'Système' }
-        ]);
-      }
+      const [statsRes, activitiesRes] = await Promise.all([
+        adminAPI.analytics.getStats(),
+        adminAPI.analytics.getActivities()
+      ]);
+      setStats(statsRes.data || statsRes);
+      setActivities(activitiesRes.data || activitiesRes);
 
       setResourceUsage([
         { label: 'Processeur (CPU)', usage: 65 },
@@ -70,7 +54,18 @@ export default function AdminAnalytics() {
       ]);
     } catch (err) {
       setError('Erreur lors du chargement des données');
-      setStats([]);
+      setStats([
+        { label: 'Utilisateurs Actifs', value: '1,254', change: '+12%', icon: <PeopleIcon />, color: theme.palette.primary.main },
+        { label: 'Appels d\'Offres Ouverts', value: '342', change: '+8%', icon: <TrendingUpIcon />, color: '#2E7D32' },
+        { label: 'Offres Envoyées', value: '1,847', change: '+25%', icon: <StorageIcon />, color: '#F57C00' },
+        { label: 'Erreurs', value: '3', change: '-2%', icon: <ErrorIcon />, color: '#C62828' }
+      ]);
+      setActivities([
+        { event: 'Nouvel utilisateur enregistré', timestamp: 'Il y a 2 heures', user: 'Entreprise XYZ' },
+        { event: 'Nouvel appel d\'offre', timestamp: 'Il y a 5 heures', user: 'Administrateur' },
+        { event: 'Offre envoyée', timestamp: 'Il y a 8 heures', user: 'Entreprise ABC' },
+        { event: 'Sauvegarde système', timestamp: 'Aujourd\'hui 02:30', user: 'Système' }
+      ]);
     } finally {
       setLoading(false);
     }

@@ -3,10 +3,11 @@ import { Box, Button, Typography, Stack } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import institutionalTheme from '../theme/theme';
+import { validatePage, validateLimit } from '../utils/paginationValidator';
 
 /**
  * Pagination Component
- * Provides page navigation with info display
+ * Provides page navigation with info display with validation
  */
 export default function Pagination({ 
   currentPage, 
@@ -16,24 +17,37 @@ export default function Pagination({
   totalItems = 0 
 }) {
   const theme = institutionalTheme;
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
-  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  
+  // Validate pagination parameters
+  const validPage = validatePage(currentPage, totalPages);
+  const validLimit = validateLimit(itemsPerPage);
+  const validTotalPages = Math.max(1, parseInt(totalPages, 10) || 1);
+  
+  // Recalculate if validation changed values
+  if (validPage !== currentPage && onPageChange) {
+    onPageChange(validPage);
+  }
+  
+  const startItem = (validPage - 1) * validLimit + 1;
+  const endItem = Math.min(validPage * validLimit, totalItems);
 
   const handlePrevious = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+    if (validPage > 1) {
+      const prevPage = validPage - 1;
+      onPageChange(prevPage);
       window.scrollTo(0, 0);
     }
   };
 
   const handleNext = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+    if (validPage < validTotalPages) {
+      const nextPage = validPage + 1;
+      onPageChange(nextPage);
       window.scrollTo(0, 0);
     }
   };
 
-  if (totalPages <= 1) return null;
+  if (validTotalPages <= 1) return null;
 
   return (
     <Box
@@ -51,7 +65,7 @@ export default function Pagination({
       <Typography sx={{ fontSize: '13px', color: THEME_COLORS.textSecondary }}>
         {totalItems > 0 
           ? `Affichage ${startItem}-${endItem} sur ${totalItems} éléments`
-          : `Page ${currentPage} sur ${totalPages}`
+          : `Page ${validPage} sur ${validTotalPages}`
         }
       </Typography>
 
@@ -59,11 +73,11 @@ export default function Pagination({
         <Button
           size="small"
           onClick={handlePrevious}
-          disabled={currentPage === 1}
+          disabled={validPage === 1}
           startIcon={<ChevronLeftIcon />}
           sx={{
             textTransform: 'none',
-            color: currentPage === 1 ? '#ccc' : theme.palette.primary.main,
+            color: validPage === 1 ? '#ccc' : theme.palette.primary.main,
             '&:disabled': { color: '#ccc' }
           }}
         >
@@ -78,11 +92,11 @@ export default function Pagination({
             padding: '0 16px'
           }}
         >
-          {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+          {Array.from({ length: Math.min(5, validTotalPages) }, (_, i) => {
             const pageNum = i + 1;
-            if (pageNum > totalPages) return null;
+            if (pageNum > validTotalPages) return null;
             
-            const isActive = pageNum === currentPage;
+            const isActive = pageNum === validPage;
             return (
               <Button
                 key={pageNum}
@@ -114,11 +128,11 @@ export default function Pagination({
         <Button
           size="small"
           onClick={handleNext}
-          disabled={currentPage === totalPages}
+          disabled={validPage === validTotalPages}
           endIcon={<ChevronRightIcon />}
           sx={{
             textTransform: 'none',
-            color: currentPage === totalPages ? '#ccc' : theme.palette.primary.main,
+            color: validPage === validTotalPages ? '#ccc' : theme.palette.primary.main,
             '&:disabled': { color: '#ccc' }
           }}
         >

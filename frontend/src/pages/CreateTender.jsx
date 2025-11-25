@@ -1338,7 +1338,20 @@ export default function CreateTender() {
       }
     }
 
+    // Step 1 (index 1): Dates validation - just check dates are provided
     if (currentStep === 1) {
+      if (!formData.publication_date) {
+        setError('La date de publication est requise');
+        return false;
+      }
+      if (!formData.deadline) {
+        setError('La date de clôture est requise');
+        return false;
+      }
+    }
+
+    // Step 2 (index 2): Lots validation - check lots are defined
+    if (currentStep === 2) {
       // Use unified validation for Lots
       const lotsCheck = validateLots(formData.lots, formData.awardLevel);
       if (!lotsCheck.valid) {

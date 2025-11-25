@@ -3,7 +3,14 @@ const QRCode = require('qrcode');
 const { getPool } = require('../config/db');
 
 class PDFService {
-    // رأس ثابت
+    /**
+     * Add professional header to PDF document with title and reference number
+     * @private
+     * @param {PDFDocument} pdf - PDFKit document instance
+     * @param {string} title - Document title to display
+     * @param {string} referenceNumber - Reference number (tender/offer/etc)
+     * @returns {void}
+     */
     addHeader(pdf, title, referenceNumber) {
         pdf.fontSize(14).font('Helvetica-Bold').text('MyNet.tn', { align: 'left' });
         pdf.fontSize(9).text('Platform de Gestion des Marchés Publics', { align: 'left' });
@@ -14,7 +21,13 @@ class PDFService {
         pdf.moveDown(1);
     }
 
-    // تذييل ثابت
+    /**
+     * Add footer with company info, page number, generation date, and confidentiality notice
+     * @private
+     * @param {PDFDocument} pdf - PDFKit document instance
+     * @param {number} pageNum - Current page number
+     * @returns {void}
+     */
     addFooter(pdf, pageNum) {
         pdf.moveTo(50, pdf.page.height - 70).lineTo(550, pdf.page.height - 70).stroke();
         pdf.fontSize(8);
@@ -24,7 +37,14 @@ class PDFService {
         pdf.text('وثيقة سرية - قابلة للتدقيق والتحقق', pdf.page.width / 2, pdf.page.height - 30, { align: 'center' });
     }
 
-    // علامة مائية
+    /**
+     * Add draft watermark to PDF (diagonal text behind content)
+     * @private
+     * @param {PDFDocument} pdf - PDFKit document instance
+     * @param {string} text - Watermark text to display
+     * @param {boolean} [isDraft=false] - Only add watermark if true
+     * @returns {void}
+     */
     addWatermark(pdf, text, isDraft = false) {
         if (!isDraft) return;
         
@@ -42,16 +62,39 @@ class PDFService {
         pdf.restore();
     }
 
-    // إضافة QR Code
+    /**
+     * Add QR code image to PDF at specified coordinates
+     * @async
+     * @private
+     * @param {PDFDocument} pdf - PDFKit document instance
+     * @param {string} url - URL to encode in QR code
+     * @param {number} x - X coordinate for QR code placement
+     * @param {number} y - Y coordinate for QR code placement
+     * @param {number} [size=100] - QR code size in pixels
+     * @returns {Promise<void>}
+     */
     async addQRCode(pdf, url, x, y, size = 100) {
         try {
             const qrCode = await QRCode.toDataURL(url, { width: size });
             pdf.image(qrCode, x, y, { width: size, height: size });
         } catch (error) {
+            // QR code generation failed - continue without it
         }
     }
 
-    // جدول احترافي
+    /**
+     * Create professional table in PDF with header and alternating row colors
+     * @private
+     * @param {PDFDocument} pdf - PDFKit document instance
+     * @param {Array} data - Array of row data objects
+     * @param {Array} columns - Column names to display
+     * @param {Object} [options={}] - Table formatting options
+     * @param {number} [options.startX=50] - Starting X coordinate
+     * @param {number} [options.startY=pdf.y] - Starting Y coordinate
+     * @param {number} [options.width=500] - Table width
+     * @param {number} [options.rowHeight=25] - Height of each row
+     * @returns {number} Y coordinate after table
+     */
     createTable(pdf, data, columns, options = {}) {
         const { startX = 50, startY = pdf.y, width = 500, rowHeight = 25 } = options;
         const columnWidth = width / columns.length;
@@ -100,6 +143,14 @@ class PDFService {
         return currentY;
     }
 
+    /**
+     * Generate tender document PDF with all tender details
+     * @async
+     * @param {string} tenderId - ID of tender to generate document for
+     * @param {boolean} [isDraft=false] - Mark document as draft
+     * @returns {Promise<PDFDocument>} Generated PDF document stream
+     * @throws {Error} When tender not found or generation fails
+     */
     async generateTenderDocument(tenderId, isDraft = false) {
         const pool = getPool();
 
@@ -187,6 +238,14 @@ class PDFService {
         }
     }
 
+    /**
+     * Generate offer evaluation report PDF with scoring and recommendation
+     * @async
+     * @param {string} offerId - ID of offer to generate report for
+     * @param {boolean} [isDraft=false] - Mark document as draft
+     * @returns {Promise<PDFDocument>} Generated PDF document stream
+     * @throws {Error} When offer not found or generation fails
+     */
     async generateOfferEvaluationReport(offerId, isDraft = false) {
         const pool = getPool();
 
@@ -264,6 +323,14 @@ class PDFService {
         }
     }
 
+    /**
+     * Generate award certificate PDF for winning supplier
+     * @async
+     * @param {string} tenderId - ID of tender
+     * @param {string} supplierId - ID of awarded supplier
+     * @returns {Promise<PDFDocument>} Generated certificate PDF document
+     * @throws {Error} When data not found or generation fails
+     */
     async generateAwardCertificate(tenderId, supplierId) {
         const pool = getPool();
 
@@ -333,6 +400,15 @@ class PDFService {
         }
     }
 
+    /**
+     * Generate transaction report PDF for supplier showing all offers in date range
+     * @async
+     * @param {string} supplierId - ID of supplier
+     * @param {Date} startDate - Report start date
+     * @param {Date} endDate - Report end date
+     * @returns {Promise<PDFDocument>} Generated report PDF document
+     * @throws {Error} When database query fails or report generation fails
+     */
     async generateTransactionReport(supplierId, startDate, endDate) {
         const pool = getPool();
 

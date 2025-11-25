@@ -1,6 +1,20 @@
 const { getPool } = require('../config/db');
 
 class SearchService {
+    /**
+     * Search tenders with flexible filtering by keyword, category, status, and budget
+     * @async
+     * @param {Object} searchParams - Search parameters
+     * @param {string} [searchParams.keyword] - Search keyword (matches title/description)
+     * @param {string} [searchParams.category] - Tender category filter
+     * @param {string} [searchParams.status] - Tender status filter
+     * @param {number} [searchParams.minBudget] - Minimum budget filter
+     * @param {number} [searchParams.maxBudget] - Maximum budget filter
+     * @param {number} [searchParams.limit] - Pagination limit
+     * @param {number} [searchParams.offset] - Pagination offset
+     * @returns {Promise<Array>} Array of matching tender records
+     * @throws {Error} When search query fails
+     */
     async searchTenders(searchParams) {
         const pool = getPool();
         let query = 'SELECT * FROM tenders WHERE is_deleted = FALSE AND is_public = TRUE';
@@ -58,6 +72,15 @@ class SearchService {
         }
     }
 
+    /**
+     * Search suppliers with keyword and verification filter
+     * @async
+     * @param {Object} searchParams - Search parameters
+     * @param {string} [searchParams.keyword] - Search keyword (matches company_name/full_name)
+     * @param {boolean} [searchParams.verified] - Filter to verified suppliers only
+     * @returns {Promise<Array>} Array of matching supplier records
+     * @throws {Error} When search query fails
+     */
     async searchSuppliers(searchParams) {
         const pool = getPool();
         let query = `SELECT id, username, email, full_name, company_name, company_registration 
@@ -85,6 +108,13 @@ class SearchService {
         }
     }
 
+    /**
+     * Get aggregate statistics across all tenders, offers, and users
+     * Broken down by status and role
+     * @async
+     * @returns {Promise<Object>} Statistics object with tenders, offers, and users by status/role
+     * @throws {Error} When database queries fail
+     */
     async getStatistics() {
         const pool = getPool();
         

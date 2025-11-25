@@ -6,6 +6,11 @@ class FeatureFlagService {
         this.cacheExpiry = 5 * 60 * 1000; // 5 minutes
     }
 
+    /**
+     * Initialize default feature flags in database if not exist
+     * @async
+     * @returns {Promise<void>}
+     */
     async initializeFlags() {
         const pool = getPool();
         const defaultFlags = [
@@ -30,9 +35,16 @@ class FeatureFlagService {
                 );
             }
         } catch (error) {
+            // Initialization error - continue anyway
         }
     }
 
+    /**
+     * Check if feature is enabled (uses 5-minute cache)
+     * @async
+     * @param {string} featureKey - Feature key identifier
+     * @returns {Promise<boolean>} True if feature is enabled, false otherwise
+     */
     async isFeatureEnabled(featureKey) {
         const pool = getPool();
         
@@ -63,6 +75,14 @@ class FeatureFlagService {
         }
     }
 
+    /**
+     * Enable a feature flag
+     * @async
+     * @param {string} featureKey - Feature key identifier
+     * @param {string} adminId - ID of admin enabling feature
+     * @returns {Promise<Object>} Updated feature flag record
+     * @throws {Error} When feature not found or update fails
+     */
     async enableFeature(featureKey, adminId) {
         const pool = getPool();
 
@@ -86,6 +106,15 @@ class FeatureFlagService {
         }
     }
 
+    /**
+     * Disable a feature flag
+     * @async
+     * @param {string} featureKey - Feature key identifier
+     * @param {string} adminId - ID of admin disabling feature
+     * @param {string} [reason=null] - Reason for disabling feature
+     * @returns {Promise<Object>} Updated feature flag record
+     * @throws {Error} When feature not found or update fails
+     */
     async disableFeature(featureKey, adminId, reason = null) {
         const pool = getPool();
 
@@ -109,6 +138,13 @@ class FeatureFlagService {
         }
     }
 
+    /**
+     * Get detailed status of a feature flag
+     * @async
+     * @param {string} featureKey - Feature key identifier
+     * @returns {Promise<Object|null>} Feature flag record or null if not found
+     * @throws {Error} When database query fails
+     */
     async getFeatureStatus(featureKey) {
         const pool = getPool();
 
@@ -124,6 +160,12 @@ class FeatureFlagService {
         }
     }
 
+    /**
+     * Get all feature flags in system ordered by category and name
+     * @async
+     * @returns {Promise<Array>} Array of all feature flag records
+     * @throws {Error} When database query fails
+     */
     async getAllFeatures() {
         const pool = getPool();
 
@@ -137,6 +179,13 @@ class FeatureFlagService {
         }
     }
 
+    /**
+     * Get feature flags by category
+     * @async
+     * @param {string} category - Feature category filter (advanced, payment, realtime, etc)
+     * @returns {Promise<Array>} Array of feature flags in specified category
+     * @throws {Error} When database query fails
+     */
     async getFeaturesByCategory(category) {
         const pool = getPool();
 
@@ -151,6 +200,18 @@ class FeatureFlagService {
         }
     }
 
+    /**
+     * Log feature flag change to audit table
+     * @async
+     * @private
+     * @param {string} featureId - ID of feature flag
+     * @param {string} adminId - ID of admin making change
+     * @param {string} action - Action performed (enable/disable/update)
+     * @param {boolean} previousStatus - Status before change
+     * @param {boolean} newStatus - Status after change
+     * @param {string} [reason=null] - Reason for change
+     * @returns {Promise<void>}
+     */
     async logAudit(featureId, adminId, action, previousStatus, newStatus, reason = null) {
         const pool = getPool();
 
@@ -162,14 +223,26 @@ class FeatureFlagService {
                 [featureId, adminId, action, previousStatus, newStatus, reason]
             );
         } catch (error) {
+            // Audit logging failed - continue anyway
         }
     }
 
+    /**
+     * Remove specific feature from cache to force refresh on next access
+     * @private
+     * @param {string} featureKey - Feature key to invalidate
+     * @returns {void}
+     */
     invalidateCache(featureKey) {
         const cacheKey = `feature_${featureKey}`;
         this.cache.delete(cacheKey);
     }
 
+    /**
+     * Clear entire feature flag cache
+     * @private
+     * @returns {void}
+     */
     clearCache() {
         this.cache.clear();
     }

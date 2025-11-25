@@ -1,6 +1,18 @@
 const { getPool } = require('../config/db');
 
 class NotificationService {
+    /**
+     * Create a new notification for a user
+     * @async
+     * @param {string} userId - ID of user to notify
+     * @param {string} type - Notification type (tender_published, offer_submitted, etc)
+     * @param {string} title - Notification title
+     * @param {string} message - Notification message
+     * @param {string} [relatedEntityType=null] - Type of related entity (tender, offer, etc)
+     * @param {string} [relatedEntityId=null] - ID of related entity
+     * @returns {Promise<Object>} Created notification record
+     * @throws {Error} When notification creation fails
+     */
     async createNotification(userId, type, title, message, relatedEntityType = null, relatedEntityId = null) {
         const pool = getPool();
         
@@ -18,6 +30,14 @@ class NotificationService {
         }
     }
 
+    /**
+     * Get notifications for a user (up to 50 most recent)
+     * @async
+     * @param {string} userId - ID of user
+     * @param {boolean} [unreadOnly=false] - Only return unread notifications
+     * @returns {Promise<Array>} Array of notification records
+     * @throws {Error} When database query fails
+     */
     async getUserNotifications(userId, unreadOnly = false) {
         const pool = getPool();
         
@@ -38,6 +58,14 @@ class NotificationService {
         }
     }
 
+    /**
+     * Mark a specific notification as read
+     * @async
+     * @param {string} notificationId - ID of notification
+     * @param {string} userId - ID of user (for authorization)
+     * @returns {Promise<Object>} Success status
+     * @throws {Error} When update fails
+     */
     async markAsRead(notificationId, userId) {
         const pool = getPool();
         
@@ -53,6 +81,13 @@ class NotificationService {
         }
     }
 
+    /**
+     * Mark all notifications for user as read
+     * @async
+     * @param {string} userId - ID of user
+     * @returns {Promise<Object>} Success status
+     * @throws {Error} When update fails
+     */
     async markAllAsRead(userId) {
         const pool = getPool();
         
@@ -68,6 +103,16 @@ class NotificationService {
         }
     }
 
+    /**
+     * Notify relevant suppliers when tender is published
+     * Matches tender with supplier preferences and sends notifications
+     * @async
+     * @param {string} tenderId - ID of published tender
+     * @param {string} tenderTitle - Title of tender
+     * @param {string} buyerId - ID of buyer who published
+     * @param {Object} [tenderData=null] - Tender details for matching
+     * @returns {Promise<Object>} Result with count of notified suppliers
+     */
     async notifyTenderPublished(tenderId, tenderTitle, buyerId, tenderData = null) {
         const pool = getPool();
         
@@ -101,6 +146,14 @@ class NotificationService {
         }
     }
     
+    /**
+     * Check if supplier matches tender criteria based on preferences
+     * Compares category, location, budget, and verification status
+     * @private
+     * @param {Object} supplier - Supplier user record
+     * @param {Object} tenderData - Tender details
+     * @returns {boolean} True if supplier matches tender
+     */
     matchSupplierWithTender(supplier, tenderData) {
         if (!tenderData) return true;
         
@@ -125,6 +178,14 @@ class NotificationService {
         return categoryMatches && locationMatches && budgetMatches && isVerified;
     }
 
+    /**
+     * Notify buyer when offer is submitted for their tender
+     * @async
+     * @param {string} tenderId - ID of tender
+     * @param {string} offerId - ID of submitted offer
+     * @param {string} buyerId - ID of buyer to notify
+     * @returns {Promise<Object>} Success status
+     */
     async notifyOfferSubmitted(tenderId, offerId, buyerId) {
         try {
             await this.createNotification(
@@ -138,9 +199,18 @@ class NotificationService {
             
             return { success: true };
         } catch (error) {
+            // Notification error - don't break flow
         }
     }
 
+    /**
+     * Notify supplier when their offer has been evaluated
+     * @async
+     * @param {string} offerId - ID of evaluated offer
+     * @param {string} supplierId - ID of supplier to notify
+     * @param {string} status - Evaluation status (accepted, rejected, etc)
+     * @returns {Promise<Object>} Success status
+     */
     async notifyOfferEvaluated(offerId, supplierId, status) {
         try {
             await this.createNotification(
@@ -154,6 +224,7 @@ class NotificationService {
             
             return { success: true };
         } catch (error) {
+            // Notification error - don't break flow
         }
     }
 }

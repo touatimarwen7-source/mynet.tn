@@ -1,13 +1,12 @@
+const fs = require('fs');
+const path = require('path');
+
 /**
  * 🔍 ERROR TRACKING SERVICE
  * Centralized error monitoring and logging
  * Tracks: errors, warnings, performance issues
  * Outputs: structured logs + error statistics
  */
-
-const fs = require('fs');
-const path = require('path');
-
 class ErrorTracker {
   constructor() {
     this.errors = [];
@@ -20,7 +19,9 @@ class ErrorTracker {
   }
 
   /**
-   * Ensure logs directory exists
+   * Ensure logs directory exists (create if missing)
+   * @private
+   * @returns {void}
    */
   ensureLogDir() {
     if (!fs.existsSync(this.logDir)) {
@@ -29,7 +30,16 @@ class ErrorTracker {
   }
 
   /**
-   * Track an error
+   * Track an error with full context (endpoint, user, request body)
+   * @param {Error} error - Error object to track
+   * @param {Object} [context={}] - Additional context about error
+   * @param {string} [context.severity='error'] - Error severity level
+   * @param {string} [context.userId] - ID of affected user
+   * @param {string} [context.endpoint] - API endpoint where error occurred
+   * @param {string} [context.method] - HTTP method
+   * @param {number} [context.statusCode=500] - HTTP status code
+   * @param {Object} [context.requestBody] - Request payload (sanitized)
+   * @returns {Object} Error record that was tracked
    */
   trackError(error, context = {}) {
     const errorRecord = {
@@ -58,7 +68,12 @@ class ErrorTracker {
   }
 
   /**
-   * Track a warning
+   * Track a warning without full error details
+   * @param {string} message - Warning message
+   * @param {Object} [context={}] - Additional context
+   * @param {string} [context.userId] - Affected user ID
+   * @param {string} [context.endpoint] - API endpoint
+   * @returns {Object} Warning record that was tracked
    */
   trackWarning(message, context = {}) {
     const warning = {
@@ -79,7 +94,10 @@ class ErrorTracker {
   }
 
   /**
-   * Update error statistics
+   * Update error statistics and patterns
+   * @private
+   * @param {Object} errorRecord - Error record to update stats from
+   * @returns {void}
    */
   updateStats(errorRecord) {
     const pattern = `${errorRecord.code}:${errorRecord.endpoint}`;
@@ -99,7 +117,10 @@ class ErrorTracker {
   }
 
   /**
-   * Sanitize sensitive data
+   * Remove sensitive data from logs (passwords, tokens, credit cards)
+   * @private
+   * @param {Object} data - Data to sanitize
+   * @returns {Object|null} Sanitized data or null if input is null
    */
   sanitize(data) {
     if (!data) return null;
@@ -122,7 +143,10 @@ class ErrorTracker {
   }
 
   /**
-   * Persist error to file
+   * Persist error record to daily JSON log file
+   * @private
+   * @param {Object} errorRecord - Error record to persist
+   * @returns {void}
    */
   persistError(errorRecord) {
     const date = new Date().toISOString().split('T')[0];
@@ -136,11 +160,13 @@ class ErrorTracker {
       data.push(errorRecord);
       fs.writeFileSync(logFile, JSON.stringify(data, null, 2));
     } catch (e) {
+      // Persistence error - continue anyway
     }
   }
 
   /**
-   * Get error statistics
+   * Get aggregate error statistics
+   * @returns {Object} Stats including total errors, patterns, and top errors
    */
   getStats() {
     return {
@@ -155,21 +181,27 @@ class ErrorTracker {
   }
 
   /**
-   * Get recent errors
+   * Get most recent errors up to specified limit
+   * @param {number} [limit=20] - Number of recent errors to return
+   * @returns {Array} Array of recent error records (reversed to show newest first)
    */
   getRecentErrors(limit = 20) {
     return this.errors.slice(-limit).reverse();
   }
 
   /**
-   * Get errors by severity
+   * Get errors filtered by severity level
+   * @param {string} severity - Severity level to filter (error, warning, critical, etc)
+   * @returns {Array} Array of errors matching severity
    */
   getErrorsBySeverity(severity) {
     return this.errors.filter(e => e.severity === severity);
   }
 
   /**
-   * Clear old errors (keep last N days)
+   * Clear old errors keeping only recent days
+   * @param {number} [daysToKeep=7] - Number of days of errors to retain
+   * @returns {void}
    */
   clearOldErrors(daysToKeep = 7) {
     const cutoffTime = new Date();
@@ -179,7 +211,8 @@ class ErrorTracker {
   }
 
   /**
-   * Export error report
+   * Export comprehensive error report for analysis
+   * @returns {Object} Report including stats, recent errors and warnings
    */
   exportReport() {
     return {

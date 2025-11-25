@@ -6,6 +6,16 @@ const DataMapper = require('../helpers/DataMapper');
 class TenderAwardService {
     /**
      * Initialize line items for a tender award
+     * @async
+     * @param {string} tenderId - ID of tender
+     * @param {Array} lineItems - Array of line items to initialize
+     * @param {string} lineItems[].line_item_id - Unique identifier for line item
+     * @param {string} lineItems[].description - Item description
+     * @param {number} lineItems[].quantity - Total quantity to award
+     * @param {string} lineItems[].unit - Unit of measurement
+     * @param {string} userId - ID of user performing action (for audit)
+     * @returns {Promise<Array>} Array of created tender award line items
+     * @throws {Error} When tender not found or unauthorized
      */
     async initializeTenderAward(tenderId, lineItems, userId) {
         const pool = getPool();
@@ -53,6 +63,16 @@ class TenderAwardService {
 
     /**
      * Distribute quantity for a specific line item across suppliers
+     * @async
+     * @param {string} tenderId - ID of tender
+     * @param {string} lineItemId - ID of line item to distribute
+     * @param {Array} distribution - Array of distribution allocations
+     * @param {string} distribution[].offer_id - ID of supplier's offer
+     * @param {number} distribution[].quantity - Quantity to award to this supplier
+     * @param {number} distribution[].unit_price - Unit price for calculation
+     * @param {string} userId - ID of user performing action
+     * @returns {Promise<Object>} Updated line item with award distribution
+     * @throws {Error} When quantity mismatch or offers not found
      */
     async distributeLineItem(tenderId, lineItemId, distribution, userId) {
         const pool = getPool();
@@ -127,7 +147,12 @@ class TenderAwardService {
     }
 
     /**
-     * Get award details for a tender
+     * Get award details for a tender including all line items and distributions
+     * @async
+     * @param {string} tenderId - ID of tender
+     * @param {string} userId - ID of user (for audit logging)
+     * @returns {Promise<Array>} Array of line items with award distribution details
+     * @throws {Error} When database query fails
      */
     async getTenderAwardDetails(tenderId, userId) {
         const pool = getPool();
@@ -152,7 +177,14 @@ class TenderAwardService {
     }
 
     /**
-     * Finalize the tender award and create purchase orders
+     * Finalize the tender award and create purchase orders for all suppliers
+     * @async
+     * @param {string} tenderId - ID of tender to finalize
+     * @param {string} userId - ID of user performing finalization
+     * @returns {Promise<Object>} Result with created purchase orders and supplier count
+     * @returns {Array} result.purchaseOrders - Array of created purchase order records
+     * @returns {number} result.supplierCount - Number of suppliers awarded
+     * @throws {Error} When items pending distribution or database fails
      */
     async finalizeTenderAward(tenderId, userId) {
         const pool = getPool();
@@ -248,6 +280,11 @@ class TenderAwardService {
         }
     }
 
+    /**
+     * Generate unique purchase order number using timestamp and random hex
+     * @private
+     * @returns {string} Generated PO number (format: PO-YYYYMMDD-RANDOMHEX)
+     */
     generatePONumber() {
         const crypto = require('crypto');
         const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');

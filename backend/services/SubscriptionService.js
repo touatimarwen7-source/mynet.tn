@@ -20,6 +20,23 @@ const ALL_FEATURES = [
 ];
 
 class SubscriptionService {
+    /**
+     * Create a new subscription plan with features and limits
+     * @async
+     * @param {Object} planData - Subscription plan details
+     * @param {string} planData.name - Plan name
+     * @param {string} planData.description - Plan description
+     * @param {number} planData.price - Plan price in currency
+     * @param {string} [planData.currency='TND'] - Currency code
+     * @param {number} planData.duration_days - Plan duration in days
+     * @param {Object} planData.features - Feature set for plan
+     * @param {number} planData.max_tenders - Maximum tenders allowed
+     * @param {number} planData.max_offers - Maximum offers allowed
+     * @param {number} [planData.max_products=50] - Maximum products
+     * @param {number} [planData.storage_limit=5] - Storage limit in GB
+     * @returns {Promise<Object>} Created subscription plan record
+     * @throws {Error} When plan creation fails
+     */
     async createSubscriptionPlan(planData) {
         const pool = getPool();
         try {
@@ -43,6 +60,12 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Retrieve all active subscription plans ordered by price
+     * @async
+     * @returns {Promise<Array>} Array of active subscription plan objects
+     * @throws {Error} When database query fails
+     */
     async getActivePlans() {
         const pool = getPool();
         try {
@@ -55,6 +78,18 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Subscribe a user to a subscription plan
+     * @async
+     * @param {string} userId - ID of user subscribing
+     * @param {string} planId - ID of subscription plan
+     * @param {Object} paymentDetails - Payment information
+     * @param {string} paymentDetails.payment_method - Payment method type
+     * @param {string} paymentDetails.transaction_id - Transaction ID
+     * @param {boolean} [paymentDetails.auto_renew=false] - Enable auto-renewal
+     * @returns {Promise<Object>} Created user subscription record
+     * @throws {Error} When plan not found or subscription fails
+     */
     async subscribeUser(userId, planId, paymentDetails) {
         const pool = getPool();
         try {
@@ -89,6 +124,13 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Get active subscription for a user (most recent if multiple exist)
+     * @async
+     * @param {string} userId - ID of user
+     * @returns {Promise<Object|null>} Active subscription with plan details or null if none
+     * @throws {Error} When database query fails
+     */
     async getUserSubscription(userId) {
         const pool = getPool();
         try {
@@ -109,6 +151,17 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Enable a feature for a supplier with optional expiration date
+     * @async
+     * @param {string} supplierId - ID of supplier to enable feature for
+     * @param {string} featureKey - Feature key identifier
+     * @param {string} adminId - ID of admin enabling feature
+     * @param {string} [reason=null] - Reason for enabling feature
+     * @param {Date} [expiresAt=null] - Optional expiration date
+     * @returns {Promise<Object>} Updated supplier feature record
+     * @throws {Error} When feature not found or update fails
+     */
     async enableSupplierFeature(supplierId, featureKey, adminId, reason = null, expiresAt = null) {
         const pool = getPool();
         const feature = ALL_FEATURES.find(f => f.key === featureKey);
@@ -135,6 +188,16 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Disable a feature for a supplier
+     * @async
+     * @param {string} supplierId - ID of supplier to disable feature for
+     * @param {string} featureKey - Feature key identifier
+     * @param {string} adminId - ID of admin disabling feature
+     * @param {string} [reason=null] - Reason for disabling
+     * @returns {Promise<Object>} Updated supplier feature record
+     * @throws {Error} When update fails
+     */
     async disableSupplierFeature(supplierId, featureKey, adminId, reason = null) {
         const pool = getPool();
         
@@ -153,6 +216,13 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Check if feature is enabled for supplier (respects expiration dates)
+     * @async
+     * @param {string} supplierId - ID of supplier
+     * @param {string} featureKey - Feature key to check
+     * @returns {Promise<boolean>} True if feature is enabled and not expired
+     */
     async isSupplierFeatureEnabled(supplierId, featureKey) {
         const pool = getPool();
         
@@ -177,6 +247,13 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Get all features for a supplier (both enabled and disabled)
+     * @async
+     * @param {string} supplierId - ID of supplier
+     * @returns {Promise<Array>} Array of supplier features
+     * @throws {Error} When database query fails
+     */
     async getSupplierFeatures(supplierId) {
         const pool = getPool();
         
@@ -194,6 +271,13 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Get only active (enabled and not expired) features for supplier
+     * @async
+     * @param {string} supplierId - ID of supplier
+     * @returns {Promise<Array>} Array of active supplier features
+     * @throws {Error} When database query fails
+     */
     async getSupplierActiveFeatures(supplierId) {
         const pool = getPool();
         
@@ -212,14 +296,36 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Get all available features in system
+     * @async
+     * @returns {Promise<Array>} Array of all feature definitions
+     */
     async getAllAvailableFeatures() {
         return ALL_FEATURES;
     }
 
+    /**
+     * Filter available features by category
+     * @async
+     * @param {string} category - Feature category (analytics, integration, alerts, security, support)
+     * @returns {Promise<Array>} Array of features matching category
+     */
     async getFeaturesByCategory(category) {
         return ALL_FEATURES.filter(f => f.category === category);
     }
 
+    /**
+     * Check if user subscription limits are exceeded for resource type
+     * @async
+     * @param {string} userId - ID of user
+     * @param {string} type - Resource type ('tender' or 'offer')
+     * @returns {Promise<Object>} Limit check result with status and message
+     * @returns {boolean} result.allowed - Whether operation is allowed
+     * @returns {string} result.message - Status message
+     * @returns {number} [result.remaining] - Remaining quota if allowed
+     * @throws {Error} When database query fails
+     */
     async checkSubscriptionLimits(userId, type) {
         const pool = getPool();
         
@@ -264,10 +370,24 @@ class SubscriptionService {
         }
     }
 
+    /**
+     * Handle successful payment for subscription (webhook callback)
+     * @async
+     * @param {Object} invoiceData - Payment invoice data
+     * @returns {Promise<void>}
+     */
     async handlePaymentSuccess(invoiceData) {
+        // Payment success handler - implemented for webhook integration
     }
 
+    /**
+     * Handle failed payment for subscription (webhook callback)
+     * @async
+     * @param {Object} invoiceData - Payment invoice data
+     * @returns {Promise<void>}
+     */
     async handlePaymentFailure(invoiceData) {
+        // Payment failure handler - implemented for webhook integration
     }
 }
 

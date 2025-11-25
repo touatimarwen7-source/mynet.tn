@@ -33,7 +33,7 @@ import {
 import DownloadIcon from '@mui/icons-material/Download';
 import SortIcon from '@mui/icons-material/Sort';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { TableSkeleton } from '../components/Common/SkeletonLoader';
+import { TableSkeleton } from '../components/SkeletonLoader';
 import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 import { getScoreTier, formatScore } from '../utils/evaluationCriteria';

@@ -30,7 +30,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import WarningIcon from '@mui/icons-material/Warning';
-import { TableSkeleton } from '../components/Common/SkeletonLoader';
+import { TableSkeleton } from '../components/SkeletonLoader';
 import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 import { getScoreTier, formatScore } from '../utils/evaluationCriteria';

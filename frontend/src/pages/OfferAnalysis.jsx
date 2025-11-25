@@ -32,7 +32,7 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import DownloadIcon from '@mui/icons-material/Download';
 import InfoIcon from '@mui/icons-material/Info';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { TableSkeleton, CardSkeleton } from '../components/Common/SkeletonLoader';
+import { TableSkeleton, CardSkeleton } from '../components/SkeletonLoader';
 import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 import { getScoreTier, formatScore } from '../utils/evaluationCriteria';

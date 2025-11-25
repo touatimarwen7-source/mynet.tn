@@ -1,0 +1,230 @@
+// MyNet.tn - B2B Procurement Platform Database Schema
+// PostgreSQL with Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Users table
+model User {
+  id                    String    @id @default(uuid())
+  email                 String    @unique
+  password              String
+  firstName             String?
+  lastName              String?
+  phone                 String?
+  role                  String    @default("buyer")
+  status                String    @default("active")
+  avatar                String?
+  mfaEnabled            Boolean   @default(false)
+  mfaSecret             String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  isDeleted             Boolean   @default(false)
+  deletedAt             DateTime?
+
+  company               Company?
+  profile               UserProfile?
+  reviews               Review[]
+  tenders               Tender[]
+  offers                Offer[]
+  messages              Message[]
+  notifications         Notification[]
+  auditLogs             AuditLog[]
+}
+
+// User profiles
+model UserProfile {
+  id                    String    @id @default(uuid())
+  userId                String    @unique
+  bio                   String?
+  interests             String[]  @default([])
+  certifications        String[]  @default([])
+  yearsExperience       Int?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Companies
+model Company {
+  id                    String    @id @default(uuid())
+  userId                String    @unique
+  name                  String
+  registrationNumber    String    @unique
+  taxId                 String    @unique
+  industry              String?
+  website               String?
+  logo                  String?
+  address               String?
+  city                  String?
+  country               String    @default("Tunisia")
+  phone                 String?
+  email                 String?
+  status                String    @default("pending")
+  verificationStatus    String    @default("unverified")
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  isDeleted             Boolean   @default(false)
+
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenders               Tender[]
+  offers                Offer[]
+  reviews               Review[]
+}
+
+// Tenders
+model Tender {
+  id                    String    @id @default(uuid())
+  title                 String
+  description           String
+  budget                Float
+  currency              String    @default("TND")
+  category              String
+  status                String    @default("draft")
+  createdBy             String
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  openingDate           DateTime?
+  closingDate           DateTime?
+  isDeleted             Boolean   @default(false)
+  deletedAt             DateTime?
+
+  creator               User      @relation(fields: [createdBy], references: [id])
+  offers                Offer[]
+  documents             Document[]
+  auditLogs             AuditLog[]
+}
+
+// Offers
+model Offer {
+  id                    String    @id @default(uuid())
+  tenderId              String
+  submittedBy           String
+  status                String    @default("draft")
+  technicalProposal     String?
+  financialProposal     String?
+  isEncrypted           Boolean   @default(true)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  submittedAt           DateTime?
+  isDeleted             Boolean   @default(false)
+
+  tender                Tender    @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  supplier              User      @relation(fields: [submittedBy], references: [id])
+  documents             Document[]
+  evaluation            OfferEvaluation?
+}
+
+// Offer Evaluations
+model OfferEvaluation {
+  id                    String    @id @default(uuid())
+  offerId               String    @unique
+  technicalScore       Float?
+  financialScore       Float?
+  finalScore           Float?
+  evaluatedAt          DateTime?
+  evaluator            String?
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+
+  offer                 Offer     @relation(fields: [offerId], references: [id], onDelete: Cascade)
+}
+
+// Documents
+model Document {
+  id                    String    @id @default(uuid())
+  tenderId              String?
+  offerId               String?
+  fileName              String
+  fileUrl               String
+  fileSize              Int?
+  mimeType              String?
+  uploadedAt            DateTime  @default(now())
+  isDeleted             Boolean   @default(false)
+
+  tender                Tender?   @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  offer                 Offer?    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+}
+
+// Reviews
+model Review {
+  id                    String    @id @default(uuid())
+  reviewerId            String
+  reviewedUserId        String
+  companyId             String
+  rating                Int
+  comment               String?
+  status                String    @default("pending")
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  isDeleted             Boolean   @default(false)
+
+  reviewer              User      @relation(fields: [reviewerId], references: [id])
+  company               Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+// Messages
+model Message {
+  id                    String    @id @default(uuid())
+  senderId              String
+  recipientId           String
+  content               String
+  isRead                Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  isDeleted             Boolean   @default(false)
+
+  sender                User      @relation(fields: [senderId], references: [id])
+}
+
+// Notifications
+model Notification {
+  id                    String    @id @default(uuid())
+  userId                String
+  type                  String
+  title                 String
+  message               String
+  isRead                Boolean   @default(false)
+  relatedId             String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Audit Logs
+model AuditLog {
+  id                    String    @id @default(uuid())
+  userId                String
+  action                String
+  resource              String
+  resourceId            String?
+  changes               String?
+  ipAddress             String?
+  userAgent             String?
+  createdAt             DateTime  @default(now())
+
+  user                  User      @relation(fields: [userId], references: [id])
+}
+
+// Indexes for performance
+model _Indexes {
+  @@index([User.email])
+  @@index([User.role])
+  @@index([User.status])
+  @@index([Tender.status])
+  @@index([Tender.createdBy])
+  @@index([Offer.tenderId])
+  @@index([Offer.submittedBy])
+  @@index([Offer.status])
+  @@index([Review.companyId])
+  @@index([Notification.userId])
+  @@index([AuditLog.userId])
+}

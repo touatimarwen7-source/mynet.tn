@@ -39,7 +39,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import WarningIcon from '@mui/icons-material/Warning';
-import { FormSkeleton } from '../components/Common/SkeletonLoader';
+import { FormSkeleton } from '../components/SkeletonLoader';
 import { procurementAPI } from '../api';
 import { useToast } from '../contexts/AppContext';
 import { setPageTitle } from '../utils/pageTitle';

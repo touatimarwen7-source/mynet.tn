@@ -6,7 +6,7 @@ import { SuperAdminContext } from '../../contexts/SuperAdminContext';
 import AdminTable from '../../components/Admin/AdminTable';
 import AdminDialog from '../../components/Admin/AdminDialog';
 import AdminForm from '../../components/Admin/AdminForm';
-import SkeletonLoader from '../../components/Common/SkeletonLoader';
+import SkeletonLoader from '../../components/SkeletonLoader';
 import { EMPTY_STATES, FEATURE_FLAGS, isFeatureEnabled } from '../../utils/adminHelpers';
 
 /**

@@ -5,52 +5,83 @@ const DRAFT_TIMESTAMP_KEY = 'mynet_draft_timestamp_';
 const DRAFT_EXPIRY_DAYS = 7;
 
 /**
- * 💾 Auto-save draft to localStorage
+ * 💾 Auto-save draft to localStorage with validation
  * @param {string} draftKey - Unique key for this draft (e.g., 'tender_draft_123')
  * @param {object} data - Form data to save
+ * @returns {boolean} Success status
  */
 export const autosaveDraft = (draftKey, data) => {
   try {
-    if (!draftKey || !data) return;
+    if (!draftKey || !data) {
+      console.warn('Draft save skipped: Invalid key or data');
+      return false;
+    }
+
     const storageKey = `${DRAFT_STORAGE_KEY}${draftKey}`;
     const timestampKey = `${DRAFT_TIMESTAMP_KEY}${draftKey}`;
     
-    localStorage.setItem(storageKey, JSON.stringify(data));
+    const serialized = JSON.stringify(data);
+    const sizeKB = (new Blob([serialized]).size / 1024).toFixed(2);
+    
+    localStorage.setItem(storageKey, serialized);
     localStorage.setItem(timestampKey, new Date().toISOString());
+    
+    console.log(`✅ Draft saved: ${draftKey} (${sizeKB}KB)`);
+    return true;
   } catch (err) {
-    // Silently fail - don't break user experience
+    if (err.name === 'QuotaExceededError') {
+      console.error('❌ Storage quota exceeded - clearing old drafts');
+      clearOldestDrafts();
+      return false;
+    }
+    console.error('❌ Draft save failed:', err.message);
+    return false;
   }
 };
 
 /**
- * 📥 Recover draft from localStorage
+ * 📥 Recover draft from localStorage with detailed validation
  * @param {string} draftKey - Unique key for this draft
  * @returns {object|null} Saved draft data or null if not found/expired
  */
 export const recoverDraft = (draftKey) => {
   try {
-    if (!draftKey) return null;
+    if (!draftKey) {
+      console.warn('Draft recovery skipped: Invalid key');
+      return null;
+    }
+
     const storageKey = `${DRAFT_STORAGE_KEY}${draftKey}`;
     const timestampKey = `${DRAFT_TIMESTAMP_KEY}${draftKey}`;
     
     const savedData = localStorage.getItem(storageKey);
     const savedTimestamp = localStorage.getItem(timestampKey);
     
-    if (!savedData) return null;
+    if (!savedData) {
+      console.log(`ℹ️ No draft found: ${draftKey}`);
+      return null;
+    }
     
     // Check if draft is expired
     if (savedTimestamp) {
       const savedDate = new Date(savedTimestamp);
       const expiryDate = new Date(savedDate.getTime() + DRAFT_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+      
       if (new Date() > expiryDate) {
+        console.warn(`⏰ Draft expired: ${draftKey} (${savedDate.toLocaleString()})`);
         clearDraft(draftKey);
         return null;
       }
+      
+      const daysSaved = Math.floor((Date.now() - savedDate) / (24 * 60 * 60 * 1000));
+      console.log(`✅ Draft recovered: ${draftKey} (saved ${daysSaved} day(s) ago)`);
     }
     
-    return JSON.parse(savedData);
+    const parsed = JSON.parse(savedData);
+    return parsed;
   } catch (err) {
-    // Silently fail - return null for expired/corrupted drafts
+    console.error(`❌ Draft recovery failed: ${err.message}`);
+    clearDraft(draftKey);
     return null;
   }
 };
@@ -67,8 +98,30 @@ export const clearDraft = (draftKey) => {
     
     localStorage.removeItem(storageKey);
     localStorage.removeItem(timestampKey);
+    console.log(`🗑️ Draft cleared: ${draftKey}`);
   } catch (err) {
-    // Silently fail
+    console.error('❌ Draft clear failed:', err.message);
+  }
+};
+
+/**
+ * 🧹 Clear oldest drafts when storage is full
+ */
+const clearOldestDrafts = () => {
+  try {
+    const drafts = getAllDrafts();
+    if (drafts.length > 0) {
+      // Sort by timestamp and remove oldest
+      const sorted = drafts.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+      const toRemove = Math.ceil(drafts.length / 3); // Remove 33% oldest
+      
+      for (let i = 0; i < toRemove && i < sorted.length; i++) {
+        clearDraft(sorted[i].key);
+      }
+      console.log(`🧹 Cleared ${toRemove} oldest draft(s)`);
+    }
+  } catch (err) {
+    console.error('Failed to clean drafts:', err);
   }
 };
 

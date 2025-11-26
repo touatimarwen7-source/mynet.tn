@@ -240,42 +240,83 @@ export default function CreateTender() {
         additional_info: formData.additional_info || ''
       };
 
+      console.log('📤 Submitting tender:', { title: tenderData.title, lots: tenderData.lots.length });
+
       // ✅ STEP 7: Submit to API with error handling
-      const response = await procurementAPI.createTender(tenderData);
+      let response;
+      try {
+        response = await procurementAPI.createTender(tenderData);
+        console.log('✅ API Response received:', response?.status);
+      } catch (apiErr) {
+        console.error('❌ API Call failed:', apiErr.response?.status, apiErr.message);
+        throw apiErr;
+      }
 
       // ✅ STEP 8: Handle success response - check multiple possible structures
-      const tenderId = response?.data?.id || 
-                      response?.data?.tender?.id || 
-                      response?.id || 
-                      response?.tender?.id;
+      let tenderId = null;
+      
+      // Try multiple response structures
+      if (response?.data?.id) {
+        tenderId = response.data.id;
+        console.log('✅ Found tender ID in response.data.id');
+      } else if (response?.data?.tender?.id) {
+        tenderId = response.data.tender.id;
+        console.log('✅ Found tender ID in response.data.tender.id');
+      } else if (response?.id) {
+        tenderId = response.id;
+        console.log('✅ Found tender ID in response.id');
+      } else if (response?.tender?.id) {
+        tenderId = response.tender.id;
+        console.log('✅ Found tender ID in response.tender.id');
+      }
 
-      if (!tenderId) {
-        console.error('Unexpected API response structure:', response);
-        setError('Erreur: ID du tender manquant dans la réponse du serveur');
+      // Validate tender ID
+      if (!tenderId || typeof tenderId !== 'string' && typeof tenderId !== 'number') {
+        console.error('❌ Invalid tender ID:', tenderId);
+        console.error('Full response structure:', JSON.stringify(response?.data || response, null, 2));
+        setError(`Erreur de créación: ID du tender invalide. Veuillez réessayer ou contacter le support.`);
         return;
       }
 
       // ✅ STEP 9: Clear draft and navigate
       clearDraft('tender_draft');
+      console.log('✅ Redirecting to tender page:', tenderId);
       navigate(`/tender/${tenderId}`);
 
     } catch (err) {
-      console.error('Tender creation error:', err);
+      console.error('❌ Tender creation error:', {
+        status: err.response?.status,
+        message: err.message,
+        serverError: err.response?.data?.error || err.response?.data?.message,
+        fullError: err.response?.data
+      });
       
-      // ✅ STEP 10: Enhanced error handling
+      // ✅ STEP 10: Enhanced error handling with clear messages
       let errorMessage = 'Une erreur est survenue lors de la création de l\'appel d\'offres';
       
-      if (err.response?.data?.message) {
+      // Handle different error scenarios with clear French messages
+      if (err.response?.status === 400) {
+        errorMessage = `Données invalides: ${err.response.data?.message || err.response.data?.error || 'Veuillez vérifier vos entrées'}`;
+      } else if (err.response?.status === 401) {
+        errorMessage = 'Votre session a expiré. Veuillez vous reconnecter.';
+      } else if (err.response?.status === 403) {
+        errorMessage = 'Vous n\'avez pas les permissions pour créer un appel d\'offres.';
+      } else if (err.response?.status === 409) {
+        errorMessage = 'Un appel d\'offres avec ce titre existe déjà.';
+      } else if (err.response?.status === 422) {
+        errorMessage = `Validation échouée: ${err.response.data?.message || 'Les données fournie ne sont pas valides'}`;
+      } else if (err.response?.status === 500) {
+        errorMessage = 'Erreur serveur. Veuillez réessayer plus tard ou contacter le support.';
+      } else if (err.message === 'Network Error') {
+        errorMessage = 'Erreur réseau. Vérifiez votre connexion Internet.';
+      } else if (err.code === 'ECONNABORTED') {
+        errorMessage = 'La demande a pris trop de temps. Veuillez réessayer.';
+      } else if (err.response?.data?.message) {
         errorMessage = err.response.data.message;
       } else if (err.response?.data?.error) {
         errorMessage = err.response.data.error;
       } else if (err.message) {
         errorMessage = err.message;
-      }
-      
-      // Handle validation errors from API
-      if (err.response?.status === 400) {
-        errorMessage = `Erreur de validation: ${errorMessage}`;
       }
       
       setError(errorMessage);

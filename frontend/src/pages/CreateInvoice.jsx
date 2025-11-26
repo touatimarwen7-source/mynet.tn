@@ -253,7 +253,7 @@ export default function CreateInvoice() {
   const Step1Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Numéro de Facture *"
@@ -264,7 +264,7 @@ export default function CreateInvoice() {
             placeholder="Ex: FAC-2024-001"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Référence du Bon de Commande"
@@ -274,7 +274,7 @@ export default function CreateInvoice() {
             disabled={loading}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Date de la Facture *"
@@ -286,7 +286,7 @@ export default function CreateInvoice() {
             InputLabelProps={{ shrink: true }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Date Limite de Paiement *"
@@ -321,7 +321,7 @@ export default function CreateInvoice() {
           Ajouter un Article
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid xs={12} sm={6}>
             <TextField
               fullWidth
               label="Description"
@@ -331,7 +331,7 @@ export default function CreateInvoice() {
               disabled={loading}
             />
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid xs={12} sm={2}>
             <TextField
               fullWidth
               label="Quantité"
@@ -343,7 +343,7 @@ export default function CreateInvoice() {
               disabled={loading}
             />
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid xs={12} sm={2}>
             <FormControl fullWidth size="small" disabled={loading}>
               <InputLabel>Unité</InputLabel>
               <Select
@@ -359,7 +359,7 @@ export default function CreateInvoice() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid xs={12} sm={2}>
             <TextField
               fullWidth
               label="Prix Unit."
@@ -450,7 +450,7 @@ export default function CreateInvoice() {
       </Paper>
 
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Taux de Taxe (%)"
@@ -462,7 +462,7 @@ export default function CreateInvoice() {
             disabled={loading}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <FormControl fullWidth disabled={loading}>
             <InputLabel>Devise</InputLabel>
             <Select
@@ -621,7 +621,7 @@ export default function CreateInvoice() {
             Détails Bancaires
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <TextField
                 fullWidth
                 label="Nom de la Banque *"
@@ -632,7 +632,7 @@ export default function CreateInvoice() {
                 size="small"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <TextField
                 fullWidth
                 label="Numéro de Compte *"
@@ -643,7 +643,7 @@ export default function CreateInvoice() {
                 size="small"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <TextField
                 fullWidth
                 label="IBAN"
@@ -654,7 +654,7 @@ export default function CreateInvoice() {
                 size="small"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <TextField
                 fullWidth
                 label="Code SWIFT"

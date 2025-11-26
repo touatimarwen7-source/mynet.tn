@@ -186,7 +186,7 @@ export default function CompanyProfileAdmin() {
               INFORMATIONS GÉNÉRALES
             </Typography>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Nom de l'Entreprise"
@@ -194,7 +194,7 @@ export default function CompanyProfileAdmin() {
                   onChange={(e) => handleInputChange('company_name', e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="N° Matricule Fiscal"
@@ -202,7 +202,7 @@ export default function CompanyProfileAdmin() {
                   onChange={(e) => handleInputChange('company_registration', e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Téléphone"
@@ -211,7 +211,7 @@ export default function CompanyProfileAdmin() {
                   onChange={(e) => handleInputChange('phone', e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="URL Logo/Photo"
@@ -231,7 +231,7 @@ export default function CompanyProfileAdmin() {
               ADRESSE ET LOCALISATION
             </Typography>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid xs={12}>
                 <TextField
                   fullWidth
                   label="Adresse"
@@ -241,7 +241,7 @@ export default function CompanyProfileAdmin() {
                   onChange={(e) => handleInputChange('address', e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Ville"
@@ -249,7 +249,7 @@ export default function CompanyProfileAdmin() {
                   onChange={(e) => handleInputChange('city', e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Pays"

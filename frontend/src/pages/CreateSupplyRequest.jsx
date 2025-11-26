@@ -230,7 +230,7 @@ export default function CreateSupplyRequest() {
   const Step1Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Référence du Bon de Commande *"
@@ -241,7 +241,7 @@ export default function CreateSupplyRequest() {
             placeholder="Ex: PO-2024-001"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Date de la Demande *"
@@ -276,7 +276,7 @@ export default function CreateSupplyRequest() {
           Ajouter un Article
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid xs={12} sm={6}>
             <TextField
               fullWidth
               label="Description du produit/service"
@@ -286,7 +286,7 @@ export default function CreateSupplyRequest() {
               disabled={loading}
             />
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid xs={12} sm={2}>
             <TextField
               fullWidth
               label="Quantité"
@@ -298,7 +298,7 @@ export default function CreateSupplyRequest() {
               disabled={loading}
             />
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid xs={12} sm={2}>
             <FormControl fullWidth size="small" disabled={loading}>
               <InputLabel>Unité</InputLabel>
               <Select
@@ -314,7 +314,7 @@ export default function CreateSupplyRequest() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid xs={12} sm={2}>
             <TextField
               fullWidth
               label="Prix Unitaire"
@@ -506,7 +506,7 @@ export default function CreateSupplyRequest() {
   const Step7Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Adresse de Livraison *"
@@ -516,7 +516,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <TextField
             fullWidth
             label="Ville *"
@@ -526,7 +526,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid xs={12} sm={4}>
           <TextField
             fullWidth
             label="Code Postal"
@@ -536,7 +536,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid xs={12} sm={4}>
           <TextField
             fullWidth
             label="Téléphone de Contact"
@@ -546,7 +546,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid xs={12} sm={4}>
           <TextField
             fullWidth
             label="Email de Contact"

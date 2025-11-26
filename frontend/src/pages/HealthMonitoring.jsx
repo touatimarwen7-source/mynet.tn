@@ -25,7 +25,7 @@ export default function HealthMonitoring() {
 
         <Grid container spacing={2}>
           {systemStats.map((stat, idx) => (
-            <Grid item xs={12} key={idx}>
+            <Grid xs={12} key={idx}>
               <Card sx={{ border: '1px solid #E0E0E0' }}>
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>

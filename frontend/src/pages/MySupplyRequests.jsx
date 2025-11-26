@@ -112,7 +112,7 @@ export default function MySupplyRequests() {
         <Card sx={{ marginBottom: '20px' }}>
           <CardContent>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   select
@@ -130,7 +130,7 @@ export default function MySupplyRequests() {
                   <option value="completed">Complétée</option>
                 </TextField>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={12} sm={6}>
                 <Typography variant="body2" sx={{ color: '#666' }}>
                   إجمالي الطلبات: {filteredRequests.length}
                 </Typography>

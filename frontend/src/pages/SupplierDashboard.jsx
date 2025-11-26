@@ -182,7 +182,7 @@ function SupplierDashboardContent() {
 
         {/* Stats Grid */}
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.supplier.activeOffers')}
               value={stats.activeOffers}
@@ -191,7 +191,7 @@ function SupplierDashboardContent() {
               color="#1976d2"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.supplier.earnedRevenue')}
               value={stats.totalRevenue}
@@ -200,7 +200,7 @@ function SupplierDashboardContent() {
               color="#388e3c"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.supplier.winRate')}
               value={`${stats.winRate}%`}
@@ -209,7 +209,7 @@ function SupplierDashboardContent() {
               color="#f57c00"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.supplier.completed')}
               value={stats.completedDeals}

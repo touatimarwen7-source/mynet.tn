@@ -116,7 +116,7 @@ export default function SupplierPerformanceTracking() {
         {/* Supplier Cards */}
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
           {suppliers.map((supplier) => (
-            <Grid item xs={12} md={6} key={supplier.id}>
+            <Grid xs={12} md={6} key={supplier.id}>
               <Card sx={{ border: '1px solid #e0e0e0', position: 'relative' }}>
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>

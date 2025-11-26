@@ -22,7 +22,7 @@ export default function PartialAward() {
         </Typography>
         <Grid container spacing={3}>
           {offers.map((offer) => (
-            <Grid item xs={12} sm={6} key={offer.id}>
+            <Grid xs={12} sm={6} key={offer.id}>
               <Card sx={{ border: '1px solid #E0E0E0' }}>
                 <CardHeader title={offer.supplier} />
                 <CardContent>

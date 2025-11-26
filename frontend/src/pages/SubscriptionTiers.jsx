@@ -285,7 +285,7 @@ export default function SubscriptionTiers() {
             {tiers.map((tier) => {
               const tierServices = tier.services.map(id => services.find(s => s.id === id)).filter(Boolean);
               return (
-                <Grid item xs={12} sm={6} md={4} key={tier.id}>
+                <Grid xs={12} sm={6} md={4} key={tier.id}>
                   <Card
                     sx={{
                       border: '1px solid #e0e0e0',
@@ -479,7 +479,7 @@ export default function SubscriptionTiers() {
         <TabPanel value={tabValue} index={2}>
           <Grid container spacing={3}>
             {/* Plans Summary */}
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 700, marginBottom: '16px', color: theme.palette.text.primary }}>
                 📦 Résumé des Plans
               </Typography>
@@ -517,7 +517,7 @@ export default function SubscriptionTiers() {
             </Grid>
 
             {/* Services Summary */}
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 700, marginBottom: '16px', color: theme.palette.text.primary }}>
                 ⚙️ Résumé des Services
               </Typography>

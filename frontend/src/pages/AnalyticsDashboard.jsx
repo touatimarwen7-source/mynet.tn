@@ -51,7 +51,7 @@ const AnalyticsDashboard = () => {
       {/* Stats Cards */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {stats && Object.entries(stats).map(([key, value]) => (
-          <Grid item xs={12} sm={6} md={3} key={key}>
+          <Grid xs={12} sm={6} md={3} key={key}>
             <Card sx={{ p: 2, textAlign: 'center' }}>
               <Typography variant="body2" sx={{ color: '#666', mb: 1 }}>
                 {key.replace(/_/g, ' ').toUpperCase()}
@@ -80,7 +80,7 @@ const AnalyticsDashboard = () => {
 
       {/* Distribution Chart */}
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Card sx={{ p: 2 }}>
             <Typography variant="h6" sx={{ mb: 2 }}>Offer Status Distribution</Typography>
             <ResponsiveContainer width="100%" height={300}>
@@ -96,7 +96,7 @@ const AnalyticsDashboard = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Card sx={{ p: 2 }}>
             <Typography variant="h6" sx={{ mb: 2 }}>Status Breakdown</Typography>
             <ResponsiveContainer width="100%" height={300}>

@@ -152,7 +152,7 @@ export default function SupplierReviews() {
           <Card sx={{ marginBottom: '30px' }}>
             <CardContent>
               <Grid container spacing={3} alignItems="center">
-                <Grid item xs={12} sm={3}>
+                <Grid xs={12} sm={3}>
                   <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h3" sx={{ fontWeight: 600, color: theme.palette.primary.main }}>
                       {stats.avgRating}
@@ -163,7 +163,7 @@ export default function SupplierReviews() {
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={12} sm={9}>
+                <Grid xs={12} sm={9}>
                   {[5, 4, 3, 2, 1].map((star) => (
                     <Box key={star} sx={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
                       <Typography sx={{ minWidth: '20px' }}>{star}</Typography>
@@ -192,7 +192,7 @@ export default function SupplierReviews() {
               <Card key={review.id} sx={{ marginBottom: '16px' }}>
                 <CardContent>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} sm={8}>
+                    <Grid xs={12} sm={8}>
                       <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: '8px' }}>
                         {review.title}
                       </Typography>
@@ -207,7 +207,7 @@ export default function SupplierReviews() {
                         {new Date(review.created_at).toLocaleDateString('fr-TN')}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'left', sm: 'right' } }}>
+                    <Grid xs={12} sm={4} sx={{ textAlign: { xs: 'left', sm: 'right' } }}>
                       <Button
                         size="small"
                         startIcon={<EditIcon />}

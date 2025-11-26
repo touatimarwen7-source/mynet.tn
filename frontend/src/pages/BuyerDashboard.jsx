@@ -252,7 +252,7 @@ function BuyerDashboardContent() {
 
         {/* Stats Grid */}
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.buyer.activeTenders')}
               value={stats.activeTenders}
@@ -261,7 +261,7 @@ function BuyerDashboardContent() {
               color="#1976d2"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.buyer.offersReceived')}
               value={stats.totalOffers}
@@ -270,7 +270,7 @@ function BuyerDashboardContent() {
               color="#388e3c"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.buyer.savings')}
               value={`${stats.averageSavings}%`}
@@ -279,7 +279,7 @@ function BuyerDashboardContent() {
               color="#f57c00"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <StatCard 
               label={t('dashboard.buyer.pending')}
               value={stats.pendingDecisions}
@@ -420,7 +420,7 @@ function BuyerDashboardContent() {
                 ) : (
                   <Grid container spacing={2}>
                     {recentOffers.map((tender) => (
-                      <Grid item xs={12} sm={6} md={4} key={tender.id}>
+                      <Grid xs={12} sm={6} md={4} key={tender.id}>
                         <Card sx={{ border: '1px solid #e0e0e0' }}>
                           <CardContent>
                             <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 1 }}>
@@ -451,7 +451,7 @@ function BuyerDashboardContent() {
             {tabValue === 2 && (
               <Box>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
+                  <Grid xs={12} md={6}>
                     <Card sx={{ border: '1px solid #e0e0e0' }}>
                       <CardContent>
                         <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 2 }}>
@@ -480,7 +480,7 @@ function BuyerDashboardContent() {
                       </CardContent>
                     </Card>
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid xs={12} md={6}>
                     <Card sx={{ border: '1px solid #e0e0e0' }}>
                       <CardContent>
                         <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 2 }}>

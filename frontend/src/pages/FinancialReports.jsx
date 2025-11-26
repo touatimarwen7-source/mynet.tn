@@ -32,7 +32,7 @@ export default function FinancialReports() {
 
         <Grid container spacing={2} sx={{ mb: 3 }}>
           {stats.map((stat, idx) => (
-            <Grid item xs={12} sm={6} md={3} key={idx}>
+            <Grid xs={12} sm={6} md={3} key={idx}>
               <Box sx={{ backgroundColor: '#FFF', p: 2, borderRadius: '8px', border: '1px solid #E0E0E0' }}>
                 <Typography sx={{ color: '#616161', fontSize: '12px' }}>{stat.label}</Typography>
                 <Typography sx={{ fontWeight: 600, fontSize: '20px', color: institutionalTheme.palette.primary.main }}>{stat.value}</Typography>

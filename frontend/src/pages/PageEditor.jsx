@@ -201,7 +201,7 @@ export default function PageEditor() {
         {/* Main Content */}
         <Grid container spacing={3}>
           {/* Left Column - Editor */}
-          <Grid item xs={12} lg={8}>
+          <Grid xs={12} lg={8}>
             <Stack spacing={3}>
               {/* Basic Info */}
               <Card sx={{ border: '1px solid #e0e0e0' }}>
@@ -314,7 +314,7 @@ export default function PageEditor() {
           </Grid>
 
           {/* Right Column - Preview & Actions */}
-          <Grid item xs={12} lg={4}>
+          <Grid xs={12} lg={4}>
             <Stack spacing={3}>
               {/* Actions */}
               <Card sx={{ border: '1px solid #e0e0e0', backgroundColor: '#f9f9f9' }}>

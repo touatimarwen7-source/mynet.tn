@@ -25,7 +25,7 @@ export default function PerformanceMonitoring() {
 
         <Grid container spacing={2}>
           {metrics.map((metric, idx) => (
-            <Grid item xs={12} sm={6} key={idx}>
+            <Grid xs={12} sm={6} key={idx}>
               <Card sx={{ border: '1px solid #E0E0E0' }}>
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>

@@ -89,7 +89,7 @@ export default function SupplierAnalytics() {
 
         {/* KPIs */}
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Stack spacing={1}>
@@ -108,7 +108,7 @@ export default function SupplierAnalytics() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Stack spacing={1}>
@@ -127,7 +127,7 @@ export default function SupplierAnalytics() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Stack spacing={1}>
@@ -143,7 +143,7 @@ export default function SupplierAnalytics() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Stack spacing={1}>

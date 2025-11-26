@@ -99,7 +99,7 @@ export default function TenderDetailOptimized({ tenderId }) {
         {/* Stats Grid */}
         {tenderStats && (
           <Grid container spacing={2} sx={{ mb: 3 }}>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid xs={12} sm={6} md={3}>
               <Paper sx={{ p: 2, textAlign: 'center' }}>
                 <Typography variant="caption" sx={{ color: '#616161' }}>
                   الميزانية
@@ -109,7 +109,7 @@ export default function TenderDetailOptimized({ tenderId }) {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid xs={12} sm={6} md={3}>
               <Paper sx={{ p: 2, textAlign: 'center' }}>
                 <Typography variant="caption" sx={{ color: '#616161' }}>
                   آخر موعد
@@ -119,7 +119,7 @@ export default function TenderDetailOptimized({ tenderId }) {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid xs={12} sm={6} md={3}>
               <Paper sx={{ p: 2, textAlign: 'center' }}>
                 <Typography variant="caption" sx={{ color: '#616161' }}>
                   العروض المستلمة
@@ -129,7 +129,7 @@ export default function TenderDetailOptimized({ tenderId }) {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid xs={12} sm={6} md={3}>
               <Paper sx={{ p: 2, textAlign: 'center' }}>
                 <Typography variant="caption" sx={{ color: '#616161' }}>
                   الحالة
@@ -165,7 +165,7 @@ export default function TenderDetailOptimized({ tenderId }) {
           ) : (
             <Grid container spacing={2}>
               {offers.map(offer => (
-                <Grid item xs={12} sm={6} md={4} key={offer.id}>
+                <Grid xs={12} sm={6} md={4} key={offer.id}>
                   <Paper sx={{ p: 2, border: '1px solid #E0E0E0' }}>
                     <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                       {offer.offer_number}

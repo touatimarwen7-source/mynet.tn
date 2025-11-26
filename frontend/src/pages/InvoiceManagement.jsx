@@ -95,7 +95,7 @@ export default function InvoiceManagement() {
         {/* Statistics Cards */}
         <Grid container spacing={2} sx={{ mb: 3 }}>
           {stats.map((stat, idx) => (
-            <Grid item xs={12} sm={6} md={4} key={idx}>
+            <Grid xs={12} sm={6} md={4} key={idx}>
               <Box sx={{
                 backgroundColor: '#FFF',
                 p: 2,

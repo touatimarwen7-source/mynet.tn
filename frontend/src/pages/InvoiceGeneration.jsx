@@ -163,7 +163,7 @@ export default function InvoiceGeneration() {
 
         {/* Section: Summary Cards */}
         <Grid container spacing={2} sx={{ marginBottom: '40px' }}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
               <CardContent>
                 <Typography sx={{ color: '#999', fontSize: '12px', fontWeight: 600 }}>
@@ -175,7 +175,7 @@ export default function InvoiceGeneration() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
               <CardContent>
                 <Typography sx={{ color: '#999', fontSize: '12px', fontWeight: 600 }}>
@@ -187,7 +187,7 @@ export default function InvoiceGeneration() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
               <CardContent>
                 <Typography sx={{ color: '#999', fontSize: '12px', fontWeight: 600 }}>
@@ -199,7 +199,7 @@ export default function InvoiceGeneration() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
               <CardContent>
                 <Typography sx={{ color: '#999', fontSize: '12px', fontWeight: 600 }}>

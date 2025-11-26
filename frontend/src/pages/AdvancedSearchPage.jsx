@@ -33,7 +33,7 @@ const AdvancedSearchPage = () => {
       {/* Filters */}
       <Card sx={{ p: 2, mb: 3 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <TextField
               fullWidth
               label="Search"
@@ -41,7 +41,7 @@ const AdvancedSearchPage = () => {
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Select
               fullWidth
               value={filters.category}
@@ -55,7 +55,7 @@ const AdvancedSearchPage = () => {
             </Select>
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <TextField
               fullWidth
               label="Budget Range"
@@ -65,7 +65,7 @@ const AdvancedSearchPage = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <TextField
               fullWidth
               label="Location"
@@ -74,7 +74,7 @@ const AdvancedSearchPage = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <Typography>Minimum Rating: {filters.minRating}</Typography>
             <Slider
               min={0}
@@ -85,7 +85,7 @@ const AdvancedSearchPage = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <Button variant="contained" onClick={handleSearch} fullWidth>
               Search
             </Button>
@@ -96,7 +96,7 @@ const AdvancedSearchPage = () => {
       {/* Results */}
       <Grid container spacing={2}>
         {results.map((item) => (
-          <Grid item xs={12} md={6} key={item.id}>
+          <Grid xs={12} md={6} key={item.id}>
             <Card sx={{ p: 2 }}>
               <Typography variant="h6">{item.title}</Typography>
               <Typography variant="body2">Budget: ${item.budget}</Typography>

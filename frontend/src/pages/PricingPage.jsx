@@ -24,7 +24,7 @@ export default function PricingPage() {
         </Typography>
         <Grid container spacing={3}>
           {plans.map((plan, idx) => (
-            <Grid item xs={12} sm={6} md={4} key={idx}>
+            <Grid xs={12} sm={6} md={4} key={idx}>
               <Card sx={{ border: '1px solid #E0E0E0', height: '100%' }}>
                 <CardContent>
                   <Typography sx={{ fontSize: '20px', fontWeight: 600, mb: 1 }}>{plan.name}</Typography>

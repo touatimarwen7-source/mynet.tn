@@ -117,7 +117,7 @@ export default function PODetail() {
         </Stack>
 
         <Grid container spacing={3} sx={{ marginBottom: '32px' }}>
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Typography sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main, marginBottom: '16px' }}>
@@ -141,7 +141,7 @@ export default function PODetail() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Typography sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main, marginBottom: '16px' }}>

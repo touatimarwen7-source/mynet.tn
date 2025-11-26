@@ -243,7 +243,7 @@ function SuperAdminDashboardContent() {
 
         {/* System Stats Grid */}
         <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid xs={12} sm={6} md={2.4}>
             <StatCard 
               label={t('dashboard.admin.totalUsers')}
               value={stats.totalUsers}
@@ -253,7 +253,7 @@ function SuperAdminDashboardContent() {
               trend={5.2}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid xs={12} sm={6} md={2.4}>
             <StatCard 
               label={t('dashboard.admin.activeCalls')}
               value={stats.activeTenders}
@@ -263,7 +263,7 @@ function SuperAdminDashboardContent() {
               trend={3.1}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid xs={12} sm={6} md={2.4}>
             <StatCard 
               label={t('dashboard.admin.systemHealth')}
               value={`${stats.systemHealth}%`}
@@ -273,7 +273,7 @@ function SuperAdminDashboardContent() {
               trend={-0.8}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid xs={12} sm={6} md={2.4}>
             <StatCard 
               label={t('dashboard.admin.errorRate')}
               value={`${stats.errorRate}%`}
@@ -283,7 +283,7 @@ function SuperAdminDashboardContent() {
               trend={-0.3}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid xs={12} sm={6} md={2.4}>
             <StatCard 
               label={t('dashboard.admin.responseTime')}
               value={`${stats.responseTime}ms`}
@@ -389,7 +389,7 @@ function SuperAdminDashboardContent() {
 
         {/* System Health Details */}
         <Grid container spacing={2} sx={{ mt: 3 }}>
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 2 }}>
@@ -424,7 +424,7 @@ function SuperAdminDashboardContent() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Typography sx={{ fontSize: '14px', fontWeight: 600, mb: 2 }}>

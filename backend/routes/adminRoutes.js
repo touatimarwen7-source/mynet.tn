@@ -4,9 +4,9 @@ const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// جميع مسارات الإدارة محمية - admin و super_admin
+// جميع مسارات الإدارة محمية - super_admin فقط
 router.use(authMiddleware.verifyToken);
-router.use(authMiddleware.checkRole(['admin', 'super_admin']));
+router.use(authMiddleware.checkRole(['super_admin']));
 
 // ===== لوحة التحكم =====
 router.get('/health', adminController.getHealthDashboard);

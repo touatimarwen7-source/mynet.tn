@@ -34,7 +34,7 @@ router.get('/stats', authMiddleware, (req, res) => {
  */
 router.delete('/clear', authMiddleware, (req, res) => {
   try {
-    if (req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+    if (req.user.role !== 'super_admin') {
       return res.status(403).json({ success: false, error: 'Unauthorized' });
     }
 
@@ -56,7 +56,7 @@ router.delete('/clear', authMiddleware, (req, res) => {
  */
 router.post('/invalidate', authMiddleware, (req, res) => {
   try {
-    if (req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+    if (req.user.role !== 'super_admin') {
       return res.status(403).json({ success: false, error: 'Unauthorized' });
     }
 

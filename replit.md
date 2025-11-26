@@ -9,9 +9,16 @@ I prefer simple language and clear explanations. I want iterative development wi
 ## System Architecture
 The platform utilizes a React frontend (Vite) and a Node.js backend with a PostgreSQL database.
 
-### Recent Improvements (Phase 29 - November 26, 2025) - CRITICAL FIXES & FINALIZATION
+### Recent Improvements (Phase 30 - November 26, 2025) - ROLE SYSTEM REDESIGN
 
-**Phase 29 Critical Fixes (FINAL):**
+**Phase 30 Role System Changes (FINAL):**
+- ✅ **Admin Role Removed**: Deleted 'admin' dور from system - admin users are now 'super_admin' only (managed by super_admin)
+- ✅ **Role Enum Updated**: Changed all valid roles to ['buyer', 'supplier', 'super_admin'] across 9 backend files
+- ✅ **Authorization Guard Fixed**: Updated all route protection checks to require 'super_admin' only (removed 'admin' checks)
+- ✅ **Files Updated**: Roles.js, adminRoutes.js, adminController.js, superAdminController.js, auditLogsRoutes.js, cachingRoutes.js, companyProfileRoutes.js, performanceRoutes.js, reviewsRoutes.js, fieldLevelAccessMiddleware.js, swagger.js
+- ✅ **New Architecture**: Super admin is the only administrative role; all admin users are created by super_admin as regular users who help with tasks
+
+**Phase 29 Critical Fixes (Previous):**
 - ✅ **User ID Standardization (CRITICAL)**: Fixed ALL occurrences of `req.user?.userId` → `req.user?.id` across 5 files (procurementRoutes, offerEvaluationRoutes, inquiryRoutes, tenderManagementRoutes, OfferController) - resolved 500 errors
 - ✅ **Validation Schema Overhaul**: Rewrote `createTenderSchema` using `Joi.alternatives()` to accept dates, empty strings, and null values - supports Frontend flexibility
 - ✅ **Error Handling Unified**: All GET endpoints now return consistent error responses (not raw exceptions)
@@ -20,17 +27,6 @@ The platform utilizes a React frontend (Vite) and a Node.js backend with a Postg
 - ✅ **EnhancedErrorBoundary**: Wrapped all dashboards with professional error boundaries
 - ✅ **Accessibility**: Added aria-labels and semantic HTML to all components
 - ✅ **Pagination System**: Implemented on all data tables with configurable rows
-
-**Phase 27 Foundation Improvements:**
-- ✅ **MFA Email Implementation**: Complete implementation of `sendMFACodeByEmail()` with professional French templates and 5-minute expiry
-- ✅ **Console Logging**: Replaced all `console.log` with `logger.info/warn/error` for production safety
-- ✅ **Tender Creation Schema**: Expanded validation schema from 9 to 35+ fields supporting full procurement workflow
-- ✅ **Database Schema**: Added 4 new columns to tenders table (consultation_number, quantity_required, unit, awardLevel)
-- ✅ **Validation Middleware**: Added comprehensive validation on POST /tenders using createTenderSchema
-- ✅ **Error Response Unification**: Created handleError() and handleSuccess() helpers for consistent API responses
-- ✅ **CORS Configuration**: Fixed to accept Replit wildcard domains (*.riker.replit.dev)
-- ✅ **Rate Limiting**: Restructured from middleware to route handlers for proper request handling
-- ✅ **ErrorResponseFormatter**: Unified error handling via centralized errorHandler.js with 7 error types
 
 ### UI/UX Decisions
 All styles are defined via `frontend/src/theme/theme.js` using Material-UI (MUI), ensuring a unified institutional theme. The design is mobile-first, responsive, WCAG 2.1 compliant, and localized exclusively in French. Loading skeletons are used for improved user experience. All components use centralized `THEME_COLORS` tokens for global color consistency.
@@ -102,6 +98,7 @@ An optimized PostgreSQL connection pool with `SafeClient` and secure query middl
 - **Security**: Rate limiting, ID validation middleware, input sanitization, CSRF protection, MFA, AES-256 encryption
 - **User ID Consistency**: 100% standardized to req.user.id across all 100+ files
 - **Validation**: Comprehensive Joi schemas with 35+ fields for tender creation
+- **Role System**: 3 roles (buyer, supplier, super_admin) - admin is assistant role created by super_admin
 
 ## API Endpoints (210+)
 ### Authentication (Fixed)
@@ -130,12 +127,12 @@ An optimized PostgreSQL connection pool with `SafeClient` and secure query middl
 - GET `/api/procurement/invoices` - List invoices
 - POST `/api/procurement/invoices/:id/mark-paid` - Mark invoice as paid
 
-### Admin (Fixed)
-- GET `/api/admin/statistics` - Admin dashboard stats
-- GET `/api/admin/users` - List users (with pagination)
-- PUT `/api/admin/users/:id/role` - Update user role
-- POST `/api/admin/users/:id/block` - Block user
-- GET `/api/admin/audit-logs` - View audit logs
+### Admin (Fixed - Super Admin Only Now)
+- GET `/api/admin/statistics` - Admin dashboard stats (super_admin only)
+- GET `/api/admin/users` - List users (super_admin only)
+- PUT `/api/admin/users/:id/role` - Update user role (super_admin only)
+- POST `/api/admin/users/:id/block` - Block user (super_admin only)
+- GET `/api/admin/audit-logs` - View audit logs (super_admin only)
 
 ### All Other Routes
 Email, Messaging, Reviews, Analytics, Search, Reports, etc. (all implemented with standard error handling)
@@ -170,12 +167,12 @@ frontend/
 └── i18n/             # French localization files
 ```
 
-## Completed Tasks (Phase 29 FINAL)
-- ✅ CRITICAL FIXES (Phase 29): Fixed 15+ userId references, validation schema overhaul, unified error handling
-- ✅ UI QUALITY (Phase 29): i18n complete, error boundaries, accessibility improvements, logger integration
-- ✅ API VALIDATION (Phase 29): POST /tenders now accepts flexible Frontend data, 500 errors eliminated
+## Completed Tasks (Phase 30 FINAL)
+- ✅ ROLE SYSTEM REDESIGN (Phase 30): Removed 'admin' role completely, updated all 11 files to use 'super_admin' only
+- ✅ AUTHORIZATION CLEANUP (Phase 30): Updated all route guards and permission checks across 9 routes
+- ✅ API DOCUMENTATION (Phase 30): Updated swagger.js and all role enums to reflect new system
 
-## Future Enhancements (Phase 30+)
+## Future Enhancements (Phase 31+)
 - ⏳ MEDIUM PRIORITY: Convert remaining inline SQL routes to Service methods
 - ⏳ MEDIUM PRIORITY: Advanced caching strategies for frequently accessed data
 - ⏳ NICE TO HAVE: Comprehensive API documentation with Swagger
@@ -189,6 +186,7 @@ frontend/
 - ✅ Security: All critical fixes implemented
 - ✅ Error Handling: Unified across all endpoints
 - ✅ Authentication: JWT + MFA email implemented
+- ✅ Role System: Super admin redesigned (Phase 30)
 - ⏳ Testing: Comprehensive test suite in progress
 - ⏳ Documentation: API docs with Swagger in progress
 
@@ -214,5 +212,5 @@ frontend/
 - ✅ Soft deletes for data recovery
 
 ---
-**Last Updated**: November 26, 2025 - Phase 29 Complete (ALL CRITICAL FIXES DEPLOYED)
-**Status**: Production Ready ✅ | All 500 Errors Fixed | Validation Schema Flexible | i18n Complete
+**Last Updated**: November 26, 2025 - Phase 30 Complete (ROLE SYSTEM REDESIGNED)
+**Status**: Production Ready ✅ | All 500 Errors Fixed | Validation Schema Flexible | Admin Role Removed

@@ -208,8 +208,8 @@ router.delete('/:reviewId', validateIdMiddleware('reviewId'), authMiddleware, as
 
     const review = checkResult.rows[0];
     // ISSUE FIX #2: Add authorization check
-    if (review.reviewer_id !== req.user.id && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
-      return res.status(403).json({ error: 'Unauthorized - only reviewer or admin or super_admin can delete' });
+    if (review.reviewer_id !== req.user.id && req.user.role !== 'super_admin') {
+      return res.status(403).json({ error: 'Unauthorized - only reviewer or super_admin can delete' });
     }
 
     // ISSUE FIX #5: Soft delete instead of hard delete

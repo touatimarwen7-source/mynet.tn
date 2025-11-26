@@ -83,8 +83,8 @@ router.get('/slow-endpoints', authMiddleware, (req, res) => {
  */
 router.delete('/metrics', authMiddleware, (req, res) => {
   try {
-    // Check if admin
-    if (req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+    // Check if super_admin
+    if (req.user.role !== 'super_admin') {
       return res.status(403).json({
         success: false,
         error: 'Unauthorized'

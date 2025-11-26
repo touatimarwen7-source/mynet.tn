@@ -23,9 +23,9 @@ router.get('/', authMiddleware, async (req, res) => {
     const { limit, offset, sql } = buildPaginationQuery(req.query.limit, req.query.offset);
     const db = req.app.get('db');
 
-    // Check if admin
+    // Check if super_admin only
     const userResult = await db.query('SELECT role FROM users WHERE id = $1', [req.user.id]);
-    if (userResult.rows[0].role !== 'admin' && userResult.rows[0].role !== 'super_admin') {
+    if (userResult.rows[0].role !== 'super_admin') {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 

@@ -11,8 +11,8 @@ router.get('/supplier/:supplierId', validateIdMiddleware('supplierId'), authMidd
     const { supplierId } = req.params;
     const userId = parseInt(supplierId);
     
-    // Check authorization: user can only view their own profile, admins can view any
-    if (req.user.role !== 'admin' && req.user.role !== 'super_admin' && req.user.id !== userId) {
+    // Check authorization: user can only view their own profile, super_admin can view any
+    if (req.user.role !== 'super_admin' && req.user.id !== userId) {
       return res.status(403).json({ error: 'Unauthorized' });
     }
     
@@ -57,8 +57,8 @@ router.put('/supplier/:supplierId', validateIdMiddleware('supplierId'), authMidd
     const { supplierId } = req.params;
     const { company_name, phone, bio, address, city, country, profile_picture, preferred_categories, service_locations } = req.body;
     
-    // Check if user is admin or the user themselves (supplier or buyer)
-    if (req.user.role !== 'admin' && req.user.role !== 'super_admin' && req.user.id !== parseInt(supplierId)) {
+    // Check if user is super_admin or the user themselves (supplier or buyer)
+    if (req.user.role !== 'super_admin' && req.user.id !== parseInt(supplierId)) {
       return res.status(403).json({ error: 'Unauthorized' });
     }
     

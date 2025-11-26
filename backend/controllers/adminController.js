@@ -149,7 +149,7 @@ exports.updateUserRole = async (req, res) => {
     const { id } = req.params;
     const { role } = req.body;
     
-    const validRoles = ['buyer', 'supplier', 'admin'];
+    const validRoles = ['buyer', 'supplier'];
     if (!validRoles.includes(role)) {
       return res.status(400).json({ error: 'دور غير صحيح' });
     }

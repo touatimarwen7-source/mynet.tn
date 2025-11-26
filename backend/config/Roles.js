@@ -1,5 +1,5 @@
 const Roles = {
-    ADMIN: 'admin',
+    SUPER_ADMIN: 'super_admin',
     BUYER: 'buyer',
     SUPPLIER: 'supplier',
     ACCOUNTANT: 'accountant',
@@ -23,7 +23,7 @@ const Permissions = {
 };
 
 const RolePermissions = {
-    [Roles.ADMIN]: Object.values(Permissions),
+    [Roles.SUPER_ADMIN]: Object.values(Permissions),
     [Roles.BUYER]: [
         Permissions.CREATE_TENDER,
         Permissions.VIEW_TENDER,

@@ -54,7 +54,7 @@ const options = {
             email: { type: 'string', example: 'user@example.com' },
             username: { type: 'string', example: 'username' },
             company_name: { type: 'string', example: 'Acme Corp' },
-            role: { type: 'string', enum: ['buyer', 'supplier', 'admin'] },
+            role: { type: 'string', enum: ['buyer', 'supplier', 'super_admin'] },
             is_verified: { type: 'boolean', example: true },
             is_active: { type: 'boolean', example: true },
             created_at: { type: 'string', format: 'date-time' }

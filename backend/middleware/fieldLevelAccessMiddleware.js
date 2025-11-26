@@ -40,8 +40,8 @@ const sensitiveFields = {
 function filterSensitiveFields(data, resourceType, userRole, isOwner = false) {
   if (!data) return data;
 
-  // Admin sees everything
-  if (userRole === 'admin' || userRole === 'super_admin') {
+  // Super admin sees everything
+  if (userRole === 'super_admin') {
     return data;
   }
 

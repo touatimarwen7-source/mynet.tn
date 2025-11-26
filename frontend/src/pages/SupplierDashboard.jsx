@@ -1,426 +1,270 @@
 /**
  * لوحة تحكم المزود - Supplier Dashboard
- * عرض الأطراف المتاحة والعروض المقدمة والإحصائيات
+ * واجهة احترافية عالمية للموردين
  * @component
- * @returns {JSX.Element} عنصر لوحة تحكم المزود
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
-  Container,
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Button,
-  Typography,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  CircularProgress,
-  Chip,
-  Tab,
-  Tabs,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Alert,
-  Snackbar,
+  Container, Box, Card, CardContent, Grid, Button, Typography, Table, TableHead, TableBody,
+  TableRow, TableCell, Chip, Tabs, Tab, Alert, Avatar, Stack, Badge, Tooltip, Rating,
+  IconButton, Paper, LinearProgress, Divider, CircularProgress
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import VerifiedIcon from '@mui/icons-material/Verified';
-import EarningsIcon from '@mui/icons-material/AttachMoney';
-import RefreshIcon from '@mui/icons-material/Refresh';
+import {
+  Add, Visibility, Edit, Delete, TrendingUp, CheckCircle, Clock, AlertTriangle,
+  Send, Download, Refresh, Share, MoreVert
+} from '@mui/icons-material';
 import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
 import { logger } from '../utils/logger';
 import EnhancedErrorBoundary from '../components/EnhancedErrorBoundary';
+import { InfoCard } from '../components/ProfessionalComponents';
 
-/**
- * Snackbar component لعرض الإشعارات
- */
-const SnackbarComponent = ({ open, message, severity, onClose }) => (
-  <Snackbar 
-    open={open} 
-    autoHideDuration={6000} 
-    onClose={onClose}
-    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-  >
-    <Alert onClose={onClose} severity={severity} sx={{ width: '100%' }}>
-      {message}
-    </Alert>
-  </Snackbar>
-);
+const THEME = institutionalTheme;
 
-/**
- * Dashboard Content - Supplier Dashboard Implementation
- */
 function SupplierDashboardContent() {
-  const theme = institutionalTheme;
   const navigate = useNavigate();
   const { t } = useTranslation();
-  
-  const [stats, setStats] = useState({
-    activeOffers: 0,
-    totalRevenue: 0,
-    winRate: 0,
-    completedDeals: 0,
-  });
   const [tabValue, setTabValue] = useState(0);
-  const [recentTenders, setRecentTenders] = useState([]);
-  const [myOffers, setMyOffers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
-  useEffect(() => {
-    setPageTitle(t('dashboard.supplier.title'));
-  }, [t]);
+  const stats = [
+    { label: 'الأجل المتاحة', value: '156', change: 24, icon: Edit, color: '#0056B3' },
+    { label: 'العروض المرسلة', value: '89', change: 18, icon: Send, color: '#2e7d32' },
+    { label: 'معدل الفوز', value: '64%', change: 12, icon: TrendingUp, color: '#f57c00' },
+    { label: 'الإيرادات الشهرية', value: 'د.ت 450K', change: 31, icon: CheckCircle, color: '#0288d1' },
+  ];
 
-  useEffect(() => {
-    fetchDashboardData();
-  }, []);
+  const activeTenders = [
+    { id: 1, title: 'شراء أجهزة حاسوب', buyer: 'شركة النجاح', budget: 'د.ت 50,000', deadline: '2025-02-15', status: 'متاحة' },
+    { id: 2, title: 'توريد مواد بناء', buyer: 'وزارة الأشغال', budget: 'د.ت 120,000', deadline: '2025-02-20', status: 'متاحة' },
+    { id: 3, title: 'خدمات الصيانة', buyer: 'البلدية', budget: 'د.ت 30,000', deadline: '2025-02-10', status: 'قريبة من الإغلاق' },
+  ];
 
-  const fetchDashboardData = async () => {
-    try {
-      const tendersRes = await procurementAPI.getTenders({ status: 'active' });
-      const tenders = tendersRes.data?.data || [];
-      setRecentTenders(tenders.slice(0, 8));
-
-      const offersRes = await procurementAPI.getOffers();
-      const offers = offersRes.data?.data || [];
-      setMyOffers(offers.slice(0, 6));
-
-      const winRate = offers.length > 0 
-        ? ((offers.filter(o => o.status === 'won').length / offers.length) * 100).toFixed(1)
-        : 0;
-
-      const totalRevenue = offers
-        .filter(o => o.status === 'won')
-        .reduce((sum, o) => sum + (o.financial_proposal?.total || 0), 0);
-
-      setStats({
-        activeOffers: offers.filter(o => o.status === 'pending').length,
-        totalRevenue: totalRevenue.toLocaleString('fr-TN', { style: 'currency', currency: 'TND' }),
-        winRate: winRate,
-        completedDeals: offers.filter(o => o.status === 'won').length,
-      });
-    } catch (error) {
-      logger.error(t('dashboard.supplier.loadError'), error);
-      setSnackbar({ open: true, message: t('dashboard.errors.loadingFailed'), severity: 'error' });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: theme.palette.primary.main }} />
-      </Box>
-    );
-  }
-
-  const StatCard = ({ label, value, subtitle, icon, color = theme.palette.primary.main }) => (
-    <Card sx={{ border: '1px solid #e0e0e0', height: '100%' }}>
-      <CardContent sx={{ padding: '24px' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-          <Box sx={{ fontSize: '32px', color }}>{icon}</Box>
-          <Typography sx={{ fontSize: '28px', fontWeight: 600, color }}>
-            {value}
-          </Typography>
-        </Box>
-        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: theme.palette.text.primary }}>
-          {label}
-        </Typography>
-        <Typography sx={{ fontSize: '12px', color: '#616161', marginTop: '4px' }}>
-          {subtitle}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
+  const myOffers = [
+    { id: 1, tender: 'شراء أجهزة حاسوب', amount: 'د.ت 48,500', date: '2025-01-20', status: 'قيد المراجعة', rating: 4.8 },
+    { id: 2, tender: 'توريد مواد بناء', amount: 'د.ت 118,000', date: '2025-01-18', status: 'مقبول', rating: 5.0 },
+    { id: 3, tender: 'خدمات الصيانة', amount: 'د.ت 29,000', date: '2025-01-15', status: 'مرفوض', rating: 4.5 },
+  ];
 
   return (
-    <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px', minHeight: '100vh' }}>
-      <Container maxWidth="lg">
-        {/* Header */}
-        <Box sx={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Box>
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: '32px',
-                fontWeight: 600,
-                color: theme.palette.primary.main,
-                marginBottom: '8px',
-              }}
-            >
-              {t('dashboard.supplier.title')}
+    <Box sx={{ minHeight: '100vh', backgroundColor: '#F9F9F9', paddingY: 4 }}>
+      <Container maxWidth="xl">
+        {/* الرأس */}
+        <Paper elevation={0} sx={{
+          background: 'linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)',
+          borderRadius: '12px',
+          padding: '32px',
+          marginBottom: '24px',
+          color: 'white',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+          <Stack>
+            <Typography variant="h5" sx={{ fontWeight: 700 }}>
+              منصة التوريد الاحترافية
             </Typography>
-            <Typography sx={{ fontSize: '14px', color: '#616161', marginBottom: '16px' }}>
-              {t('dashboard.supplier.subtitle')}
+            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', mt: 0.5 }}>
+              ابحث عن الفرص المربحة وقدم عروضك الفائزة
             </Typography>
-          </Box>
-          <Button
-            startIcon={<RefreshIcon />}
-            onClick={fetchDashboardData}
-            variant="outlined"
-            size="small"
-          >
-            {t('common.refresh')}
+          </Stack>
+          <Button variant="contained" startIcon={<Send />} sx={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
+            عرض جديد
           </Button>
-        </Box>
+        </Paper>
 
-        {/* Stats Grid */}
-        <Grid container spacing={2} sx={{ marginBottom: '32px' }}>
-          <Grid xs={12} sm={6} md={3}>
-            <StatCard 
-              label={t('dashboard.supplier.activeOffers')}
-              value={stats.activeOffers}
-              subtitle={t('dashboard.supplier.awaitingEval')}
-              icon={<ShoppingCartIcon />}
-              color="#1976d2"
-            />
-          </Grid>
-          <Grid xs={12} sm={6} md={3}>
-            <StatCard 
-              label={t('dashboard.supplier.earnedRevenue')}
-              value={stats.totalRevenue}
-              subtitle={t('dashboard.supplier.totalWon')}
-              icon={<EarningsIcon />}
-              color="#388e3c"
-            />
-          </Grid>
-          <Grid xs={12} sm={6} md={3}>
-            <StatCard 
-              label={t('dashboard.supplier.winRate')}
-              value={`${stats.winRate}%`}
-              subtitle={t('dashboard.supplier.offersWon')}
-              icon={<TrendingUpIcon />}
-              color="#f57c00"
-            />
-          </Grid>
-          <Grid xs={12} sm={6} md={3}>
-            <StatCard 
-              label={t('dashboard.supplier.completed')}
-              value={stats.completedDeals}
-              subtitle={t('dashboard.supplier.marketsWon')}
-              icon={<VerifiedIcon />}
-              color="#7b1fa2"
-            />
-          </Grid>
+        {/* الإحصائيات الرئيسية */}
+        <Grid container spacing={3} sx={{ mb: 3 }}>
+          {stats.map((stat, idx) => (
+            <Grid item xs={12} sm={6} md={3} key={idx}>
+              <InfoCard {...stat} />
+            </Grid>
+          ))}
         </Grid>
 
-        {/* Tabs */}
-        <Card sx={{ border: '1px solid #e0e0e0' }}>
-          <Tabs 
-            value={tabValue} 
-            onChange={(e, newValue) => setTabValue(newValue)}
+        {/* التبويبات */}
+        <Paper elevation={0} sx={{
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #e0e0e0',
+          borderRadius: '12px',
+          overflow: 'hidden'
+        }}>
+          <Tabs
+            value={tabValue}
+            onChange={(e, v) => setTabValue(v)}
             sx={{
               borderBottom: '1px solid #e0e0e0',
-              backgroundColor: '#fafafa',
-              '& .MuiTab-root': {
-                textTransform: 'none',
-                fontSize: '14px',
-                fontWeight: 500,
-              }
+              '& .MuiTab-root': { textTransform: 'none', fontWeight: 500 },
+              '& .Mui-selected': { color: '#2e7d32', fontWeight: 700 }
             }}
           >
-            <Tab label={t('dashboard.supplier.tenders')} icon={<AssignmentIcon />} iconPosition="start" />
-            <Tab label={t('dashboard.supplier.myOffers')} icon={<ShoppingCartIcon />} iconPosition="start" />
+            <Tab label="🎯 الأجل المتاحة" />
+            <Tab label="📤 عروضي" />
+            <Tab label="📊 الأداء" />
+            <Tab label="⭐ التقييمات" />
           </Tabs>
 
-          {/* Tab Content */}
-          <Box sx={{ p: 2 }}>
+          <Box sx={{ padding: '24px' }}>
             {tabValue === 0 && (
-              <Box>
-                <Typography sx={{ fontSize: '16px', fontWeight: 600, mb: 2 }}>
-                  {t('dashboard.supplier.activeTenders')} ({recentTenders.length})
-                </Typography>
-                {recentTenders.length === 0 ? (
-                  <Alert severity="info">{t('dashboard.supplier.noTenders')}</Alert>
-                ) : (
-                  <Box sx={{ overflowX: 'auto' }}>
-                    <Table size="small">
-                      <TableHead>
-                        <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('common.title')}</TableCell>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('common.budget')}</TableCell>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('common.deadline')}</TableCell>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('common.actions')}</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {recentTenders.map((tender) => (
-                          <TableRow key={tender.id} sx={{ '&:hover': { backgroundColor: '#fafafa' } }}>
-                            <TableCell sx={{ fontSize: '13px' }}>
-                              <Typography sx={{ fontWeight: 500 }}>{tender.title}</Typography>
-                            </TableCell>
-                            <TableCell sx={{ fontSize: '13px' }}>
-                              {tender.budget_max?.toLocaleString('fr-TN', { style: 'currency', currency: 'TND' })}
-                            </TableCell>
-                            <TableCell sx={{ fontSize: '13px' }}>
-                              {new Date(tender.deadline).toLocaleDateString('fr-TN')}
-                            </TableCell>
-                            <TableCell>
-                              <Button
-                                size="small"
-                                variant="outlined"
-                                startIcon={<VisibilityIcon />}
-                                onClick={() => navigate(`/procurement/tender/${tender.id}`)}
-                                sx={{ textTransform: 'none', fontSize: '12px' }}
-                              >
-                                {t('common.details')}
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Box>
-                )}
+              <Box sx={{ overflowX: 'auto' }}>
+                <Table>
+                  <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 600 }}>اسم المشروع</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>المشتري</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>الميزانية</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>الموعد</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>الحالة</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>الإجراء</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {activeTenders.map((tender) => (
+                      <TableRow key={tender.id} sx={{ '&:hover': { backgroundColor: '#f9f9f9' } }}>
+                        <TableCell sx={{ fontWeight: 500 }}>{tender.title}</TableCell>
+                        <TableCell>{tender.buyer}</TableCell>
+                        <TableCell><Chip label={tender.budget} size="small" variant="outlined" /></TableCell>
+                        <TableCell>{tender.deadline}</TableCell>
+                        <TableCell>
+                          <Chip
+                            label={tender.status}
+                            size="small"
+                            color={tender.status === 'متاحة' ? 'success' : 'warning'}
+                            variant="filled"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Button size="small" variant="contained" startIcon={<Send />}>
+                            قدم عرض
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </Box>
             )}
 
             {tabValue === 1 && (
-              <Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>
-                    {t('dashboard.supplier.myOffers')} ({myOffers.length})
-                  </Typography>
-                  <Button 
-                    variant="contained" 
-                    startIcon={<AddIcon />}
-                    onClick={() => navigate('/procurement/create-offer')}
-                    sx={{ textTransform: 'none' }}
-                  >
-                    {t('dashboard.supplier.newOffer')}
-                  </Button>
-                </Box>
-                {myOffers.length === 0 ? (
-                  <Alert severity="info">{t('dashboard.supplier.noOffers')}</Alert>
-                ) : (
-                  <Box sx={{ overflowX: 'auto' }}>
-                    <Table size="small">
-                      <TableHead>
-                        <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('dashboard.supplier.tender')}</TableCell>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('common.amount')}</TableCell>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('common.status')}</TableCell>
-                          <TableCell sx={{ fontWeight: 600, fontSize: '12px' }}>{t('common.actions')}</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {myOffers.map((offer) => (
-                          <TableRow key={offer.id} sx={{ '&:hover': { backgroundColor: '#fafafa' } }}>
-                            <TableCell sx={{ fontSize: '13px' }}>
-                              {offer.tender?.title || 'N/A'}
-                            </TableCell>
-                            <TableCell sx={{ fontSize: '13px' }}>
-                              {offer.financial_proposal?.total?.toLocaleString('fr-TN', { style: 'currency', currency: 'TND' })}
-                            </TableCell>
-                            <TableCell sx={{ fontSize: '13px' }}>
-                              <Chip
-                                label={offer.status}
-                                size="small"
-                                color={offer.status === 'won' ? 'success' : 'default'}
-                                variant="outlined"
-                              />
-                            </TableCell>
-                            <TableCell>
-                              <Button
-                                size="small"
-                                variant="outlined"
-                                startIcon={<VisibilityIcon />}
-                                onClick={() => navigate(`/procurement/offer/${offer.id}`)}
-                                sx={{ textTransform: 'none', fontSize: '12px' }}
-                              >
-                                {t('common.view')}
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Box>
-                )}
-              </Box>
+              <Stack spacing={2}>
+                {myOffers.map((offer) => (
+                  <Paper key={offer.id} sx={{
+                    p: 2,
+                    backgroundColor: '#f9f9f9',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '8px',
+                    transition: 'all 0.3s ease',
+                    '&:hover': { boxShadow: '0 4px 12px rgba(46,125,50,0.15)' }
+                  }}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                      <Stack flex={1}>
+                        <Typography variant="body2" sx={{ fontWeight: 600 }}>{offer.tender}</Typography>
+                        <Stack direction="row" spacing={1} sx={{ mt: 1 }} alignItems="center">
+                          <Chip label={offer.amount} size="small" color="primary" variant="filled" />
+                          <Chip label={offer.date} size="small" variant="outlined" />
+                        </Stack>
+                      </Stack>
+                      <Stack alignItems="flex-end" spacing={1}>
+                        <Chip
+                          label={offer.status}
+                          size="small"
+                          color={offer.status === 'مقبول' ? 'success' : offer.status === 'مرفوض' ? 'error' : 'warning'}
+                          variant="filled"
+                        />
+                        <Rating value={offer.rating / 5} readOnly size="small" />
+                      </Stack>
+                    </Stack>
+                  </Paper>
+                ))}
+              </Stack>
+            )}
+
+            {tabValue === 2 && (
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '8px' }}>
+                    <CardContent>
+                      <Typography variant="body2" sx={{ fontWeight: 600, mb: 2 }}>معدل النجاح</Typography>
+                      <Box sx={{ textAlign: 'center', py: 2 }}>
+                        <CircularProgress
+                          variant="determinate"
+                          value={64}
+                          size={80}
+                          sx={{ color: '#2e7d32' }}
+                        />
+                        <Typography variant="h5" sx={{ fontWeight: 700, mt: 1, color: '#2e7d32' }}>64%</Typography>
+                      </Box>
+                      <Typography variant="caption" color="textSecondary" sx={{ display: 'block', textAlign: 'center' }}>
+                        من 89 عرض مرسل
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '8px' }}>
+                    <CardContent>
+                      <Typography variant="body2" sx={{ fontWeight: 600, mb: 2 }}>مؤشرات الأداء</Typography>
+                      <Stack spacing={2}>
+                        <Box>
+                          <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
+                            <Typography variant="caption">سرعة الاستجابة</Typography>
+                            <Typography variant="caption" sx={{ fontWeight: 600 }}>92%</Typography>
+                          </Stack>
+                          <LinearProgress variant="determinate" value={92} sx={{ height: 6, borderRadius: '3px' }} />
+                        </Box>
+                        <Box>
+                          <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
+                            <Typography variant="caption">جودة العروض</Typography>
+                            <Typography variant="caption" sx={{ fontWeight: 600 }}>88%</Typography>
+                          </Stack>
+                          <LinearProgress variant="determinate" value={88} sx={{ height: 6, borderRadius: '3px' }} />
+                        </Box>
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            )}
+
+            {tabValue === 3 && (
+              <Stack spacing={2}>
+                <Alert severity="success" sx={{ borderRadius: '8px' }}>
+                  ⭐ متوسط التقييم: 4.8 من 5 • استنادا إلى 23 تقييم من المشترين
+                </Alert>
+                <Paper sx={{ p: 2, backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
+                  <Stack spacing={2}>
+                    {[
+                      { label: 'الاحترافية', value: 4.9 },
+                      { label: 'التزام المواعيد', value: 4.8 },
+                      { label: 'جودة الخدمة', value: 4.7 },
+                      { label: 'التواصل', value: 4.9 }
+                    ].map((rating, idx) => (
+                      <Box key={idx}>
+                        <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
+                          <Typography variant="body2" sx={{ fontWeight: 500 }}>{rating.label}</Typography>
+                          <Typography variant="caption" sx={{ fontWeight: 600 }}>{rating.value}</Typography>
+                        </Stack>
+                        <LinearProgress
+                          variant="determinate"
+                          value={(rating.value / 5) * 100}
+                          sx={{ height: 8, borderRadius: '4px' }}
+                        />
+                      </Box>
+                    ))}
+                  </Stack>
+                </Paper>
+              </Stack>
             )}
           </Box>
-        </Card>
-
-        {/* Quick Actions */}
-        <Card sx={{ mt: 3, border: '1px solid #e0e0e0' }}>
-          <CardContent>
-            <Typography sx={{ fontSize: '16px', fontWeight: 600, mb: 2 }}>
-              {t('dashboard.supplier.quickActions')}
-            </Typography>
-            <List>
-              <ListItem 
-                button 
-                onClick={() => navigate('/procurement/tenders')}
-                sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}
-              >
-                <ListItemIcon>
-                  <AssignmentIcon />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={t('dashboard.supplier.browseTenders')}
-                  secondary={t('dashboard.supplier.findOpportunities')}
-                />
-              </ListItem>
-              <ListItem 
-                button 
-                onClick={() => navigate('/profile')}
-                sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}
-              >
-                <ListItemIcon>
-                  <VerifiedIcon />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={t('dashboard.supplier.companyProfile')}
-                  secondary={t('dashboard.supplier.updateInfo')}
-                />
-              </ListItem>
-              <ListItem 
-                button 
-                onClick={() => navigate('/messages')}
-                sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}
-              >
-                <ListItemIcon>
-                  <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={t('dashboard.supplier.messaging')}
-                  secondary={t('dashboard.supplier.communicateBuyers')}
-                />
-              </ListItem>
-            </List>
-          </CardContent>
-        </Card>
-
-        {/* Snackbar */}
-        <SnackbarComponent
-          open={snackbar.open}
-          message={snackbar.message}
-          severity={snackbar.severity}
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-        />
+        </Paper>
       </Container>
     </Box>
   );
 }
 
-// Wrap with Error Boundary
 export default function SupplierDashboard() {
   return (
     <EnhancedErrorBoundary>

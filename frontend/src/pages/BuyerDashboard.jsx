@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import {
   Add, Visibility, FileDownload, Assignment, TrendingUp, TrendingDown, Refresh,
-  CheckCircle, Clock, AlertTriangle, Edit, Delete, Share, Download, MoreVert
+  CheckCircle, Schedule, AlertTriangle, Edit, Delete, Share, Download, MoreVert
 } from '@mui/icons-material';
 import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
@@ -36,7 +36,7 @@ function BuyerDashboardContent() {
   const stats = [
     { label: 'الأجل النشطة', value: '28', change: 12, icon: Assignment, color: '#0056B3' },
     { label: 'متوسط الادخار', value: '18.5%', change: 5, icon: TrendingDown, color: '#2e7d32' },
-    { label: 'العروض المنتظرة', value: '145', change: -3, icon: Clock, color: '#f57c00' },
+    { label: 'العروض المنتظرة', value: '145', change: -3, icon: Schedule, color: '#f57c00' },
     { label: 'معدل الإغلاق', value: '92%', change: 8, icon: CheckCircle, color: '#0288d1' },
   ];
 

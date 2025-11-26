@@ -25,14 +25,8 @@ export function initializeSentry() {
     environment: environment,
     integrations: [
       new BrowserTracing(),
-      new Sentry.Replay({
-        maskAllText: true,
-        blockAllMedia: true,
-      }),
     ],
     tracesSampleRate: environment === 'production' ? 0.1 : 1.0,
-    replaysSessionSampleRate: environment === 'production' ? 0.1 : 1.0,
-    replaysOnErrorSampleRate: 1.0,
     beforeSend(event) {
       // Filter out network errors in development
       if (event.exception) {

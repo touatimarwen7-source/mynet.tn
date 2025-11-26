@@ -164,18 +164,36 @@ export default function CreateTender() {
 
   const handleSubmit = async () => {
     try {
-      // Validation using unified helpers
-      const criteria = getTotalCriteria();
-      if (criteria !== 100) {
-        setError(`Les critères d\'évaluation doivent totaliser 100% (actuellement: ${criteria}%)`);
+      // ✅ STEP 1: Validate all required fields
+      if (!formData.title || formData.title.trim().length < 5) {
+        setError('Le titre doit contenir au moins 5 caractères');
         return;
       }
 
-      if (!formData.awardLevel) {
-        setError('Niveau d\'attribution requis');
+      if (!formData.description || formData.description.trim().length < 20) {
+        setError('La description doit contenir au moins 20 caractères');
         return;
       }
 
+      if (!formData.publication_date) {
+        setError('La date de publication est requise');
+        return;
+      }
+
+      if (!formData.deadline) {
+        setError('La date de clôture est requise');
+        return;
+      }
+
+      // ✅ STEP 2: Validate deadline is in future
+      const now = new Date();
+      const deadlineDate = new Date(formData.deadline);
+      if (deadlineDate <= now) {
+        setError('La date de clôture doit être dans le futur');
+        return;
+      }
+
+      // ✅ STEP 3: Validate lots
       if (!formData.lots || formData.lots.length === 0) {
         setError('Au moins un lot est requis');
         return;
@@ -187,45 +205,81 @@ export default function CreateTender() {
         return;
       }
 
-      // Validate deadline at submission
-      const deadlineCheck = validateDeadline(formData.deadline);
-      if (!deadlineCheck.valid) {
-        setError(deadlineCheck.error);
+      // ✅ STEP 4: Validate award level
+      if (!formData.awardLevel) {
+        setError('Niveau d\'attribution requis');
         return;
       }
 
-      if (!formData.title || formData.title.trim() === '') {
-        setError('Le titre est requis');
-        return;
-      }
-
-      if (!formData.description || formData.description.trim() === '') {
-        setError('La description est requise');
+      // ✅ STEP 5: Validate evaluation criteria
+      const criteria = getTotalCriteria();
+      if (criteria !== 100) {
+        setError(`Les critères d\'évaluation doivent totaliser 100% (actuellement: ${criteria}%)`);
         return;
       }
 
       setLoading(true);
+      setError('');
 
-      // Create tender data with timeout protection
+      // ✅ STEP 6: Prepare tender data with proper formatting
       const tenderData = {
-        ...formData,
+        title: formData.title?.trim() || '',
+        description: formData.description?.trim() || '',
+        publication_date: formData.publication_date,
+        deadline: formData.deadline,
         budget_min: formData.budget_min ? parseFloat(formData.budget_min) : 0,
         budget_max: formData.budget_max ? parseFloat(formData.budget_max) : 0,
+        currency: formData.currency || 'TND',
+        category: formData.category || '',
+        awardLevel: formData.awardLevel || 'lot',
+        offer_validity_days: formData.offer_validity_days ? parseInt(formData.offer_validity_days) : 30,
+        lots: formData.lots || [],
+        evaluation_criteria: formData.evaluation_criteria || {},
+        requirements: formData.requirements || {},
+        documents: formData.documents || [],
+        additional_info: formData.additional_info || ''
       };
 
+      // ✅ STEP 7: Submit to API with error handling
       const response = await procurementAPI.createTender(tenderData);
-      
-      clearDraft('tender_draft');
-      
-      // Navigate to tender detail page
-      if (response.data.tender?.id) {
-        navigate(`/tender/${response.data.tender.id}`);
-      } else {
-        setError('Erreur: ID du tender manquant dans la réponse');
+
+      // ✅ STEP 8: Handle success response - check multiple possible structures
+      const tenderId = response?.data?.id || 
+                      response?.data?.tender?.id || 
+                      response?.id || 
+                      response?.tender?.id;
+
+      if (!tenderId) {
+        console.error('Unexpected API response structure:', response);
+        setError('Erreur: ID du tender manquant dans la réponse du serveur');
+        return;
       }
+
+      // ✅ STEP 9: Clear draft and navigate
+      clearDraft('tender_draft');
+      navigate(`/tender/${tenderId}`);
+
     } catch (err) {
-      const errorMsg = handleAPIError(err);
-      setError(errorMsg);
+      console.error('Tender creation error:', err);
+      
+      // ✅ STEP 10: Enhanced error handling
+      let errorMessage = 'Une erreur est survenue lors de la création de l\'appel d\'offres';
+      
+      if (err.response?.data?.message) {
+        errorMessage = err.response.data.message;
+      } else if (err.response?.data?.error) {
+        errorMessage = err.response.data.error;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      
+      // Handle validation errors from API
+      if (err.response?.status === 400) {
+        errorMessage = `Erreur de validation: ${errorMessage}`;
+      }
+      
+      setError(errorMessage);
+      
     } finally {
       setLoading(false);
     }

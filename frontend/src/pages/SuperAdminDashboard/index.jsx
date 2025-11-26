@@ -63,7 +63,6 @@ import {
   Menu,
   Close,
   TrendingUp,
-  BarChart,
   AlertCircle,
   Database,
   Globe,

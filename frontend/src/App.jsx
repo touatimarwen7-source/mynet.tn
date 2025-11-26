@@ -349,12 +349,6 @@ function AppContent() {
               element={user ? <MessageDetail /> : <Navigate to="/login" />} 
             />
 
-              {/* Email Notifications */}
-              <Route 
-              path="/email-notifications" 
-              element={user?.role === 'super_admin' ? <EmailNotifications /> : <Navigate to="/tenders" />} 
-            />
-
               {/* Supply Requests & Invoices */}
               <Route 
               path="/my-supply-requests" 
@@ -443,18 +437,36 @@ function AppContent() {
               element={user?.role === 'super_admin' ? <FileManagement /> : <Navigate to="/tenders" />} 
             />
               
-              {/* Admin Only Routes */}
+              {/* Admin Routes (Redirect to Super Admin) */}
+              <Route 
+              path="/admin" 
+              element={<Navigate to="/super-admin/dashboard" />} 
+            />
               <Route 
               path="/admin/audit-logs" 
-              element={user?.role === 'admin' ? <AuditLogViewer /> : <Navigate to="/tenders" />} 
+              element={<Navigate to="/super-admin/audit-logs" />} 
             />
               <Route 
               path="/admin/health" 
-              element={user?.role === 'admin' ? <HealthMonitoring /> : <Navigate to="/tenders" />} 
+              element={<Navigate to="/super-admin/health" />} 
             />
               <Route 
               path="/admin/archive" 
-              element={user?.role === 'admin' ? <ArchiveManagement /> : <Navigate to="/tenders" />} 
+              element={<Navigate to="/super-admin/archive" />} 
+            />
+              <Route 
+              path="/admin/users" 
+              element={<Navigate to="/super-admin/users" />} 
+            />
+              <Route 
+              path="/user-management" 
+              element={user?.role === 'super_admin' ? <UserManagement /> : <Navigate to="/tenders" />} 
+            />
+
+              {/* Email Notifications */}
+              <Route 
+              path="/email-notifications" 
+              element={user?.role === 'super_admin' ? <EmailNotifications /> : <Navigate to="/tenders" />} 
             />
 
               {/* Profil et Sécurité */}

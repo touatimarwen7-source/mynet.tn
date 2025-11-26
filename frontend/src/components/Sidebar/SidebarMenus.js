@@ -165,38 +165,45 @@ export const superAdminMenu = [
     subItems: []
   },
   {
-    id: 'admin-functions',
-    label: 'Fonctions Admin',
-    path: '/super-admin-menu',
-    subItems: []
-  },
-  {
-    id: 'users',
-    label: '👥 Gestion des Utilisateurs et Sécurité',
+    id: 'users-mgmt',
+    label: '👥 Gestion des Utilisateurs',
     subItems: [
-      { label: 'Afficher le Tableau de Bord', path: '/super-admin' }
+      { label: 'Utilisateurs', path: '/super-admin/users' },
+      { label: 'Gestion des Rôles', path: '/user-management' }
     ]
   },
   {
     id: 'content',
-    label: '📄 Gestion du Contenu Dynamique',
+    label: '📄 Gestion du Contenu',
     subItems: [
-      { label: 'Afficher le Tableau de Bord', path: '/super-admin' }
+      { label: 'Pages Statiques', path: '/super-admin' },
+      { label: 'Éditeur de Pages', path: '/super-admin/page-editor' },
+      { label: 'Gestion des Fichiers', path: '/super-admin/files' }
     ]
   },
   {
     id: 'system',
-    label: '⚙️ Paramètres Système',
+    label: '⚙️ Configuration Système',
     subItems: [
-      { label: 'Afficher le Tableau de Bord', path: '/super-admin' }
+      { label: 'Paramètres', path: '/super-admin/features' },
+      { label: 'Plans d\'Abonnement', path: '/super-admin/tiers' },
+      { label: 'Sauvegarde & Restauration', path: '/super-admin/archive' }
     ]
   },
   {
     id: 'monitoring',
-    label: '📊 Surveillance et Analyse',
+    label: '📊 Surveillance & Audit',
     subItems: [
-      { label: 'Afficher le Tableau de Bord', path: '/super-admin' }
+      { label: 'Santé du Système', path: '/super-admin/health' },
+      { label: 'Journaux d\'Audit', path: '/super-admin/audit-logs' },
+      { label: 'Notifications Email', path: '/email-notifications' }
     ]
+  },
+  {
+    id: 'functions',
+    label: '🛠️ Toutes les Fonctions',
+    path: '/super-admin-menu',
+    subItems: []
   },
   {
     id: 'profile',

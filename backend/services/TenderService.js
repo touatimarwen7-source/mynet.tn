@@ -118,7 +118,11 @@ class TenderService {
                 userId,
                 mappedData.is_public !== undefined ? mappedData.is_public : true,
                 JSON.stringify(mappedData.evaluation_criteria || {}),
-                userId
+                userId,
+                mappedData.consultation_number || null,
+                mappedData.quantity_required || null,
+                mappedData.unit || null,
+                mappedData.awardLevel || null
             ];
 
             const result = await pool.query(
@@ -127,8 +131,8 @@ class TenderService {
                  participation_eligibility, mandatory_documents, disqualification_criteria,
                  submission_method, sealed_envelope_requirements, contact_person, contact_email, contact_phone,
                  technical_specifications, queries_start_date, queries_end_date, offer_validity_days, alert_type,
-                 buyer_id, is_public, evaluation_criteria, created_by)
-                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31)
+                 buyer_id, is_public, evaluation_criteria, created_by, consultation_number, quantity_required, unit, "awardLevel")
+                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35)
                  RETURNING *`,
                 values
             );

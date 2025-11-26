@@ -117,7 +117,7 @@ class OfferController {
             const { tenderId } = req.params;
             const result = await OfferService.getOffersByTender(
                 tenderId, 
-                req.user?.userId
+                req.user?.id
             );
 
             // إذا كانت العروض مختومة (قبل تاريخ الفتح)

@@ -78,7 +78,7 @@ class OfferController {
     async getOffer(req, res) {
         try {
             const { id } = req.params;
-            const offer = await OfferService.getOfferById(id, req.user?.userId);
+            const offer = await OfferService.getOfferById(id, req.user?.id);
 
             if (!offer) {
                 return res.status(404).json({ 

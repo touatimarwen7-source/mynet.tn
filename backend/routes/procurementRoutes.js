@@ -20,10 +20,30 @@ const getPaginationParams = (req) => {
   return { page, limit };
 };
 
-// Tenders
+// Unified error response helper
+const handleError = (res, error, statusCode = 500) => {
+  const message = error.message || 'An error occurred';
+  const errorCode = error.code || 'ERROR';
+  return res.status(statusCode).json(ErrorResponseFormatter.error(message, statusCode));
+};
+
+// Unified success response helper
+const handleSuccess = (res, data, message = 'Success', statusCode = 200) => {
+  return res.status(statusCode).json(ErrorResponseFormatter.success(data, message, statusCode));
+};
+
+// Tenders - with validation
 router.post('/tenders', 
     AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
     AuthorizationGuard.requirePermission(Permissions.CREATE_TENDER).bind(AuthorizationGuard),
+    (req, res, next) => {
+      try {
+        validateSchema(req.body, createTenderSchema);
+        next();
+      } catch (error) {
+        return handleError(res, error, 400);
+      }
+    },
     TenderController.createTender.bind(TenderController)
 );
 

@@ -9,7 +9,7 @@ const testUsers = [
   { email: 'supplier1@test.tn', username: 'supplier1', password: 'Supplier@123456', role: 'supplier', name: 'Supplier One', company: 'Supply Co A' },
   { email: 'supplier2@test.tn', username: 'supplier2', password: 'Supplier@123456', role: 'supplier', name: 'Supplier Two', company: 'Supply Co B' },
   { email: 'supplier3@test.tn', username: 'supplier3', password: 'Supplier@123456', role: 'supplier', name: 'Supplier Three', company: 'Supply Co C' },
-  { email: 'admin@test.tn', username: 'admin', password: 'Admin@123456', role: 'admin', name: 'Admin User', company: 'Admin' },
+  { email: 'admin@test.tn', username: 'admin', password: 'Admin@123456', role: 'super_admin', name: 'Admin User', company: 'Admin' },
 ];
 
 const testTenders = [

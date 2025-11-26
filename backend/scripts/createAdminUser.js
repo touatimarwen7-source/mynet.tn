@@ -14,7 +14,7 @@ async function createAdminUser() {
       password: 'Admin@MyNet.2025',
       full_name: 'Administrateur MyNet',
       phone: '+216 12 345 678',
-      role: 'admin',
+      role: 'super_admin',
       company_name: 'MyNet.tn'
     };
     

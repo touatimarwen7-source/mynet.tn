@@ -160,13 +160,13 @@ describe('Edge Cases & Boundary Tests - 25+ Tests', () => {
   describe('Permission & Authorization Edge Cases', () => {
     test('should reject unauthorized user', () => {
       const user = { id: 1, role: 'viewer' };
-      const isAdmin = user.role === 'admin';
+      const isAdmin = user.role === 'super_admin';
       expect(isAdmin).toBe(false);
     });
 
-    test('should allow admin access', () => {
-      const user = { id: 1, role: 'admin' };
-      const isAdmin = user.role === 'admin';
+    test('should allow super_admin access', () => {
+      const user = { id: 1, role: 'super_admin' };
+      const isAdmin = user.role === 'super_admin';
       expect(isAdmin).toBe(true);
     });
 

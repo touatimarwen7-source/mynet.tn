@@ -14,7 +14,7 @@ const defaultUsers = [
     id: '1',
     email: 'admin@mynet.tn',
     password: 'Admin@MyNet.2025',
-    role: 'admin',
+    role: 'super_admin',
     name: 'Administrateur MyNet'
   },
   {

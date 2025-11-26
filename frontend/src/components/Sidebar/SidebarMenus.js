@@ -20,7 +20,8 @@ export const buyerMenu = [
       { label: 'Soumissions', path: '/monitoring-submissions', featureKey: 'browsetenders' },
       { label: 'Évaluation', path: '/tender-evaluation', featureKey: 'analytics' },
       { label: 'Attribution', path: '/tender-awarding', featureKey: 'analytics' },
-      { label: 'Notifications', path: '/award-notifications', featureKey: 'analytics' }
+      { label: 'Notifications', path: '/award-notifications', featureKey: 'analytics' },
+      { label: 'المسودات', path: '/drafts', featureKey: 'drafts' }
     ]
   },
   {

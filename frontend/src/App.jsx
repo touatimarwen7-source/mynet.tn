@@ -139,8 +139,8 @@ function AppContent() {
             <AppToastContainer />
           
           <Box sx={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-            {/* Sidebar Navigation - Hidden on dashboard pages */}
-            {user && window.location.pathname !== '/buyer-dashboard' && window.location.pathname !== '/supplier-dashboard' && <Sidebar user={user} onLogout={logout} />}
+            {/* Sidebar Navigation - Show for authenticated users */}
+            {user && <Sidebar user={user} onLogout={logout} />}
 
             <Box component="main" sx={{ flex: 1, overflowY: 'auto', paddingY: '20px', paddingX: { xs: '12px', sm: '20px' }, transition: 'all 0.3s ease-in-out' }}>
             <Suspense fallback={<LoadingFallback />}>

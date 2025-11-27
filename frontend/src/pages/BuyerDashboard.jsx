@@ -248,8 +248,8 @@ function BuyerDashboardContent() {
 
 export default function BuyerDashboard() {
   return (
-    <EnhancedErrorBoundary>
+    <ErrorBoundary>
       <BuyerDashboardContent />
-    </EnhancedErrorBoundary>
+    </ErrorBoundary>
   );
 }

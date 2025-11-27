@@ -32,19 +32,46 @@ function BuyerDashboardContent() {
   const [tabValue, setTabValue] = useState(0);
   const [loading, setLoading] = useState(true);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+  const [tenders, setTenders] = useState([]);
+  const [offers, setOffers] = useState([]);
+
+  useEffect(() => {
+    fetchTenderData();
+  }, []);
+
+  const fetchTenderData = async () => {
+    try {
+      setLoading(true);
+      const [tendersRes, offersRes] = await Promise.all([
+        procurementAPI.getMyTenders({ limit: 10 }),
+        procurementAPI.getMyOffers()
+      ]);
+      
+      setTenders(tendersRes?.data?.tenders || []);
+      setOffers(offersRes?.data?.offers || []);
+    } catch (err) {
+      logger.error('Failed to load dashboard data:', err);
+      setSnackbar({ open: true, message: 'خطأ في تحميل البيانات', severity: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const stats = [
-    { label: 'الأجل النشطة', value: '28', change: 12, icon: Assignment, color: '#0056B3' },
+    { label: 'الأجل النشطة', value: String(tenders.filter(t => t.status === 'open').length), change: 12, icon: Assignment, color: '#0056B3' },
     { label: 'متوسط الادخار', value: '18.5%', change: 5, icon: TrendingDown, color: '#2e7d32' },
-    { label: 'العروض المنتظرة', value: '145', change: -3, icon: Schedule, color: '#f57c00' },
+    { label: 'العروض المنتظرة', value: String(offers.filter(o => o.status === 'submitted').length), change: -3, icon: Schedule, color: '#f57c00' },
     { label: 'معدل الإغلاق', value: '92%', change: 8, icon: CheckCircle, color: '#0288d1' },
   ];
 
-  const recentTenders = [
-    { id: 1, title: 'مناقصة شراء أجهزة حاسوب', budget: 'د.ت 50,000', deadline: '2025-02-15', offers: 12, status: 'نشطة' },
-    { id: 2, title: 'توريد مواد بناء', budget: 'د.ت 120,000', deadline: '2025-02-20', offers: 8, status: 'نشطة' },
-    { id: 3, title: 'خدمات الصيانة السنوية', budget: 'د.ت 30,000', deadline: '2025-02-10', offers: 15, status: 'قريبة من الإغلاق' },
-  ];
+  const recentTenders = tenders.slice(0, 5).map((tender, idx) => ({
+    id: tender.id,
+    title: tender.title || 'مناقصة',
+    budget: `د.ت ${tender.budget_max || 0}`,
+    deadline: new Date(tender.created_at).toLocaleDateString('ar-TN'),
+    offers: offers.filter(o => o.tender_id === tender.id).length,
+    status: tender.status === 'open' ? 'نشطة' : 'مغلقة'
+  }));
 
   const topSuppliers = [
     { rank: 1, name: 'شركة العتيبي للتوريد', rating: 4.8, deals: 45, responseTime: '< 2 ساعة' },

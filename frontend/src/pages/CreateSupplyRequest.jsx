@@ -44,6 +44,7 @@ import UploadIcon from '@mui/icons-material/Upload';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
+import { logger } from '../utils/logger';
 
 const STEPS = [
   { label: 'Informations Générales', icon: '📋' },
@@ -102,6 +103,7 @@ export default function CreateSupplyRequest() {
         setFormData(savedData);
         setItems(savedData.items || []);
       } catch (e) {
+        logger.error('Failed to parse supply request draft:', e);
       }
     }
   }, [offerId]);
@@ -230,7 +232,7 @@ export default function CreateSupplyRequest() {
   const Step1Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Grid container spacing={2}>
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <TextField
             fullWidth
             label="Référence du Bon de Commande *"
@@ -241,7 +243,7 @@ export default function CreateSupplyRequest() {
             placeholder="Ex: PO-2024-001"
           />
         </Grid>
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <TextField
             fullWidth
             label="Date de la Demande *"
@@ -276,7 +278,7 @@ export default function CreateSupplyRequest() {
           Ajouter un Article
         </Typography>
         <Grid container spacing={2}>
-          <Grid xs={12} lg={6}>
+          <Grid item xs={12} lg={6}>
             <TextField
               fullWidth
               label="Description du produit/service"
@@ -286,7 +288,7 @@ export default function CreateSupplyRequest() {
               disabled={loading}
             />
           </Grid>
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <TextField
               fullWidth
               label="Quantité"
@@ -298,7 +300,7 @@ export default function CreateSupplyRequest() {
               disabled={loading}
             />
           </Grid>
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <FormControl fullWidth size="small" disabled={loading}>
               <InputLabel>Unité</InputLabel>
               <Select
@@ -314,7 +316,7 @@ export default function CreateSupplyRequest() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid xs={12} md={2}>
+          <Grid item xs={12} md={2}>
             <TextField
               fullWidth
               label="Prix Unitaire"
@@ -506,7 +508,7 @@ export default function CreateSupplyRequest() {
   const Step7Content = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <Grid container spacing={2}>
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <TextField
             fullWidth
             label="Adresse de Livraison *"
@@ -516,7 +518,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <TextField
             fullWidth
             label="Ville *"
@@ -526,7 +528,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid xs={12} md={4}>
+        <Grid item xs={12} md={4}>
           <TextField
             fullWidth
             label="Code Postal"
@@ -536,7 +538,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid xs={12} md={4}>
+        <Grid item xs={12} md={4}>
           <TextField
             fullWidth
             label="Téléphone de Contact"
@@ -546,7 +548,7 @@ export default function CreateSupplyRequest() {
             disabled={loading}
           />
         </Grid>
-        <Grid xs={12} md={4}>
+        <Grid item xs={12} md={4}>
           <TextField
             fullWidth
             label="Email de Contact"

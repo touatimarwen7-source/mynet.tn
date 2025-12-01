@@ -189,10 +189,10 @@ export default function SuperAdminMenu() {
         {/* Header */}
         <Box sx={{ marginBottom: '40px' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-            <DashboardIcon sx={{ fontSize: '32px', color: theme.palette.primary.main }} />
-            <Typography variant="h3" sx={{ fontWeight: 700, color: theme.palette.text.primary }}>
-              قائمة وظائف Super Admin
-            </Typography>
+        <DashboardIcon sx={{ fontSize: '32px', color: theme.palette.primary.main }} />
+        <Typography variant="h3" sx={{ fontWeight: 700, color: theme.palette.text.primary }}>
+          Menu des Fonctions Super Admin
+        </Typography>
           </Box>
           <Typography sx={{ fontSize: '16px', color: '#666', marginBottom: '24px' }}>
             جميع أدوات وظائف إدارة النظام الشاملة • All System Management Functions
@@ -201,7 +201,7 @@ export default function SuperAdminMenu() {
           {/* Search Bar */}
           <TextField
             fullWidth
-            placeholder="ابحث عن وظيفة... / Search function..."
+        placeholder="Rechercher une fonction... / Search function..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             variant="outlined"
@@ -335,8 +335,8 @@ export default function SuperAdminMenu() {
                                 justifyContent: 'flex-end',
                                 textTransform: 'none',
                               }}
-                            >
-                              الدخول
+                        >
+                          Accéder
                             </Button>
                           </CardContent>
                         </CardActionArea>
@@ -356,10 +356,10 @@ export default function SuperAdminMenu() {
               <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
                 <CardContent>
                   <Typography sx={{ fontSize: '32px', fontWeight: 700, color: theme.palette.primary.main }}>
-                    {adminFunctions.length}
+                {adminFunctions.length}
                   </Typography>
                   <Typography sx={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>
-                    إجمالي الوظائف
+                Total des Fonctions
                   </Typography>
                 </CardContent>
               </Card>
@@ -368,10 +368,10 @@ export default function SuperAdminMenu() {
               <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
                 <CardContent>
                   <Typography sx={{ fontSize: '32px', fontWeight: 700, color: '#2e7d32' }}>
-                    {categories.length}
+                {categories.length}
                   </Typography>
                   <Typography sx={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>
-                    فئات محنظمة
+                Catégories Organisées
                   </Typography>
                 </CardContent>
               </Card>
@@ -380,10 +380,10 @@ export default function SuperAdminMenu() {
               <Card sx={{ border: '1px solid #e0e0e0', textAlign: 'center' }}>
                 <CardContent>
                   <Typography sx={{ fontSize: '32px', fontWeight: 700, color: '#f57c00' }}>
-                    ✓
+                ✓
                   </Typography>
                   <Typography sx={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>
-                    مجهزة للإنتاج
+                Prêt pour la Production
                   </Typography>
                 </CardContent>
               </Card>

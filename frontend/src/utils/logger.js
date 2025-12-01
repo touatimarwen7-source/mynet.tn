@@ -1,8 +1,10 @@
 /**
- * 📝 LOGGING SYSTEM (#9)
- * Comprehensive frontend logging with levels, formatting, and backend persistence
+ * @file logger.js
+ * @description A comprehensive frontend logging system with different levels,
+ * structured formatting, and optional backend persistence.
  */
 
+// Defines the hierarchy of log levels.
 const LOG_LEVELS = {
   DEBUG: 0,
   INFO: 1,
@@ -11,6 +13,10 @@ const LOG_LEVELS = {
   FATAL: 4,
 };
 
+/**
+ * @class Logger
+ * @description A class to create a structured logger instance.
+ */
 class Logger {
   constructor(name = 'App', minLevel = LOG_LEVELS.INFO) {
     this.name = name;
@@ -21,7 +27,11 @@ class Logger {
   }
 
   /**
-   * Format log message
+   * Formats a log entry into a structured object.
+   * @param {string} level - The log level (e.g., 'INFO', 'ERROR').
+   * @param {string} message - The main log message.
+   * @param {object} [data={}] - Additional data to include with the log.
+   * @returns {object} The formatted log entry.
    */
   format(level, message, data = {}) {
     const timestamp = new Date().toISOString();
@@ -40,7 +50,8 @@ class Logger {
   }
 
   /**
-   * Store log in memory
+   * Stores a log entry in an in-memory array.
+   * @param {object} logEntry - The log entry to store.
    */
   store(logEntry) {
     this.logs.push(logEntry);
@@ -50,7 +61,8 @@ class Logger {
   }
 
   /**
-   * Send log to backend (optional)
+   * Sends a log entry to a backend logging endpoint.
+   * @param {object} logEntry - The log entry to send.
    */
   async sendToBackend(logEntry) {
     if (!this.enableRemote) return;
@@ -67,7 +79,10 @@ class Logger {
   }
 
   /**
-   * Core logging method
+   * The core logging method that formats, stores, and outputs a log message.
+   * @param {string} level - The log level.
+   * @param {string} message - The log message.
+   * @param {object} [data={}] - Additional data.
    */
   log(level, message, data = {}) {
     if (LOG_LEVELS[level] < this.minLevel) return;
@@ -85,6 +100,11 @@ class Logger {
     );
   }
 
+  /**
+   * Gets the appropriate console style for a given log level.
+   * @param {string} level - The log level.
+   * @returns {string} The CSS style string for the console.
+   */
   getConsoleStyle(level) {
     const styles = {
       DEBUG: 'color: #gray; font-size: 12px;',
@@ -96,7 +116,7 @@ class Logger {
     return styles[level] || '';
   }
 
-  // Convenience methods
+  // --- Convenience methods for each log level ---
   debug(message, data) { this.log('DEBUG', message, data); }
   info(message, data) { this.log('INFO', message, data); }
   warn(message, data) { this.log('WARN', message, data); }
@@ -104,38 +124,49 @@ class Logger {
   fatal(message, data) { this.log('FATAL', message, data); }
 
   /**
-   * Get all logs (for debugging)
+   * Retrieves all logs currently stored in memory.
+   * @returns {Array<object>} An array of log entries.
    */
   getLogs() {
     return this.logs;
   }
 
   /**
-   * Clear logs
+   * Clears all logs from memory.
    */
   clear() {
     this.logs = [];
   }
 
   /**
-   * Export logs as JSON
+   * Exports all in-memory logs as a JSON string.
+   * @returns {string} A JSON string representing the logs.
    */
   exportLogs() {
     return JSON.stringify(this.logs, null, 2);
   }
 
   /**
-   * Set minimum log level
+   * Sets the minimum log level for this logger instance.
+   * @param {string} level - The minimum log level to output (e.g., 'WARN').
    */
   setLevel(level) {
     this.minLevel = LOG_LEVELS[level];
   }
 }
 
-// Global logger instance
+/**
+ * The global, default logger instance for the application.
+ * @type {Logger}
+ */
 export const logger = new Logger('MyNet', LOG_LEVELS.INFO);
 
-// Create named loggers for different modules
+/**
+ * Factory function to create a new named logger instance.
+ * @param {string} name - The name for the new logger (e.g., 'API', 'Auth').
+ * @param {string} [level='INFO'] - The minimum log level for this instance.
+ * @returns {Logger} A new Logger instance.
+ */
 export function createLogger(name, level = 'INFO') {
   return new Logger(name, LOG_LEVELS[level]);
 }

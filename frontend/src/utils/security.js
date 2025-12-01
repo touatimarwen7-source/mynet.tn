@@ -33,7 +33,7 @@ export function hasPermission(userRole, requiredRole) {
 }
 
 // Surveillance de l'inactivité
-// Timeout: 3 heures (10800000ms) - بناءً على أفضل الممارسات الأمنية للتطبيقات B2B
+// Timeout: 3 heures (10800000ms) - Basé sur les meilleures pratiques de sécurité pour les applications B2B
 export function setupInactivityTimer(timeout = 3 * 60 * 60 * 1000) {
   let inactivityTimer;
   

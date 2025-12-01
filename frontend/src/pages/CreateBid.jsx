@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import institutionalTheme from '../theme/theme';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react'; // ✅ إضافة useEffect
+import institutionalTheme from '../theme/theme'; // ✅ تعديل المسار إذا لزم الأمر
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Container,
   Box,
@@ -9,7 +9,7 @@ import {
   TextField,
   Button,
   Typography,
-  Alert,
+  Alert, // ✅ إزالة Alert
   CircularProgress,
   FormControl,
   InputLabel,
@@ -28,29 +28,23 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { procurementAPI } from '../api';
 import { setPageTitle } from '../utils/pageTitle';
-import { autosaveDraft, recoverDraft, clearDraft } from '../utils/draftStorageHelper';
-import { validateEmail, validatePhone, validateLineItems, validateFile, handleAPIError } from '../utils/validationHelpers';
+import { useBidForm } from '../hooks/useBidForm';
+import FormStepper from '../components/FormStepper';
 
 // ============ Configuration ============
 const STAGES = [
   { name: 'Informations', description: 'Détails du fournisseur' },
   { name: 'Éléments', description: 'Articles et prix' },
   { name: 'Conformité', description: 'Conditions et exigences' },
-  { name: 'Documents', description: 'Fichiers et justificatifs' },
   { name: 'Révision', description: 'Vérification finale' },
 ];
 
 // ============ Step Components ============
-const StepOne = ({ formData, setFormData, loading }) => {
+const StepOne = ({ formData, setFormData, loading, errors }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -58,9 +52,6 @@ const StepOne = ({ formData, setFormData, loading }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <Alert severity="info" sx={{ backgroundColor: '#E3F2FD', color: '#0056B3' }}>
-        📋 Remplissez les informations de votre entreprise fournisseur
-      </Alert>
 
       <TextField
         label="Nom de l'Entreprise"
@@ -69,6 +60,8 @@ const StepOne = ({ formData, setFormData, loading }) => {
         onChange={handleChange}
         disabled={loading}
         fullWidth
+        error={!!errors.supplier_name}
+        helperText={errors.supplier_name}
         required
         variant="outlined"
         sx={{ '& .MuiOutlinedInput-root': { borderRadius: '4px' } }}
@@ -93,6 +86,8 @@ const StepOne = ({ formData, setFormData, loading }) => {
           value={formData.supplier_email || ''}
           onChange={handleChange}
           disabled={loading}
+          error={!!errors.supplier_email}
+          helperText={errors.supplier_email}
           fullWidth
           variant="outlined"
           sx={{ '& .MuiOutlinedInput-root': { borderRadius: '4px' } }}
@@ -103,6 +98,8 @@ const StepOne = ({ formData, setFormData, loading }) => {
           value={formData.supplier_phone || ''}
           onChange={handleChange}
           disabled={loading}
+          error={!!errors.supplier_phone}
+          helperText={errors.supplier_phone}
           fullWidth
           variant="outlined"
           sx={{ '& .MuiOutlinedInput-root': { borderRadius: '4px' } }}
@@ -154,7 +151,7 @@ const StepOne = ({ formData, setFormData, loading }) => {
   );
 };
 
-const StepTwo = ({ formData, setFormData, tenderItems, loading }) => {
+const StepTwo = ({ formData, setFormData, tenderItems, loading, errors }) => {
   const [newItem, setNewItem] = useState({ item_id: '', quantity: '', unit_price: '' });
 
   const handleAddItem = () => {
@@ -187,9 +184,9 @@ const StepTwo = ({ formData, setFormData, tenderItems, loading }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <Alert severity="success" sx={{ backgroundColor: '#E8F5E9', color: '#2E7D32' }}>
-        💰 Remplissez les articles et proposez vos prix
-      </Alert>
+      {errors.line_items && (
+        <Alert severity="error" sx={{ mt: 2 }}>{errors.line_items}</Alert>
+      )}
 
       <Box sx={{ p: '16px', backgroundColor: '#F9F9F9', borderRadius: '4px' }}>
         <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#212121', mb: '16px' }}>
@@ -305,7 +302,7 @@ const StepTwo = ({ formData, setFormData, tenderItems, loading }) => {
   );
 };
 
-const StepThree = ({ formData, setFormData, loading }) => {
+const StepThree = ({ formData, setFormData, loading, errors }) => {
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     const finalValue = type === 'checkbox' ? checked : value;
@@ -314,10 +311,6 @@ const StepThree = ({ formData, setFormData, loading }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <Alert severity="info" sx={{ backgroundColor: '#E3F2FD', color: '#0056B3' }}>
-        ✅ Confirmez votre conformité aux conditions de l'appel d'offres
-      </Alert>
-
       <TextField
         label="Délai de Livraison (jours)"
         name="delivery_time"
@@ -325,6 +318,8 @@ const StepThree = ({ formData, setFormData, loading }) => {
         value={formData.delivery_time || ''}
         onChange={handleChange}
         disabled={loading}
+        error={!!errors.delivery_time}
+        helperText={errors.delivery_time}
         fullWidth
         inputProps={{ min: '1' }}
       />
@@ -347,6 +342,8 @@ const StepThree = ({ formData, setFormData, loading }) => {
           value={formData.payment_terms || ''}
           onChange={handleChange}
           disabled={loading}
+          error={!!errors.payment_terms}
+          helperText={errors.payment_terms}
           label="Conditions de Paiement"
         >
           <MenuItem value="immediate">Immédiat</MenuItem>
@@ -395,6 +392,11 @@ const StepThree = ({ formData, setFormData, loading }) => {
             }
             label="Je confirme que mon offre est conforme à toutes les conditions requises"
           />
+          {errors.compliance_statement && (
+            <Typography color="error" variant="caption" sx={{ ml: 2 }}>
+              {errors.compliance_statement}
+            </Typography>
+          )}
           <FormControlLabel
             control={
               <Checkbox
@@ -423,132 +425,7 @@ const StepThree = ({ formData, setFormData, loading }) => {
   );
 };
 
-const StepFour = ({ formData, setFormData, loading }) => {
-  const [dragOver, setDragOver] = useState(false);
-
-  const handleFileUpload = (files) => {
-    const newFiles = Array.from(files || []);
-    setFormData((prev) => ({
-      ...prev,
-      attachments: [...(prev.attachments || []), ...newFiles],
-    }));
-  };
-
-  const handleRemoveFile = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      attachments: (prev.attachments || []).filter((_, i) => i !== index),
-    }));
-  };
-
-  const docs = formData.attachments || [];
-
-  return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <Alert severity="info" sx={{ backgroundColor: '#E3F2FD', color: '#0056B3' }}>
-        📄 Uploadez vos documents justificatifs (factures, certificats, etc.)
-      </Alert>
-
-      <Box
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragOver(true);
-        }}
-        onDragLeave={() => setDragOver(false)}
-        onDrop={(e) => {
-          e.preventDefault();
-          setDragOver(false);
-          handleFileUpload(e.dataTransfer.files);
-        }}
-        sx={{
-          border: '2px dashed #0056B3',
-          borderRadius: '8px',
-          padding: '40px',
-          textAlign: 'center',
-          backgroundColor: dragOver ? '#E3F2FD' : '#F9F9F9',
-          cursor: 'pointer',
-          transition: 'all 0.3s ease',
-          '&:hover': { backgroundColor: '#E3F2FD' },
-        }}
-      >
-        <UploadFileIcon sx={{ fontSize: 48, color: '#0056B3', mb: 2 }} />
-        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121', mb: 1 }}>
-          Glissez-déposez vos fichiers ici
-        </Typography>
-        <Typography sx={{ fontSize: '12px', color: '#999999' }}>
-          ou cliquez pour sélectionner
-        </Typography>
-        <input
-          type="file"
-          multiple
-          onChange={(e) => handleFileUpload(e.target.files)}
-          disabled={loading}
-          style={{ display: 'none' }}
-          id="file-upload-bid"
-        />
-        <label htmlFor="file-upload-bid" style={{ cursor: 'pointer' }}>
-          <Button
-            component="span"
-            variant="contained"
-            sx={{
-              backgroundColor: '#0056B3',
-              color: '#fff',
-              marginTop: '12px',
-              textTransform: 'none',
-            }}
-            disabled={loading}
-          >
-            ➕ Sélectionner les fichiers
-          </Button>
-        </label>
-      </Box>
-
-      {docs.length > 0 && (
-        <Box>
-          <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#212121', mb: '12px' }}>
-            Fichiers uploadés ({docs.length})
-          </Typography>
-          <Stack spacing={1}>
-            {docs.map((file, index) => (
-              <Paper
-                key={index}
-                sx={{
-                  p: '12px 16px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  backgroundColor: '#F9F9F9',
-                  borderLeft: '4px solid #0056B3',
-                }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
-                  <FileDownloadIcon sx={{ color: '#0056B3' }} />
-                  <Box>
-                    <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#212121' }}>
-                      {file.name || 'Fichier'}
-                    </Typography>
-                    <Typography sx={{ fontSize: '12px', color: '#999999' }}>
-                      {file.size ? `${(file.size / 1024).toFixed(2)} KB` : 'Taille inconnue'}
-                    </Typography>
-                  </Box>
-                </Box>
-                <IconButton
-                  size="small"
-                  onClick={() => handleRemoveFile(index)}
-                  disabled={loading}
-                >
-                  <DeleteIcon sx={{ fontSize: '18px', color: '#d32f2f' }} />
-                </IconButton>
-              </Paper>
-            ))}
-          </Stack>
-        </Box>
-      )}
-    </Box>
-  );
-};
-
-const StepFive = ({ formData, tenderItems, loading }) => {
+const StepFour = ({ formData, tenderItems, loading }) => {
   const totalAmount = (formData.line_items || []).reduce(
     (sum, item) => sum + parseFloat(item.quantity || 0) * parseFloat(item.unit_price || 0),
     0
@@ -556,10 +433,6 @@ const StepFive = ({ formData, tenderItems, loading }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <Alert severity="success" sx={{ backgroundColor: '#E8F5E9', color: '#2E7D32' }}>
-        ✅ Veuillez vérifier votre offre avant de la soumettre
-      </Alert>
-
       <Paper sx={{ p: '20px', backgroundColor: '#F9F9F9', borderRadius: '4px' }}>
         <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#0056B3', mb: '16px' }}>
           📋 Informations du Fournisseur
@@ -651,327 +524,56 @@ export default function CreateBid() {
   const theme = institutionalTheme;
   const navigate = useNavigate();
   const { tenderId } = useParams();
-  const [currentStep, setCurrentStep] = useState(0);
-  const [tender, setTender] = useState(null);
-  const [tenderItems, setTenderItems] = useState([]);
-  const [formData, setFormData] = useState({
-    tender_id: tenderId,
-    supplier_name: '',
-    supplier_contact_person: '',
-    supplier_email: '',
-    supplier_phone: '',
-    supplier_address: '',
-    supplier_registration_number: '',
-    supplier_industry: '',
-    line_items: [],
-    delivery_time: '',
-    delivery_location: '',
-    payment_terms: '',
-    warranty_period: '',
-    technical_proposal: '',
-    compliance_statement: false,
-    confidential_info_statement: false,
-    eligibility_compliance: false,
-    attachments: [],
-  });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [successDialog, setSuccessDialog] = useState(false);
+
+  const {
+    currentStep,
+    tenderItems,
+    formData,
+    formErrors,
+    loading,
+    successDialog,
+    setFormData,
+    handleNext,
+    handlePrevious,
+    handleSubmit,
+    setFormErrors,
+  } = useBidForm(tenderId);
 
   useEffect(() => {
     setPageTitle('Soumettre une Offre');
-    loadTender();
-    // Load draft using helper
-    const draft = recoverDraft(`bid_draft_${tenderId}`);
-    if (draft) {
-      setFormData(draft);
-    }
-  }, [tenderId]);
-
-  // Auto-save draft every 30 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      autosaveDraft(`bid_draft_${tenderId}`, formData);
-    }, 30000);
-    
-    return () => clearInterval(timer);
-  }, [formData, tenderId]);
-
-  const loadTender = async () => {
-    try {
-      const response = await procurementAPI.getTender(tenderId);
-      setTender(response.data.tender);
-      setTenderItems(response.data.tender.items || []);
-    } catch (err) {
-      setError('Erreur lors du chargement de l\'appel d\'offres');
-    }
-  };
-
-  const validateStep = () => {
-    switch (currentStep) {
-      case 0: {
-        if (!formData.supplier_name || !formData.supplier_email || !formData.supplier_phone) {
-          setError('Veuillez remplir tous les champs obligatoires');
-          return false;
-        }
-        const emailCheck = validateEmail(formData.supplier_email);
-        if (!emailCheck.valid) {
-          setError(emailCheck.error);
-          return false;
-        }
-        const phoneCheck = validatePhone(formData.supplier_phone);
-        if (!phoneCheck.valid) {
-          setError(phoneCheck.error);
-          return false;
-        }
-        break;
-      }
-      case 1: {
-        const lineItemsCheck = validateLineItems(formData.line_items, null);
-        if (!lineItemsCheck.valid) {
-          setError(lineItemsCheck.error);
-          return false;
-        }
-        break;
-      }
-      case 2:
-        if (!formData.delivery_time || !formData.delivery_location) {
-          setError('Veuillez remplir tous les champs obligatoires');
-          return false;
-        }
-        if (!formData.compliance_statement) {
-          setError('Vous devez confirmer votre conformité');
-          return false;
-        }
-        break;
-      default:
-        break;
-    }
-    setError('');
-    return true;
-  };
-
-  const handleNext = () => {
-    if (validateStep()) {
-      // Auto-save draft
-      autosaveDraft(`bid_draft_${tenderId}`, formData);
-      setCurrentStep((prev) => prev + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    setCurrentStep((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleSubmit = async () => {
-    if (!validateStep()) return;
-
-    // Validate line items
-    const lineItemsCheck = validateLineItems(formData.line_items);
-    if (!lineItemsCheck.valid) {
-      setError(lineItemsCheck.error);
-      return;
-    }
-
-    // Validate files
-    for (const file of (formData.attachments || [])) {
-      const fileCheck = validateFile(file, 10);
-      if (!fileCheck.valid) {
-        setError(`Fichier "${file.name}": ${fileCheck.error}`);
-        return;
-      }
-    }
-
-    setLoading(true);
-    try {
-      // Create FormData for file upload
-      const submitData = new FormData();
-      submitData.append('tender_id', tenderId);
-      submitData.append('supplier_name', formData.supplier_name);
-      submitData.append('supplier_contact_person', formData.supplier_contact_person);
-      submitData.append('supplier_email', formData.supplier_email);
-      submitData.append('supplier_phone', formData.supplier_phone);
-      submitData.append('supplier_address', formData.supplier_address);
-      submitData.append('supplier_registration_number', formData.supplier_registration_number);
-      submitData.append('supplier_industry', formData.supplier_industry);
-      submitData.append('line_items', JSON.stringify(formData.line_items));
-      submitData.append('delivery_time', formData.delivery_time);
-      submitData.append('delivery_location', formData.delivery_location);
-      submitData.append('payment_terms', formData.payment_terms);
-      submitData.append('warranty_period', formData.warranty_period);
-      submitData.append('technical_proposal', formData.technical_proposal);
-      submitData.append('compliance_statement', formData.compliance_statement);
-
-      // Add files
-      (formData.attachments || []).forEach((file) => {
-        submitData.append('attachments', file);
-      });
-
-      const response = await procurementAPI.createOffer(submitData);
-      clearDraft(`bid_draft_${tenderId}`);
-      setSuccessDialog(true);
-      setTimeout(() => {
-        navigate(`/tender/${tenderId}`);
-      }, 2000);
-    } catch (err) {
-      setError(handleAPIError(err));
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, []);
 
   const renderStepContent = () => {
     switch (currentStep) {
       case 0:
-        return <StepOne formData={formData} setFormData={setFormData} loading={loading} />;
+        return <StepOne formData={formData} setFormData={setFormData} loading={loading} errors={formErrors} />;
       case 1:
-        return <StepTwo formData={formData} setFormData={setFormData} tenderItems={tenderItems} loading={loading} />;
+        return <StepTwo formData={formData} setFormData={setFormData} tenderItems={tenderItems} loading={loading} errors={formErrors} />;
       case 2:
-        return <StepThree formData={formData} setFormData={setFormData} loading={loading} />;
+        return <StepThree formData={formData} setFormData={setFormData} loading={loading} errors={formErrors} />;
       case 3:
-        return <StepFour formData={formData} setFormData={setFormData} loading={loading} />;
-      case 4:
-        return <StepFive formData={formData} tenderItems={tenderItems} loading={loading} />;
+        return <StepFour formData={formData} tenderItems={tenderItems} loading={loading} />;
       default:
         return null;
     }
   };
 
-  const progress = ((currentStep + 1) / STAGES.length) * 100;
-
-  if (!tender) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: institutionalTheme.palette.primary.main }} />
-      </Box>
-    );
-  }
-
-  return (
-    <Box sx={{ backgroundColor: '#FAFAFA', paddingY: '40px', minHeight: '100vh' }}>
-      <Container maxWidth="md">
-        <Card sx={{ border: '1px solid #E0E0E0', borderRadius: '4px', boxShadow: 'none' }}>
-          <CardContent sx={{ padding: '40px' }}>
-            {/* Lots Display */}
-            {tender?.lots && tender.lots.length > 0 && (
-              <Paper sx={{ p: '16px', backgroundColor: '#F5F5F5', mb: '16px', borderLeft: '4px solid #0056B3' }}>
-                <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#0056B3', mb: '12px' }}>
-                  📦 Lots et Articles
-                </Typography>
-                <Stack spacing={1.5}>
-                  {tender.lots.map((lot, idx) => (
-                    <Box key={idx} sx={{ pl: '8px', borderLeft: '2px dashed #0056B3' }}>
-                      <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#212121' }}>
-                        Lot {lot.numero}: {lot.objet}
-                      </Typography>
-                      {lot.articles && lot.articles.length > 0 && (
-                        <Stack spacing={0.5} sx={{ mt: '6px', ml: '8px' }}>
-                          {lot.articles.map((article, aIdx) => (
-                            <Typography key={aIdx} sx={{ fontSize: '11px', color: '#666666' }}>
-                              ├─ {article.name}: {article.quantity} {article.unit}
-                            </Typography>
-                          ))}
-                        </Stack>
-                      )}
-                    </Box>
-                  ))}
-                </Stack>
-                {tender.awardLevel && (
-                  <Typography sx={{ fontSize: '11px', color: '#0056B3', fontWeight: 600, mt: '12px', pt: '12px', borderTop: '1px solid #ddd' }}>
-                    🎯 ترسية: {tender.awardLevel === 'lot' ? 'Par Lot' : tender.awardLevel === 'article' ? 'Par Article' : 'Global'}
-                  </Typography>
-                )}
-              </Paper>
-            )}
-
-            {/* Header */}
-            <Box sx={{ marginBottom: '32px' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: '16px', mb: '16px' }}>
-                <Button
-                  startIcon={<ArrowBackIcon />}
-                  onClick={() => navigate(`/tender/${tenderId}`)}
-                  sx={{ color: institutionalTheme.palette.primary.main, textTransform: 'none' }}
-                >
-                  Retour
-                </Button>
-              </Box>
-              <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#999999', textTransform: 'uppercase', mb: '8px' }}>
-                Étape {currentStep + 1} sur {STAGES.length}
-              </Typography>
-              <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 500, color: institutionalTheme.palette.primary.main, mb: '8px' }}>
-                {STAGES[currentStep].name}
-              </Typography>
-              <Typography sx={{ fontSize: '14px', color: '#666666' }}>
-                {STAGES[currentStep].description}
-              </Typography>
-            </Box>
-
-            {/* Progress Bar */}
-            <Box sx={{ mb: '32px' }}>
-              <Box sx={{ display: 'flex', gap: '8px', mb: '12px' }}>
-                {STAGES.map((stage, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      flex: 1,
-                      height: '4px',
-                      borderRadius: '2px',
-                      backgroundColor: index <= currentStep ? institutionalTheme.palette.primary.main : '#E0E0E0',
-                      transition: 'all 0.3s ease',
-                    }}
-                  />
-                ))}
-              </Box>
-              <LinearProgress variant="determinate" value={progress} sx={{ height: '4px', borderRadius: '2px' }} />
-            </Box>
-
-            {/* Error Alert */}
-            {error && (
-              <Alert severity="error" sx={{ mb: '24px' }} onClose={() => setError('')}>
-                {error}
-              </Alert>
-            )}
-
-            {/* Step Content */}
-            <Box sx={{ mb: '32px' }}>
-              {renderStepContent()}
-            </Box>
-
-            {/* Navigation Buttons */}
-            <Box sx={{ display: 'flex', gap: '12px', justifyContent: 'space-between' }}>
-              <Button
-                onClick={handlePrevious}
-                disabled={currentStep === 0 || loading}
-                sx={{ textTransform: 'none', color: '#0056B3' }}
-              >
-                ← Précédent
-              </Button>
-
-              <Box sx={{ display: 'flex', gap: '12px' }}>
-                {currentStep === STAGES.length - 1 ? (
-                  <Button
-                    variant="contained"
-                    onClick={handleSubmit}
-                    disabled={loading}
-                    sx={{ backgroundColor: '#0056B3', color: '#fff', textTransform: 'none', minWidth: '120px' }}
-                  >
-                    {loading ? <CircularProgress size={20} sx={{ color: '#fff' }} /> : 'Soumettre'}
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    disabled={loading}
-                    sx={{ backgroundColor: '#0056B3', color: '#fff', textTransform: 'none', minWidth: '120px' }}
-                  >
-                    Suivant →
-                  </Button>
-                )}
-              </Box>
-            </Box>
-          </CardContent>
-        </Card>
-      </Container>
+    // ✅ 3. استخدام المكون الجديد وتمرير الخصائص اللازمة
+    <FormStepper
+      title="Soumettre une Offre"
+      steps={STAGES}
+      activeStep={currentStep}
+      onNext={handleNext}
+      onPrevious={handlePrevious}
+      onSubmit={handleSubmit}
+      loading={loading}
+      error={formErrors.general}
+      onClearError={() => setFormErrors(prev => ({ ...prev, general: '' }))}
+      onBack={() => navigate(`/tender/${tenderId}`)}
+    >
+      {/* تمرير محتوى الخطوة الحالية كـ children */}
+      {renderStepContent()}
+    </FormStepper>
 
       {/* Success Dialog */}
       <Dialog open={successDialog} onClose={() => setSuccessDialog(false)}>
@@ -984,6 +586,5 @@ export default function CreateBid() {
           </Typography>
         </DialogContent>
       </Dialog>
-    </Box>
   );
 }

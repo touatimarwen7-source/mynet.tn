@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, TextField, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography, CircularProgress, Alert, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import institutionalTheme from '../theme/theme';
 
 export default function OfferEvaluation({ tenderId }) {

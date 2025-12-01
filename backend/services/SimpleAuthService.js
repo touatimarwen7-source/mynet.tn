@@ -51,8 +51,12 @@ class SimpleAuthService {
       throw new Error('Invalid credentials');
     }
 
-    const jwtSecret = process.env.JWT_SECRET || 'MyNet.tn_SecureJWT_2025_LuxuryFinTech_Tunisia_Procurement';
-    const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET || 'MyNet.tn_RefreshToken_2025_SuperSecure_LongExpiry';
+    const jwtSecret = process.env.JWT_SECRET;
+    const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
+
+    if (!jwtSecret || !jwtRefreshSecret) {
+      throw new Error('FATAL_ERROR: JWT_SECRET and JWT_REFRESH_SECRET environment variables must be set.');
+    }
 
     const accessToken = jwt.sign(
       { userId: user.id, username: user.username, email: user.email, role: user.role },

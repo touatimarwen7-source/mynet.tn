@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Checkbox, FormControlLabel, Table, TableBody, TableCell, TableHead, TableRow, Typography, Alert, CircularProgress } from '@mui/material';
-import axios from 'axios';
+import { Box, Card, CardContent, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, Typography, Alert, CircularProgress, Paper, Grid } from '@mui/material';
+import axios from '../api/axiosConfig';
 import { theme } from '../theme/theme';
 
 export default function TenderManagement({ tenderId }) {
@@ -9,6 +9,7 @@ export default function TenderManagement({ tenderId }) {
   const [awardDialogOpen, setAwardDialogOpen] = useState(false);
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
   const [selectedWinners, setSelectedWinners] = useState([]);
+  const [awardedQuantities, setAwardedQuantities] = useState({}); // ✅ حالة جديدة لتخزين الكميات المترسية
   const [cancellationReason, setCancellationReason] = useState('');
   const [error, setError] = useState(null);
 
@@ -20,7 +21,17 @@ export default function TenderManagement({ tenderId }) {
     try {
       setLoading(true);
       const response = await axios.get(`/api/tender-management/award-status/${tenderId}`);
-      setOffers(response.data.status || []);
+      const offersData = response.data.status || [];
+      setOffers(offersData);
+
+      // ✅ تهيئة الكميات المترسية بالكميات الكاملة افتراضيًا
+      const initialQuantities = {};
+      offersData.forEach(offer => {
+        (offer.lineItems || []).forEach(item => {
+          initialQuantities[`${offer.id}-${item.id}`] = item.quantity;
+        });
+      });
+      setAwardedQuantities(initialQuantities);
       setError(null);
     } catch (err) {
       setError('فشل في تحميل العروض');
@@ -35,14 +46,39 @@ export default function TenderManagement({ tenderId }) {
     );
   };
 
+  // ✅ دالة جديدة لتحديث الكميات المترسية
+  const handleQuantityChange = (offerId, itemId, value) => {
+    const originalItem = offers.find(o => o.id === offerId)?.lineItems?.find(i => i.id === itemId);
+    const maxQuantity = originalItem?.quantity || 0;
+    const newQuantity = Math.max(0, Math.min(maxQuantity, Number(value)));
+
+    setAwardedQuantities(prev => ({
+      ...prev,
+      [`${offerId}-${itemId}`]: newQuantity,
+    }));
+  };
+
   const handleAwardWinners = async () => {
     if (selectedWinners.length === 0) {
       setError('يرجى اختيار فائز واحد على الأقل');
       return;
     }
+
+    // ✅ بناء بنية البيانات الجديدة للترسية الجزئية
+    const payload = {
+      awards: selectedWinners.map(winnerId => ({
+        supplierId: offers.find(o => o.id === winnerId)?.supplierId,
+        lineItems: offers.find(o => o.id === winnerId)?.lineItems
+          ?.map(item => ({
+            id: item.id,
+            awardedQuantity: awardedQuantities[`${winnerId}-${item.id}`] || 0,
+          })).filter(item => item.awardedQuantity > 0) || [],
+      })),
+    };
+
     try {
       setLoading(true);
-      await axios.post(`/api/tender-management/award-winners/${tenderId}`, { winnersIds: selectedWinners });
+      await axios.post(`/api/tender-management/award-winners/${tenderId}`, payload);
       setError(null);
       setSelectedWinners([]);
       setAwardDialogOpen(false);
@@ -130,14 +166,46 @@ export default function TenderManagement({ tenderId }) {
         </Card>
       )}
       <Dialog open={awardDialogOpen} onClose={() => setAwardDialogOpen(false)}>
-        <DialogTitle>تأكيد اختيار الفائزين</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 'bold' }}>تأكيد الترسية وتحديد الكميات</DialogTitle>
         <DialogContent sx={{ pt: 2 }}>
-          <Typography>
-            هل تريد تأكيد اختيار {selectedWinners.length} فائز(ين) وإرسال إشعارات رسمية؟
-          </Typography>
-          <Alert severity="info" sx={{ mt: 2 }}>
-            سيتم إرسال إخطار الترسية للفائزين وإخطارات عدم القبول للآخرين
+          <Alert severity="info" sx={{ mb: 2 }}>
+            يمكنك تعديل الكميات لكل بند. إذا تركت الكمية كما هي، فسيتم ترسية البند بالكامل.
           </Alert>
+          {selectedWinners.map(winnerId => {
+            const offer = offers.find(o => o.id === winnerId);
+            return (
+              <Paper key={winnerId} sx={{ p: 2, mb: 2, borderLeft: `4px solid ${theme.palette.primary.main}` }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>{offer.company_name}</Typography>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>البند</TableCell>
+                      <TableCell align="right">الكمية الأصلية</TableCell>
+                      <TableCell align="right">الكمية المترسية</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {(offer.lineItems || []).map(item => (
+                      <TableRow key={item.id}>
+                        <TableCell>{item.description}</TableCell>
+                        <TableCell align="right">{item.quantity}</TableCell>
+                        <TableCell align="right">
+                          <TextField
+                            type="number"
+                            size="small"
+                            value={awardedQuantities[`${winnerId}-${item.id}`] || ''}
+                            onChange={(e) => handleQuantityChange(winnerId, item.id, e.target.value)}
+                            inputProps={{ min: 0, max: item.quantity, style: { textAlign: 'right' } }}
+                            sx={{ width: '80px' }}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Paper>
+            );
+          })}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setAwardDialogOpen(false)}>إلغاء</Button>

@@ -160,17 +160,17 @@ export default function BidComparison() {
             onClick={() => navigate('/tenders')}
             sx={{ cursor: 'pointer', color: institutionalTheme.palette.primary.main, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
           >
-            المناقصات
+            Appels d'offres
           </Link>
           <Link
             component="button"
             onClick={() => navigate(`/tender/${tenderId}`)}
             sx={{ cursor: 'pointer', color: institutionalTheme.palette.primary.main, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
           >
-            المناقصة
+            Appel d'offres
           </Link>
           <Typography sx={{ color: institutionalTheme.palette.primary.main, fontWeight: 600 }}>
-            مقارنة العروض
+            Comparaison des Offres
           </Typography>
         </Breadcrumbs>
 
@@ -182,11 +182,11 @@ export default function BidComparison() {
               onClick={() => navigate(`/tender/${tenderId}`)}
               sx={{ color: institutionalTheme.palette.primary.main, textTransform: 'none' }}
             >
-              العودة
+              Retour
             </Button>
           </Box>
           <Typography variant="h2" sx={{ fontSize: '32px', fontWeight: 500, color: institutionalTheme.palette.text.primary, marginBottom: '8px' }}>
-            📊 مقارنة العروض
+            📊 Comparaison des Offres
           </Typography>
           {tender && (
             <Typography sx={{ color: '#616161', marginBottom: '16px' }}>
@@ -196,26 +196,26 @@ export default function BidComparison() {
         </Box>
 
         {sortedOffers.length === 0 ? (
-          <Alert severity="info">لا توجد عروض لهذه المناقصة</Alert>
+          <Alert severity="info">Aucune offre pour cet appel d'offres.</Alert>
         ) : (
           <Stack spacing={3}>
             {/* Sorting & Export Controls */}
             <Paper sx={{ p: '16px', backgroundColor: '#F5F5F5' }}>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ alignItems: 'center' }}>
                 <FormControl size="small" sx={{ minWidth: 150 }}>
-                  <InputLabel>ترتيب حسب</InputLabel>
+                  <InputLabel>Trier par</InputLabel>
                   <Select
                     value={sortBy}
                     onChange={(e) => {
                       setSortBy(e.target.value);
                       setPage(0);
                     }}
-                    label="ترتيب حسب"
+                    label="Trier par"
                   >
-                    <MenuItem value="amount">المبلغ</MenuItem>
-                    <MenuItem value="score">التقييم</MenuItem>
-                    <MenuItem value="supplier">المورد</MenuItem>
-                    <MenuItem value="delivery">التسليم</MenuItem>
+                    <MenuItem value="amount">Montant</MenuItem>
+                    <MenuItem value="score">Évaluation</MenuItem>
+                    <MenuItem value="supplier">Fournisseur</MenuItem>
+                    <MenuItem value="delivery">Livraison</MenuItem>
                   </Select>
                 </FormControl>
 
@@ -225,7 +225,7 @@ export default function BidComparison() {
                   size="small"
                   sx={{ color: institutionalTheme.palette.primary.main }}
                 >
-                  {sortOrder === 'asc' ? '↑ تصاعدي' : '↓ تنازلي'}
+                  {sortOrder === 'asc' ? '↑ Ascendant' : '↓ Descendant'}
                 </Button>
 
                 <Box sx={{ flex: 1 }} />
@@ -237,7 +237,7 @@ export default function BidComparison() {
                   size="small"
                   sx={{ color: institutionalTheme.palette.primary.main, borderColor: institutionalTheme.palette.primary.main }}
                 >
-                  تصدير CSV
+                  Exporter en CSV
                 </Button>
               </Stack>
             </Paper>
@@ -249,12 +249,12 @@ export default function BidComparison() {
                   <Table>
                     <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                       <TableRow>
-                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }}>المورد</TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">المبلغ</TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">التسليم</TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">الدفع</TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">الحالة</TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">التقييم</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }}>Fournisseur</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">Montant</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">Livraison</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">Paiement</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">Statut</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }} align="center">Évaluation</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -274,7 +274,7 @@ export default function BidComparison() {
                           </TableCell>
                           <TableCell sx={{ fontSize: '13px', textAlign: 'center' }}>
                             <Chip
-                              label={offer.status || 'مرسل'}
+                              label={offer.status || 'Soumis'}
                               color={getStatusColor(offer.status)}
                               size="small"
                               variant="outlined"
@@ -296,7 +296,7 @@ export default function BidComparison() {
                   page={page}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  labelRowsPerPage="صفوف لكل صفحة:"
+                  labelRowsPerPage="Lignes par page :"
                 />
               </CardContent>
             </Card>
@@ -310,21 +310,21 @@ export default function BidComparison() {
               🔐 ID Référence (Plateforme): <strong>{tender.id || 'N/A'}</strong>
             </Typography>
             <Typography sx={{ fontWeight: 600, marginBottom: '12px', color: institutionalTheme.palette.primary.main }}>
-              📋 ملخص المناقصة
+              📋 Résumé de l'Appel d'Offres
             </Typography>
             <Stack spacing={1}>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>
                 <strong>N° Consultation:</strong> {tender.consultation_number || 'N/A'}
               </Typography>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>
-                <strong>الموعد النهائي:</strong> {new Date(tender.deadline).toLocaleDateString('ar-TN')}
+                <strong>Date Limite:</strong> {new Date(tender.submission_deadline).toLocaleDateString('fr-FR')}
               </Typography>
               <Typography sx={{ fontSize: '13px', color: '#666' }}>
-                <strong>عدد العروض:</strong> {sortedOffers.length}
+                <strong>Nombre d'offres:</strong> {sortedOffers.length}
               </Typography>
               {tender.awardLevel && (
                 <Typography sx={{ fontSize: '13px', color: '#0056B3', fontWeight: 600 }}>
-                  <strong>🎯 مستوى الترسية:</strong> {tender.awardLevel === 'lot' ? 'حسب Lot' : tender.awardLevel === 'article' ? 'حسب Article' : 'شامل'}
+                  <strong>🎯 Niveau d'Attribution:</strong> {tender.award_level === 'lot' ? 'Par Lot' : tender.award_level === 'article' ? 'Par Article' : 'Global'}
                 </Typography>
               )}
             </Stack>

@@ -1,5 +1,13 @@
 /**
- * Enhanced Error Handler Utility
+ * @file errorHandler.js
+ * @description A centralized utility for handling and formatting errors throughout the application.
+ * This module provides consistent error messages, handles authentication errors,
+ * and offers utilities for logging and retrying failed requests.
+ */
+
+/**
+ * @module errorHandler
+ * @description Provides a comprehensive set of functions for robust error management.
  * Comprehensive error handling with error codes, logging, and user notifications
  * 
  * Features:
@@ -14,6 +22,9 @@
 import TokenManager from '../services/tokenManager';
 import { formatError, getErrorFromStatusCode, SYSTEM_ERRORS } from './errorCodes';
 
+/**
+ * @namespace errorHandler
+ */
 export const errorHandler = {
   /**
    * Get user-friendly error message with code

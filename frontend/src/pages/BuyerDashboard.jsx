@@ -51,16 +51,16 @@ function BuyerDashboardContent() {
   };
 
   const menuItems = [
-    { id: 'dashboard', label: 'لوحة التحكم', icon: Dashboard },
-    { id: 'tenders', label: 'الأجل النشطة', icon: Assignment },
-    { id: 'create-tender', label: 'إنشاء أجل جديدة', icon: Assignment },
-    { id: 'monitoring', label: 'المراقبة والتقييم', icon: Visibility },
-    { id: 'finances', label: 'الفواتير والميزانيات', icon: Money },
-    { id: 'operations', label: 'العمليات والعقود', icon: LocalShipping },
-    { id: 'team', label: 'إدارة الفريق', icon: People },
-    { id: 'notifications', label: 'الإخطارات', icon: Notifications },
-    { id: 'profile', label: 'الملف الشخصي', icon: Person },
-    { id: 'security', label: 'الأمان والخصوصية', icon: Security },
+    { id: 'dashboard', label: 'Tableau de bord', icon: Dashboard },
+    { id: 'tenders', label: 'Appels d\'offres actifs', icon: Assignment },
+    { id: 'create-tender', label: 'Créer un appel d\'offres', icon: Assignment },
+    { id: 'monitoring', label: 'Suivi et Évaluation', icon: Visibility },
+    { id: 'finances', label: 'Factures et Budgets', icon: Money },
+    { id: 'operations', label: 'Opérations et Contrats', icon: LocalShipping },
+    { id: 'team', label: 'Gestion d\'équipe', icon: People },
+    { id: 'notifications', label: 'Notifications', icon: Notifications },
+    { id: 'profile', label: 'Profil', icon: Person },
+    { id: 'security', label: 'Sécurité et Confidentialité', icon: Security },
   ];
 
   const activeTenders = tenders.filter(t => t.status === 'open').length;
@@ -80,7 +80,7 @@ function BuyerDashboardContent() {
     }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
         <Box>
-          <Typography variant="caption" sx={{ color: '#666', fontWeight: 500 }}>{title}</Typography>
+      <Typography variant="caption" sx={{ color: '#666', fontWeight: 500 }}>{title}</Typography>
           <Typography variant="h4" sx={{ fontWeight: 700, color: '#000', mt: 1 }}>{value}</Typography>
         </Box>
         <Avatar sx={{ background: color, color: 'white', width: 50, height: 50 }}>
@@ -92,7 +92,7 @@ function BuyerDashboardContent() {
         <Typography variant="caption" sx={{ color: change > 0 ? '#2e7d32' : '#D32F2F', fontWeight: 600 }}>
           {change > 0 ? '+' : ''}{change}%
         </Typography>
-        <Typography variant="caption" sx={{ color: '#999' }}>من الشهر الماضي</Typography>
+    <Typography variant="caption" sx={{ color: '#999' }}>depuis le mois dernier</Typography>
       </Box>
     </Card>
   );
@@ -103,60 +103,60 @@ function BuyerDashboardContent() {
         <Box>
           {/* Header */}
           <Box sx={{ mb: 4 }}>
-            <Typography variant="h4" sx={{ fontWeight: 700, color: '#000', mb: 1 }}>لوحة التحكم</Typography>
-            <Typography variant="body2" sx={{ color: '#666' }}>مرحباً بك في منصة المناقصات المتقدمة</Typography>
+        <Typography variant="h4" sx={{ fontWeight: 700, color: '#000', mb: 1 }}>Tableau de bord</Typography>
+        <Typography variant="body2" sx={{ color: '#666' }}>Bienvenue sur la plateforme d'appels d'offres avancée</Typography>
           </Box>
 
           {/* Stats Grid */}
           <Grid container spacing={3} sx={{ mb: 4 }}>
             <Grid item xs={12} sm={6} md={3}>
-              <StatCard title="الأجل النشطة" value={activeTenders} change={12} icon={Assignment} color="#0056B3" />
+          <StatCard title="Appels d'offres actifs" value={activeTenders} change={12} icon={Assignment} color="#0056B3" />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <StatCard title="متوسط الادخار" value="18.5%" change={5} icon={TrendingDown} color="#2e7d32" />
+          <StatCard title="Économie moyenne" value="18.5%" change={5} icon={TrendingDown} color="#2e7d32" />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <StatCard title="العروض المنتظرة" value={submittedOffers} change={-3} icon={Schedule} color="#f57c00" />
+          <StatCard title="Offres en attente" value={submittedOffers} change={-3} icon={Schedule} color="#f57c00" />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <StatCard title="معدل الإغلاق" value="92%" change={8} icon={CheckCircle} color="#0288d1" />
+          <StatCard title="Taux de clôture" value="92%" change={8} icon={CheckCircle} color="#0288d1" />
             </Grid>
           </Grid>
 
           {/* Quick Actions */}
           <Grid container spacing={3} sx={{ mb: 4 }}>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} lg={8}>
               <Paper sx={{ p: 3, borderRadius: '12px', border: '1px solid #e0e0e0' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>أحدث المناقصات</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>Derniers appels d'offres</Typography>
                   <Button size="small" onClick={() => navigate('/buyer-active-tenders')} sx={{ textTransform: 'none' }}>
-                    عرض الكل →
+                Voir tout →
                   </Button>
                 </Box>
                 <Box sx={{ overflowX: 'auto' }}>
                   <Table size="small">
                     <TableHead>
                       <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                        <TableCell sx={{ fontWeight: 600 }}>المناقصة</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }}>الميزانية</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }}>الموعد</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }}>الحالة</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Appel d'offres</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Budget</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Date</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Statut</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {loading ? (
                         <TableRow><TableCell colSpan={4} sx={{ textAlign: 'center', py: 3 }}><CircularProgress size={30} /></TableCell></TableRow>
                       ) : tenders.length === 0 ? (
-                        <TableRow><TableCell colSpan={4} sx={{ textAlign: 'center', py: 3, color: '#999' }}>لا توجد مناقصات</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={4} sx={{ textAlign: 'center', py: 3, color: '#999' }}>Aucun appel d'offres</TableCell></TableRow>
                       ) : (
                         tenders.slice(0, 5).map((tender) => (
                           <TableRow key={tender.id} hover sx={{ cursor: 'pointer' }} onClick={() => navigate(`/tender/${tender.id}`)}>
-                            <TableCell sx={{ fontWeight: 500 }}>{tender.title || 'مناقصة'}</TableCell>
-                            <TableCell>د.ت {tender.budget_max || 0}</TableCell>
+                        <TableCell sx={{ fontWeight: 500 }}>{tender.title || 'Appel d\'offres'}</TableCell>
+                        <TableCell>TND {tender.budget_max || 0}</TableCell>
                             <TableCell>{new Date(tender.created_at).toLocaleDateString('ar-TN')}</TableCell>
                             <TableCell>
                               <Chip
-                                label={tender.status === 'open' ? 'نشطة' : 'مغلقة'}
+                            label={tender.status === 'open' ? 'Ouvert' : 'Fermé'}
                                 size="small"
                                 color={tender.status === 'open' ? 'success' : 'default'}
                                 variant="outlined"
@@ -171,26 +171,35 @@ function BuyerDashboardContent() {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} lg={4}>
               <Stack spacing={2}>
                 <Paper sx={{ p: 3, borderRadius: '12px', border: '1px solid #e0e0e0', background: 'linear-gradient(135deg, #0056B3 0%, #003d82 100%)', color: 'white' }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>إنشاء مناقصة جديدة</Typography>
-                  <Typography variant="caption" sx={{ opacity: 0.9 }}>ابدأ عملية مناقصة جديدة بسهولة</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>Créer un nouvel appel d'offres</Typography>
+              <Typography variant="caption" sx={{ opacity: 0.9 }}>Démarrez facilement un nouveau processus d'appel d'offres</Typography>
                   <Button
                     fullWidth
                     variant="contained"
                     sx={{ mt: 2, backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', '&:hover': { backgroundColor: 'rgba(255,255,255,0.3)' } }}
                     onClick={() => navigate('/create-tender')}
                   >
-                    + إنشاء أجل
+                + Créer un appel d'offres
+                  </Button>
+                </Paper>
+                
+                {/* ✅ إضافة بطاقة جديدة للشراء المباشر */}
+                <Paper sx={{ p: 3, borderRadius: '12px', border: '1px solid #e0e0e0', background: 'linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)', color: 'white' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>Demande Directe</Typography>
+                  <Typography variant="caption" sx={{ opacity: 0.9 }}>Envoyez une demande rapide à un fournisseur spécifique.</Typography>
+                  <Button fullWidth variant="contained" sx={{ mt: 2, backgroundColor: 'rgba(255,255,255,0.2)', '&:hover': { backgroundColor: 'rgba(255,255,255,0.3)' } }} onClick={() => navigate('/direct-supply-request')}>
+                    + Créer une Demande
                   </Button>
                 </Paper>
 
                 <Paper sx={{ p: 3, borderRadius: '12px', border: '1px solid #e0e0e0' }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>إجراءات سريعة</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>Actions rapides</Typography>
                   <Stack spacing={1}>
                     <Button fullWidth variant="text" sx={{ justifyContent: 'flex-start', textTransform: 'none' }}>
-                      <Visibility sx={{ mr: 1 }} /> عرض جميع الأجل
+                  <Visibility sx={{ mr: 1 }} /> Voir tous les appels d'offres
                     </Button>
                     <Button fullWidth variant="text" sx={{ justifyContent: 'flex-start', textTransform: 'none' }}>
                       <Visibility sx={{ mr: 1 }} /> المراقبة والتقييم
@@ -209,7 +218,7 @@ function BuyerDashboardContent() {
 
     return (
       <Paper sx={{ p: 3, borderRadius: '12px', border: '1px solid #e0e0e0', textAlign: 'center', py: 6 }}>
-        <Typography variant="body1" sx={{ color: '#999' }}>اختر قسماً من القائمة الجانبية</Typography>
+    <Typography variant="body1" sx={{ color: '#999' }}>Choisissez une section dans le menu latéral</Typography>
       </Paper>
     );
   };

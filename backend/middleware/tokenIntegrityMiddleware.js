@@ -20,7 +20,10 @@ const tokenBlacklist = new Set();
  */
 const verifyTokenIntegrity = (token) => {
   try {
-    const secret = process.env.JWT_SECRET || 'your-secret-key';
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      throw new Error('FATAL_ERROR: JWT_SECRET environment variable must be set.');
+    }
     const decoded = jwt.verify(token, secret, {
       algorithms: ['HS256', 'RS256']
     });

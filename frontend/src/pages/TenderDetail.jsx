@@ -19,89 +19,99 @@ import {
   CircularProgress,
   Alert,
   Skeleton,
+  Grid,
+  Divider,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import GavelIcon from '@mui/icons-material/Gavel';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { procurementAPI } from '../api';
+import TenderInquiry from './TenderInquiry'; // 1. استيراد المكون الجديد
 import TokenManager from '../services/tokenManager';
+import { useFetchData } from '../hooks/useFetchData'; // ✅ 1. استيراد الخطاف
+import { setPageTitle } from '../utils/pageTitle';
+
+const TenderStatusChip = ({ status }) => {
+  const statusInfo = {
+    published: { label: 'Publié', color: 'success' },
+    draft: { label: 'Brouillon', color: 'default' },
+    closed: { label: 'Fermé', color: 'warning' },
+    awarded: { label: 'Attribué', color: 'primary' },
+  };
+  const info = statusInfo[status] || { label: status, color: 'default' };
+  return <Chip label={info.label} color={info.color} />;
+};
 
 export default function TenderDetail() {
   const theme = institutionalTheme;
   const { id } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [tender, setTender] = useState(null);
-  const [offers, setOffers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    const token = TokenManager.getAccessToken();
-    if (token) {
-      try {
-        const userData = TokenManager.getUserFromToken();
-        setUser(userData);
-      } catch (e) {
-      }
-    }
+    const userData = TokenManager.getUserFromToken();
+    setUser(userData);
+    setPageTitle('Détails de l\'Appel d\'Offres');
   }, []);
 
-  useEffect(() => {
-    fetchTender();
-  }, [id]);
+  // ✅ 2. استخدام الخطاف لجلب بيانات المناقصة والعروض
+  const { data: tenderData, loading: tenderLoading, error: tenderError } = useFetchData(`/procurement/tenders/${id}`);
+  const { data: offersData, loading: offersLoading, error: offersError } = useFetchData(
+    // جلب العروض فقط إذا كان المستخدم هو المشتري صاحب المناقصة
+    user?.role === 'buyer' && tenderData?.tender?.user_id === user.id ? `/procurement/tenders/${id}/offers` : null
+  );
 
-  const fetchTender = async () => {
-    setLoading(true);
-    try {
-      const tenderRes = await procurementAPI.getTender(id);
-      setTender(tenderRes.data.tender);
-      
-      try {
-        const offersRes = await procurementAPI.getOffers(id);
-        setOffers(offersRes.data.offers || []);
-      } catch (err) {
-        // Offers might not be accessible
-      }
-    } catch (err) {
-      setError(err.response?.data?.error || 'Erreur lors du chargement de la marchandise');
-    } finally {
-      setLoading(false);
+  // ✅ 3. دمج حالات التحميل والأخطاء والبيانات
+  const tender = tenderData?.tender;
+  const offers = offersData?.offers || [];
+  const loading = tenderLoading || offersLoading;
+  const error = tenderError || offersError;
+
+  const renderActionButtons = () => {
+    if (!tender || !user) return null;
+
+    const isOwner = tender?.user_id === user?.id;
+
+    if (isOwner) {
+      return (
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" startIcon={<CompareArrowsIcon />} onClick={() => navigate(`/bid-comparison/${id}`)}>
+            Comparer les Offres
+          </Button>
+          <Button variant="outlined" startIcon={<GavelIcon />} onClick={() => navigate(`/tender-awarding/${id}`)}>
+            Attribuer le Marché
+          </Button>
+        </Stack>
+      );
+    } else if (user.role === 'supplier') {
+      return (
+        <Button variant="contained" startIcon={<NoteAddIcon />} onClick={() => navigate(`/tender/${id}/create-offer`)}>
+          Soumettre une Offre
+        </Button>
+      );
     }
+    return null;
   };
 
   if (loading) {
     return (
-      <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ marginBottom: '24px' }}>
-            <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} sx={{ color: theme.palette.primary.main, marginBottom: '16px' }} />
-          </Box>
-          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
-            <Box>
-              <Skeleton variant="rectangular" height={300} sx={{ marginBottom: '16px' }} />
-              <Skeleton variant="text" height={24} width="60%" sx={{ marginBottom: '8px' }} />
-              <Skeleton variant="text" height={16} width="40%" />
-            </Box>
-            <Box>
-              <Skeleton variant="text" height={28} sx={{ marginBottom: '16px' }} />
-              <Skeleton variant="text" height={16} sx={{ marginBottom: '24px' }} />
-              <Skeleton variant="rectangular" height={200} />
-            </Box>
-          </Box>
-        </Container>
-      </Box>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Skeleton variant="text" width="20%" height={40} />
+        <Skeleton variant="text" width="60%" height={60} />
+        <Skeleton variant="rectangular" height={300} sx={{ mt: 2 }} />
+      </Container>
     );
   }
 
   if (error) {
     return (
-      <Container maxWidth="md" sx={{ paddingY: '40px' }}>
+      <Container maxWidth="md" sx={{ py: 4 }}>
         <Alert severity="error">{error}</Alert>
-        <Button
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/tenders')}
-          sx={{ marginTop: '20px' }}
-        >
-          Retour aux appels d'offres
+        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate('/dashboard')} sx={{ mt: 2 }}>
+          Retour au Tableau de Bord
         </Button>
       </Container>
     );
@@ -109,127 +119,122 @@ export default function TenderDetail() {
 
   if (!tender) {
     return (
-      <Container maxWidth="md" sx={{ paddingY: '40px' }}>
-        <Alert severity="info">Appel d'offres non trouvé</Alert>
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Alert severity="info">Appel d'offres non trouvé.</Alert>
       </Container>
     );
   }
 
   return (
-    <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
-      <Container maxWidth="md">
-        <Button
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/tenders')}
-          sx={{
-            marginBottom: '24px',
-            color: theme.palette.primary.main,
-            textTransform: 'none',
-            fontWeight: 500,
-          }}
-        >
+    <Box sx={{ backgroundColor: '#FAFAFA', py: 4, minHeight: '100vh' }}>
+      <Container maxWidth="lg">
+        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate('/dashboard')} sx={{ mb: 3, color: theme.palette.primary.main }}>
           Retour
         </Button>
 
-        <Card sx={{ marginBottom: '24px', borderRadius: '4px', boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-          <CardContent sx={{ padding: '32px' }}>
-            <Stack spacing={3}>
-              <Box>
-                <Typography variant="h2" sx={{ fontSize: '28px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
-                  {tender.title}
-                </Typography>
-                <Typography sx={{ color: '#616161', fontSize: '14px' }}>
-                  ID: {tender.id}
-                </Typography>
-              </Box>
-
-              <Box sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <Chip
-                  label={tender.status}
-                  sx={{
-                    backgroundColor: tender.status === 'published' ? '#2e7d32' : theme.palette.primary.main,
-                    color: '#ffffff',
-                    fontWeight: 500,
-                  }}
-                />
-              </Box>
-
-              <Box sx={{ borderTop: '1px solid #e0e0e0', paddingTop: '16px' }}>
-                <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
-                  Description
-                </Typography>
-                <Typography sx={{ color: '#616161', lineHeight: 1.6 }}>
-                  {tender.description}
-                </Typography>
-              </Box>
-
-              {tender.awardLevel && (
-                <Box sx={{ borderTop: '1px solid #e0e0e0', paddingTop: '16px' }}>
-                  <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '8px' }}>
-                    🎯 Niveau de ترسية
-                  </Typography>
-                  <Typography sx={{ color: '#0056B3', fontWeight: 600 }}>
-                    {tender.awardLevel === 'lot' ? 'Par Lot' : tender.awardLevel === 'article' ? 'Par Article' : 'Global (Toute l\'appel d\'offres)'}
-                  </Typography>
+        <Paper sx={{ p: 4, mb: 3, border: `1px solid ${theme.palette.divider}` }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={8}>
+              <TenderStatusChip status={tender.status} />
+              <Typography variant="h4" sx={{ ...theme.typography.h1, mt: 1, mb: 2 }}>
+                {tender.title}
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                {tender.description}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Stack spacing={2} divider={<Divider />}>
+                <Box>
+                  <Typography variant="caption" color="text.secondary">Date Limite de Soumission</Typography>
+                  <Typography fontWeight="bold">{format(new Date(tender.submission_deadline), 'd MMMM yyyy, HH:mm', { locale: fr })}</Typography>
                 </Box>
-              )}
-
-              {tender.lots && tender.lots.length > 0 && (
-                <Box sx={{ borderTop: '1px solid #e0e0e0', paddingTop: '16px' }}>
-                  <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '12px' }}>
-                    📦 Lots et Articles ({tender.lots.length})
-                  </Typography>
-                  <Stack spacing={2}>
-                    {tender.lots.map((lot, idx) => (
-                      <Paper key={idx} sx={{ p: '12px', backgroundColor: '#F9F9F9', borderLeft: '4px solid #0056B3' }}>
-                        <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#212121', mb: '8px' }}>
-                          Lot {lot.numero}: {lot.objet}
-                        </Typography>
-                        {lot.articles && lot.articles.length > 0 && (
-                          <Box sx={{ ml: '12px', pl: '8px', borderLeft: '2px dashed #0056B3' }}>
-                            {lot.articles.map((article, aIdx) => (
-                              <Typography key={aIdx} sx={{ fontSize: '12px', color: '#666666', py: '4px' }}>
-                                ├─ {article.name} : <strong>{article.quantity} {article.unit}</strong>
-                              </Typography>
-                            ))}
-                          </Box>
-                        )}
-                      </Paper>
-                    ))}
-                  </Stack>
+                <Box>
+                  <Typography variant="caption" color="text.secondary">Niveau d'Attribution</Typography>
+                  <Typography fontWeight="bold">{tender.award_level === 'lot' ? 'Par Lot' : tender.award_level === 'article' ? 'Par Article' : 'Global'}</Typography>
                 </Box>
-              )}
+                <Box>
+                  <Typography variant="caption" color="text.secondary">Catégorie</Typography>
+                  <Typography fontWeight="bold">{tender.category || 'Non spécifiée'}</Typography>
+                </Box>
+              </Stack>
+            </Grid>
+          </Grid>
+          <Box sx={{ mt: 4, pt: 3, borderTop: `1px solid ${theme.palette.divider}` }}>
+            {renderActionButtons()}
+          </Box>
+        </Paper>
 
-              {offers.length > 0 && (
-                <Box sx={{ borderTop: '1px solid #e0e0e0', paddingTop: '16px' }}>
-                  <Typography variant="h4" sx={{ fontSize: '16px', fontWeight: 600, color: theme.palette.text.primary, marginBottom: '16px' }}>
-                    Offres ({offers.length})
-                  </Typography>
-                  <Paper sx={{ overflow: 'auto', boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-                    <Table>
-                      <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
+        {tender.lots && tender.lots.length > 0 && (
+          <Paper sx={{ p: 4, mb: 3, border: `1px solid ${theme.palette.divider}` }}>
+            <Typography variant="h6" sx={{ mb: 2, color: theme.palette.primary.main }}>
+              Lots et Articles
+            </Typography>
+            <Stack spacing={2}>
+              {tender.lots.map((lot) => (
+                <Paper key={lot.id} variant="outlined" sx={{ p: 2 }}>
+                  <Typography variant="subtitle1" fontWeight="bold">Lot {lot.numero}: {lot.objet}</Typography>
+                  {lot.articles && lot.articles.length > 0 && (
+                    <Table size="small" sx={{ mt: 1 }}>
+                      <TableHead>
                         <TableRow>
-                          <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Fournisseur</TableCell>
-                          <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Prix</TableCell>
-                          <TableCell sx={{ fontWeight: 600, color: theme.palette.text.primary }}>Statut</TableCell>
+                          <TableCell>Article</TableCell>
+                          <TableCell align="right">Quantité</TableCell>
+                          <TableCell>Unité</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {offers.map((offer) => (
-                          <TableRow key={offer.id}>
-                            <TableCell>{offer.supplier_name}</TableCell>
-                            <TableCell>{offer.price} TND</TableCell>
-                            <TableCell>{offer.status}</TableCell>
+                        {lot.articles.map((article) => (
+                          <TableRow key={article.id}>
+                            <TableCell>{article.name}</TableCell>
+                            <TableCell align="right">{article.quantity}</TableCell>
+                            <TableCell>{article.unit}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
                     </Table>
-                  </Paper>
-                </Box>
-              )}
+                  )}
+                </Paper>
+              ))}
             </Stack>
-          </CardContent>
-        </Card>
+          </Paper>
+        )}
+
+        {user?.role === 'buyer' && offers.length > 0 && (
+          <Paper sx={{ p: 4, border: `1px solid ${theme.palette.divider}` }}>
+            <Typography variant="h6" sx={{ mb: 2, color: theme.palette.primary.main }}>
+              Offres Reçues ({offers.length})
+            </Typography>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Fournisseur</TableCell>
+                    <TableCell align="right">Montant Total</TableCell>
+                    <TableCell>Statut</TableCell>
+                    <TableCell>Date de Soumission</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {offers.map((offer) => (
+                    <TableRow key={offer.id} hover>
+                      <TableCell sx={{ fontWeight: 'bold' }}>{offer.supplier_name}</TableCell>
+                      <TableCell align="right">{new Intl.NumberFormat('fr-TN', { style: 'currency', currency: 'TND' }).format(offer.total_amount)}</TableCell>
+                      <TableCell><Chip label={offer.status} size="small" /></TableCell>
+                      <TableCell>{format(new Date(offer.created_at), 'd MMM yyyy', { locale: fr })}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        )}
+
+        {/* 2. إضافة قسم الأسئلة والأجوبة */}
+        <Paper sx={{ p: 4, mt: 3, border: `1px solid ${theme.palette.divider}` }}>
+          <TenderInquiry tenderId={id} />
+        </Paper>
+
       </Container>
     </Box>
   );

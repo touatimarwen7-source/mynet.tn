@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import institutionalTheme from '../theme/theme';
+import { useEffect } from 'react'; // ✅ إزالة useState
+import institutionalTheme from '../theme/theme'; // ✅ تعديل المسار إذا لزم الأمر
 import {
   Container,
   Box,
@@ -13,26 +13,37 @@ import {
   TableRow,
   TableCell,
   Paper,
+  Alert,
   Chip,
+  CircularProgress,
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { setPageTitle } from '../utils/pageTitle';
 import { formatDate } from '../utils/dateFormatter';
+import { useFetchData } from '../hooks/useFetchData'; // ✅ 1. استيراد الخطاف
+import api from '../services/api'; // ✅ 2. استيراد api لإرسال التحديثات
 
 export default function ContractManagement() {
   const theme = institutionalTheme;
-  const [contracts, setContracts] = useState([
-    { id: 1, number: 'CTR-2025-001', supplier: 'Fournisseur A', amount: 40000, status: 'signed', start_date: new Date(), end_date: new Date(Date.now() + 90*24*60*60*1000) },
-    { id: 2, number: 'CTR-2025-002', supplier: 'Fournisseur B', amount: 52000, status: 'draft', start_date: new Date(), end_date: new Date(Date.now() + 120*24*60*60*1000) }
-  ]);
+
+  // ✅ 3. جلب البيانات الحقيقية من الواجهة الخلفية
+  const { data: contractData, loading, error, refetch } = useFetchData('/procurement/contracts');
+  const contracts = contractData?.contracts || [];
 
   useEffect(() => {
     setPageTitle('Gestion des Contrats');
   }, []);
 
-  const handleSignContract = (id) => {
-    setContracts(contracts.map(c => c.id === id ? {...c, status: 'signed'} : c));
+  // ✅ 4. تحديث منطق توقيع العقد ليتفاعل مع الواجهة الخلفية
+  const handleSignContract = async (id) => {
+    try {
+      await api.patch(`/procurement/contracts/${id}/sign`);
+      refetch(); // إعادة جلب البيانات لتحديث الواجهة
+    } catch (err) {
+      console.error("Failed to sign contract:", err);
+      // يمكن إضافة رسالة خطأ للمستخدم هنا
+    }
   };
 
   return (
@@ -45,8 +56,13 @@ export default function ContractManagement() {
           Suivi des contrats et obligations
         </Typography>
 
-        <Card sx={{ border: '1px solid #e0e0e0', overflow: 'hidden' }}>
-          <Paper sx={{ border: 'none', borderRadius: 0 }}>
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', my: 5 }}><CircularProgress /></Box>
+        ) : error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : (
+          <Card sx={{ border: '1px solid #e0e0e0', overflow: 'hidden' }}>
+            <Paper sx={{ border: 'none', borderRadius: 0 }}>
             <Table>
               <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                 <TableRow sx={{ height: '56px' }}>
@@ -109,8 +125,9 @@ export default function ContractManagement() {
                 ))}
               </TableBody>
             </Table>
-          </Paper>
-        </Card>
+            </Paper>
+          </Card>
+        )}
       </Container>
     </Box>
   );

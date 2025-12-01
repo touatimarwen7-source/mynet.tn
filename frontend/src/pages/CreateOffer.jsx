@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import institutionalTheme from '../theme/theme';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
@@ -35,15 +35,17 @@ import {
   Breadcrumbs,
   Link,
 } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
-import WarningIcon from '@mui/icons-material/Warning';
 import { FormSkeleton } from '../components/SkeletonLoader';
 import { procurementAPI } from '../api';
 import { useToast } from '../contexts/AppContext';
 import { setPageTitle } from '../utils/pageTitle';
 import { autosaveDraft, recoverDraft, clearDraft } from '../utils/draftStorageHelper';
+import debounce from 'lodash.debounce';
+
+// ✅ 1. استيراد الخطاف المخصص الجديد
+import { useOfferForm } from '../hooks/useOfferForm'; 
 
 export default function CreateOffer() {
   const theme = institutionalTheme;
@@ -51,108 +53,36 @@ export default function CreateOffer() {
   const navigate = useNavigate();
   const { addToast } = useToast();
 
+  // ✅ 2. استدعاء الخطاف المخصص للحصول على كل المنطق والحالة
+  const {
+    tender,
+    loading,
+    submitting,
+    formErrors,
+    success,
+    isDeadlinePassed,
+    offerData,
+    setOfferData,
+    handleSubmit,
+  } = useOfferForm(tenderId);
+
   useEffect(() => {
     setPageTitle('Soumission d\'Offre Sécurisée');
   }, []);
 
-  const [tender, setTender] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
   const [step, setStep] = useState(0);
   const [showCatalogModal, setShowCatalogModal] = useState(false);
   const [selectedLineItemIndex, setSelectedLineItemIndex] = useState(null);
   const [catalogProducts, setCatalogProducts] = useState([]);
 
-  const isDeadlinePassed = tender && new Date() > new Date(tender.deadline);
-
   const [confirmSubmit, setConfirmSubmit] = useState(false);
-  const [offerData, setOfferData] = useState({
-    supplier_ref_number: '',
-    validity_period_days: 30,
-    payment_terms: 'Net30',
-    technical_proposal: '',
-    line_items: [],
-    attachments: [],
-    commitment: false
-  });
-
-  useEffect(() => {
-    fetchTender();
-    // Recover draft
-    const draft = recoverDraft(`offer_draft_${tenderId}`);
-    if (draft) {
-      setOfferData(draft);
-    }
-  }, [tenderId]);
-
-  // Auto-save draft every 30 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      autosaveDraft(`offer_draft_${tenderId}`, offerData);
-    }, 30000);
-    
-    return () => clearInterval(timer);
-  }, [offerData, tenderId]);
-
-  const fetchTender = async () => {
-    try {
-      const response = await procurementAPI.getTender(tenderId);
-      setTender(response.data.tender);
-      
-      // Use Lots/Articles instead of requirements
-      const lots = response.data.tender.lots || [];
-      const items = [];
-      
-      if (lots.length > 0) {
-        lots.forEach((lot, lotIdx) => {
-          if (lot.articles && lot.articles.length > 0) {
-            lot.articles.forEach((article, artIdx) => {
-              items.push({
-                id: `${lotIdx}-${artIdx}`,
-                lot_id: lot.numero,
-                lot_name: lot.objet,
-                description: article.name,
-                quantity: parseFloat(article.quantity) || 1,
-                unit: article.unit || 'unité',
-                unit_price: '',
-                total_price: 0,
-                specifications: '',
-                partial_quantity: null,
-                is_partial: false,
-                technical_response: ''
-              });
-            });
-          }
-        });
-      }
-
-      setOfferData(prev => ({
-        ...prev,
-        line_items: items.length > 0 ? items : []
-      }));
-      
-      if (items.length === 0) {
-        addToast('Aucun article trouvé', 'warning', 2000);
-      } else {
-        addToast('L\'appel d\'offres a été chargé avec succès', 'success', 2000);
-      }
-    } catch (err) {
-      const errorMsg = err.response?.data?.error || err.message;
-      const errorMessage = 'Erreur lors du chargement: ' + errorMsg;
-      setError(errorMessage);
-      addToast(errorMessage, 'error', 4000);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchCatalogProducts = async () => {
     try {
       const response = await procurementAPI.getMyOffers();
       setCatalogProducts(response.data.offers || []);
     } catch (err) {
+      addToast('Erreur de chargement du catalogue', 'error');
     }
   };
 
@@ -170,7 +100,7 @@ export default function CreateOffer() {
       specifications: product.description || ''
     };
     newItems[selectedLineItemIndex].total_price = newItems[selectedLineItemIndex].unit_price * newItems[selectedLineItemIndex].quantity;
-    setOfferData(prev => ({ ...prev, line_items: newItems }));
+    setOfferData(prev => ({ ...prev, line_items: newItems })); // ✅ استخدام setOfferData من الخطاف
     setShowCatalogModal(false);
   };
 
@@ -184,7 +114,7 @@ export default function CreateOffer() {
       item.total_price = (item.unit_price || 0) * quantity;
     }
 
-    setOfferData(prev => ({ ...prev, line_items: newItems }));
+    setOfferData(prev => ({ ...prev, line_items: newItems })); // ✅ استخدام setOfferData من الخطاف
   };
 
   const handleFileUpload = (e) => {
@@ -202,82 +132,12 @@ export default function CreateOffer() {
     }));
   };
 
-  const getTotalBidAmount = () => {
+  const getTotalBidAmount = () => { // ✅ هذه الدالة يمكن أن تبقى هنا لأنها للعرض فقط
     return offerData.line_items.reduce((sum, item) => sum + (item.total_price || 0), 0).toFixed(2);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Enhanced validation
-    if (isDeadlinePassed) {
-      setError(`L'envoi a échoué. L'appel d'offres est fermé depuis ${new Date(tender.deadline).toLocaleDateString('fr-FR')}`);
-      return;
-    }
-
-    if (!offerData.commitment) {
-      setError('Vous devez accepter tous les termes et conditions');
-      return;
-    }
-
-    // Validate all prices are filled and positive
-    const invalidItems = offerData.line_items.filter(item => !item.unit_price || parseFloat(item.unit_price) <= 0);
-    if (invalidItems.length > 0) {
-      setError(`${invalidItems.length} article(s) ont des prix invalides (doit être > 0)`);
-      return;
-    }
-
-    // Validate files
-    const invalidFiles = offerData.attachments.filter(file => {
-      const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-      const maxSize = 10 * 1024 * 1024; // 10MB
-      return !validTypes.includes(file.type) || file.size > maxSize;
-    });
-    if (invalidFiles.length > 0) {
-      setError('Fichiers invalides (PDF/DOC, max 10MB)');
-      return;
-    }
-
-    setSubmitting(true);
-    setError('');
-
-    try {
-      const formData = new FormData();
-      formData.append('tender_id', tenderId);
-      formData.append('supplier_ref_number', offerData.supplier_ref_number);
-      formData.append('validity_period_days', offerData.validity_period_days);
-      formData.append('payment_terms', offerData.payment_terms);
-      formData.append('technical_proposal', offerData.technical_proposal);
-      formData.append('line_items', JSON.stringify(offerData.line_items));
-      formData.append('total_amount', getTotalBidAmount());
-
-      offerData.attachments.forEach((file, index) => {
-        formData.append(`attachment_${index}`, file);
-      });
-
-      await procurementAPI.createOffer(formData);
-      clearDraft(`offer_draft_${tenderId}`);
-      setSuccess(true);
-      addToast('✅ Votre offre a été envoyée avec succès!', 'success', 2000);
-      
-      setTimeout(() => {
-        navigate('/my-offers');
-      }, 2500);
-    } catch (err) {
-      const errorMsg = err.response?.data?.error || err.response?.data?.message || err.message;
-      setError('Erreur: ' + (errorMsg || 'Erreur lors de l\'envoi'));
-      addToast('Erreur lors de l\'envoi', 'error', 4000);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   if (loading) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: institutionalTheme.palette.primary.main }} />
-      </Box>
-    );
+    return <FormSkeleton />;
   }
 
   if (!tender) {
@@ -291,7 +151,7 @@ export default function CreateOffer() {
   return (
     <Box sx={{ backgroundColor: '#fafafa', paddingY: '40px' }}>
       <Container maxWidth="lg">
-        <Button startIcon={<ArrowBackIcon />} onClick={() => window.history.back()} sx={{ marginBottom: '24px', color: institutionalTheme.palette.primary.main }}>
+        <Button onClick={() => window.history.back()} sx={{ marginBottom: '24px', color: institutionalTheme.palette.primary.main }}>
           Retour
         </Button>
 
@@ -301,7 +161,11 @@ export default function CreateOffer() {
           </Alert>
         )}
 
-        {error && <Alert severity="error" sx={{ marginBottom: '24px' }}>{error}</Alert>}
+        {/* عرض الأخطاء العامة */}
+        {formErrors.general && <Alert severity="error" sx={{ marginBottom: '24px' }}>{formErrors.general}</Alert>}
+        {formErrors.line_items && <Alert severity="warning" sx={{ marginBottom: '24px' }}>{formErrors.line_items}</Alert>}
+        {formErrors.attachments && <Alert severity="warning" sx={{ marginBottom: '24px' }}>{formErrors.attachments}</Alert>}
+
         {success && <Alert severity="success" sx={{ marginBottom: '24px' }}>✅ Votre offre a été envoyée avec succès!</Alert>}
 
         {tender?.lots && tender.lots.length > 0 && (
@@ -364,7 +228,7 @@ export default function CreateOffer() {
               </Step>
             </Stepper>
 
-            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}> {/* ✅ استخدام handleSubmit من الخطاف */}
               {step === 0 && (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <TextField
@@ -519,6 +383,12 @@ export default function CreateOffer() {
                     }
                     label="J'accepte les termes et conditions et j'engage ma responsabilité"
                   />
+                  {/* عرض خطأ الالتزام تحت Checkbox */}
+                  {formErrors.commitment && (
+                    <Typography color="error" variant="caption" sx={{ display: 'block', mt: 1 }}>
+                      {formErrors.commitment}
+                    </Typography>
+                  )}
                 </Box>
               )}
 

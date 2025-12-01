@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Card,
@@ -19,7 +19,9 @@ import {
   DialogContent,
   Paper,
 } from '@mui/material';
-import axios from 'axios';
+import SecurityIcon from '@mui/icons-material/Security';
+import TimerIcon from '@mui/icons-material/Timer';
+import axios from '../api/axiosConfig';
 import institutionalTheme from '../theme/theme';
 
 export default function OfferSubmission({ tenderId }) {
@@ -29,6 +31,7 @@ export default function OfferSubmission({ tenderId }) {
   const [success, setSuccess] = useState(false);
   const [receipt, setReceipt] = useState(null);
   const [encryption, setEncryption] = useState(false);
+  const [commitment, setCommitment] = useState(false); // ✅ إضافة تعهد الإرسال
   const [offerData, setOfferData] = useState({
     total_amount: '',
     delivery_time: '',
@@ -39,7 +42,28 @@ export default function OfferSubmission({ tenderId }) {
     financial_file: null,
   });
 
-  const steps = ['البيانات الأساسية', 'الملفات', 'المراجعة', 'التأكيد'];
+  // --- شريط الأمان وعداد الإغلاق ---
+  const [timeLeft, setTimeLeft] = useState('Calculating...');
+  const submissionDeadline = new Date('2025-12-31T23:59:59'); // تاريخ وهمي، يجب جلبه من الـ API
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const diff = submissionDeadline - now;
+
+      if (diff <= 0) {
+        setTimeLeft('المناقصة مغلقة');
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      // ... (منطق حساب الساعات والدقائق والثواني)
+      setTimeLeft(`${days} يوم متبقي`);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+  // ------------------------------------
 
   const handleFileUpload = (e, field) => {
     const file = e.target.files[0];
@@ -54,7 +78,7 @@ export default function OfferSubmission({ tenderId }) {
   };
 
   const handleSubmit = async () => {
-    if (!offerData.total_amount || !offerData.delivery_time) {
+    if (!offerData.total_amount || !commitment) { // ✅ التحقق من التعهد
       setError('يرجى ملء جميع الحقول المطلوبة');
       return;
     }
@@ -147,6 +171,22 @@ export default function OfferSubmission({ tenderId }) {
       <Typography variant="h5" sx={{ mb: 3, color: institutionalTheme.palette.primary.main, fontWeight: 'bold' }}>
         📝 إرسال عرض جديد
       </Typography>
+
+      {/* ✅ شريط الأمان والحالة */}
+      <Paper sx={{ p: 2, mb: 3, display: 'flex', justifyContent: 'space-around', backgroundColor: '#eef2f6' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <TimerIcon color={timeLeft.includes('مغلقة') ? 'error' : 'primary'} />
+          <Typography variant="body2">
+            <strong>الوقت المتبقي:</strong> {timeLeft}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <SecurityIcon color="success" />
+          <Typography variant="body2">
+            <strong>حالة التشفير:</strong> نشط
+          </Typography>
+        </Box>
+      </Paper>
 
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
       {success && <Alert severity="success" sx={{ mb: 2 }}>تم إرسال عرضك بنجاح!</Alert>}
@@ -303,12 +343,21 @@ export default function OfferSubmission({ tenderId }) {
               </Typography>
             </Box>
 
+            {/* ✅ تعهد الإرسال */}
+            <FormControlLabel
+              control={
+                <Checkbox checked={commitment} onChange={(e) => setCommitment(e.target.checked)} />
+              }
+              label="أؤكد أنني قرأت وفهمت جميع الشروط، وأن هذا العرض سارٍ للفترة المحددة."
+              sx={{ mt: 2 }}
+            />
+
             <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
               <Button onClick={() => setStep(1)}>السابق</Button>
               <Button
                 variant="contained"
                 onClick={handleSubmit}
-                disabled={loading}
+                disabled={loading || !commitment} // ✅ تعطيل الزر بدون موافقة
                 sx={{ backgroundColor: institutionalTheme.palette.primary.main }}
               >
                 {loading ? <CircularProgress size={24} /> : 'إرسال العرض بشكل نهائي'}

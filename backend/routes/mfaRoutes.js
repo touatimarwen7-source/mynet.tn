@@ -1,4 +1,5 @@
 // Two-Factor Authentication (MFA) Routes - TURN 3 ENHANCEMENT
+const crypto = require('crypto');
 const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
@@ -15,8 +16,8 @@ router.post('/enable', authMiddleware, async (req, res) => {
       return res.status(400).json({ error: 'Invalid MFA method' });
     }
 
-    // Generate secret (in production: TOTP library or SMS gateway)
-    const secret = Math.random().toString(36).substring(2, 15);
+    // Generate a cryptographically secure secret
+    const secret = crypto.randomBytes(16).toString('hex');
 
     await db.query(`
       UPDATE users 

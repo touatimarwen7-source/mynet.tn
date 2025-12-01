@@ -19,7 +19,7 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import axios from 'axios';
+import axios from '../api/axiosConfig'; // ✅ استخدام النسخة المُعدّة
 import { theme } from '../theme/theme';
 
 export default function TenderInquiry({ tenderId }) {

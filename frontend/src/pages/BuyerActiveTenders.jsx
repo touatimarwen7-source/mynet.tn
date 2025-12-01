@@ -29,6 +29,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { procurementAPI } from '../api';
 import { formatDate, parseDate } from '../utils/dateFormatter';
 import { setPageTitle } from '../utils/pageTitle';
+import { logger } from '../utils/logger';
 import ConfirmDialog from '../components/ConfirmDialog';
 import Pagination from '../components/Pagination';
 import StatusBadge from '../components/StatusBadge';
@@ -60,6 +61,7 @@ export default function BuyerActiveTenders() {
       const response = await procurementAPI.getMyTenders({ status: 'active' });
       setTenders(response.data.tenders || []);
     } catch (err) {
+      logger.error('Failed to fetch active tenders:', err);
     } finally {
       setLoading(false);
     }
@@ -77,6 +79,25 @@ export default function BuyerActiveTenders() {
     return 0;
   });
 
+  const handleConfirmAction = async () => {
+    const { action, tenderId } = confirmDialog;
+    if (!action || !tenderId) {
+      setConfirmDialog({ ...confirmDialog, open: false });
+      return;
+    }
+
+    try {
+      if (action === 'close') {
+        await procurementAPI.closeTender(tenderId);
+      }
+      fetchActiveTenders();
+      setConfirmDialog({ ...confirmDialog, open: false });
+    } catch (err) {
+      logger.error(`Failed to ${action} tender ${tenderId}:`, err);
+      setConfirmDialog({ ...confirmDialog, open: false });
+    }
+  };
+
   const totalPages = Math.ceil(sortedTenders.length / pageSize);
   const startIdx = (currentPage - 1) * pageSize;
   const paginatedTenders = sortedTenders.slice(startIdx, startIdx + pageSize);
@@ -91,18 +112,7 @@ export default function BuyerActiveTenders() {
     });
   };
 
-  const handleConfirmAction = async () => {
-    const { action, tenderId } = confirmDialog;
-    try {
-      if (action === 'close') {
-        await procurementAPI.closeTender(tenderId);
-      }
-      fetchActiveTenders();
-      setConfirmDialog({ ...confirmDialog, open: false });
-    } catch (err) {
-      setConfirmDialog({ ...confirmDialog, open: false });
-    }
-  };
+
 
   const handleSelectTender = (tenderId, isSelected) => {
     const newSelected = new Set(selectedTenders);
@@ -259,7 +269,7 @@ export default function BuyerActiveTenders() {
             </Box>
             <Grid container spacing={2}>
               {paginatedTenders.map((tender) => (
-              <Grid size={{ xs: 12, md: 6 }} key={tender.id}>
+              <Grid item xs={12} md={6} key={tender.id}>
                 <Card sx={{ border: '1px solid #e0e0e0', height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
                   <Box sx={{ position: 'absolute', top: '12px', left: '12px', zIndex: 1 }}>
                     <Checkbox

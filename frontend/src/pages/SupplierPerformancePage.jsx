@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import institutionalTheme from '../theme/theme';
 import { Box, Card, Grid, Typography, LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 
 const SupplierPerformancePage = () => {
   const theme = institutionalTheme;

@@ -1,10 +1,8 @@
 /**
  * Enhanced Token Manager for Replit iframe compatibility
  * Uses in-memory storage as primary to avoid iframe restrictions
- * Falls back to safe localStorage wrapper for persistence
+ * Falls back to safe sessionStorage for persistence
  */
-
-import LocalStorageManager from '../utils/localStorageManager';
 
 const TOKEN_KEY = 'access_token';
 const TOKEN_EXPIRY_KEY = 'token_expiry';
@@ -21,7 +19,7 @@ let authChangeListeners = [];
 class TokenManager {
   /**
    * Store access token with expiry time
-   * Primary: in-memory | Backup: sessionStorage + localStorage
+   * Primary: in-memory | Backup: sessionStorage
    */
   static setAccessToken(token, expiresIn = 900) {
     if (!token || typeof token !== 'string') {
@@ -34,12 +32,12 @@ class TokenManager {
     memoryAccessToken = token;
     tokenExpiryTime = tokenExpiryMs;
     
-    // Try to persist using safe localStorage manager (handles errors gracefully)
+    // Try to persist using sessionStorage
     try {
-      LocalStorageManager.setItem(TOKEN_KEY, token);
-      LocalStorageManager.setItem(TOKEN_EXPIRY_KEY, String(tokenExpiryMs));
+      sessionStorage.setItem(TOKEN_KEY, token);
+      sessionStorage.setItem(TOKEN_EXPIRY_KEY, String(tokenExpiryMs));
     } catch (e) {
-      // LocalStorageManager handles errors internally
+      // sessionStorage might fail in some environments
     }
 
     // Notify listeners
@@ -56,10 +54,10 @@ class TokenManager {
       return memoryAccessToken;
     }
 
-    // Try to restore from safe localStorage manager
+    // Try to restore from sessionStorage
     try {
-      const token = LocalStorageManager.getItem(TOKEN_KEY);
-      const expiryStr = LocalStorageManager.getItem(TOKEN_EXPIRY_KEY);
+      const token = sessionStorage.getItem(TOKEN_KEY);
+      const expiryStr = sessionStorage.getItem(TOKEN_EXPIRY_KEY);
       
       if (token && expiryStr) {
         const expiryTime = parseInt(expiryStr, 10);
@@ -71,7 +69,7 @@ class TokenManager {
         }
       }
     } catch (e) {
-      // LocalStorageManager handles errors internally
+      // sessionStorage might fail
     }
 
     // No token found or expired
@@ -113,14 +111,6 @@ class TokenManager {
       // Ignore errors
     }
 
-    try {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(TOKEN_EXPIRY_KEY);
-      localStorage.removeItem(USER_DATA_KEY);
-    } catch (e) {
-      // Ignore errors
-    }
-
     this._notifyListeners();
   }
 
@@ -132,12 +122,6 @@ class TokenManager {
 
     try {
       sessionStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
-    } catch (e) {
-      // Ignore
-    }
-
-    try {
-      localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
     } catch (e) {
       // Ignore
     }
@@ -153,16 +137,6 @@ class TokenManager {
 
     try {
       const userData = sessionStorage.getItem(USER_DATA_KEY);
-      if (userData) {
-        memoryUserData = JSON.parse(userData);
-        return memoryUserData;
-      }
-    } catch (e) {
-      // Ignore
-    }
-
-    try {
-      const userData = localStorage.getItem(USER_DATA_KEY);
       if (userData) {
         memoryUserData = JSON.parse(userData);
         return memoryUserData;
@@ -264,29 +238,6 @@ class TokenManager {
       }
     } catch (e) {
       // Ignore
-    }
-
-    // Try localStorage if sessionStorage didn't work
-    if (!restored) {
-      try {
-        const token = localStorage.getItem(TOKEN_KEY);
-        const expiryStr = localStorage.getItem(TOKEN_EXPIRY_KEY);
-        const userDataStr = localStorage.getItem(USER_DATA_KEY);
-
-        if (token && expiryStr) {
-          const expiryTime = parseInt(expiryStr, 10);
-          if (!isNaN(expiryTime) && Date.now() < expiryTime) {
-            memoryAccessToken = token;
-            tokenExpiryTime = expiryTime;
-            if (userDataStr) {
-              memoryUserData = JSON.parse(userDataStr);
-            }
-            restored = true;
-          }
-        }
-      } catch (e) {
-        // Ignore
-      }
     }
 
     return restored;

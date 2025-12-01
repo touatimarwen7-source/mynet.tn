@@ -13,37 +13,16 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import institutionalTheme from '../theme/theme';
 
-export default function NotificationCenter() {
-  const [notifications, setNotifications] = useState([]);
-  const [loading, setLoading] = useState(false);
+export default function NotificationCenter({ notifications, loading, unreadCount, fetchNotifications }) {
   const [error, setError] = useState(null);
-  const [unreadCount, setUnreadCount] = useState(0);
-
-  useEffect(() => {
-    fetchNotifications();
-    const interval = setInterval(fetchNotifications, 30000); // Refresh every 30 seconds
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchNotifications = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get('/api/my-notifications');
-      setNotifications(response.data.notifications || []);
-      setUnreadCount(response.data.notifications?.filter(n => !n.read_at).length || 0);
-    } catch (err) {
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const markAsRead = async (notificationId) => {
     try {
       await axios.post(`/api/notifications/${notificationId}/read`);
-      fetchNotifications();
+      fetchNotifications(); // Re-fetch after marking as read
     } catch (err) {
     }
   };

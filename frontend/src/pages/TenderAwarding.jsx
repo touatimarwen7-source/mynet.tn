@@ -30,10 +30,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import WarningIcon from '@mui/icons-material/Warning';
-import { TableSkeleton } from '../components/SkeletonLoader';
-import { procurementAPI } from '../api';
-import { setPageTitle } from '../utils/pageTitle';
-import { getScoreTier, formatScore } from '../utils/evaluationCriteria';
+import { TableSkeleton } from '../components/SkeletonLoader'; // ✅ استيراد مكون الهيكل
+import { procurementAPI } from '../api'; // ✅ استيراد واجهة برمجة التطبيقات
+import { setPageTitle } from '../utils/pageTitle'; // ✅ استيراد دالة تحديث عنوان الصفحة
 
 export default function TenderAwarding() {
   const theme = institutionalTheme;
@@ -49,7 +48,7 @@ export default function TenderAwarding() {
   const [confirmDialog, setConfirmDialog] = useState(false);
 
   useEffect(() => {
-    setPageTitle('ترسية المناقصة - إعلان الفائز');
+    setPageTitle("Attribution de l'Appel d'Offres - Annonce du Gagnant");
     loadData();
   }, [tenderId]);
 
@@ -71,7 +70,7 @@ export default function TenderAwarding() {
         setWinner(winningOffer);
       }
     } catch (err) {
-      setError('خطأ في تحميل البيانات: ' + err.message);
+      setError('Erreur lors du chargement des données : ' + err.message);
     } finally {
       setLoading(false);
     }
@@ -79,7 +78,7 @@ export default function TenderAwarding() {
 
   const handleAwardTender = async () => {
     if (!winner) {
-      setError('يجب اختيار عرض الفائز');
+      setError("Veuillez sélectionner une offre gagnante.");
       return;
     }
 
@@ -96,9 +95,10 @@ export default function TenderAwarding() {
       await loadData();
       
       // عرض رسالة النجاح
-      Alert.success?.('✅ تم إعلان الفائز بنجاح!');
-    } catch (err) {
-      setError('خطأ في إعلان الفائز: ' + err.message);
+      // In a real app, a toast notification would be better.
+      alert('✅ Le gagnant a été annoncé avec succès !');
+    } catch (err) => {
+      setError("Erreur lors de l'annonce du gagnant : " + err.message);
     } finally {
       setSubmitting(false);
     }
@@ -128,17 +128,17 @@ export default function TenderAwarding() {
             onClick={() => navigate('/tenders')}
             sx={{ cursor: 'pointer', color: theme.palette.primary.main, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
           >
-            المناقصات
+            Appels d'offres
           </Link>
           <Link
             component="button"
             onClick={() => navigate(`/tender/${tenderId}`)}
             sx={{ cursor: 'pointer', color: theme.palette.primary.main, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
           >
-            المناقصة
+            Appel d'offres
           </Link>
           <Typography sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
-            إعلان الفائز
+            Annonce du Gagnant
           </Typography>
         </Breadcrumbs>
 
@@ -150,7 +150,7 @@ export default function TenderAwarding() {
               onClick={() => navigate(`/tender/${tenderId}`)}
               sx={{ color: theme.palette.primary.main, textTransform: 'none' }}
             >
-              العودة
+              Retour
             </Button>
           </Box>
           <Typography 
@@ -162,7 +162,7 @@ export default function TenderAwarding() {
               mb: '8px' 
             }}
           >
-            🏆 إعلان الفائز - ترسية المناقصة
+            🏆 Annonce du Gagnant - Attribution de l'Appel d'Offres
           </Typography>
           {tender && (
             <Box>
@@ -175,20 +175,6 @@ export default function TenderAwarding() {
               <Typography sx={{ fontSize: '14px', color: '#666666', mb: '8px' }}>
                 {tender.title}
               </Typography>
-              {tender.awardLevel && (
-                <Typography sx={{ fontSize: '12px', color: '#0056B3', fontWeight: 600 }}>
-                  🎯 مستوى الترسية: {
-                    tender.awardLevel === 'lot' ? 'بالـ Lot' : 
-                    tender.awardLevel === 'article' ? 'بالمادة' : 
-                    'عام'
-                  }
-                </Typography>
-              )}
-              {tender.lots && tender.lots.length > 0 && (
-                <Typography sx={{ fontSize: '12px', color: '#666666', mt: '4px' }}>
-                  📦 عدد الـ Lots: {tender.lots.length}
-                </Typography>
-              )}
             </Box>
           )}
         </Box>
@@ -212,27 +198,25 @@ export default function TenderAwarding() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', mb: '16px' }}>
                   <CheckCircleIcon sx={{ fontSize: 32, color: '#4CAF50' }} />
                   <Typography sx={{ fontSize: '20px', fontWeight: 600, color: '#2E7D32' }}>
-                    ✅ تم اختيار الفائز
+                    ✅ Le gagnant a été sélectionné
                   </Typography>
                 </Box>
 
                 <Paper sx={{ p: '16px', backgroundColor: '#fff', border: '1px solid #4CAF50' }}>
                   <Stack spacing={2}>
-                    {/* Supplier Info */}
                     <Box>
                       <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
-                        المورد الفائز
+                        Fournisseur Gagnant
                       </Typography>
                       <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3' }}>
                         {winner.supplier_name || 'N/A'}
                       </Typography>
                     </Box>
 
-                    {/* Price */}
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Box>
                         <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
-                          المبلغ الإجمالي
+                          Montant Total
                         </Typography>
                         <Typography sx={{ fontSize: '18px', fontWeight: 600, color: '#0056B3' }}>
                           {parseFloat(winner.total_amount || 0).toFixed(2)} {winner.currency || 'TND'}
@@ -240,7 +224,7 @@ export default function TenderAwarding() {
                       </Box>
                       <Box>
                         <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
-                          درجة التقييم
+                          Score d'Évaluation
                         </Typography>
                         <Chip 
                           label={`${winner.evaluation_score?.toFixed(1) || 0}/100`}
@@ -249,72 +233,6 @@ export default function TenderAwarding() {
                         />
                       </Box>
                     </Box>
-
-                    {/* Delivery & Payment */}
-                    <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                      <Box>
-                        <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
-                          مدة التسليم
-                        </Typography>
-                        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121' }}>
-                          {winner.delivery_time || 'N/A'}
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography sx={{ fontSize: '12px', color: '#666666', mb: '4px', fontWeight: 600 }}>
-                          شروط الدفع
-                        </Typography>
-                        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#212121' }}>
-                          {winner.payment_terms || 'N/A'}
-                        </Typography>
-                      </Box>
-                    </Box>
-
-                    {/* Documents */}
-                    {winner.documents && winner.documents.length > 0 && (
-                      <Box>
-                        <Typography sx={{ fontSize: '12px', color: '#666666', mb: '8px', fontWeight: 600 }}>
-                          📄 المستندات المرفقة
-                        </Typography>
-                        <Stack spacing={1}>
-                          {winner.documents.map((doc, idx) => (
-                            <Box key={idx} sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              <DocumentScannerIcon sx={{ fontSize: 18, color: '#0056B3' }} />
-                              <Typography sx={{ fontSize: '12px', color: '#0056B3' }}>
-                                {doc.name || `المستند ${idx + 1}`}
-                              </Typography>
-                            </Box>
-                          ))}
-                        </Stack>
-                      </Box>
-                    )}
-
-                    {/* Lots & Articles */}
-                    {tender?.lots && tender.lots.length > 0 && (
-                      <Box>
-                        <Typography sx={{ fontSize: '12px', color: '#666666', mb: '8px', fontWeight: 600 }}>
-                          📦 Lots و المواد
-                        </Typography>
-                        <Stack spacing={1}>
-                          {tender.lots.map((lot, idx) => (
-                            <Box key={idx} sx={{ p: '8px', backgroundColor: '#F5F5F5', borderRadius: '4px', borderLeft: '3px solid #0056B3' }}>
-                              <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#212121', mb: '4px' }}>
-                                Lot {lot.numero}: {lot.objet}
-                              </Typography>
-                              {lot.articles && lot.articles.length > 0 && (
-                                <Stack spacing={0.5}>
-                                  {lot.articles.map((article, aIdx) => (
-                                    <Typography key={aIdx} sx={{ fontSize: '11px', color: '#666666', ml: '8px' }}>
-                                      └─ {article.name}: {article.quantity} {article.unit}
-                                    </Typography>
-                                  ))}
-                                </Stack>
-                              )}
-                            </Box>
-                          ))}
-                        </Stack>
-                      </Box>
-                    )}
                   </Stack>
                 </Paper>
 
@@ -334,7 +252,7 @@ export default function TenderAwarding() {
                       '&:hover': { backgroundColor: '#388E3C' },
                     }}
                   >
-                    {submitting ? 'جاري الإعلان...' : '✅ تأكيد الإعلان عن الفائز'}
+                    {submitting ? 'Annonce en cours...' : '✅ Confirmer et Annoncer le Gagnant'}
                   </Button>
                   <Button
                     variant="outlined"
@@ -347,7 +265,7 @@ export default function TenderAwarding() {
                       fontWeight: 600,
                     }}
                   >
-                    اختيار آخر
+                    Changer de sélection
                   </Button>
                 </Stack>
               </CardContent>
@@ -358,51 +276,31 @@ export default function TenderAwarding() {
           <Card sx={{ border: '1px solid #E0E0E0' }}>
             <CardContent sx={{ padding: '24px' }}>
               <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#0056B3', mb: '20px' }}>
-                🎯 اختر العرض الفائز
+                🎯 Sélectionnez l'Offre Gagnante
               </Typography>
 
               {sortedOffers.length === 0 ? (
-                <Alert severity="info">لم يتم استقبال أي عروض لهذه المناقصة</Alert>
+                <Alert severity="info">Aucune offre n'a été reçue pour cet appel d'offres.</Alert>
               ) : (
                 <Box sx={{ overflowX: 'auto' }}>
                   <Table>
                     <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
                       <TableRow>
-                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, width: '30%' }}>
-                          المورد
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, width: '20%' }}>
-                          المبلغ
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, width: '15%' }}>
-                          التسليم
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, width: '15%' }}>
-                          الدرجة
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main, width: '20%' }}>
-                          الإجراء
-                        </TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Fournisseur</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Montant</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Livraison</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Score</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: theme.palette.primary.main }}>Action</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {sortedOffers.map((offer, idx) => (
-                        <TableRow 
-                          key={offer.id} 
-                          sx={{ 
-                            backgroundColor: idx % 2 === 0 ? '#fff' : '#F9F9F9',
-                            '&:hover': { backgroundColor: '#E3F2FD' }
-                          }}
-                        >
-                          <TableCell sx={{ fontSize: '13px', fontWeight: 600 }}>
-                            {offer.supplier_name || 'N/A'}
-                          </TableCell>
+                        <TableRow key={offer.id} sx={{ '&:hover': { backgroundColor: '#E3F2FD' } }}>
+                          <TableCell sx={{ fontSize: '13px', fontWeight: 600 }}>{offer.supplier_name || 'N/A'}</TableCell>
                           <TableCell sx={{ fontSize: '13px', fontWeight: 600, color: theme.palette.primary.main }}>
                             {parseFloat(offer.total_amount || 0).toFixed(2)} TND
                           </TableCell>
-                          <TableCell sx={{ fontSize: '13px' }}>
-                            {offer.delivery_time || 'N/A'}
-                          </TableCell>
+                          <TableCell sx={{ fontSize: '13px' }}>{offer.delivery_time || 'N/A'}</TableCell>
                           <TableCell sx={{ fontSize: '13px', fontWeight: 600 }}>
                             <Chip
                               label={`${offer.evaluation_score?.toFixed(1) || 0}/100`}
@@ -424,7 +322,7 @@ export default function TenderAwarding() {
                                 '&:hover': { backgroundColor: '#388E3C' },
                               }}
                             >
-                              اختر
+                              Sélectionner
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -436,72 +334,31 @@ export default function TenderAwarding() {
             </CardContent>
           </Card>
         )}
-
-        {/* Other Offers Summary */}
-        {offers.length > 1 && (
-          <Card sx={{ border: '1px solid #E0E0E0', mt: '24px' }}>
-            <CardContent sx={{ padding: '24px' }}>
-              <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#0056B3', mb: '16px' }}>
-                📋 ملخص بقية العروض
-              </Typography>
-              <Stack spacing={1}>
-                {sortedOffers.map((offer, idx) => (
-                  <Box
-                    key={offer.id}
-                    sx={{
-                      p: '12px',
-                      backgroundColor: winner?.id === offer.id ? '#E8F5E9' : '#F9F9F9',
-                      border: winner?.id === offer.id ? '2px solid #4CAF50' : '1px solid #E0E0E0',
-                      borderRadius: '4px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Box>
-                      <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#212121' }}>
-                        #{idx + 1} - {offer.supplier_name || 'N/A'}
-                      </Typography>
-                      <Typography sx={{ fontSize: '11px', color: '#666666' }}>
-                        {parseFloat(offer.total_amount || 0).toFixed(2)} TND | {offer.delivery_time || 'N/A'}
-                      </Typography>
-                    </Box>
-                    <Chip
-                      label={`${offer.evaluation_score?.toFixed(1) || 0}/100`}
-                      size="small"
-                      variant="outlined"
-                    />
-                  </Box>
-                ))}
-              </Stack>
-            </CardContent>
-          </Card>
-        )}
       </Container>
 
       {/* Confirmation Dialog */}
       <Dialog open={confirmDialog} onClose={() => setConfirmDialog(false)} maxWidth="sm" fullWidth>
         <DialogTitle sx={{ fontSize: '18px', fontWeight: 600, color: '#D32F2F', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <WarningIcon /> ⚠️ تأكيد الإعلان عن الفائز
+          <WarningIcon /> Confirmation de l'Annonce du Gagnant
         </DialogTitle>
         <DialogContent sx={{ pt: '16px' }}>
           <Alert severity="error" sx={{ mb: '16px' }}>
-            ⚠️ هذا الإجراء نهائي ولا يمكن التراجع عنه
+            ⚠️ Cette action est définitive et irréversible.
           </Alert>
           <Stack spacing={2}>
             <Typography sx={{ fontSize: '14px', color: '#212121' }}>
-              هل تريد إعلان <strong sx={{ color: '#0056B3' }}>{winner?.supplier_name}</strong> كفائز؟
+              Voulez-vous annoncer <strong style={{ color: '#0056B3' }}>{winner?.supplier_name}</strong> comme gagnant ?
             </Typography>
             <Paper sx={{ p: '12px', backgroundColor: '#E8F5E9', border: '1px solid #4CAF50' }}>
               <Stack spacing={1}>
                 <Typography sx={{ fontSize: '12px', color: '#2E7D32', fontWeight: 600 }}>
-                  💰 المبلغ: {parseFloat(winner?.total_amount || 0).toFixed(2)} TND
+                  💰 Montant : {parseFloat(winner?.total_amount || 0).toFixed(2)} TND
                 </Typography>
                 <Typography sx={{ fontSize: '12px', color: '#2E7D32' }}>
-                  🚚 التسليم: {winner?.delivery_time || 'N/A'}
+                  🚚 Livraison : {winner?.delivery_time || 'N/A'}
                 </Typography>
                 <Typography sx={{ fontSize: '12px', color: '#2E7D32' }}>
-                  ⭐ التقييم: {winner?.evaluation_score?.toFixed(1) || 0}/100
+                  ⭐ Évaluation : {winner?.evaluation_score?.toFixed(1) || 0}/100
                 </Typography>
               </Stack>
             </Paper>
@@ -513,7 +370,7 @@ export default function TenderAwarding() {
             disabled={submitting}
             sx={{ color: theme.palette.primary.main }}
           >
-            إلغاء
+            Annuler
           </Button>
           <Button
             variant="contained"
@@ -525,7 +382,7 @@ export default function TenderAwarding() {
               '&:disabled': { backgroundColor: '#BDBDBD' },
             }}
           >
-            {submitting ? '⏳ جاري...' : '✓ تأكيد الإعلان'}
+            {submitting ? 'En cours...' : '✓ Confirmer l'Annonce'}
           </Button>
         </DialogActions>
       </Dialog>

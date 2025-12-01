@@ -1,15 +1,12 @@
 require('dotenv').config();
 const http = require('http');
 const app = require('./app');
-const { initializeDb } = require('./config/db');
+const { initializeDb, getPool } = require('./config/db');
 const { initializeSchema } = require('./config/schema');
-const { getPool } = require('./config/db');
 const BackupScheduler = require('./services/backup/BackupScheduler');
 const { initializeWebSocket } = require('./config/websocket');
 const { errorTracker } = require('./services/ErrorTrackingService');
-const { initializeSentry, captureException } = require('./config/sentry');
-const performanceMonitoring = require('./utils/performanceMonitoring');
-const analyticsTracking = require('./utils/analyticsTracking');
+const { initializeSentry } = require('./config/sentry');
 const { logger } = require('./utils/logger');
 
 const PORT = process.env.PORT || 3000;

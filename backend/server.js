@@ -28,11 +28,31 @@ async function startServer() {
     console.log('MyNet.tn Backend Server Starting...');
     console.log('========================================');
 
+    // Register routes
+    app.use('/api/auth', authRoutes);
+    app.use('/api/procurement', procurementRoutes);
+    app.use('/api/admin', adminRoutes);
+    app.use('/api/super-admin', superAdminRoutes);
+    app.use('/api/search', searchRoutes);
+    app.use('/api/notifications', notificationRoutes);
+    app.use('/api/messages', messagesRoutes);
+    app.use('/api/reviews', reviewsRoutes);
+    app.use('/api/direct-supply', directSupplyRoutes);
+    app.use('/api/company-profile', companyProfileRoutes);
+    app.use('/api/procurement', clarificationRoutes);
+    app.use('/api/auth/password-reset', passwordResetRoutes);
+
     // Start server immediately without database
     const server = http.createServer(app);
     server.listen(PORT, HOST, () => {
       console.log(`✅ Server running on http://${HOST}:${PORT}`);
       console.log('✅ Using SimpleAuthService for authentication');
+      console.log('========================================');
+      console.log('Available endpoints:');
+      console.log('  - POST /api/auth/register');
+      console.log('  - POST /api/auth/login');
+      console.log('  - GET  /api/procurement/tenders');
+      console.log('========================================');
     });
 
     server.on('error', (error) => {

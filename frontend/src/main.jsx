@@ -9,7 +9,7 @@ import { AppProvider } from './contexts/AppContext';
 import { ToastProvider } from './contexts/ToastContext';
 
 import CSRFProtection from './utils/csrfProtection';
-import TokenManager from './services/tokenManager';
+import tokenManager from './services/tokenManager';
 import { initializeSentry } from './config/sentry';
 import analyticsTracking from './utils/analyticsTracking';
 
@@ -27,19 +27,19 @@ try {
   console.error('Failed to initialize CSRF protection:', error);
 }
 
-// ✅ Initialize token management on app load
+// ✅ Initialisation de la gestion des tokens au démarrage
 try {
   const token = localStorage.getItem('auth_token');
   const userData = localStorage.getItem('user_data');
 
   if (token && userData) {
-    TokenManager.manageTokens(token, null, JSON.parse(userData));
+    tokenManager.manageTokens(token, null, JSON.parse(userData));
   } else {
-    TokenManager.clearTokens();
+    tokenManager.clearTokens();
   }
 } catch (error) {
-  console.error('Failed to manage tokens:', error);
-  TokenManager.clearTokens();
+  console.error('Échec de la gestion des tokens:', error);
+  tokenManager.clearTokens();
 }
 
 // Initialize analytics

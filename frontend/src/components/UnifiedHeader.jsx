@@ -36,13 +36,33 @@ export default function UnifiedHeader() {
   const navigate = useNavigate();
   const theme = institutionalTheme;
 
+  // Initialize TokenManager
+  const tokenManager = new TokenManager();
+
   useEffect(() => {
     const checkAuth = () => {
-      const token = TokenManager.getAccessToken();
-      const userData = TokenManager.getUserFromToken();
-      setIsAuthenticated(!!token);
-      setUserRole(userData?.role || null);
-      setUserName(userData?.username || userData?.email || 'Utilisateur');
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        setIsAuthenticated(false);
+        setUserRole(null);
+        setUserName('Utilisateur');
+        return;
+      }
+
+      try {
+        const userData = tokenManager.getUserFromToken(token);
+        setIsAuthenticated(true);
+        setUserRole(userData?.role || null);
+        setUserName(userData?.username || userData?.email || 'Utilisateur');
+      } catch (error) {
+        console.error("Erreur lors de la vérification de l'authentification :", error);
+        // Handle token expiration or invalidity
+        setIsAuthenticated(false);
+        setUserRole(null);
+        setUserName('Utilisateur');
+        tokenManager.clearTokens();
+        window.dispatchEvent(new Event('authChanged'));
+      }
     };
 
     checkAuth();
@@ -77,7 +97,7 @@ export default function UnifiedHeader() {
   };
 
   const handleLogout = () => {
-    TokenManager.clearTokens();
+    tokenManager.clearTokens();
     window.dispatchEvent(new Event('authChanged'));
     navigate('/login');
     setAnchorEl(null);

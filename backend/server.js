@@ -103,6 +103,7 @@ process.on('uncaughtException', (error) => {
     severity: 'critical',
     context: 'uncaught_exception',
   });
+  process.exit(1); // Exit the process if an uncaught exception occurs
 });
 
 process.on('unhandledRejection', (reason, promise) => {
@@ -111,6 +112,8 @@ process.on('unhandledRejection', (reason, promise) => {
     severity: 'critical',
     context: 'unhandled_rejection',
   });
+  process.exit(1); // Exit the process if an unhandled rejection occurs
 });
 
+// 🚀 Start the server
 startServer();

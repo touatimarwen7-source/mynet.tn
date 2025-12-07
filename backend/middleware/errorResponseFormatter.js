@@ -27,4 +27,22 @@ const errorResponseFormatter = (err, req, res, next) => {
   res.status(errorCode).json(response);
 };
 
+/**
+ * Helper function for direct error responses
+ */
+const errorResponse = (res, message, statusCode = 500, errorCode = 'ERROR') => {
+  const response = {
+    success: false,
+    error: {
+      type: errorCode,
+      message: message,
+      code: statusCode,
+      timestamp: new Date().toISOString(),
+    },
+  };
+
+  return res.status(statusCode).json(response);
+};
+
 module.exports = errorResponseFormatter;
+module.exports.errorResponse = errorResponse;

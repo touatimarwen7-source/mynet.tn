@@ -114,22 +114,6 @@ export default function UserRoleManagement() {
     },
   ];
 
-  useEffect(() => {
-    let isMounted = true;
-    
-    const loadUsers = async () => {
-      if (isMounted) {
-        await fetchUsers();
-      }
-    };
-    
-    loadUsers();
-    
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
   const fetchUsers = async () => {
     try {
       setLoading(true);
@@ -146,9 +130,19 @@ export default function UserRoleManagement() {
   };
 
   useEffect(() => {
-    if (!loading) {
-      fetchUsers();
-    }
+    let isMounted = true;
+    
+    const loadUsers = async () => {
+      if (isMounted) {
+        await fetchUsers();
+      }
+    };
+    
+    loadUsers();
+    
+    return () => {
+      isMounted = false;
+    };
   }, [search, currentPage]);
 
   const filteredUsers = Array.isArray(users)

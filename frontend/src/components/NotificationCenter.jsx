@@ -51,7 +51,11 @@ const NotificationCenter = ({ userId }) => {
 
     const loadNotifications = async () => {
       if (isMounted && isAuthenticated) {
-        await fetchNotifications();
+        try {
+          await fetchNotifications();
+        } catch (error) {
+          console.error('Error loading notifications:', error);
+        }
       }
     };
 
@@ -70,7 +74,7 @@ const NotificationCenter = ({ userId }) => {
         clearInterval(interval);
       }
     };
-  }, [isAuthenticated]);
+  }, [isAuthenticated, fetchNotifications]);
 
 
   return (

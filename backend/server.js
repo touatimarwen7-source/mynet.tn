@@ -32,18 +32,32 @@ async function startServer() {
     logger.info('========================================');
 
     // Initialize monitoring and error tracking
-    initializeSentry(app);
-    logger.info('✅ Error tracking initialized');
+    try {
+      initializeSentry(app);
+      logger.info('✅ Error tracking initialized');
+    } catch (sentryError) {
+      logger.warn('⚠️ Error tracking initialization failed:', sentryError.message);
+    }
 
     const dbConnected = await initializeDb();
 
     if (dbConnected) {
-      const pool = getPool();
-      await initializeSchema(pool);
-      logger.info('✅ Database initialized successfully');
+      try {
+        const pool = getPool();
+        await initializeSchema(pool);
+        logger.info('✅ Database initialized successfully');
 
-      // 🔄 Initialize backup scheduler
-      BackupScheduler.start();
+        // 🔄 Initialize backup scheduler
+        try {
+          BackupScheduler.start();
+          logger.info('✅ Backup scheduler initialized');
+        } catch (backupError) {
+          logger.warn('⚠️ Backup scheduler initialization failed:', backupError.message);
+        }
+      } catch (schemaError) {
+        logger.error('❌ Schema initialization failed:', schemaError.message);
+        throw schemaError;
+      }
     } else {
       logger.warn('⚠️  Server starting without database connection');
     }

@@ -1,5 +1,5 @@
 import { THEME_COLORS } from './themeHelpers';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   AppBar,
@@ -21,7 +21,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutIcon from '@mui/icons-material/Logout';
-import TokenManager from '../services/tokenManager';
+import TokenManager from '../services/tokenManager'; // Assuming this is the correct import path
 import NotificationCenter from './NotificationCenter';
 import institutionalTheme from '../theme/theme';
 
@@ -36,19 +36,23 @@ export default function UnifiedHeader() {
   const navigate = useNavigate();
   const theme = institutionalTheme;
 
+  // Create an instance of TokenManager or use it directly if it's a singleton
+  // Assuming TokenManager is exported as a default or named export
+  const tokenManager = TokenManager;
+
   useEffect(() => {
-    const checkAuth = () => {
-      const token = TokenManager.getAccessToken();
-      const userData = TokenManager.getUserFromToken();
+    const checkAuth = useCallback(() => {
+      const token = tokenManager.getAccessToken(); // Corrected method call
+      const userData = tokenManager.getUserFromToken(); // Corrected method call
       setIsAuthenticated(!!token);
       setUserRole(userData?.role || null);
       setUserName(userData?.username || userData?.email || 'Utilisateur');
-    };
+    }, []); // Removed dependencies as it's set once and updated via event listener
 
     checkAuth();
     window.addEventListener('authChanged', checkAuth);
     return () => window.removeEventListener('authChanged', checkAuth);
-  }, []);
+  }, [tokenManager]); // Added tokenManager to dependency array if it can change
 
   const isPublicPage = ['/', '/about', '/features', '/pricing', '/contact'].includes(
     location.pathname
@@ -76,12 +80,12 @@ export default function UnifiedHeader() {
     }
   };
 
-  const handleLogout = () => {
-    TokenManager.clearTokens();
-    window.dispatchEvent(new Event('authChanged'));
+  const handleLogout = useCallback(() => { // Made useCallback for consistency
+    tokenManager.clearTokens(); // Corrected method call
+    window.dispatchEvent(new Event('authChanged')); // Re-dispatch event for global updates
     navigate('/login');
     setAnchorEl(null);
-  };
+  }, [navigate, tokenManager]); // Added dependencies
 
   const handleProfileMenuOpen = (e) => {
     setAnchorEl(e.currentTarget);
@@ -226,7 +230,7 @@ export default function UnifiedHeader() {
                     {userName}
                   </Typography>
                   <Typography variant="caption" sx={{ color: THEME_COLORS.textSecondary }}>
-                    {userRole === 'buyer' ? 'Acheteur' : 'Fournisseur'}
+                    {userRole === 'buyer' ? 'Acheteur' : userRole === 'supplier' ? 'Fournisseur' : ''}
                   </Typography>
                 </Box>
               </Box>

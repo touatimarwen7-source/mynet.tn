@@ -1,79 +1,107 @@
+
 /**
- * Token Manager - إدارة JWT tokens بشكل آمن
+ * Token Manager Service
+ * Handles JWT token storage and retrieval
  */
 
 const TOKEN_KEY = 'auth_token';
-const TOKEN_EXPIRY_KEY = 'token_expiry';
+const REFRESH_TOKEN_KEY = 'refresh_token';
+const USER_KEY = 'user_data';
 
-export const tokenManager = {
+class TokenManager {
   /**
-   * حفظ التوكن
+   * Store access token
    */
   setToken(token) {
-    if (!token) return;
-
-    try {
-      localStorage.setItem(TOKEN_KEY, token);
-
-      // حساب وقت انتهاء الصلاحية (24 ساعة)
-      const expiryTime = Date.now() + (24 * 60 * 60 * 1000);
-      localStorage.setItem(TOKEN_EXPIRY_KEY, expiryTime.toString());
-    } catch (error) {
-      console.error('Error saving token:', error);
-    }
-  },
-
-  /**
-   * الحصول على التوكن
-   */
-  getToken() {
-    try {
-      const token = localStorage.getItem(TOKEN_KEY);
-      const expiry = localStorage.getItem(TOKEN_EXPIRY_KEY);
-
-      // التحقق من انتهاء الصلاحية
-      if (expiry && Date.now() > parseInt(expiry)) {
-        this.clearToken();
-        return null;
-      }
-
-      return token;
-    } catch (error) {
-      console.error('Error getting token:', error);
-      return null;
-    }
-  },
-
-  /**
-   * حذف التوكن
-   */
-  clearToken() {
-    try {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(TOKEN_EXPIRY_KEY);
-    } catch (error) {
-      console.error('Error clearing token:', error);
-    }
-  },
-
-  /**
-   * التحقق من وجود توكن صالح
-   */
-  hasValidToken() {
-    const token = this.getToken();
-    return !!token;
-  },
-
-  /**
-   * تحديث وقت انتهاء الصلاحية
-   */
-  refreshTokenExpiry() {
-    const token = this.getToken();
     if (token) {
-      const expiryTime = Date.now() + (24 * 60 * 60 * 1000);
-      localStorage.setItem(TOKEN_EXPIRY_KEY, expiryTime.toString());
+      localStorage.setItem(TOKEN_KEY, token);
     }
   }
-};
 
+  /**
+   * Get access token
+   */
+  getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+  }
+
+  /**
+   * Alias for getToken (for backward compatibility)
+   */
+  getAccessToken() {
+    return this.getToken();
+  }
+
+  /**
+   * Store refresh token
+   */
+  setRefreshToken(token) {
+    if (token) {
+      localStorage.setItem(REFRESH_TOKEN_KEY, token);
+    }
+  }
+
+  /**
+   * Get refresh token
+   */
+  getRefreshToken() {
+    return localStorage.getItem(REFRESH_TOKEN_KEY);
+  }
+
+  /**
+   * Store user data
+   */
+  setUser(userData) {
+    if (userData) {
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
+    }
+  }
+
+  /**
+   * Get user data
+   */
+  getUser() {
+    const userData = localStorage.getItem(USER_KEY);
+    return userData ? JSON.parse(userData) : null;
+  }
+
+  /**
+   * Clear all tokens and user data
+   */
+  clearToken() {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+  }
+
+  /**
+   * Check if user is authenticated
+   */
+  isAuthenticated() {
+    return !!this.getToken();
+  }
+
+  /**
+   * Manage tokens (set or clear)
+   */
+  manageTokens(token = null, refreshToken = null, userData = null) {
+    if (token) {
+      this.setToken(token);
+      if (refreshToken) {
+        this.setRefreshToken(refreshToken);
+      }
+      if (userData) {
+        this.setUser(userData);
+      }
+    } else {
+      this.clearToken();
+    }
+  }
+}
+
+// Create singleton instance
+const tokenManager = new TokenManager();
+
+// Export both the instance and the class
+export { tokenManager, TokenManager };
 export default tokenManager;

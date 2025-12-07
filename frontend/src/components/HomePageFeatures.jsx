@@ -65,16 +65,19 @@ export default function HomePageFeatures() {
           <Grid size={{ xs: 12, md: 4 }} key={idx}>
             <Card
               sx={{
-                backgroundColor: THEME_COLORS.bgPaper,
+                backgroundColor: '#FFFFFF',
                 border: '1px solid #e0e0e0',
-                borderRadius: '8px',
-                padding: '32px 24px',
+                borderRadius: '12px',
+                padding: '40px 32px',
                 textAlign: 'center',
-                transition: 'all 200ms ease-in-out',
+                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
                 '&:hover': {
                   borderColor: theme.palette.primary.main,
-                  boxShadow: 'none',
-                  transform: 'translateY(-4px)',
+                  boxShadow: '0 8px 24px rgba(0, 86, 179, 0.12)',
+                  transform: 'translateY(-8px)',
                 },
               }}
             >

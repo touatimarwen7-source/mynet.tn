@@ -1,9 +1,11 @@
-import { THEME_COLORS } from './themeHelpers';
-import { Grid, Paper, Typography } from '@mui/material';
-import institutionalTheme from '../theme/theme';
+import { Grid } from '@mui/material';
+import PremiumStatsCard from './PremiumStatsCard';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import BusinessIcon from '@mui/icons-material/Business';
+import DescriptionIcon from '@mui/icons-material/Description';
+import CloudDoneIcon from '@mui/icons-material/CloudDone';
 
 export default function HomePageStats() {
-  const theme = institutionalTheme;
   const stats = [
     {
       number: '250M+',
@@ -27,43 +29,21 @@ export default function HomePageStats() {
     },
   ];
 
+  const icons = [AttachMoneyIcon, BusinessIcon, DescriptionIcon, CloudDoneIcon];
+  const colors = ['primary', 'success', 'warning', 'info'];
+
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={3}>
       {stats.map((stat, idx) => (
         <Grid size={{ xs: 12, sm: 6, md: 3 }} key={idx}>
-          <Paper
-            sx={{
-              padding: '32px 24px',
-              textAlign: 'center',
-              backgroundColor: 'THEME_COLORS.bgDefault',
-              border: '1px solid #e0e0e0',
-              borderRadius: '8px',
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: '32px',
-                fontWeight: 600,
-                color: theme.palette.primary.main,
-                marginBottom: '8px',
-              }}
-            >
-              {stat.number}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '14px',
-                fontWeight: 600,
-                color: theme.palette.text.primary,
-                marginBottom: '4px',
-              }}
-            >
-              {stat.label}
-            </Typography>
-            <Typography sx={{ fontSize: '12px', color: THEME_COLORS.textSecondary }}>
-              {stat.description}
-            </Typography>
-          </Paper>
+          <PremiumStatsCard
+            number={stat.number}
+            label={stat.label}
+            description={stat.description}
+            icon={icons[idx]}
+            color={colors[idx]}
+            trend={idx === 0 ? '+12% ce mois' : undefined}
+          />
         </Grid>
       ))}
     </Grid>

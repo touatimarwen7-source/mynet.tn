@@ -33,9 +33,9 @@ const institutionalTheme = createTheme({
     },
     // Gris Secondaire - Accentuation
     secondary: {
-      main: '#616161',
-      light: '#9e9e9e',
-      dark: '#424242',
+      main: '#546e7a',
+      light: '#78909c',
+      dark: '#37474f',
       contrastText: '#FFFFFF',
     },
     // Succès - Vert Professionnel

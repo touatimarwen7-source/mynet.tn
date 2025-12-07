@@ -80,11 +80,16 @@ export default function HomePageRoleCards({ onRoleClick }) {
               sx={{
                 height: '100%',
                 border: selectedRole === role.id ? '2px solid #0056B3' : '1px solid #e0e0e0',
-                borderRadius: '8px',
+                borderRadius: '12px',
                 boxShadow: 'none',
-                transition: 'all 300ms ease-in-out',
+                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer',
-                '&:hover': { borderColor: theme.palette.primary.main, boxShadow: 'none' },
+                backgroundColor: selectedRole === role.id ? '#f0f7ff' : '#FFFFFF',
+                '&:hover': { 
+                  borderColor: theme.palette.primary.main, 
+                  boxShadow: '0 4px 16px rgba(0, 86, 179, 0.1)',
+                  transform: 'translateY(-4px)',
+                },
               }}
               onClick={() => setSelectedRole(role.id)}
             >

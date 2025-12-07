@@ -11,9 +11,20 @@ export default function HomePageCTA() {
     <Box
       sx={{
         backgroundColor: theme.palette.primary.main,
-        color: 'THEME_COLORS.bgPaper',
-        paddingY: '80px',
-        backgroundImage: 'linear-gradient(135deg, #0056B3 0%, THEME_COLORS.primaryDark 100%)',
+        color: '#FFFFFF',
+        paddingY: '100px',
+        backgroundImage: 'linear-gradient(135deg, #0056B3 0%, #003d7a 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+        },
       }}
     >
       <Container maxWidth="lg">

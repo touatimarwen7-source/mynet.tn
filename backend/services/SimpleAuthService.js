@@ -37,42 +37,38 @@ class SimpleAuthService {
    * @throws {Error} When credentials are invalid
    */
   async authenticate(email, password) {
-    const users = this.loadUsers();
-    const user = users.find((u) => u.email === email);
+    try {
+      console.log('🔐 Authentication attempt:', { email, password });
 
-    if (!user) {
-      throw new Error('Invalid credentials');
+      // Check if credentials match the simple map
+      const expectedPassword = this.credentialsMap[email];
+      console.log('Expected password:', expectedPassword);
+
+      if (!expectedPassword || expectedPassword !== password) {
+        console.log('❌ Password mismatch');
+        return null;
+      }
+
+      // Load users from file
+      const users = await this.loadUsers();
+      const user = users.find((u) => u.email === email);
+
+      if (!user) {
+        console.log('❌ User not found');
+        return null;
+      }
+
+      console.log('✅ Authentication successful');
+      return {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        full_name: user.full_name,
+      };
+    } catch (error) {
+      console.error('❌ Authentication error:', error);
+      return null;
     }
-
-    // Simple password verification (development only)
-    const correctPassword = this.credentialsMap[email];
-    if (password !== correctPassword) {
-      throw new Error('Invalid credentials');
-    }
-
-    const jwtSecret = process.env.JWT_SECRET;
-    const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
-
-    if (!jwtSecret || !jwtRefreshSecret) {
-      throw new Error(
-        'FATAL_ERROR: JWT_SECRET and JWT_REFRESH_SECRET environment variables must be set.'
-      );
-    }
-
-    const accessToken = jwt.sign(
-      { userId: user.id, username: user.username, email: user.email, role: user.role },
-      jwtSecret,
-      { expiresIn: '1h' }
-    );
-
-    const refreshToken = jwt.sign({ userId: user.id }, jwtRefreshSecret, { expiresIn: '7d' });
-
-    const { password_hash, ...userWithoutPassword } = user;
-    return {
-      user: userWithoutPassword,
-      accessToken,
-      refreshToken,
-    };
   }
 
   /**

@@ -1,8 +1,16 @@
 import React from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { THEME_COLORS } from './themeHelpers';
+import institutionalTheme from '../theme/theme';
+
+const THEME_COLORS = {
+  primary: institutionalTheme.palette.primary.main,
+  primaryDark: institutionalTheme.palette.primary.dark,
+  error: institutionalTheme.palette.error.main,
+  textPrimary: institutionalTheme.palette.text.primary,
+  textSecondary: institutionalTheme.palette.text.secondary,
+  bgPaper: institutionalTheme.palette.background.paper,
+};
 
 /**
  * Error Boundary Component

@@ -1226,3 +1226,4 @@ const institutionalTheme = createTheme({
 });
 
 export default institutionalTheme;
+export { institutionalTheme };

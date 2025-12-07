@@ -1,9 +1,14 @@
-import { THEME_COLORS } from './themeHelpers';
 import React from 'react';
 import { Box, Typography, Button, Alert } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import WarningIcon from '@mui/icons-material/Warning';
 import institutionalTheme from '../theme/theme';
+
+const THEME_COLORS = {
+  warning: institutionalTheme.palette.warning.main,
+  textSecondary: institutionalTheme.palette.text.secondary,
+  primaryDark: institutionalTheme.palette.primary.dark,
+};
 
 /**
  * Error Fallback Component

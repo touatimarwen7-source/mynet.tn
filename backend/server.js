@@ -43,8 +43,8 @@ async function startServer() {
     app.use('/api/auth/password-reset', passwordResetRoutes);
 
     // Start server immediately without database
-    const server = http.createServer(app);
-    server.listen(PORT, HOST, () => {
+    const httpServer = http.createServer(app);
+    httpServer.listen(PORT, HOST, () => {
       console.log(`✅ Server running on http://${HOST}:${PORT}`);
       console.log('✅ Using SimpleAuthService for authentication');
       console.log('========================================');
@@ -55,9 +55,14 @@ async function startServer() {
       console.log('========================================');
     });
 
-    server.on('error', (error) => {
-      console.error('Server error:', error);
-      process.exit(1);
+    httpServer.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${PORT} is already in use`);
+        process.exit(1);
+      } else {
+        console.error('❌ Server error:', error);
+        process.exit(1);
+      }
     });
 
     return;

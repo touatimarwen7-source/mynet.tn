@@ -43,7 +43,7 @@ export const errorHandler = {
       switch (status) {
         case 400:
           return {
-            title: 'Erreur de données',
+            title: 'Requête invalide',
             message: data?.message || 'Veuillez vérifier les données saisies',
             code: ERROR_CODES.VALIDATION_ERROR
           };
@@ -51,14 +51,14 @@ export const errorHandler = {
         case 401:
           return {
             title: 'Non autorisé',
-            message: 'Veuillez vous reconnecter',
+            message: 'Session expirée. Veuillez vous reconnecter.',
             code: ERROR_CODES.UNAUTHORIZED
           };
 
         case 403:
           return {
             title: 'Interdit',
-            message: 'Vous n\'avez pas les permissions pour accéder à cette ressource',
+            message: 'Accès refusé. Vous n\'avez pas les permissions nécessaires.',
             code: ERROR_CODES.FORBIDDEN
           };
 
@@ -79,7 +79,7 @@ export const errorHandler = {
         case 429:
           return {
             title: 'Trop de requêtes',
-            message: 'Vous avez dépassé la limite de requêtes autoriséesبات. يرجى المحاولة لاحقاً',
+            message: 'Vous avez dépassé la limite de requêtes autorisées. Veuillez réessayer plus tard.',
             code: ERROR_CODES.RATE_LIMIT
           };
 
@@ -87,15 +87,15 @@ export const errorHandler = {
         case 502:
         case 503:
           return {
-            title: 'خطأ في الخادم',
-            message: 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً',
+            title: 'Erreur serveur',
+            message: 'Erreur serveur. Veuillez réessayer plus tard.',
             code: ERROR_CODES.SERVER_ERROR
           };
 
         default:
           return {
-            title: 'خطأ',
-            message: data?.message || 'حدث خطأ غير متوقع',
+            title: 'Erreur inconnue',
+            message: data?.message || 'Une erreur s\'est produite',
             code: ERROR_CODES.UNKNOWN_ERROR
           };
       }
@@ -104,7 +104,7 @@ export const errorHandler = {
     // خطأ في الطلب
     if (error.request) {
       return {
-        title: 'خطأ في الاتصال',
+        title: 'Erreur de connexion',
         message: 'تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت',
         code: ERROR_CODES.NETWORK_ERROR
       };
@@ -112,7 +112,7 @@ export const errorHandler = {
 
     // خطأ آخر
     return {
-      title: 'خطأ',
+      title: 'Erreur',
       message: error.message || 'حدث خطأ غير متوقع',
       code: ERROR_CODES.UNKNOWN_ERROR
     };

@@ -24,7 +24,7 @@ try {
 try {
   CSRFProtection.initialize();
 } catch (error) {
-  console.error('Failed to initialize CSRF protection:', error);
+  console.error('Échec de l\'initialisation de la protection CSRF:', error);
 }
 
 // ✅ Initialisation de la gestion des tokens au démarrage

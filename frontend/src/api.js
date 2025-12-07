@@ -98,6 +98,8 @@ const searchAPI = {
   advancedSearch: (criteria) => apiClient.post('/search/advanced', criteria),
 };
 
+// Export all APIs as named exports
 export { authAPI, procurementAPI, adminAPI, notificationAPI, searchAPI };
 
+// Export axios instance as default
 export default apiClient;

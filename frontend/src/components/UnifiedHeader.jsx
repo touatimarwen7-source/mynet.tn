@@ -50,18 +50,15 @@ export default function UnifiedHeader() {
       }
 
       try {
-        const userData = tokenManager.getUserFromToken(token);
+        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
         setIsAuthenticated(true);
         setUserRole(userData?.role || null);
         setUserName(userData?.username || userData?.email || 'Utilisateur');
       } catch (error) {
-        console.error("Erreur lors de la vérification de l'authentification :", error);
-        // Handle token expiration or invalidity
+        console.error("Erreur lors de la vérification de l'authentification:", error);
         setIsAuthenticated(false);
         setUserRole(null);
         setUserName('Utilisateur');
-        tokenManager.clearTokens();
-        window.dispatchEvent(new Event('authChanged'));
       }
     };
 
@@ -97,7 +94,8 @@ export default function UnifiedHeader() {
   };
 
   const handleLogout = () => {
-    tokenManager.clearTokens();
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_data');
     window.dispatchEvent(new Event('authChanged'));
     navigate('/login');
     setAnchorEl(null);

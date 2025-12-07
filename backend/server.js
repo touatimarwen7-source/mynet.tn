@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const http = require('http');
 const app = require('./app');
@@ -20,7 +21,6 @@ const directSupplyRoutes = require('./routes/directSupplyRoutes');
 const companyProfileRoutes = require('./routes/companyProfileRoutes');
 const clarificationRoutes = require('./routes/clarificationRoutes');
 const passwordResetRoutes = require('./routes/passwordResetRoutes');
-
 
 async function startServer() {
   try {
@@ -53,6 +53,11 @@ async function startServer() {
       console.log('  - POST /api/auth/login');
       console.log('  - GET  /api/procurement/tenders');
       console.log('========================================');
+      console.log('📧 Test Accounts:');
+      console.log('  Buyer: buyer@mynet.tn / buyer123');
+      console.log('  Supplier: supplier@mynet.tn / supplier123');
+      console.log('  Admin: admin@mynet.tn / admin123');
+      console.log('========================================');
     });
 
     httpServer.on('error', (error) => {
@@ -66,6 +71,7 @@ async function startServer() {
     });
   } catch (error) {
     logger.error('❌ Failed to start server:', { message: error.message });
+    console.error(error);
     process.exit(1);
   }
 }
@@ -73,11 +79,13 @@ async function startServer() {
 // Global error handlers
 process.on('uncaughtException', (error) => {
   logger.error('💥 Uncaught Exception:', { error: error.message });
+  console.error(error);
   process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
   logger.error('💥 Unhandled Rejection:', { reason: String(reason) });
+  console.error(reason);
   process.exit(1);
 });
 

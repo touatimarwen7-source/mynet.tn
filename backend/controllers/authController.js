@@ -101,22 +101,28 @@ class AuthController {
    */
   async login(req, res) {
     try {
+      console.log('🔐 Login attempt:', { email: req.body.email });
       const { email, password } = req.body;
 
       if (!email || !password) {
+        console.log('❌ Missing credentials');
         return res.status(400).json({
           error: 'Email and password are required',
         });
       }
 
       // Use SimpleAuthService for authentication
+      console.log('🔍 Authenticating user...');
       const user = await SimpleAuthService.authenticate(email, password);
 
       if (!user) {
+        console.log('❌ Authentication failed for:', email);
         return res.status(401).json({
           error: 'Invalid email or password',
         });
       }
+
+      console.log('✅ User authenticated:', user.email);
 
       // Generate tokens
       const accessToken = KeyManagementService.generateAccessToken({
@@ -129,6 +135,8 @@ class AuthController {
         userId: user.id,
       });
 
+      console.log('✅ Tokens generated successfully');
+
       res.status(200).json({
         success: true,
         message: 'Login successful',
@@ -140,9 +148,10 @@ class AuthController {
         data: user,
       });
     } catch (error) {
-      console.error('Login error:', error);
-      res.status(401).json({
-        error: 'Authentication failed',
+      console.error('❌ Login error:', error.message);
+      console.error('Stack:', error.stack);
+      res.status(500).json({
+        error: 'Authentication failed: ' + error.message,
       });
     }
   }

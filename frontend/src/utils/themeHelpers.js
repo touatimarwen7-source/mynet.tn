@@ -26,23 +26,23 @@ export const THEME_COLORS = {
 
 export const colors = {
   // Primary & Secondary
-  primary: theme.palette.primary.main, // #0056B3
-  secondary: theme.palette.secondary.main,
+  primary: institutionalTheme.palette.primary.main,
+  secondary: institutionalTheme.palette.secondary.main,
 
   // Neutrals
-  background: theme.palette.background.default, // #F9F9F9
-  text: theme.palette.text.primary, // #212121
-  textSecondary: theme.palette.text.secondary, // #666666
-  textDisabled: theme.palette.text.disabled,
+  background: institutionalTheme.palette.background.default,
+  text: institutionalTheme.palette.text.primary,
+  textSecondary: institutionalTheme.palette.text.secondary,
+  textDisabled: institutionalTheme.palette.text.disabled,
 
   // Variants
-  success: theme.palette.success.main,
-  warning: theme.palette.warning.main,
-  error: theme.palette.error.main,
-  info: theme.palette.info.main,
+  success: institutionalTheme.palette.success.main,
+  warning: institutionalTheme.palette.warning.main,
+  error: institutionalTheme.palette.error.main,
+  info: institutionalTheme.palette.info.main,
 
   // Borders & Dividers
-  border: theme.palette.divider, // #E0E0E0
+  border: institutionalTheme.palette.divider,
   border_light: '#f0f0f0',
   border_dark: '#999999',
 
@@ -57,12 +57,6 @@ export const colors = {
   gray700: '#616161',
   gray800: '#424242',
   gray900: '#212121',
-
-  // Status
-  success_light: '#C8E6C9',
-  error_light: '#FFCDD2',
-  warning_light: '#FFE0B2',
-  info_light: '#BBDEFB',
 };
 
 /**
@@ -104,4 +98,4 @@ export const sxPatterns = {
   },
 };
 
-export default colors;
+export default institutionalTheme;

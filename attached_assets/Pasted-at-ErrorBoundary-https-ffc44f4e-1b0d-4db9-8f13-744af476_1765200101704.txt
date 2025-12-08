@@ -1,0 +1,28 @@
+at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+componentDidCatch @ ErrorBoundary.jsx:41Understand this error
+ErrorBoundary.jsx:42 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+componentDidCatch @ ErrorBoundary.jsx:42Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.
+ping @ client:736Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.
+ping @ client:736Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.
+ping @ client:736Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.
+ping @ client:736
+waitForSuccessfulPing @ client:755Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.
+ping @ client:736
+waitForSuccessfulPing @ client:755Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.
+ping @ client:736
+waitForSuccessfulPing @ client:755Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.
+ping @ client:736
+waitForSuccessfulPing @ client:755Understand this error
+client:736 Fetch API cannot load https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/. Refused to connect because it violates the document's Content Security Policy.

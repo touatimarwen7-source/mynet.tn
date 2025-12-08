@@ -11,7 +11,7 @@ const { validatePagination } = require('../middleware/paginationValidator');
 
 // Toutes les routes d'administration sont protégées
 router.use(authMiddleware.verifyToken);
-router.use(authMiddleware.checkRole(['super_admin', 'admin']));
+router.use(adminMiddleware.isAdmin);
 
 // ===== Tableau de bord =====
 router.get('/health', AdminController.getHealthDashboard.bind(AdminController));

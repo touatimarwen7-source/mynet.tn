@@ -81,6 +81,7 @@ const swaggerSpec = require('./config/swagger');
 const { ErrorResponseFormatter } = require('./utils/errorHandler');
 const ServiceValidator = require('./utils/serviceValidator');
 const DatabaseErrorHandler = require('./utils/databaseErrorHandler');
+const cors = require('cors');
 
 const app = express();
 
@@ -126,7 +127,29 @@ app.set('trust proxy', 1);
 // ISSUE FIX #6: CORS & CSRF Protection (upgraded with enhanced security)
 const rateLimit = require('express-rate-limit');
 
-app.use(corsMiddleware);
+// CORS configuration - Allow all origins in development
+const allowedOrigins = [
+  'http://localhost:5000',
+  'http://0.0.0.0:5000',
+  process.env.FRONTEND_URL,
+];
+
+// Add Replit domains dynamically
+if (process.env.REPL_SLUG) {
+  allowedOrigins.push(/\.replit\.dev$/);
+}
+
+app.use(
+  cors({
+    origin: process.env.NODE_ENV === 'development' 
+      ? true // Allow all origins in development
+      : allowedOrigins,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  })
+);
+
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 

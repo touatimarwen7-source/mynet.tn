@@ -22,9 +22,30 @@ import TokenManager from './tokenManager';
 import CSRFProtection from '../utils/csrfProtection';
 import { API_CONFIG, shouldCache, getCacheDuration, isPublicEndpoint } from '../config/apiConfig';
 
-const baseURL = import.meta.env.VITE_API_URL || '/api';
+// Get current host from window location
+const getCurrentHost = () => {
+  if (typeof window === 'undefined') return 'http://0.0.0.0:3000';
+
+  const { protocol, hostname } = window.location;
+  // Force HTTP for local development (not HTTPS)
+  const isReplit = hostname.includes('replit.dev');
+
+  if (isReplit) {
+    // Use HTTP with port 3000 for Replit backend
+    return `http://${hostname.replace(':5000', '')}:3000`;
+  }
+
+  return import.meta.env.DEV
+    ? 'http://0.0.0.0:3000'
+    : `${protocol}//${hostname}:3000`;
+};
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  `${getCurrentHost()}/api`;
+
 const axiosInstance = axios.create({
-  baseURL: baseURL.replace(/\/api\/api/, '/api'), // Éviter double /api/
+  baseURL: API_BASE_URL.replace(/\/api\/api/, '/api'), // Éviter double /api/
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',

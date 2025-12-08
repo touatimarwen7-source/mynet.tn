@@ -1,0 +1,50 @@
+🔐 Attempting login for: buyer@mynet.tn
+axiosConfig.js:132 🔐 Login Request: {url: '/auth/login', method: 'post', hasData: true}
+Login.jsx:89 ❌ Login error: AxiosError {message: 'Network Error', name: 'AxiosError', code: 'ERR_NETWORK', config: {…}, request: XMLHttpRequest, …}
+(anonymous) @ Login.jsx:89
+await in (anonymous)
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:115
+callCallback2 @ chunk-WRD5HZVH.js?v=00805cc9:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=00805cc9:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=00805cc9:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=00805cc9:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=00805cc9:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=00805cc9:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=00805cc9:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=00805cc9:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=00805cc9:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=00805cc9:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=00805cc9:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=00805cc9:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=00805cc9:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=00805cc9:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=00805cc9:5449Understand this error
+authApi.js:9  POST http://localhost:5000/api/auth/login net::ERR_CONNECTION_REFUSED
+dispatchXhrRequest @ axios.js?v=00805cc9:1696
+xhr @ axios.js?v=00805cc9:1573
+dispatchRequest @ axios.js?v=00805cc9:2107
+Promise.then
+_request @ axios.js?v=00805cc9:2310
+request @ axios.js?v=00805cc9:2219
+httpMethod @ axios.js?v=00805cc9:2356
+wrap @ axios.js?v=00805cc9:8
+login @ authApi.js:9
+(anonymous) @ Login.jsx:35
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:115
+callCallback2 @ chunk-WRD5HZVH.js?v=00805cc9:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=00805cc9:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=00805cc9:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=00805cc9:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=00805cc9:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=00805cc9:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=00805cc9:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=00805cc9:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=00805cc9:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=00805cc9:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=00805cc9:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=00805cc9:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=00805cc9:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=00805cc9:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=00805cc9:5449Understand this error

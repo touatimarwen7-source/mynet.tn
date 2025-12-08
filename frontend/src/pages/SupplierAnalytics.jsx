@@ -36,9 +36,9 @@ export default function SupplierAnalytics() {
     try {
       setLoading(true);
       const [analyticsRes, trendsRes, ordersRes] = await Promise.all([
-        procurementAPI.getSupplierAnalytics(),
-        procurementAPI.getSupplierTrends('6 months'),
-        procurementAPI.getSupplierRecentOrders(5)
+        procurementAPI.supplier.getAnalytics(),
+        procurementAPI.supplier.getTrends('6 months'),
+        procurementAPI.supplier.getRecentOrders(5)
       ]);
       
       const analyticsData = analyticsRes.data?.analytics || {};

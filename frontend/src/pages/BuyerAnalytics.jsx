@@ -35,7 +35,7 @@ export default function BuyerAnalytics() {
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
-      const response = await procurementAPI.getBuyerAnalytics();
+      const response = await procurementAPI.buyer.getAnalytics();
       const analytics = response.data.analytics || {};
 
       const completedCount = (analytics.closedTenders || 0) + (analytics.awardedTenders || 0);

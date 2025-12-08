@@ -50,7 +50,7 @@ export default function SupplierDashboard() {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-        const { data } = await procurementAPI.getSupplierDashboardStats();
+        const { data } = await procurementAPI.supplier.getDashboardStats();
         setDashboardStats(data);
       } catch (error) {
         console.error('Erreur lors du chargement des statistiques:', error);
@@ -112,7 +112,7 @@ export default function SupplierDashboard() {
         }
 
         // Charger tendances mensuelles
-        const { data: trendsData } = await procurementAPI.getSupplierTrends('6 months');
+        const { data: trendsData } = await procurementAPI.supplier.getTrends('6 months');
         if (trendsData?.trends) {
           setMonthlyRevenue(trendsData.trends.map(t => ({
             month: new Date(t.month).toLocaleDateString('fr-FR', { month: 'short' }),
@@ -122,7 +122,7 @@ export default function SupplierDashboard() {
         }
 
         // Charger offres récentes
-        const { data: offersData } = await procurementAPI.getMyOffers();
+        const { data: offersData } = await procurementAPI.supplier.getMyOffers();
         if (offersData?.offers) {
           setRecentOffers(offersData.offers.slice(0, 5).map(o => ({
             id: o.id,
@@ -143,7 +143,7 @@ export default function SupplierDashboard() {
     if (dashboardStats) {
       fetchChartData();
     }
-  }, [dashboardStats]);
+  }, [dashboardStats, theme]);
 
   const tableColumns = [
     { key: 'tender', label: 'Appel d\'Offre' },

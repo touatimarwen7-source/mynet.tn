@@ -40,7 +40,7 @@ import {
 } from '@mui/icons-material';
 import institutionalTheme from '../theme/theme';
 import { setPageTitle } from '../utils/pageTitle';
-import axiosInstance from '../services/axiosConfig';
+import { procurementAPI } from '../api/procurementApi';
 
 const DRAWER_WIDTH = 240;
 
@@ -67,8 +67,8 @@ export default function BuyerDashboard() {
       setError(null);
 
       const [statsResponse, analyticsResponse] = await Promise.allSettled([
-        axiosInstance.get('/procurement/buyer/dashboard-stats'),
-        axiosInstance.get('/procurement/buyer/analytics')
+        procurementAPI.buyer.getDashboardStats(),
+        procurementAPI.buyer.getAnalytics()
       ]);
 
       if (statsResponse.status === 'fulfilled' && statsResponse.value?.data) {

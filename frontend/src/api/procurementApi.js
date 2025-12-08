@@ -31,17 +31,34 @@ const updateInvoiceStatus = async (invoiceId, status, paymentDate) => {
 };
 
 export const procurementAPI = {
+  // ===== Endpoints Communs =====
   getTenders: (filters) => axiosInstance.get('/procurement/tenders', { params: filters }),
   getTender: (id) => axiosInstance.get(`/procurement/tenders/${id}`),
   getTenderWithOffers: (id) => axiosInstance.get(`/procurement/tenders/${id}/with-offers`),
   getTenderStatistics: (id) => axiosInstance.get(`/procurement/tenders/${id}/statistics`),
   
-  // Buyer endpoints
+  // ===== Buyer Endpoints =====
+  buyer: {
+    getAnalytics: () => axiosInstance.get('/procurement/buyer/analytics'),
+    getTrends: (period = '6 months') => axiosInstance.get('/procurement/buyer/trends', { params: { period } }),
+    getDashboardStats: () => axiosInstance.get('/procurement/buyer/dashboard-stats'),
+    getActiveTenders: (filters) => axiosInstance.get('/procurement/my-tenders', { params: filters }),
+    getTenderOffers: (tenderId) => axiosInstance.get(`/procurement/tenders/${tenderId}/offers`),
+  },
+  
+  // ===== Supplier Endpoints =====
+  supplier: {
+    getAnalytics: () => axiosInstance.get('/procurement/supplier/analytics'),
+    getTrends: (period = '6 months') => axiosInstance.get('/procurement/supplier/trends', { params: { period } }),
+    getDashboardStats: () => axiosInstance.get('/procurement/supplier/dashboard-stats'),
+    getRecentOrders: (limit = 10) => axiosInstance.get('/procurement/supplier/recent-orders', { params: { limit } }),
+    getMyOffers: (filters) => axiosInstance.get('/procurement/my-offers', { params: filters }),
+  },
+  
+  // ===== Legacy Support (للتوافق مع الكود القديم) =====
   getBuyerAnalytics: () => axiosInstance.get('/procurement/buyer/analytics'),
   getBuyerTrends: (period = '6 months') => axiosInstance.get('/procurement/buyer/trends', { params: { period } }),
   getBuyerDashboardStats: () => axiosInstance.get('/procurement/buyer/dashboard-stats'),
-  
-  // Supplier endpoints
   getSupplierAnalytics: () => axiosInstance.get('/procurement/supplier/analytics'),
   getSupplierTrends: (period = '6 months') => axiosInstance.get('/procurement/supplier/trends', { params: { period } }),
   getSupplierDashboardStats: () => axiosInstance.get('/procurement/supplier/dashboard-stats'),

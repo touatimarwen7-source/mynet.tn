@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken } = require('../middleware/authMiddleware'); // Changed middleware
+const { verifyToken } = require('../middleware/authMiddleware');
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
-const cacheMiddleware = require('../middleware/cacheMiddleware');
+const { cacheMiddleware } = require('../middleware/cacheMiddleware');
 const AIRecommendationService = require('../services/AIRecommendationService');
 const AdvancedAnalyticsService = require('../services/AdvancedAnalyticsService');
-const { getPool } = require('../config/db'); // Added import for connection pooling
+const { getPool } = require('../config/db');
+const { sendOk, sendInternalError } = require('../utils/responseHelper');
 
 // Get supplier recommendations for a tender
 router.get(
@@ -23,17 +24,14 @@ router.get(
       // Assuming AIRecommendationService.recommendSuppliersForTender can accept a client
       // and that it will internally use pool.query() or similar, which the client handles.
       const recommendations = await AIRecommendationService.recommendSuppliersForTender(
-        client, // Pass the client to the service
+        client,
         tenderId
       );
 
-      res.json(recommendations);
+      return sendOk(res, recommendations, 'Recommandations de fournisseurs récupérées avec succès');
     } catch (error) {
       console.error('Supplier Recommendations Error:', error);
-      res.status(500).json({
-        error: 'Échec de la génération des recommandations',
-        message: error.message
-      });
+      return sendInternalError(res, 'Échec de la génération des recommandations');
     } finally {
       if (client) {
         try {
@@ -61,17 +59,14 @@ router.get(
 
       // Assuming AIRecommendationService.recommendTendersForSupplier can accept a client
       const recommendations = await AIRecommendationService.recommendTendersForSupplier(
-        client, // Pass the client
+        client,
         supplierId
       );
 
-      res.json(recommendations);
+      return sendOk(res, recommendations, "Recommandations d'appels d'offres récupérées avec succès");
     } catch (error) {
       console.error('Tender Recommendations Error:', error);
-      res.status(500).json({
-        error: 'Échec de la génération des recommandations',
-        message: error.message
-      });
+      return sendInternalError(res, 'Échec de la génération des recommandations');
     } finally {
       if (client) {
         try {
@@ -97,15 +92,12 @@ router.get(
       client = await pool.connect(); // Acquire a client from the pool
       const { period = '30 days' } = req.query;
 
-      const trends = await AdvancedAnalyticsService.getMarketTrends(client, period); // Pass the client
+      const trends = await AdvancedAnalyticsService.getMarketTrends(client, period);
 
-      res.json(trends);
+      return sendOk(res, trends, 'Tendances du marché récupérées avec succès');
     } catch (error) {
       console.error('Market Trends Error:', error);
-      res.status(500).json({
-        error: 'Échec de l\'analyse des tendances',
-        message: error.message
-      });
+      return sendInternalError(res, "Échec de l'analyse des tendances");
     } finally {
       if (client) {
         try {
@@ -134,18 +126,15 @@ router.get(
       const supplierId = req.user.id;
 
       const prediction = await AdvancedAnalyticsService.predictOptimalBid(
-        client, // Pass the client
+        client,
         tenderId,
         supplierId
       );
 
-      res.json(prediction);
+      return sendOk(res, prediction, 'Prédiction de offre récupérée avec succès');
     } catch (error) {
       console.error('Bid Prediction Error:', error);
-      res.status(500).json({
-        error: 'Échec de la prédiction',
-        message: error.message
-      });
+      return sendInternalError(res, 'Échec de la prédiction');
     } finally {
       if (client) {
         try {
@@ -174,18 +163,15 @@ router.get(
       const { limit = 5 } = req.query;
 
       const similar = await AIRecommendationService.getSimilarTenders(
-        client, // Pass the client
+        client,
         tenderId,
         parseInt(limit)
       );
 
-      res.json(similar);
+      return sendOk(res, similar, "Appels d'offres similaires récupérés avec succès");
     } catch (error) {
       console.error('Similar Tenders Error:', error);
-      res.status(500).json({
-        error: 'Échec de la récupération des appels d\'offres similaires',
-        message: error.message
-      });
+      return sendInternalError(res, "Échec de la récupération des appels d'offres similaires");
     } finally {
       if (client) {
         try {
@@ -212,18 +198,15 @@ router.get(
       const { category, limit = 10 } = req.query;
 
       const suppliers = await AIRecommendationService.getTopSuppliers(
-        client, // Pass the client
+        client,
         category,
         parseInt(limit)
       );
 
-      res.json(suppliers);
+      return sendOk(res, suppliers, 'Meilleurs fournisseurs récupérés avec succès');
     } catch (error) {
       console.error('Top Suppliers Error:', error);
-      res.status(500).json({
-        error: 'Échec de la récupération des meilleurs fournisseurs',
-        message: error.message
-      });
+      return sendInternalError(res, 'Échec de la récupération des meilleurs fournisseurs');
     } finally {
       if (client) {
         try {
@@ -252,18 +235,15 @@ router.get(
       const { period = '6 months' } = req.query;
 
       const performance = await AdvancedAnalyticsService.getSupplierPerformance(
-        client, // Pass the client
+        client,
         supplierId,
         period
       );
 
-      res.json(performance);
+      return sendOk(res, performance, 'Performance du fournisseur récupérée avec succès');
     } catch (error) {
       console.error('Supplier Performance Error:', error);
-      res.status(500).json({
-        error: 'Échec de l\'analyse de performance',
-        message: error.message
-      });
+      return sendInternalError(res, "Échec de l'analyse de performance");
     } finally {
       if (client) {
         try {
@@ -288,15 +268,12 @@ router.get(
     try {
       client = await pool.connect(); // Acquire a client from the pool
 
-      const stats = await AdvancedAnalyticsService.getCategoryStats(client); // Pass the client
+      const stats = await AdvancedAnalyticsService.getCategoryStats(client);
 
-      res.json(stats);
+      return sendOk(res, stats, 'Statistiques des catégories récupérées avec succès');
     } catch (error) {
       console.error('Category Stats Error:', error);
-      res.status(500).json({
-        error: 'Échec de l\'analyse des catégories',
-        message: error.message
-      });
+      return sendInternalError(res, "Échec de l'analyse des catégories");
     } finally {
       if (client) {
         try {

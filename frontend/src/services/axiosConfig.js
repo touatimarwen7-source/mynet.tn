@@ -51,9 +51,9 @@ const getApiBaseUrl = () => {
     const isReplit = window.location.hostname.includes('replit.dev');
     
     if (isReplit) {
-      // في Replit: استخدم نفس الـ hostname مع port 3000
-      // مثال: https://abc123.replit.dev:3000/api
-      return `https://${window.location.hostname.split(':')[0]}:3000/api`;
+      // في Replit: استخدم HTTP مع نفس الـ hostname
+      const hostname = window.location.hostname.split(':')[0];
+      return `http://${hostname}:3000/api`;
     }
     
     // في التطوير المحلي

@@ -8,7 +8,8 @@ const getApiBaseUrl = () => {
     const isReplit = window.location.hostname.includes('replit.dev');
     
     if (isReplit) {
-      return `https://${window.location.hostname.split(':')[0]}:3000`;
+      const hostname = window.location.hostname.split(':')[0];
+      return `http://${hostname}:3000`;
     }
     
     return 'http://localhost:3000';

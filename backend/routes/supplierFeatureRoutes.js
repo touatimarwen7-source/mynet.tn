@@ -1,6 +1,6 @@
 const express = require('express');
 const SupplierFeatureController = require('../controllers/admin/SupplierFeatureController');
-const { verifyToken, checkRole } = require('../middleware/authMiddleware');
+const { verifyToken, checkPermission } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
@@ -8,23 +8,23 @@ const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 // Admin only - manage supplier features
 router.put(
   '/enable',
-  authMiddleware.verifyToken,
-  authMiddleware.checkPermission('manage_features'),
+  verifyToken,
+  checkPermission('manage_features'),
   (req, res) => SupplierFeatureController.enableFeature(req, res)
 );
 
 router.put(
   '/disable',
-  authMiddleware.verifyToken,
-  authMiddleware.checkPermission('manage_features'),
+  verifyToken,
+  checkPermission('manage_features'),
   (req, res) => SupplierFeatureController.disableFeature(req, res)
 );
 
 // Get all available features
 router.get(
   '/available',
-  authMiddleware.verifyToken,
-  authMiddleware.checkPermission('view_features'),
+  verifyToken,
+  checkPermission('view_features'),
   (req, res) => SupplierFeatureController.getAllAvailableFeatures(req, res)
 );
 
@@ -32,8 +32,8 @@ router.get(
 router.get(
   '/category/:category',
   validateIdMiddleware('category'),
-  authMiddleware.verifyToken,
-  authMiddleware.checkPermission('view_features'),
+  verifyToken,
+  checkPermission('view_features'),
   (req, res) => SupplierFeatureController.getFeaturesByCategory(req, res)
 );
 
@@ -41,8 +41,8 @@ router.get(
 router.get(
   '/supplier/:supplier_id',
   validateIdMiddleware('supplier_id'),
-  authMiddleware.verifyToken,
-  authMiddleware.checkPermission('view_features'),
+  verifyToken,
+  checkPermission('view_features'),
   (req, res) => SupplierFeatureController.getSupplierFeatures(req, res)
 );
 
@@ -50,8 +50,8 @@ router.get(
 router.get(
   '/supplier/:supplier_id/active',
   validateIdMiddleware('supplier_id'),
-  authMiddleware.verifyToken,
-  authMiddleware.checkPermission('view_features'),
+  verifyToken,
+  checkPermission('view_features'),
   (req, res) => SupplierFeatureController.getActiveFeatures(req, res)
 );
 
@@ -59,7 +59,7 @@ router.get(
 router.get(
   '/supplier/:supplier_id/check/:feature_key',
   validateIdMiddleware(['supplier_id', 'feature_key']),
-  authMiddleware.verifyToken,
+  verifyToken,
   (req, res) => SupplierFeatureController.checkSupplierFeature(req, res)
 );
 

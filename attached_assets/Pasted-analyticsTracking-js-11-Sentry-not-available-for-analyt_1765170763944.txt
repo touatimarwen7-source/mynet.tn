@@ -1,0 +1,69 @@
+analyticsTracking.js:11 ⚠️ Sentry not available for analytics
+(anonymous) @ analyticsTracking.js:11Understand this warning
+tokenManager.js:55 TokenManager: User data stored successfully
+6tokenManager.js:70 TokenManager: User data retrieved: 1
+2chunk-OU5AQDZK.js?v=d3684563:903 Uncaught SyntaxError: The requested module '/src/components/TenderSteps/themeHelpers.js' does not provide an export named 'THEME_STYLES' (at StepOne.jsx:13:24)Understand this error
+chunk-WRD5HZVH.js?v=d3684563:14032 The above error occurred in one of your React components:
+
+    at Lazy
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-HTGJWSTG.js?v=d3684563:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-HTGJWSTG.js?v=d3684563:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-HTGJWSTG.js?v=d3684563:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-TUBVSPSG.js?v=d3684563:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+logCapturedError @ chunk-WRD5HZVH.js?v=d3684563:14032Understand this error
+ErrorBoundary.jsx:38 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+componentDidCatch @ ErrorBoundary.jsx:38Understand this error
+ErrorBoundary.jsx:39 ⚠️ React Error Boundary Caught Error:
+componentDidCatch @ ErrorBoundary.jsx:39Understand this error
+ErrorBoundary.jsx:40 Error: SyntaxError: The requested module '/src/components/TenderSteps/themeHelpers.js' does not provide an export named 'THEME_STYLES' (at StepOne.jsx:13:24)
+componentDidCatch @ ErrorBoundary.jsx:40Understand this error
+ErrorBoundary.jsx:41 Component Stack: 
+    at Lazy
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-HTGJWSTG.js?v=d3684563:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-HTGJWSTG.js?v=d3684563:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=d3684563:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-HTGJWSTG.js?v=d3684563:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-7S6LWEON.js?v=d3684563:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-TUBVSPSG.js?v=d3684563:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+componentDidCatch @ ErrorBoundary.jsx:41Understand this error
+ErrorBoundary.jsx:42 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

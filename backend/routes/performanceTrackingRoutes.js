@@ -1,6 +1,6 @@
 // Supplier Performance Tracking - OPTIMIZED
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 const QueryOptimizer = require('../utils/queryOptimizer');
 const { cacheMiddleware } = require('../middleware/cacheMiddleware');
 const router = express.Router();
@@ -10,7 +10,7 @@ const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 router.get(
   '/supplier/:supplierId',
   validateIdMiddleware('supplierId'),
-  authMiddleware,
+  verifyToken,
   cacheMiddleware(600),
   async (req, res) => {
     try {
@@ -44,7 +44,7 @@ router.get(
 );
 
 // Get top suppliers by performance
-router.get('/top-suppliers', authMiddleware, async (req, res) => {
+router.get('/top-suppliers', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
 
@@ -72,7 +72,7 @@ router.get('/top-suppliers', authMiddleware, async (req, res) => {
 router.get(
   '/history/:supplierId',
   validateIdMiddleware('supplierId'),
-  authMiddleware,
+  verifyToken,
   async (req, res) => {
     try {
       const { supplierId } = req.params;

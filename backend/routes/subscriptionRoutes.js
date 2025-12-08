@@ -1,11 +1,11 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 
 // Get available plans - ISSUE FIX #1: Add authentication
-router.get('/plans', authMiddleware, async (req, res) => {
+router.get('/plans', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
     const result = await db.query(
@@ -18,7 +18,7 @@ router.get('/plans', authMiddleware, async (req, res) => {
 });
 
 // Get my subscription
-router.get('/my-subscription', authMiddleware, async (req, res) => {
+router.get('/my-subscription', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
     const result = await db.query(
@@ -40,7 +40,7 @@ router.get('/my-subscription', authMiddleware, async (req, res) => {
 });
 
 // Subscribe to plan - ISSUE FIX #2 #3: Add authorization + validation
-router.post('/subscribe', authMiddleware, async (req, res) => {
+router.post('/subscribe', verifyToken, async (req, res) => {
   try {
     const { plan_id } = req.body;
 
@@ -72,7 +72,7 @@ router.post('/subscribe', authMiddleware, async (req, res) => {
 });
 
 // Cancel subscription
-router.put('/cancel', authMiddleware, async (req, res) => {
+router.put('/cancel', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
     const result = await db.query(

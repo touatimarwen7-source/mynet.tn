@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const PDFController = require('../controllers/admin/PDFController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 const { asyncHandler } = require('../middleware/errorHandlingMiddleware');
 
 /**
@@ -12,7 +12,7 @@ const { asyncHandler } = require('../middleware/errorHandlingMiddleware');
  */
 router.post(
   '/generate-tender',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new PDFController();
     return controller.generateTenderPDF(req, res);
@@ -26,7 +26,7 @@ router.post(
  */
 router.post(
   '/generate-offer',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new PDFController();
     return controller.generateOfferPDF(req, res);
@@ -40,7 +40,7 @@ router.post(
  */
 router.post(
   '/generate-opening-report',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new PDFController();
     return controller.generateOpeningReportPDF(req, res);
@@ -54,7 +54,7 @@ router.post(
  */
 router.post(
   '/generate-award',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new PDFController();
     return controller.generateAwardPDF(req, res);

@@ -1,6 +1,6 @@
 const express = require('express');
 const ProfileController = require('../controllers/user/ProfileController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 const { asyncHandler } = require('../middleware/errorHandlingMiddleware');
 const { sendOk, sendValidationError } = require('../utils/responseHelper');
 
@@ -17,7 +17,7 @@ const router = express.Router();
  */
 router.put(
   '/supplier/preferences',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new ProfileController();
     return controller.updateSupplierPreferences(req, res);
@@ -31,7 +31,7 @@ router.put(
  */
 router.get(
   '/supplier/preferences',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new ProfileController();
     return controller.getSupplierPreferences(req, res);
@@ -49,14 +49,14 @@ router.get(
  */
 router.get(
   '/',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new ProfileController();
-    
+
     if (typeof controller.getProfile === 'function') {
       return controller.getProfile(req, res);
     }
-    
+
     // Fallback: return basic user info
     return sendOk(res, {
       id: req.user.id,
@@ -74,14 +74,14 @@ router.get(
  */
 router.put(
   '/',
-  authMiddleware,
+  verifyToken,
   asyncHandler(async (req, res) => {
     const controller = new ProfileController();
-    
+
     if (typeof controller.updateProfile === 'function') {
       return controller.updateProfile(req, res);
     }
-    
+
     // Fallback error
     return sendValidationError(res, [], 'Profile update not implemented');
   })

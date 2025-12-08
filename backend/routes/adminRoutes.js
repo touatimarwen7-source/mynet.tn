@@ -14,12 +14,12 @@ router.use(authMiddleware.verifyToken);
 router.use(authMiddleware.checkRole(['super_admin', 'admin']));
 
 // ===== Tableau de bord =====
-router.get('/health', (req, res) => AdminController.getHealthDashboard(req, res));
-router.get('/dashboard', (req, res) => AdminController.getDashboard(req, res));
-router.get('/analytics', (req, res) => AdminController.getAnalytics(req, res));
-router.get('/analytics/users', (req, res) => AdminController.getUserStatistics(req, res));
-router.get('/activities/recent', (req, res) => AdminController.getRecentActivities(req, res));
-router.get('/audit-logs/export', (req, res) => AdminController.exportAuditLogs(req, res));
+router.get('/health', AdminController.getHealthDashboard.bind(AdminController));
+router.get('/dashboard', AdminController.getDashboard.bind(AdminController));
+router.get('/analytics', AdminController.getAnalytics.bind(AdminController));
+router.get('/analytics/users', AdminController.getUserStatistics.bind(AdminController));
+router.get('/activities/recent', AdminController.getRecentActivities.bind(AdminController));
+router.get('/audit-logs/export', AdminController.exportAuditLogs.bind(AdminController));
 
 // ===== Gestion des utilisateurs =====
 const AdminPermissionsMiddleware = require('../middleware/adminPermissionsMiddleware');
@@ -28,7 +28,7 @@ router.get(
   '/users', 
   validatePagination,
   AdminPermissionsMiddleware.checkPermission(AdminPermissionsMiddleware.PERMISSIONS.VIEW_USERS),
-  (req, res) => AdminController.getAllUsers(req, res)
+  AdminController.getAllUsers.bind(AdminController)
 );
 
 router.get(
@@ -119,33 +119,33 @@ router.post('/config/cache/clear', (req, res) => res.json({ success: true, messa
 router.post('/config/system/restart', (req, res) => res.json({ success: true, message: 'System restart scheduled' }));
 
 // ===== Analyses et surveillance =====
-router.get('/analytics/stats', (req, res) => AdminController.getAnalytics(req, res));
-router.get('/analytics/health', (req, res) => AdminController.getHealthDashboard(req, res));
-router.get('/analytics/activities', (req, res) => AdminController.getRecentActivities(req, res));
-router.get('/analytics/users', (req, res) => AdminController.getUserStatistics(req, res));
-router.get('/analytics/performance', (req, res) => AdminController.getAdminPerformance(req, res));
-router.get('/analytics/assistants', (req, res) => AdminController.getAdminAssistantsStats(req, res));
+router.get('/analytics/stats', AdminController.getAnalytics.bind(AdminController));
+router.get('/analytics/health', AdminController.getHealthDashboard.bind(AdminController));
+router.get('/analytics/activities', AdminController.getRecentActivities.bind(AdminController));
+router.get('/analytics/users', AdminController.getUserStatistics.bind(AdminController));
+router.get('/analytics/performance', AdminController.getAdminPerformance.bind(AdminController));
+router.get('/analytics/assistants', AdminController.getAdminAssistantsStats.bind(AdminController));
 
 // ===== Gestion des abonnements =====
-router.get('/subscriptions/plans', (req, res) => SubscriptionAdminController.getAllPlans(req, res));
-router.post('/subscriptions/plans', (req, res) => SubscriptionAdminController.createPlan(req, res));
-router.put('/subscriptions/plans/:id', validateIdMiddleware('id'), (req, res) => SubscriptionAdminController.updatePlan(req, res));
-router.delete('/subscriptions/plans/:id', validateIdMiddleware('id'), (req, res) => SubscriptionAdminController.deletePlan(req, res));
-router.get('/subscriptions/analytics', (req, res) => SubscriptionAdminController.getSubscriptionAnalytics(req, res));
+router.get('/subscriptions/plans', SubscriptionAdminController.getAllPlans.bind(SubscriptionAdminController));
+router.post('/subscriptions/plans', SubscriptionAdminController.createPlan.bind(SubscriptionAdminController));
+router.put('/subscriptions/plans/:id', validateIdMiddleware('id'), SubscriptionAdminController.updatePlan.bind(SubscriptionAdminController));
+router.delete('/subscriptions/plans/:id', validateIdMiddleware('id'), SubscriptionAdminController.deletePlan.bind(SubscriptionAdminController));
+router.get('/subscriptions/analytics', SubscriptionAdminController.getSubscriptionAnalytics.bind(SubscriptionAdminController));
 
 // ===== Gestion des publicités =====
-router.get('/advertisements', (req, res) => AdvertisementController.getAllAds(req, res));
-router.post('/advertisements', (req, res) => AdvertisementController.createAd(req, res));
-router.put('/advertisements/:id', validateIdMiddleware('id'), (req, res) => AdvertisementController.updateAd(req, res));
-router.delete('/advertisements/:id', validateIdMiddleware('id'), (req, res) => AdvertisementController.deleteAd(req, res));
-router.get('/advertisements/:id/analytics', validateIdMiddleware('id'), (req, res) => AdvertisementController.getAdAnalytics(req, res));
+router.get('/advertisements', AdvertisementController.getAllAds.bind(AdvertisementController));
+router.post('/advertisements', AdvertisementController.createAd.bind(AdvertisementController));
+router.put('/advertisements/:id', validateIdMiddleware('id'), AdvertisementController.updateAd.bind(AdvertisementController));
+router.delete('/advertisements/:id', validateIdMiddleware('id'), AdvertisementController.deleteAd.bind(AdvertisementController));
+router.get('/advertisements/:id/analytics', validateIdMiddleware('id'), AdvertisementController.getAdAnalytics.bind(AdvertisementController));
 
 // ===== Routes de compatibilité (anciennes versions) =====
-router.put('/users/:id/block', validateIdMiddleware('id'), (req, res) => {
+router.put('/users/:id/block', validateIdMiddleware('id'), (req, res, next) => {
   if (adminController.blockUser) {
-    return adminController.blockUser(req, res);
+    return adminController.blockUser(req, res, next);
   }
-  return AdminController.toggleUserStatus(req, res);
+  return AdminController.toggleUserStatus.bind(AdminController)(req, res, next);
 });
 
 module.exports = router;

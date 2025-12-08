@@ -2,6 +2,9 @@
 const { getPool } = require('../../config/db');
 const logger = require('../../utils/logger');
 
+const { getPool } = require('../../config/db');
+const logger = require('../../utils/logger');
+
 class AdvertisementController {
   /**
    * Get all advertisements
@@ -290,5 +293,7 @@ class AdvertisementController {
     }
   }
 }
+
+module.exports = new AdvertisementController();
 
 module.exports = new AdvertisementController();

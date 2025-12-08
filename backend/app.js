@@ -292,6 +292,7 @@ app.use('/api/search', searchRoutes);
 
 // Documents & Payments
 app.use('/api/pdf', pdfRoutes);
+app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/webhooks', stripeWebhookRoutes);
 
 // ISSUE FIX #9: Add comprehensive error handling middleware

@@ -258,9 +258,13 @@ function AppContent() {
                         />
 
                         {/* Buyer Dashboard */}
-                        <Route
-                          path="/buyer-dashboard"
-                          element={user?.role === 'buyer' ? <BuyerDashboard /> : <Navigate to="/dashboard" />}
+                        <Route 
+                          path="/buyer-dashboard" 
+                          element={
+                            <ErrorBoundary>
+                              <BuyerDashboard />
+                            </ErrorBoundary>
+                          } 
                         />
 
                         {/* Supplier Dashboard */}

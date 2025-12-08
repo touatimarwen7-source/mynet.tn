@@ -166,6 +166,56 @@ class TokenManager {
       return 0;
     }
   }
+
+  // New method to handle potential storage inconsistencies and add retry
+  static async authenticateWithRetry(loginFunction, username, password, retries = 3, delay = 1000) {
+    for (let i = 0; i < retries; i++) {
+      try {
+        const response = await loginFunction(username, password);
+        if (response && response.accessToken) {
+          tokenManager.manageTokens(response.accessToken, response.refreshToken, response.userData);
+          return response;
+        } else {
+          throw new Error('Login failed: Missing tokens in response.');
+        }
+      } catch (error) {
+        console.error(`Attempt ${i + 1}/${retries} failed:`, error.message);
+        if (i === retries - 1) {
+          console.error('Authentication failed after multiple retries.');
+          throw error; // Re-throw the last error
+        }
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+
+  static restoreFromStorage() {
+    try {
+      // Try sessionStorage first
+      const stored = sessionStorage.getItem('auth_user');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        this.userData = parsed;
+        return parsed;
+      }
+
+      // Fallback to localStorage
+      const localStored = localStorage.getItem('auth_user');
+      if (localStored) {
+        const parsed = JSON.parse(localStored);
+        this.userData = parsed;
+        // Restore to sessionStorage
+        sessionStorage.setItem('auth_user', localStored);
+        return parsed;
+      }
+    } catch (e) {
+      console.error('TokenManager: Failed to restore from storage:', e);
+      // Clear corrupted data
+      this.clearTokens();
+    }
+    console.log('TokenManager: No user data in storage');
+    return null;
+  }
 }
 
 // Create singleton instance

@@ -68,28 +68,6 @@ class PurchaseOrderService {
       );
 
       return result.rows[0];
-
-      const result = await pool.query(
-        `INSERT INTO purchase_orders 
-                 (po_number, tender_id, offer_id, supplier_id, buyer_id, total_amount, 
-                  currency, payment_terms, status, created_by)
-                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-                 RETURNING *`,
-        [
-          poNumber,
-          offer.tender_id,
-          offerId,
-          offer.supplier_id,
-          offer.buyer_id,
-          offer.total_amount,
-          offer.currency,
-          offer.payment_terms,
-          'pending',
-          userId,
-        ]
-      );
-
-      return result.rows[0];
     } catch (error) {
       throw new Error(`Failed to create purchase order: ${error.message}`);
     }
@@ -99,68 +77,11 @@ class PurchaseOrderService {
    * Get purchase order by ID with related details
    * @async
    * @param {string} poId - ID of purchase order
+   * @param {string} userId - Current user ID for authorization
    * @returns {Promise<Object|null>} Purchase order record with tender and supplier info or null
    * @throws {Error} When database query fails
    */
-  async getPurchaseOrderById(poId) {
-    const pool = getPool();
-
-    try {
-      const result = await pool.query(
-        `SELECT po.*, t.title as tender_title, 
-                 u.company_name as supplier_name
-                 FROM purchase_orders po
-                 JOIN tenders t ON po.tender_id = t.id
-                 JOIN users u ON po.supplier_id = u.id
-                 WHERE po.id = $1 AND po.is_deleted = FALSE`,
-        [poId]
-      );
-
-      return result.rows[0] || null;
-    } catch (error) {
-      throw new Error(`Failed to get purchase order: ${error.message}`);
-    }
-  }
-
-  /**
-   * Update purchase order status to one of valid states
-   * @async
-   * @param {string} poId - ID of purchase order to update
-   * @param {string} status - New status (pending, approved, in_progress, completed, cancelled)
-   * @param {string} userId - ID of user performing update
-   * @returns {Promise<Object>} Updated purchase order record
-   * @throws {Error} When invalid status or update fails
-   */
-  async updatePOStatus(poId, status, userId) {
-    const pool = getPool();
-
-    const validStatuses = ['pending', 'approved', 'in_progress', 'completed', 'cancelled'];
-    if (!validStatuses.includes(status)) {
-      throw new Error('Invalid status');
-    }
-
-    try {
-      const result = await pool.query(
-        `UPDATE purchase_orders 
-                 SET status = $1, updated_by = $2, updated_at = CURRENT_TIMESTAMP 
-                 WHERE id = $3 RETURNING *`,
-        [status, userId, poId]
-      );
-
-      return result.rows[0];
-    } catch (error) {
-      throw new Error(`Failed to update purchase order: ${error.message}`);
-    }
-  }
-
-  /**
-   * Get purchase order by ID
-   * @async
-   * @param {string} id - Purchase order ID
-   * @param {string} userId - Current user ID for authorization
-   * @returns {Promise<Object|null>} Purchase order or null
-   */
-  async getPurchaseOrderById(id, userId) {
+  async getPurchaseOrderById(poId, userId) {
     const pool = getPool();
 
     try {
@@ -173,7 +94,7 @@ class PurchaseOrderService {
          WHERE po.id = $1 
            AND (po.buyer_id = $2 OR po.supplier_id = $2)
            AND po.is_deleted = FALSE`,
-        [id, userId]
+        [poId, userId]
       );
 
       return result.rows[0] || null;
@@ -185,13 +106,19 @@ class PurchaseOrderService {
   /**
    * Update purchase order status
    * @async
-   * @param {string} id - Purchase order ID
-   * @param {string} status - New status
-   * @param {string} userId - User making the update
-   * @returns {Promise<Object>} Updated purchase order
+   * @param {string} poId - ID of purchase order to update
+   * @param {string} status - New status (pending, approved, in_progress, completed, cancelled)
+   * @param {string} userId - ID of user performing update
+   * @returns {Promise<Object>} Updated purchase order record
+   * @throws {Error} When invalid status or update fails
    */
-  async updatePurchaseOrderStatus(id, status, userId) {
+  async updatePurchaseOrderStatus(poId, status, userId) {
     const pool = getPool();
+
+    const validStatuses = ['pending', 'approved', 'in_progress', 'completed', 'cancelled'];
+    if (!validStatuses.includes(status)) {
+      throw new Error('Invalid status');
+    }
 
     try {
       const result = await pool.query(
@@ -201,7 +128,7 @@ class PurchaseOrderService {
            AND (buyer_id = $3 OR supplier_id = $3)
            AND is_deleted = FALSE
          RETURNING *`,
-        [status, id, userId]
+        [status, poId, userId]
       );
 
       if (result.rows.length === 0) {
@@ -227,12 +154,12 @@ class PurchaseOrderService {
     try {
       const result = await pool.query(
         `SELECT po.*, t.title as tender_title, 
-                 u.company_name as supplier_name
-                 FROM purchase_orders po
-                 JOIN tenders t ON po.tender_id = t.id
-                 JOIN users u ON po.supplier_id = u.id
-                 WHERE po.buyer_id = $1 AND po.is_deleted = FALSE
-                 ORDER BY po.created_at DESC`,
+                u.company_name as supplier_name
+         FROM purchase_orders po
+         JOIN tenders t ON po.tender_id = t.id
+         LEFT JOIN users u ON po.supplier_id = u.id
+         WHERE po.buyer_id = $1 AND po.is_deleted = FALSE
+         ORDER BY po.created_at DESC`,
         [buyerId]
       );
 
@@ -255,10 +182,10 @@ class PurchaseOrderService {
     try {
       const result = await pool.query(
         `SELECT po.*, t.title as tender_title
-                 FROM purchase_orders po
-                 JOIN tenders t ON po.tender_id = t.id
-                 WHERE po.supplier_id = $1 AND po.is_deleted = FALSE
-                 ORDER BY po.created_at DESC`,
+         FROM purchase_orders po
+         JOIN tenders t ON po.tender_id = t.id
+         WHERE po.supplier_id = $1 AND po.is_deleted = FALSE
+         ORDER BY po.created_at DESC`,
         [supplierId]
       );
 

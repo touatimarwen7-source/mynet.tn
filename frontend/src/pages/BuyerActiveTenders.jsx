@@ -59,9 +59,17 @@ export default function BuyerActiveTenders() {
     try {
       setLoading(true);
       const response = await procurementAPI.getMyTenders({ status: 'active' });
-      setTenders(response.data.tenders || []);
+      
+      // التحقق من البيانات المستلمة
+      if (response?.data?.tenders && Array.isArray(response.data.tenders)) {
+        setTenders(response.data.tenders);
+      } else {
+        logger.warn('استجابة غير متوقعة من API:', response);
+        setTenders([]);
+      }
     } catch (err) {
       logger.error('Failed to fetch active tenders:', err);
+      setTenders([]);
     } finally {
       setLoading(false);
     }

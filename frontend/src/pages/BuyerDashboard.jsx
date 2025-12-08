@@ -71,18 +71,32 @@ export default function BuyerDashboard() {
         procurementAPI.buyer.getAnalytics()
       ]);
 
+      // معالجة استجابة الإحصائيات
       if (statsResponse.status === 'fulfilled' && statsResponse.value?.data) {
         setStats({
-          activeTenders: statsResponse.value.data.activeTenders || 0,
-          totalOffers: statsResponse.value.data.totalOffers || 0,
-          completedTenders: statsResponse.value.data.completedTenders || 0,
-          pendingEvaluations: statsResponse.value.data.pendingEvaluations || 0,
+          activeTenders: parseInt(statsResponse.value.data.activeTenders) || 0,
+          totalOffers: parseInt(statsResponse.value.data.totalOffers) || 0,
+          completedTenders: parseInt(statsResponse.value.data.completedTenders) || 0,
+          pendingEvaluations: parseInt(statsResponse.value.data.pendingEvaluations) || 0,
+        });
+      } else if (statsResponse.status === 'rejected') {
+        console.warn('فشل تحميل الإحصائيات:', statsResponse.reason);
+        // تعيين قيم افتراضية في حالة الفشل
+        setStats({
+          activeTenders: 0,
+          totalOffers: 0,
+          completedTenders: 0,
+          pendingEvaluations: 0,
         });
       }
 
+      // معالجة استجابة التحليلات
       if (analyticsResponse.status === 'fulfilled' && analyticsResponse.value?.data?.analytics) {
-        console.log('Analytics loaded:', analyticsResponse.value.data.analytics);
+        console.log('Analytics loaded successfully:', analyticsResponse.value.data.analytics);
+      } else if (analyticsResponse.status === 'rejected') {
+        console.warn('فشل تحميل التحليلات:', analyticsResponse.reason);
       }
+
     } catch (err) {
       console.error('Erreur lors du chargement des données du tableau de bord:', err);
       setError('Échec du chargement des données. Veuillez réessayer.');

@@ -4,6 +4,10 @@ const router = express.Router();
 const { asyncHandler } = require('../middleware/errorHandlingMiddleware');
 const { authMiddleware } = require('../middleware/authMiddleware');
 const SearchService = require('../services/SearchService');
+const { search: searchRateLimiter } = require('../middleware/enhancedRateLimiting');
+
+// Apply rate limiting to all search routes
+router.use(searchRateLimiter);
 
 /**
  * @route GET /api/search/tenders

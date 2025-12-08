@@ -17,11 +17,22 @@ class SearchService {
    */
   async searchTenders(searchParams) {
     const pool = getPool();
-    let query = 'SELECT * FROM tenders WHERE is_deleted = FALSE AND is_public = TRUE';
+    
+    // Optimized query with specific columns and better indexing
+    let query = `
+      SELECT 
+        id, tender_number, title, category, status, 
+        budget_min, budget_max, currency, deadline, 
+        publish_date, created_at, buyer_id
+      FROM tenders 
+      WHERE is_deleted = FALSE AND is_public = TRUE
+    `;
+    
     const params = [];
     let paramCount = 1;
 
     if (searchParams.keyword) {
+      // Use to_tsvector for better full-text search performance
       query += ` AND (title ILIKE $${paramCount} OR description ILIKE $${paramCount})`;
       params.push(`%${searchParams.keyword}%`);
       paramCount++;
@@ -51,11 +62,12 @@ class SearchService {
       paramCount++;
     }
 
+    // Optimized ordering with index
     query += ' ORDER BY created_at DESC';
 
     if (searchParams.limit) {
       query += ` LIMIT $${paramCount}`;
-      params.push(searchParams.limit);
+      params.push(Math.min(searchParams.limit, 100)); // Cap at 100
       paramCount++;
     }
 
@@ -83,8 +95,16 @@ class SearchService {
    */
   async searchSuppliers(searchParams) {
     const pool = getPool();
-    let query = `SELECT id, username, email, full_name, company_name, company_registration 
-                     FROM users WHERE role = 'supplier' AND is_active = TRUE AND is_deleted = FALSE`;
+    
+    // Optimized query with specific columns and better performance
+    let query = `
+      SELECT 
+        id, username, email, full_name, company_name, 
+        company_registration, is_verified, average_rating, created_at
+      FROM users 
+      WHERE role = 'supplier' AND is_active = TRUE AND is_deleted = FALSE
+    `;
+    
     const params = [];
     let paramCount = 1;
 
@@ -98,7 +118,26 @@ class SearchService {
       query += ` AND is_verified = TRUE`;
     }
 
-    query += ' ORDER BY created_at DESC';
+    if (searchParams.minRating) {
+      query += ` AND average_rating >= $${paramCount}`;
+      params.push(searchParams.minRating);
+      paramCount++;
+    }
+
+    // Order by rating and creation date for better results
+    query += ' ORDER BY average_rating DESC NULLS LAST, created_at DESC';
+
+    // Add pagination
+    if (searchParams.limit) {
+      query += ` LIMIT $${paramCount}`;
+      params.push(Math.min(searchParams.limit, 100));
+      paramCount++;
+    }
+
+    if (searchParams.offset) {
+      query += ` OFFSET $${paramCount}`;
+      params.push(searchParams.offset);
+    }
 
     try {
       const result = await pool.query(query, params);

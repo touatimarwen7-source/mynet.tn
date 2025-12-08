@@ -77,6 +77,27 @@ router.get('/slow-endpoints', authMiddleware, (req, res) => {
 });
 
 /**
+ * GET /api/performance/slow-monitoring
+ * Get detailed slow endpoint monitoring data
+ * @returns {Object} Comprehensive slow endpoint metrics
+ */
+router.get('/slow-monitoring', authMiddleware, (req, res) => {
+  try {
+    const { getSlowEndpointMetrics } = require('../middleware/slowEndpointMonitor');
+    const metrics = getSlowEndpointMetrics();
+    res.json({
+      success: true,
+      data: metrics,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+/**
  * DELETE /api/performance/metrics
  * Clear all performance metrics (admin only)
  * @returns {Object} Confirmation message

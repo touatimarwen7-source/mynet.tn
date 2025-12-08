@@ -34,35 +34,41 @@ export default function Login() {
       console.log('🔐 Attempting login for:', values.email);
       const response = await authAPI.login(values);
       
+      // axiosConfig wraps response in { data: actualResponse }
+      const loginData = response.data || response;
+      
       console.log('📥 Login response received:', {
-        hasData: !!response?.data,
-        hasToken: !!response?.data?.accessToken,
-        hasUser: !!response?.data?.user
+        hasData: !!loginData,
+        hasToken: !!loginData?.accessToken,
+        hasUser: !!loginData?.user
       });
 
-      if (!response || !response.data) {
+      if (!loginData) {
         console.error('❌ Invalid server response');
         throw new Error('Réponse du serveur invalide');
       }
 
-      if (!response.data.accessToken) {
+      if (!loginData.accessToken) {
         console.error('❌ No access token received');
         throw new Error('Pas de token reçu du serveur');
       }
 
       // Store tokens securely
-      TokenManager.setAccessToken(response.data.accessToken);
+      TokenManager.setAccessToken(loginData.accessToken);
 
-      const refreshToken = response.data.refreshToken || response.data.refreshTokenId;
+      const refreshToken = loginData.refreshToken || loginData.refreshTokenId;
       if (refreshToken) {
         TokenManager.setRefreshToken(refreshToken);
       }
 
-      const userData = response.data.user;
-      if (!userData || !userData.userId) {
+      const userData = loginData.user;
+      if (!userData || (!userData.userId && !userData.id)) {
         console.error('❌ No user data received');
         throw new Error('Données utilisateur manquantes');
       }
+      
+      // Normalize userId (backend may send 'id' instead of 'userId')
+      userData.userId = userData.userId || userData.id;
       
       console.log('✅ Login successful, user data:', userData);
       

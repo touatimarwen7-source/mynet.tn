@@ -7,7 +7,6 @@ const AdvertisementController = require('../controllers/admin/AdvertisementContr
 const authMiddleware = require('../middleware/authMiddleware');
 const { validatePagination } = require('../middleware/paginationValidator');
 
-
 // Toutes les routes d'administration sont protégées - super_admin uniquement
 router.use(authMiddleware.verifyToken);
 router.use(authMiddleware.checkRole(['super_admin']));

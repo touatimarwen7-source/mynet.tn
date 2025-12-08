@@ -250,7 +250,25 @@ mode = "parallel"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "pkill -9 -f \"node.*server.js\" 2>/dev/null || true && sleep 3 && cd backend && node server.js"
+args = "cd backend && pkill -9 -f \"node.*server.js\" 2>/dev/null || true && sleep 2 && node server.js"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend && npm run dev"
+
+[[workflows.workflow]]
+name = "Backend Only"
+author = 49972067
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend && node server.js"
+
+[[workflows.workflow]]
+name = "Frontend Only"
+author = 49972067
+mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"

@@ -1,0 +1,134 @@
+🔐 Attempting login for: buyer1@test.tn
+authApi.js:32 Connecting to 'http://workspace.toietimarwen.repl.co:3000/api/auth/login' violates the following Content Security Policy directive: "connect-src 'self' http://localhost:3000 http://localhost:5000 https://*.replit.dev:* https://*.replit.dev ws://localhost:* ws://*.replit.dev:* wss://*.replit.dev:* wss:". The action has been blocked.
+dispatchXhrRequest @ axios.js?v=767e51e8:1696
+xhr @ axios.js?v=767e51e8:1573
+dispatchRequest @ axios.js?v=767e51e8:2107
+Promise.then
+_request @ axios.js?v=767e51e8:2310
+request @ axios.js?v=767e51e8:2219
+httpMethod @ axios.js?v=767e51e8:2356
+wrap @ axios.js?v=767e51e8:8
+login @ authApi.js:32
+(anonymous) @ Login.jsx:35
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=767e51e8:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=767e51e8:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=767e51e8:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=767e51e8:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=767e51e8:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=767e51e8:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=767e51e8:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=767e51e8:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=767e51e8:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=767e51e8:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=767e51e8:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=767e51e8:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=767e51e8:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=767e51e8:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=767e51e8:5449Understand this error
+authApi.js:32 Connecting to 'http://workspace.toietimarwen.repl.co:3000/api/auth/login' violates the following Content Security Policy directive: "connect-src 'self' http://localhost:* https://*.replit.dev:* ws://localhost:* wss://*.replit.dev:*". The action has been blocked.
+dispatchXhrRequest @ axios.js?v=767e51e8:1696
+xhr @ axios.js?v=767e51e8:1573
+dispatchRequest @ axios.js?v=767e51e8:2107
+Promise.then
+_request @ axios.js?v=767e51e8:2310
+request @ axios.js?v=767e51e8:2219
+httpMethod @ axios.js?v=767e51e8:2356
+wrap @ axios.js?v=767e51e8:8
+login @ authApi.js:32
+(anonymous) @ Login.jsx:35
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=767e51e8:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=767e51e8:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=767e51e8:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=767e51e8:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=767e51e8:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=767e51e8:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=767e51e8:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=767e51e8:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=767e51e8:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=767e51e8:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=767e51e8:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=767e51e8:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=767e51e8:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=767e51e8:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=767e51e8:5449Understand this error
+authApi.js:32 Connecting to 'http://workspace.toietimarwen.repl.co:3000/api/auth/login' violates the following Content Security Policy directive: "connect-src 'self' http://localhost:3000 http://localhost:5000 http://0.0.0.0:3000 http://0.0.0.0:5000 https://*.replit.dev:* https://*.replit.dev ws://localhost:* ws://0.0.0.0:* ws://*.replit.dev:* wss://*.replit.dev:* wss:". The action has been blocked.
+dispatchXhrRequest @ axios.js?v=767e51e8:1696
+xhr @ axios.js?v=767e51e8:1573
+dispatchRequest @ axios.js?v=767e51e8:2107
+Promise.then
+_request @ axios.js?v=767e51e8:2310
+request @ axios.js?v=767e51e8:2219
+httpMethod @ axios.js?v=767e51e8:2356
+wrap @ axios.js?v=767e51e8:8
+login @ authApi.js:32
+(anonymous) @ Login.jsx:35
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=767e51e8:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=767e51e8:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=767e51e8:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=767e51e8:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=767e51e8:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=767e51e8:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=767e51e8:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=767e51e8:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=767e51e8:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=767e51e8:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=767e51e8:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=767e51e8:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=767e51e8:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=767e51e8:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=767e51e8:5449Understand this error
+Login.jsx:95 ❌ Login error: AxiosError {message: 'Network Error', name: 'AxiosError', code: 'ERR_NETWORK', config: {…}, request: XMLHttpRequest, …}
+(anonymous) @ Login.jsx:95
+await in (anonymous)
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=767e51e8:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=767e51e8:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=767e51e8:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=767e51e8:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=767e51e8:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=767e51e8:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=767e51e8:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=767e51e8:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=767e51e8:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=767e51e8:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=767e51e8:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=767e51e8:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=767e51e8:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=767e51e8:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=767e51e8:5449Understand this error
+Login.jsx:102 🔴 Backend Connection Error: Make sure backend is running on port 3000
+(anonymous) @ Login.jsx:102
+await in (anonymous)
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=767e51e8:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=767e51e8:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=767e51e8:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=767e51e8:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=767e51e8:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=767e51e8:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=767e51e8:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=767e51e8:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=767e51e8:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=767e51e8:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=767e51e8:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=767e51e8:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=767e51e8:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=767e51e8:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=767e51e8:5449Understand this error
+client:736  GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+ping @ client:736
+waitForSuccessfulPing @ client:755Understand this error
+client:736  GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+ping @ client:736
+waitForSuccessfulPing @ client:755Understand this error
+client:736  GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+ping @ client:736
+waitForSuccessfulPing @ client:755Understand this error

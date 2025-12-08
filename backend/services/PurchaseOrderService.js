@@ -16,32 +16,58 @@ class PurchaseOrderService {
   }
 
   /**
-   * Create purchase order from a winning offer
+   * Create purchase order from tender and buyer data
    * @async
-   * @param {string} offerId - ID of winning offer
-   * @param {string} userId - ID of user creating PO (buyer)
+   * @param {Object} purchaseOrderData - Purchase order details
    * @returns {Promise<Object>} Created purchase order record
-   * @throws {Error} When offer not found or not winner
+   * @throws {Error} When validation fails or creation error
    */
-  async createPurchaseOrder(offerId, userId) {
+  async createPurchaseOrder(purchaseOrderData) {
     const pool = getPool();
 
     try {
-      // Get offer and tender data
-      const offerResult = await pool.query(
-        `SELECT o.*, t.buyer_id, t.title as tender_title 
-                 FROM offers o 
-                 JOIN tenders t ON o.tender_id = t.id 
-                 WHERE o.id = $1 AND o.is_winner = TRUE`,
-        [offerId]
-      );
-
-      if (offerResult.rows.length === 0) {
-        throw new Error('Winning offer not found');
+      // Validate required fields
+      if (!purchaseOrderData.tender_id || !purchaseOrderData.buyer_id) {
+        throw new Error('tender_id et buyer_id sont requis');
       }
 
-      const offer = offerResult.rows[0];
       const poNumber = this.generatePONumber();
+      const purchaseOrder = new PurchaseOrder({
+        ...purchaseOrderData,
+        po_number: poNumber,
+        status: purchaseOrderData.status || 'pending',
+        currency: purchaseOrderData.currency || 'TND',
+        issue_date: new Date(),
+      });
+
+      const result = await pool.query(
+        `INSERT INTO purchase_orders 
+        (id, po_number, tender_id, offer_id, supplier_id, buyer_id, 
+         total_amount, currency, status, issue_date, delivery_date, 
+         payment_terms, terms_and_conditions, items, attachments, notes)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+        RETURNING *`,
+        [
+          purchaseOrder.id,
+          purchaseOrder.po_number,
+          purchaseOrder.tender_id,
+          purchaseOrder.offer_id,
+          purchaseOrder.supplier_id,
+          purchaseOrder.buyer_id,
+          purchaseOrder.total_amount,
+          purchaseOrder.currency,
+          purchaseOrder.status,
+          purchaseOrder.issue_date,
+          purchaseOrder.delivery_date,
+          purchaseOrder.payment_terms,
+          purchaseOrder.terms_and_conditions,
+          JSON.stringify(purchaseOrder.items),
+          JSON.stringify(purchaseOrder.attachments),
+          purchaseOrder.notes,
+        ]
+      );
+
+      return result.rows[0];
 
       const result = await pool.query(
         `INSERT INTO purchase_orders 
@@ -124,6 +150,67 @@ class PurchaseOrderService {
       return result.rows[0];
     } catch (error) {
       throw new Error(`Failed to update purchase order: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get purchase order by ID
+   * @async
+   * @param {string} id - Purchase order ID
+   * @param {string} userId - Current user ID for authorization
+   * @returns {Promise<Object|null>} Purchase order or null
+   */
+  async getPurchaseOrderById(id, userId) {
+    const pool = getPool();
+
+    try {
+      const result = await pool.query(
+        `SELECT po.*, t.title as tender_title, 
+                u.company_name as supplier_name
+         FROM purchase_orders po
+         JOIN tenders t ON po.tender_id = t.id
+         LEFT JOIN users u ON po.supplier_id = u.id
+         WHERE po.id = $1 
+           AND (po.buyer_id = $2 OR po.supplier_id = $2)
+           AND po.is_deleted = FALSE`,
+        [id, userId]
+      );
+
+      return result.rows[0] || null;
+    } catch (error) {
+      throw new Error(`Échec de récupération du bon de commande: ${error.message}`);
+    }
+  }
+
+  /**
+   * Update purchase order status
+   * @async
+   * @param {string} id - Purchase order ID
+   * @param {string} status - New status
+   * @param {string} userId - User making the update
+   * @returns {Promise<Object>} Updated purchase order
+   */
+  async updatePurchaseOrderStatus(id, status, userId) {
+    const pool = getPool();
+
+    try {
+      const result = await pool.query(
+        `UPDATE purchase_orders 
+         SET status = $1, updated_at = CURRENT_TIMESTAMP
+         WHERE id = $2 
+           AND (buyer_id = $3 OR supplier_id = $3)
+           AND is_deleted = FALSE
+         RETURNING *`,
+        [status, id, userId]
+      );
+
+      if (result.rows.length === 0) {
+        throw new Error('Bon de commande introuvable ou non autorisé');
+      }
+
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Échec de mise à jour du statut: ${error.message}`);
     }
   }
 

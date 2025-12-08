@@ -1,7 +1,7 @@
 
 const PurchaseOrderService = require('../../services/PurchaseOrderService');
-const { errorResponse } = require('../../middleware/errorResponseFormatter');
-const logger = require('../../utils/logger');
+const { sendErrorResponse, sendSuccessResponse } = require('../../utils/errorHandler');
+const { logger } = require('../../utils/logger');
 
 /**
  * Purchase Order Controller
@@ -22,14 +22,10 @@ class PurchaseOrderController {
 
       const purchaseOrder = await PurchaseOrderService.createPurchaseOrder(purchaseOrderData);
 
-      res.status(201).json({
-        success: true,
-        message: 'Purchase order created and sent successfully',
-        data: purchaseOrder,
-      });
+      return sendSuccessResponse(res, purchaseOrder, 201, 'Bon de commande créé et envoyé avec succès');
     } catch (error) {
       logger.error('Error creating purchase order:', error);
-      errorResponse(res, error.message, 400);
+      return sendErrorResponse(res, error, 400);
     }
   }
 
@@ -43,16 +39,13 @@ class PurchaseOrderController {
       const purchaseOrder = await PurchaseOrderService.getPurchaseOrderById(id, req.user.id);
 
       if (!purchaseOrder) {
-        return errorResponse(res, 'Purchase order not found', 404);
+        return sendErrorResponse(res, 'Bon de commande introuvable', 404);
       }
 
-      res.json({
-        success: true,
-        data: purchaseOrder,
-      });
+      return sendSuccessResponse(res, purchaseOrder, 200, 'Bon de commande récupéré avec succès');
     } catch (error) {
       logger.error('Error fetching purchase order:', error);
-      errorResponse(res, error.message, 500);
+      return sendErrorResponse(res, error, 500);
     }
   }
 
@@ -65,14 +58,13 @@ class PurchaseOrderController {
       const buyerId = req.user.id;
       const purchaseOrders = await PurchaseOrderService.getPurchaseOrdersByBuyer(buyerId);
 
-      res.json({
-        success: true,
-        count: purchaseOrders.length,
-        data: purchaseOrders,
-      });
+      return sendSuccessResponse(res, { 
+        orders: purchaseOrders,
+        count: purchaseOrders.length 
+      }, 200, 'Bons de commande récupérés avec succès');
     } catch (error) {
       logger.error('Error fetching buyer purchase orders:', error);
-      errorResponse(res, error.message, 500);
+      return sendErrorResponse(res, error, 500);
     }
   }
 
@@ -85,14 +77,13 @@ class PurchaseOrderController {
       const supplierId = req.user.id;
       const purchaseOrders = await PurchaseOrderService.getPurchaseOrdersBySupplier(supplierId);
 
-      res.json({
-        success: true,
-        count: purchaseOrders.length,
-        data: purchaseOrders,
-      });
+      return sendSuccessResponse(res, { 
+        orders: purchaseOrders,
+        count: purchaseOrders.length 
+      }, 200, 'Commandes reçues récupérées avec succès');
     } catch (error) {
       logger.error('Error fetching supplier purchase orders:', error);
-      errorResponse(res, error.message, 500);
+      return sendErrorResponse(res, error, 500);
     }
   }
 
@@ -111,14 +102,10 @@ class PurchaseOrderController {
         req.user.id
       );
 
-      res.json({
-        success: true,
-        message: 'Purchase order status updated',
-        data: updatedPO,
-      });
+      return sendSuccessResponse(res, updatedPO, 200, 'Statut du bon de commande mis à jour avec succès');
     } catch (error) {
       logger.error('Error updating purchase order status:', error);
-      errorResponse(res, error.message, 400);
+      return sendErrorResponse(res, error, 400);
     }
   }
 }

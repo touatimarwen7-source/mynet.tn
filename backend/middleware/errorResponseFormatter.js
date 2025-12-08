@@ -45,4 +45,4 @@ const errorResponse = (res, message, statusCode = 500, errorCode = 'ERROR') => {
 };
 
 module.exports = errorResponseFormatter;
-module.exports.errorResponse = errorResponse;se;
+module.exports.errorResponse = errorResponse;

@@ -60,11 +60,11 @@ export const DataService = {
 };
 
 /**
- * Service de validation
+ * Validation Service
  */
 export const ValidationService = {
   /**
-   * التحقق من البريد الإلكتروني
+   * Validate email address
    */
   isValidEmail: (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -72,7 +72,7 @@ export const ValidationService = {
   },
 
   /**
-   * التحقق من رقم الهاتف
+   * Validate phone number
    */
   isValidPhone: (phone) => {
     const regex = /^[0-9]{8,}$/;
@@ -80,7 +80,7 @@ export const ValidationService = {
   },
 
   /**
-   * التحقق من كلمة المرور
+   * Validate password strength
    */
   isStrongPassword: (password) => {
     return (
@@ -92,7 +92,7 @@ export const ValidationService = {
   },
 
   /**
-   * التحقق من البيانات المطلوبة
+   * Validate required fields
    */
   validateRequired: (fields) => {
     return Object.values(fields).every((field) => field && field.trim() !== '');
@@ -100,16 +100,16 @@ export const ValidationService = {
 };
 
 /**
- * خدمة التنبيهات والإشعارات
+ * Notification Service
  */
 export const NotificationService = {
   /**
-   * قائمة التنبيهات
+   * Alerts list
    */
   alerts: [],
 
   /**
-   * إضافة تنبيه
+   * Add alert
    */
   add: function (message, type = 'info') {
     const alert = {
@@ -124,14 +124,14 @@ export const NotificationService = {
   },
 
   /**
-   * إزالة تنبيه
+   * Remove alert
    */
   remove: function (id) {
     this.alerts = this.alerts.filter((a) => a.id !== id);
   },
 
   /**
-   * الحصول على جميع التنبيهات
+   * Get all alerts
    */
   getAll: function () {
     return this.alerts;
@@ -139,11 +139,11 @@ export const NotificationService = {
 };
 
 /**
- * خدمة التصفية والبحث
+ * Filter Service
  */
 export const FilterService = {
   /**
-   * تصفية البيانات
+   * Filter data
    */
   filter: (data, criteria) => {
     return data.filter((item) => {
@@ -155,7 +155,7 @@ export const FilterService = {
   },
 
   /**
-   * ترتيب البيانات
+   * Sort data
    */
   sort: (data, field, direction = 'asc') => {
     return [...data].sort((a, b) => {
@@ -166,7 +166,7 @@ export const FilterService = {
   },
 
   /**
-   * تجميع البيانات
+   * Group data
    */
   group: (data, field) => {
     return data.reduce((acc, item) => {
@@ -179,11 +179,11 @@ export const FilterService = {
 };
 
 /**
- * خدمة إدارة الأداء
+ * Performance Service
  */
 export const PerformanceService = {
   /**
-   * حساب وقت الاستجابة
+   * Measure response time
    */
   measureResponseTime: async (asyncFn) => {
     const start = performance.now();
@@ -206,7 +206,7 @@ export const PerformanceService = {
   },
 
   /**
-   * قياس حجم الذاكرة
+   * Measure memory usage
    */
   getMemoryUsage: () => {
     if (performance.memory) {
@@ -220,11 +220,11 @@ export const PerformanceService = {
 };
 
 /**
- * خدمة التخزين المحلي
+ * Storage Service
  */
 export const StorageService = {
   /**
-   * حفظ البيانات
+   * Save data
    */
   set: (key, value) => {
     try {
@@ -237,7 +237,7 @@ export const StorageService = {
   },
 
   /**
-   * استرجاع البيانات
+   * Retrieve data
    */
   get: (key) => {
     try {
@@ -250,7 +250,7 @@ export const StorageService = {
   },
 
   /**
-   * حذف البيانات
+   * Remove data
    */
   remove: (key) => {
     try {
@@ -263,7 +263,7 @@ export const StorageService = {
   },
 
   /**
-   * مسح التخزين
+   * Clear storage
    */
   clear: () => {
     try {

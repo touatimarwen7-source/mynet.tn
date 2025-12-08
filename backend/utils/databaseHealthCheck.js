@@ -1,24 +1,24 @@
 
 /**
- * أداة فحص صحة قاعدة البيانات
- * تتحقق من الاتصال والأداء
+ * Database Health Check Utility
+ * Verifies connection and performance
  */
 
 const { getPool } = require('../config/db');
 
 /**
- * فحص صحة الاتصال بقاعدة البيانات
+ * Check database connection health
  */
 async function checkDatabaseHealth() {
   const pool = getPool();
   const startTime = Date.now();
   
   try {
-    // اختبار الاتصال البسيط
+    // Simple connection test
     const result = await pool.query('SELECT NOW() as current_time, version() as version');
     const responseTime = Date.now() - startTime;
     
-    // فحص عدد الاتصالات
+    // Check connection count
     const poolStats = {
       total: pool.totalCount,
       idle: pool.idleCount,
@@ -45,7 +45,7 @@ async function checkDatabaseHealth() {
 }
 
 /**
- * فحص الجداول الأساسية
+ * Check core tables
  */
 async function checkCoreTables() {
   const pool = getPool();
@@ -85,7 +85,7 @@ async function checkCoreTables() {
 }
 
 /**
- * فحص الفهارس
+ * Check indexes
  */
 async function checkIndexes() {
   const pool = getPool();
@@ -116,7 +116,7 @@ async function checkIndexes() {
 }
 
 /**
- * فحص شامل للنظام
+ * Perform complete system health check
  */
 async function performFullHealthCheck() {
   const [health, tables, indexes] = await Promise.all([

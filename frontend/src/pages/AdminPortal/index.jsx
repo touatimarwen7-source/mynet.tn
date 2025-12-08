@@ -1,6 +1,6 @@
 /**
- * Admin Portal - واجهة الإدارة الرسمية المتقدمة
- * منصة إدارة احترافية عالمية بمواصفات عالية الجودة
+ * Admin Portal - Interface d'administration avancée officielle
+ * Plateforme de gestion professionnelle mondiale aux spécifications de haute qualité
  * @component
  */
 
@@ -80,7 +80,7 @@ import EnhancedErrorBoundary from '../../components/EnhancedErrorBoundary';
 
 const THEME = institutionalTheme;
 
-// ============ مكون إحصائية متقدمة ============
+// ============ Composant de carte de statistiques avancées ============
 function AdvancedStatCard({ title, value, change, icon: Icon, color, trend, loading }) {
   return (
     <Card
@@ -137,7 +137,7 @@ function AdvancedStatCard({ title, value, change, icon: Icon, color, trend, load
                   fontWeight: 600,
                 }}
               >
-                {Math.abs(change)}% {change > 0 ? 'نمو' : 'انخفاض'} من الفترة السابقة
+                {Math.abs(change)}% {change > 0 ? 'Croissance' : 'Baisse'} de la période précédente
               </Typography>
             </Stack>
           )}
@@ -147,23 +147,23 @@ function AdvancedStatCard({ title, value, change, icon: Icon, color, trend, load
   );
 }
 
-// ============ لوحة معلومات متقدمة ============
+// ============ Tableau de bord avancé ============
 function AdvancedDashboard() {
   const [loading] = useState(false);
 
   const stats = [
     {
-      label: 'إجمالي المستخدمين النشطين',
+      label: 'Utilisateurs actifs totaux',
       value: '3,847',
       change: 18,
       icon: People,
       color: '#0056B3',
     },
-    { label: 'الأجل المُنشرة', value: '245', change: 24, icon: Assessment, color: '#2e7d32' },
-    { label: 'العروض المُقيّمة', value: '892', change: -3, icon: TrendingUp, color: '#f57c00' },
+    { label: 'Délai imparti', value: '245', change: 24, icon: Assessment, color: '#2e7d32' },
+    { label: 'Offres évaluées', value: '892', change: -3, icon: TrendingUp, color: '#f57c00' },
     {
-      label: 'الإيرادات الإجمالية',
-      value: 'د.ت 12.5M',
+      label: 'Revenus totaux',
+      value: '12.5M TND',
       change: 35,
       icon: TrendingUp,
       color: '#7b1fa2',
@@ -171,33 +171,33 @@ function AdvancedDashboard() {
   ];
 
   const topUsers = [
-    { rank: 1, name: 'شركة النجاح التجارية', role: 'مشتري', score: 98, status: 'نشط' },
-    { rank: 2, name: 'فاطمة للتوريد والتجارة', role: 'موردّ', score: 95, status: 'نشط' },
-    { rank: 3, name: 'أحمد محمد للاستيراد', role: 'مشتري', score: 92, status: 'نشط' },
+    { rank: 1, name: 'Société de succès commercial', role: 'buyer', score: 98, status: 'actif' },
+    { rank: 2, name: 'Fatma Fourniture et Commerce', role: 'supplier', score: 95, status: 'actif' },
+    { rank: 3, name: 'Ahmed Mohamed Import', role: 'buyer', score: 92, status: 'actif' },
   ];
 
   return (
     <Grid xs={12} spacing={3} container>
-      {/* الإحصائيات الرئيسية */}
+      {/* Statistiques principales */}
       {stats.map((stat, idx) => (
         <Grid xs={12} lg={3} key={idx}>
           <AdvancedStatCard {...stat} loading={loading} />
         </Grid>
       ))}
 
-      {/* أداء النظام */}
+      {/* Performance du système */}
       <Grid xs={12} md={8}>
         <Card
           sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '12px' }}
         >
-          <CardHeader title="أداء النظام والخوادم" action={<Refresh fontSize="small" />} />
+          <CardHeader title="Performance du système et des serveurs" action={<Refresh fontSize="small" />} />
           <CardContent>
             <Stack spacing={3}>
               {[
-                { label: 'توفر الخادم الأساسي', value: 99.95, status: 'ممتاز' },
-                { label: 'سرعة استجابة API', value: 87, status: 'سريع جداً' },
-                { label: 'مساحة قاعدة البيانات', value: 68, status: 'جيد' },
-                { label: 'استخدام الذاكرة', value: 52, status: 'متوازن' },
+                { label: 'Disponibilité du serveur principal', value: 99.95, status: 'Excellent' },
+                { label: 'Vitesse de réponse de l\'API', value: 87, status: 'Très rapide' },
+                { label: 'Espace de la base de données', value: 68, status: 'Bon' },
+                { label: 'Utilisation de la mémoire', value: 52, status: 'Équilibré' },
               ].map((metric, idx) => (
                 <Box key={idx}>
                   <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
@@ -235,32 +235,32 @@ function AdvancedDashboard() {
         </Card>
       </Grid>
 
-      {/* التنبيهات والإشعارات */}
+      {/* Alertes et notifications */}
       <Grid xs={12} md={4}>
         <Card
           sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '12px' }}
         >
-          <CardHeader title="التنبيهات الذكية" />
+          <CardHeader title="Alertes intelligentes" />
           <CardContent>
             <Stack spacing={2}>
               {[
                 {
                   icon: Warning,
                   color: '#f57c00',
-                  title: 'تنبيه أداء',
-                  desc: 'زيادة طلبات API بـ 45%',
+                  title: 'Alerte de performance',
+                  desc: 'Augmentation de 45% des requêtes API',
                 },
                 {
                   icon: Info,
                   color: '#0288d1',
-                  title: 'معلومة نظام',
-                  desc: 'النسخة الاحتياطية نجحت',
+                  title: 'Info système',
+                  desc: 'Sauvegarde réussie',
                 },
                 {
                   icon: CheckCircle,
                   color: '#2e7d32',
-                  title: 'إجراء مكتمل',
-                  desc: 'صيانة النظام اكتملت',
+                  title: 'Action terminée',
+                  desc: 'Maintenance système terminée',
                 },
               ].map((alert, idx) => (
                 <Stack
@@ -290,22 +290,22 @@ function AdvancedDashboard() {
         </Card>
       </Grid>
 
-      {/* أفضل المستخدمين */}
+      {/* Meilleurs utilisateurs */}
       <Grid xs={12}>
         <Card
           sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '12px' }}
         >
-          <CardHeader title="أفضل المستخدمين النشطين" />
+          <CardHeader title="Meilleurs utilisateurs actifs" />
           <CardContent>
             <Box sx={{ overflowX: 'auto' }}>
               <Table>
                 <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 600 }}>الترتيب</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>اسم الشركة</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>الدور</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>التقييم</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>الحالة</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Rang</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Nom de l\'entreprise</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Rôle</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Score</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Statut</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -338,7 +338,7 @@ function AdvancedDashboard() {
                       <TableCell sx={{ fontWeight: 500 }}>{user.name}</TableCell>
                       <TableCell>
                         <Chip
-                          label={user.role === 'buyer' ? 'مشتري' : 'موردّ'}
+                          label={user.role === 'buyer' ? 'Acheteur' : 'Fournisseur'}
                           size="small"
                           variant="outlined"
                         />
@@ -372,33 +372,33 @@ function AdvancedDashboard() {
   );
 }
 
-// ============ إدارة المستخدمين المتقدمة ============
+// ============ Gestion avancée des utilisateurs ============
 function AdvancedUserManagement() {
   const [users] = useState([
     {
       id: 1,
       email: 'buyer@mynet.tn',
-      name: 'أحمد المشتري',
+      name: 'Ahmed l\'Acheteur',
       role: 'buyer',
-      status: 'نشط',
+      status: 'actif',
       joinDate: '2025-01-15',
       activities: 145,
     },
     {
       id: 2,
       email: 'supplier@tech.tn',
-      name: 'فاطمة الموردة',
+      name: 'Fatma la Fournisseuse',
       role: 'supplier',
-      status: 'نشط',
+      status: 'actif',
       joinDate: '2025-01-10',
       activities: 238,
     },
     {
       id: 3,
       email: 'assistant@mynet.tn',
-      name: 'محمد المساعد',
+      name: 'Mohamed l\'Assistant',
       role: 'admin_assistant',
-      status: 'نشط',
+      status: 'actif',
       joinDate: '2025-01-05',
       activities: 89,
     },
@@ -418,17 +418,17 @@ function AdvancedUserManagement() {
           sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '12px' }}
         >
           <CardHeader
-            title="إدارة المستخدمين المتقدمة"
+            title="Gestion avancée des utilisateurs"
             action={
               <Button startIcon={<Add />} variant="contained" size="small">
-                مستخدم جديد
+                Nouvel utilisateur
               </Button>
             }
           />
           <CardContent>
             <Stack spacing={2} sx={{ mb: 3 }}>
               <TextField
-                placeholder="ابحث بالبريد أو الاسم..."
+                placeholder="Rechercher par email ou nom..."
                 size="small"
                 fullWidth
                 value={searchText}
@@ -441,12 +441,12 @@ function AdvancedUserManagement() {
               <Table>
                 <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 600 }}>البريد الإلكتروني</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>الاسم</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>الدور</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>النشاط</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>الحالة</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>الإجراءات</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Email</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Nom</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Rôle</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Activité</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Statut</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -463,10 +463,10 @@ function AdvancedUserManagement() {
                         <Chip
                           label={
                             user.role === 'buyer'
-                              ? 'مشتري'
+                              ? 'Acheteur'
                               : user.role === 'supplier'
-                                ? 'موردّ'
-                                : 'مساعد إداري'
+                                ? 'Fournisseur'
+                                : 'Assistant Admin'
                           }
                           size="small"
                           variant="outlined"
@@ -485,12 +485,12 @@ function AdvancedUserManagement() {
                       </TableCell>
                       <TableCell>
                         <Stack direction="row" spacing={1}>
-                          <Tooltip title="تعديل">
+                          <Tooltip title="Modifier">
                             <IconButton size="small">
                               <Edit fontSize="small" />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title="حذف">
+                          <Tooltip title="Supprimer">
                             <IconButton size="small" color="error">
                               <Delete fontSize="small" />
                             </IconButton>
@@ -509,19 +509,19 @@ function AdvancedUserManagement() {
   );
 }
 
-// ============ التقارير المتقدمة ============
+// ============ Rapports avancés ============
 function AdvancedReports() {
   const reports = [
-    { name: 'تقرير الأداء الشامل', date: '2025-01-26', size: '4.2 MB', type: 'PDF', downloads: 24 },
+    { name: 'Rapport de performance complet', date: '2025-01-26', size: '4.2 MB', type: 'PDF', downloads: 24 },
     {
-      name: 'تحليل المستخدمين والنشاط',
+      name: 'Analyse des utilisateurs et de l\'activité',
       date: '2025-01-25',
       size: '2.8 MB',
       type: 'Excel',
       downloads: 18,
     },
     {
-      name: 'بيان الإيرادات والمبيعات',
+      name: 'État des revenus et des ventes',
       date: '2025-01-24',
       size: '5.1 MB',
       type: 'PDF',
@@ -535,7 +535,7 @@ function AdvancedReports() {
         <Card
           sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '12px' }}
         >
-          <CardHeader title="التقارير المتقدمة" />
+          <CardHeader title="Rapports avancés" />
           <CardContent>
             <Stack spacing={2}>
               {reports.map((report, idx) => (
@@ -570,10 +570,10 @@ function AdvancedReports() {
                   </Stack>
                   <Stack direction="row" alignItems="center" spacing={1}>
                     <Typography variant="caption" color="textSecondary">
-                      {report.downloads} تحميل
+                      {report.downloads} téléchargements
                     </Typography>
                     <Button size="small" startIcon={<Download />} variant="contained">
-                      تحميل
+                      Télécharger
                     </Button>
                   </Stack>
                 </Stack>
@@ -586,7 +586,7 @@ function AdvancedReports() {
   );
 }
 
-// ============ الإعدادات والأمان ============
+// ============ Paramètres et sécurité ============
 function AdvancedSettings() {
   const [settings, setSettings] = useState({
     maintenanceMode: false,
@@ -601,14 +601,14 @@ function AdvancedSettings() {
         <Card
           sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '12px' }}
         >
-          <CardHeader title="إعدادات النظام" />
+          <CardHeader title="Paramètres système" />
           <CardContent>
             <Stack spacing={2}>
               {[
-                { label: 'وضع الصيانة', key: 'maintenanceMode' },
-                { label: 'الإخطارات البريدية', key: 'emailNotifications' },
-                { label: 'النسخ الاحتياطي التلقائي', key: 'autoBackup' },
-                { label: 'إجبار المصادقة الثنائية', key: 'twoFactorRequired' },
+                { label: 'Mode maintenance', key: 'maintenanceMode' },
+                { label: 'Notifications par email', key: 'emailNotifications' },
+                { label: 'Sauvegarde automatique', key: 'autoBackup' },
+                { label: 'Authentification à deux facteurs obligatoire', key: 'twoFactorRequired' },
               ].map((item) => (
                 <FormControlLabel
                   key={item.key}
@@ -621,7 +621,7 @@ function AdvancedSettings() {
                   label={item.label}
                 />
               ))}
-              <Button variant="contained">حفظ الإعدادات</Button>
+              <Button variant="contained">Sauvegarder les paramètres</Button>
             </Stack>
           </CardContent>
         </Card>
@@ -631,20 +631,20 @@ function AdvancedSettings() {
         <Card
           sx={{ backgroundColor: '#FFFFFF', border: '1px solid #e0e0e0', borderRadius: '12px' }}
         >
-          <CardHeader title="الأمان المتقدم" />
+          <CardHeader title="Sécurité avancée" />
           <CardContent>
             <Stack spacing={2}>
               <Alert severity="success" sx={{ borderRadius: '8px' }}>
-                ✓ التشفير: AES-256 نشط
+                ✓ Cryptage : AES-256 actif
               </Alert>
               <Alert severity="success" sx={{ borderRadius: '8px' }}>
-                ✓ الشهادات: SSL/TLS صالحة
+                ✓ Certificats : SSL/TLS valides
               </Alert>
               <Alert severity="success" sx={{ borderRadius: '8px' }}>
-                ✓ النسخة الاحتياطية: آخر نسخة منذ ساعة واحدة
+                ✓ Sauvegarde : Dernière sauvegarde il y a une heure
               </Alert>
               <Button variant="outlined" fullWidth startIcon={<Lock />}>
-                إدارة مفاتيح الأمان
+                Gérer les clés de sécurité
               </Button>
             </Stack>
           </CardContent>
@@ -654,14 +654,14 @@ function AdvancedSettings() {
   );
 }
 
-// ============ المكون الرئيسي ============
+// ============ Composant principal ============
 function AdminPortalContent() {
   const [tab, setTab] = useState(0);
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#F9F9F9', paddingY: 4 }}>
       <Container maxWidth="xl">
-        {/* الرأس المحترف */}
+        {/* En-tête professionnel */}
         <Paper
           elevation={0}
           sx={{
@@ -679,10 +679,10 @@ function AdminPortalContent() {
             <Dashboard sx={{ fontSize: 40 }} />
             <Stack>
               <Typography variant="h5" sx={{ fontWeight: 700, color: 'white' }}>
-                منصة الإدارة الرسمية المحترفة
+                Plateforme d'administration officielle professionnelle
               </Typography>
               <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-                مركز التحكم المركزي الشامل بمواصفات عالمية احترافية
+                Centre de contrôle centralisé complet avec spécifications professionnelles mondiales
               </Typography>
             </Stack>
           </Stack>
@@ -691,18 +691,18 @@ function AdminPortalContent() {
             sx={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
             startIcon={<Refresh />}
           >
-            تحديث فوري
+            Mise à jour instantanée
           </Button>
         </Paper>
 
-        {/* التنبيهات */}
+        {/* Alertes */}
         <Stack spacing={2} sx={{ mb: 3 }}>
           <Alert severity="success" sx={{ borderRadius: '8px' }} icon={<CheckCircle />}>
-            ✓ جميع الأنظمة تعمل بأداء ممتاز • آخر مزامنة: الآن • الأمان: محمي بالكامل
+            ✓ Tous les systèmes fonctionnent de manière optimale • Dernière synchronisation : maintenant • Sécurité : entièrement protégée
           </Alert>
         </Stack>
 
-        {/* التبويبات */}
+        {/* Onglets */}
         <Paper
           elevation={0}
           sx={{
@@ -721,10 +721,10 @@ function AdminPortalContent() {
               '& .Mui-selected': { color: THEME.palette.primary.main, fontWeight: 700 },
             }}
           >
-            <Tab label="📊 لوحة المعلومات المتقدمة" />
-            <Tab label="👥 إدارة المستخدمين" />
-            <Tab label="📈 التقارير والتحليلات" />
-            <Tab label="⚙️ الإعدادات والأمان" />
+            <Tab label="📊 Tableau de bord avancé" />
+            <Tab label="👥 Gestion des utilisateurs" />
+            <Tab label="📈 Rapports et analyses" />
+            <Tab label="⚙️ Paramètres et sécurité" />
           </Tabs>
 
           <Box sx={{ padding: '24px' }}>
@@ -735,16 +735,16 @@ function AdminPortalContent() {
           </Box>
         </Paper>
 
-        {/* التذييل المحترف */}
+        {/* Pied de page professionnel */}
         <Stack sx={{ mt: 4, p: 2, backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
           <Typography
             variant="body2"
             sx={{ textAlign: 'center', color: 'textSecondary', fontWeight: 500 }}
           >
-            MyNet.tn © 2025 • منصة احترافية B2B • آخر تحديث: {new Date().toLocaleString('ar-TN')}
+            MyNet.tn © 2025 • Plateforme B2B professionnelle • Dernière mise à jour : {new Date().toLocaleString('fr-FR')}
           </Typography>
           <Typography variant="caption" sx={{ textAlign: 'center', color: 'textSecondary', mt: 1 }}>
-            🔒 جميع البيانات محمية بتشفير AES-256 • 🛡️ الأمان من أولويات العمل
+            🔒 Toutes les données sont protégées par le cryptage AES-256 • 🛡️ La sécurité est une priorité
           </Typography>
         </Stack>
       </Container>

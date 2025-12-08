@@ -1,33 +1,46 @@
-const ResponseFormatter = require('../utils/responseFormatter');
-const ErrorTrackingService = require('../services/ErrorTrackingService');
-
 class ErrorHandler {
   static handle(err, req, res, next) {
-    try {
-      // Log error safely
-      try {
-        ErrorTrackingService.logError('REQUEST_ERROR', err, {
-          path: req.path,
-          method: req.method,
-          requestId: req.id,
-        });
-      } catch (e) {
-        // Silently handle logging failures
-      }
+    // Prevent sending response if already sent
+    if (res.headersSent) {
+      return next(err);
+    }
 
+    try {
       // Get error details
       const statusCode = err.statusCode || err.status || 500;
       const errorCode = err.code || 'INTERNAL_ERROR';
       const message = this._getSafeMessage(err, statusCode);
 
-      // Unified response format
-      const errorResponse = ResponseFormatter.error(message, errorCode, statusCode);
-      res.status(statusCode).json(errorResponse);
+      // Log error in development
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Error:', {
+          message: err.message,
+          statusCode,
+          path: req.path,
+          method: req.method,
+        });
+      }
+
+      // Send unified error response
+      res.status(statusCode).json({
+        success: false,
+        error: {
+          message,
+          code: errorCode,
+          statusCode,
+          timestamp: new Date().toISOString(),
+        },
+      });
     } catch (e) {
       // Fallback if all else fails
       res.status(500).json({
-        error: 'Internal Server Error',
-        code: 'INTERNAL_ERROR',
+        success: false,
+        error: {
+          message: 'Une erreur interne s\'est produite',
+          code: 'INTERNAL_ERROR',
+          statusCode: 500,
+          timestamp: new Date().toISOString(),
+        },
       });
     }
   }
@@ -35,18 +48,21 @@ class ErrorHandler {
   static _getSafeMessage(err, statusCode) {
     // For production, limit error details
     if (process.env.NODE_ENV === 'production' && statusCode >= 500) {
-      return 'An error occurred processing your request';
+      return 'Une erreur s\'est produite lors du traitement de votre demande';
     }
-    return err.message || 'Unknown error';
+    return err.message || 'Erreur inconnue';
   }
 
   static notFound(req, res) {
-    const errorResponse = ResponseFormatter.error(
-      'The requested resource was not found',
-      'NOT_FOUND',
-      404
-    );
-    res.status(404).json(errorResponse);
+    res.status(404).json({
+      success: false,
+      error: {
+        message: 'La ressource demandée n\'a pas été trouvée',
+        code: 'NOT_FOUND',
+        statusCode: 404,
+        timestamp: new Date().toISOString(),
+      },
+    });
   }
 }
 

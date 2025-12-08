@@ -1,26 +1,9 @@
 
 require('dotenv').config();
 const http = require('http');
-const app = require('./app');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
-
-const logger = console;
-
-// Import routes
-const authRoutes = require('./routes/authRoutes');
-const procurementRoutes = require('./routes/procurementRoutes');
-const adminRoutes = require('./routes/adminRoutes');
-const superAdminRoutes = require('./routes/superAdminRoutes');
-const searchRoutes = require('./routes/searchRoutes');
-const notificationRoutes = require('./routes/notificationRoutes');
-const messagesRoutes = require('./routes/messagesRoutes');
-const reviewsRoutes = require('./routes/reviewsRoutes');
-const directSupplyRoutes = require('./routes/directSupplyRoutes');
-const companyProfileRoutes = require('./routes/companyProfileRoutes');
-const clarificationRoutes = require('./routes/clarificationRoutes');
-const passwordResetRoutes = require('./routes/passwordResetRoutes');
 
 async function startServer() {
   try {
@@ -28,32 +11,33 @@ async function startServer() {
     console.log('MyNet.tn Backend Server Starting...');
     console.log('========================================');
 
-    // Register routes
-    app.use('/api/auth', authRoutes);
-    app.use('/api/procurement', procurementRoutes);
-    app.use('/api/admin', adminRoutes);
-    app.use('/api/super-admin', superAdminRoutes);
-    app.use('/api/search', searchRoutes);
-    app.use('/api/notifications', notificationRoutes);
-    app.use('/api/messages', messagesRoutes);
-    app.use('/api/reviews', reviewsRoutes);
-    app.use('/api/direct-supply', directSupplyRoutes);
-    app.use('/api/company-profile', companyProfileRoutes);
-    app.use('/api/procurement/clarifications', clarificationRoutes);
-    app.use('/api/auth/password-reset', passwordResetRoutes);
+    // Initialize database connection
+    const { initializeDb } = require('./config/db');
+    const dbInitialized = await initializeDb();
+    
+    if (!dbInitialized) {
+      console.warn('⚠️ Database connection failed - running in limited mode');
+    } else {
+      console.log('✅ Database connected successfully');
+    }
+
+    // Import app after database initialization
+    const app = require('./app');
 
     // Start server
     const httpServer = http.createServer(app);
+    
     httpServer.listen(PORT, HOST, () => {
       console.log(`✅ Server running on http://${HOST}:${PORT}`);
-      console.log('✅ Using SimpleAuthService for authentication');
+      console.log('✅ Frontend accessible at http://0.0.0.0:5000');
       console.log('========================================');
       console.log('Available endpoints:');
-      console.log('  - POST /api/auth/register');
-      console.log('  - POST /api/auth/login');
-      console.log('  - GET  /api/procurement/tenders');
+      console.log('  - Health: GET /health');
+      console.log('  - Auth: POST /api/auth/login');
+      console.log('  - Tenders: GET /api/procurement/tenders');
+      console.log('  - API Docs: GET /api-docs');
       console.log('========================================');
-      console.log('📧 Test Accounts:');
+      console.log('📧 Default Test Accounts:');
       console.log('  Buyer: buyer@mynet.tn / buyer123');
       console.log('  Supplier: supplier@mynet.tn / supplier123');
       console.log('  Admin: admin@mynet.tn / admin123');
@@ -65,12 +49,22 @@ async function startServer() {
         console.error(`❌ Port ${PORT} is already in use`);
         process.exit(1);
       } else {
-        console.error('❌ Server error:', error);
+        console.error('❌ Server error:', error.message);
         process.exit(1);
       }
     });
+
+    // Graceful shutdown
+    process.on('SIGTERM', () => {
+      console.log('⚠️ SIGTERM received, closing server...');
+      httpServer.close(() => {
+        console.log('✅ Server closed');
+        process.exit(0);
+      });
+    });
+
   } catch (error) {
-    logger.error('❌ Failed to start server:', { message: error.message });
+    console.error('❌ Failed to start server:', error.message);
     console.error(error);
     process.exit(1);
   }
@@ -78,14 +72,13 @@ async function startServer() {
 
 // Global error handlers
 process.on('uncaughtException', (error) => {
-  logger.error('💥 Uncaught Exception:', { error: error.message });
+  console.error('💥 Uncaught Exception:', error.message);
   console.error(error);
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason, promise) => {
-  logger.error('💥 Unhandled Rejection:', { reason: String(reason) });
-  console.error(reason);
+process.on('unhandledRejection', (reason) => {
+  console.error('💥 Unhandled Rejection:', String(reason));
   process.exit(1);
 });
 

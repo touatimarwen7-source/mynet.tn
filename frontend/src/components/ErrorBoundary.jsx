@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, Container, Typography, Button } from '@mui/material';
+import { Box, Container, Typography, Button, Alert } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import HomeIcon from '@mui/icons-material/Home';
 import institutionalTheme from '../theme/theme';
 
 const THEME_COLORS = {

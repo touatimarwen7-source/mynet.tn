@@ -29,12 +29,18 @@ export const AppProvider = ({ children }) => {
 
   // Simple toast system (no dependency on ToastContext)
   const [toasts, setToasts] = useState([]);
-  const addToast = useCallback((message, type = 'success') => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3000);
+  const removeToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
+
+  const addToast = useCallback((message, type = 'info') => {
+    try {
+      const id = Date.now();
+      setToasts((prev) => [...prev, { id, message, type }]);
+      setTimeout(() => removeToast(id), 5000);
+    } catch (error) {
+      console.error('Error adding toast:', error);
+    }
   }, []);
 
   // ===== App Settings =====
@@ -236,6 +242,7 @@ export const AppProvider = ({ children }) => {
     appError,
     toasts,
     addToast,
+    removeToast,
 
     // App Settings
     sidebarOpen,

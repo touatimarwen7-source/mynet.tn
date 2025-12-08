@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import institutionalTheme from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -19,6 +19,10 @@ import {
   Chip,
   Stack,
   Checkbox,
+  LinearProgress,
+  Divider,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,6 +30,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import LockIcon from '@mui/icons-material/Lock';
 import CompareIcon from '@mui/icons-material/Compare';
 import DownloadIcon from '@mui/icons-material/Download';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { procurementAPI } from '../api';
 import { formatDate, parseDate } from '../utils/dateFormatter';
 import { setPageTitle } from '../utils/pageTitle';
@@ -46,6 +53,10 @@ export default function BuyerActiveTenders() {
   const [pageSize, setPageSize] = useState(10);
   const [confirmDialog, setConfirmDialog] = useState({ open: false, action: null, tenderId: null });
   const [selectedTenders, setSelectedTenders] = useState(new Set());
+  const [showFilters, setShowFilters] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [budgetFilter, setBudgetFilter] = useState({ min: '', max: '' });
+  const [statistics, setStatistics] = useState({ total: 0, avgOffers: 0, totalBudget: 0 });
 
   useEffect(() => {
     setPageTitle("Appels d'Offres Actifs");
@@ -67,6 +78,14 @@ export default function BuyerActiveTenders() {
           tender => tender.status === 'open' || tender.status === 'published'
         );
         setTenders(activeTenders);
+        
+        // حساب الإحصائيات
+        const stats = {
+          total: activeTenders.length,
+          avgOffers: activeTenders.reduce((acc, t) => acc + (t.offers_count || 0), 0) / (activeTenders.length || 1),
+          totalBudget: activeTenders.reduce((acc, t) => acc + (t.budget_max || 0), 0),
+        };
+        setStatistics(stats);
       } else {
         logger.warn('استجابة غير متوقعة من API:', response);
         setTenders([]);
@@ -79,11 +98,24 @@ export default function BuyerActiveTenders() {
     }
   };
 
-  const filteredTenders = tenders.filter(
-    (t) =>
-      t.title.toLowerCase().includes(filter.toLowerCase()) ||
-      (t.description && t.description.toLowerCase().includes(filter.toLowerCase()))
-  );
+  const filteredTenders = useMemo(() => {
+    return tenders.filter((t) => {
+      // البحث النصي
+      const matchesSearch = 
+        t.title.toLowerCase().includes(filter.toLowerCase()) ||
+        (t.description && t.description.toLowerCase().includes(filter.toLowerCase()));
+      
+      // فلتر الفئة
+      const matchesCategory = categoryFilter === 'all' || t.category === categoryFilter;
+      
+      // فلتر الميزانية
+      const matchesBudget = 
+        (!budgetFilter.min || t.budget_max >= parseFloat(budgetFilter.min)) &&
+        (!budgetFilter.max || t.budget_max <= parseFloat(budgetFilter.max));
+      
+      return matchesSearch && matchesCategory && matchesBudget;
+    });
+  }, [tenders, filter, categoryFilter, budgetFilter]);
 
   const sortedTenders = [...filteredTenders].sort((a, b) => {
     if (sortBy === 'created_at') return parseDate(b.created_at) - parseDate(a.created_at);
@@ -144,6 +176,28 @@ export default function BuyerActiveTenders() {
     }
   };
 
+  const calculateProgress = (tender) => {
+    const now = new Date();
+    const created = parseDate(tender.created_at);
+    const deadline = parseDate(tender.deadline);
+    
+    if (!deadline || deadline <= created) return 0;
+    
+    const total = deadline - created;
+    const elapsed = now - created;
+    const progress = Math.min(100, Math.max(0, (elapsed / total) * 100));
+    
+    return Math.round(progress);
+  };
+
+  const getDaysRemaining = (deadline) => {
+    const now = new Date();
+    const deadlineDate = parseDate(deadline);
+    const diff = deadlineDate - now;
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return days > 0 ? days : 0;
+  };
+
   const handleExport = (format) => {
     const dataToExport =
       selectedTenders.size > 0 ? tenders.filter((t) => selectedTenders.has(t.id)) : tenders;
@@ -184,7 +238,7 @@ export default function BuyerActiveTenders() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: '32px',
+            marginBottom: '24px',
           }}
         >
           <Box>
@@ -201,36 +255,142 @@ export default function BuyerActiveTenders() {
             </Typography>
             <Typography sx={{ color: '#616161' }}>Gérez vos appels d'offres en cours</Typography>
           </Box>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => navigate('/create-tender')}
-            sx={{
-              backgroundColor: institutionalTheme.palette.primary.main,
-              textTransform: 'none',
-              fontWeight: 600,
-              '&:hover': { backgroundColor: '#0d47a1' },
-            }}
-          >
-            Créer Appel
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Tooltip title="Actualiser">
+              <IconButton onClick={fetchActiveTenders} sx={{ color: institutionalTheme.palette.primary.main }}>
+                <RefreshIcon />
+              </IconButton>
+            </Tooltip>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => navigate('/create-tender')}
+              sx={{
+                backgroundColor: institutionalTheme.palette.primary.main,
+                textTransform: 'none',
+                fontWeight: 600,
+                '&:hover': { backgroundColor: '#0d47a1' },
+              }}
+            >
+              Créer Appel
+            </Button>
+          </Stack>
         </Box>
+
+        {/* Statistics Cards */}
+        <Grid container spacing={2} sx={{ marginBottom: '24px' }}>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ border: '1px solid #e0e0e0' }}>
+              <CardContent>
+                <Typography sx={{ fontSize: '14px', color: '#616161', marginBottom: '8px' }}>
+                  Total des Appels
+                </Typography>
+                <Typography sx={{ fontSize: '28px', fontWeight: 600, color: institutionalTheme.palette.primary.main }}>
+                  {statistics.total}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ border: '1px solid #e0e0e0' }}>
+              <CardContent>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <TrendingUpIcon sx={{ color: '#4caf50' }} />
+                  <Box>
+                    <Typography sx={{ fontSize: '14px', color: '#616161', marginBottom: '8px' }}>
+                      Moyenne des Offres
+                    </Typography>
+                    <Typography sx={{ fontSize: '28px', fontWeight: 600, color: '#4caf50' }}>
+                      {statistics.avgOffers.toFixed(1)}
+                    </Typography>
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ border: '1px solid #e0e0e0' }}>
+              <CardContent>
+                <Typography sx={{ fontSize: '14px', color: '#616161', marginBottom: '8px' }}>
+                  Budget Total
+                </Typography>
+                <Typography sx={{ fontSize: '28px', fontWeight: 600, color: institutionalTheme.palette.primary.main }}>
+                  {statistics.totalBudget.toLocaleString()} TND
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
 
         <Card sx={{ marginBottom: '32px', border: '1px solid #e0e0e0' }}>
           <CardContent sx={{ padding: '24px' }}>
             <Stack spacing={2}>
-              <TextField
-                fullWidth
-                placeholder="Rechercher par titre ou description..."
-                value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-                variant="outlined"
-                inputProps={{ 'aria-label': "Rechercher dans les appels d'offres" }}
-                aria-describedby="search-help"
-              />
-              <Typography id="search-help" sx={{ fontSize: '12px', color: '#999' }}>
-                Tapez au moins 2 caractères pour rechercher
-              </Typography>
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                <TextField
+                  fullWidth
+                  placeholder="Rechercher par titre ou description..."
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                  variant="outlined"
+                  inputProps={{ 'aria-label': "Rechercher dans les appels d'offres" }}
+                />
+                <Button
+                  variant="outlined"
+                  startIcon={<FilterListIcon />}
+                  onClick={() => setShowFilters(!showFilters)}
+                  sx={{
+                    minWidth: '140px',
+                    textTransform: 'none',
+                    borderColor: institutionalTheme.palette.primary.main,
+                    color: institutionalTheme.palette.primary.main,
+                  }}
+                >
+                  Filtres
+                </Button>
+              </Box>
+
+              {showFilters && (
+                <>
+                  <Divider />
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={4}>
+                      <FormControl fullWidth>
+                        <InputLabel>Catégorie</InputLabel>
+                        <Select
+                          value={categoryFilter}
+                          onChange={(e) => setCategoryFilter(e.target.value)}
+                          label="Catégorie"
+                        >
+                          <MenuItem value="all">Toutes les catégories</MenuItem>
+                          <MenuItem value="technology">Technologie</MenuItem>
+                          <MenuItem value="construction">Construction</MenuItem>
+                          <MenuItem value="services">Services</MenuItem>
+                          <MenuItem value="supplies">Fournitures</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        label="Budget Min (TND)"
+                        value={budgetFilter.min}
+                        onChange={(e) => setBudgetFilter({ ...budgetFilter, min: e.target.value })}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        label="Budget Max (TND)"
+                        value={budgetFilter.max}
+                        onChange={(e) => setBudgetFilter({ ...budgetFilter, max: e.target.value })}
+                      />
+                    </Grid>
+                  </Grid>
+                </>
+              )}
+
               <FormControl fullWidth>
                 <InputLabel id="sort-label">Trier par</InputLabel>
                 <Select
@@ -356,9 +516,15 @@ export default function BuyerActiveTenders() {
                           <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>
                             Catégorie
                           </Typography>
-                          <Typography sx={{ color: institutionalTheme.palette.text.primary }}>
-                            {tender.category}
-                          </Typography>
+                          <Chip 
+                            label={tender.category} 
+                            size="small" 
+                            sx={{ 
+                              backgroundColor: '#e3f2fd',
+                              color: institutionalTheme.palette.primary.main,
+                              fontWeight: 500,
+                            }}
+                          />
                         </Box>
                         <Box>
                           <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>
@@ -371,14 +537,37 @@ export default function BuyerActiveTenders() {
                           </Typography>
                         </Box>
                         <Box>
-                          <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}>
+                          <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#616161', marginBottom: '4px' }}>
                             Date limite
                           </Typography>
-                          <Typography sx={{ color: institutionalTheme.palette.text.primary }}>
+                          <Typography sx={{ color: institutionalTheme.palette.text.primary, marginBottom: '8px' }}>
                             {formatDate(tender.deadline)}
                           </Typography>
+                          {tender.deadline && (
+                            <>
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginBottom: '8px' }}>
+                                <Typography sx={{ fontSize: '12px', color: '#f57c00', fontWeight: 600 }}>
+                                  {getDaysRemaining(tender.deadline)} jours restants
+                                </Typography>
+                              </Box>
+                              <LinearProgress
+                                variant="determinate"
+                                value={calculateProgress(tender)}
+                                sx={{
+                                  height: '6px',
+                                  borderRadius: '3px',
+                                  backgroundColor: '#e0e0e0',
+                                  '& .MuiLinearProgress-bar': {
+                                    backgroundColor: calculateProgress(tender) > 80 ? '#f44336' : 
+                                                    calculateProgress(tender) > 50 ? '#ff9800' : 
+                                                    '#4caf50',
+                                  },
+                                }}
+                              />
+                            </>
+                          )}
                         </Box>
-                        {tender.offers_count && (
+                        {tender.offers_count !== undefined && (
                           <Box>
                             <Typography
                               sx={{ fontSize: '12px', fontWeight: 600, color: '#616161' }}
@@ -389,6 +578,7 @@ export default function BuyerActiveTenders() {
                               sx={{
                                 color: institutionalTheme.palette.primary.main,
                                 fontWeight: 600,
+                                fontSize: '18px',
                               }}
                             >
                               📊 {tender.offers_count}

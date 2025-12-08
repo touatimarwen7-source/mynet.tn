@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 const adminController = require('../controllers/adminController');
-const subscriptionAdminController = require('../controllers/admin/SubscriptionAdminController');
+const SubscriptionAdminController = require('../controllers/admin/SubscriptionAdminController');
 const advertisementController = require('../controllers/admin/AdvertisementController');
 const authMiddleware = require('../middleware/authMiddleware');
 const { errorResponse } = require('../middleware/errorResponseFormatter');
@@ -92,11 +92,11 @@ router.get('/analytics/activities', adminController.getRecentActivities);
 router.get('/analytics/users', adminController.getUserStatistics);
 
 // ===== Gestion des abonnements =====
-router.get('/subscriptions/plans', subscriptionAdminController.getAllPlans);
-router.post('/subscriptions/plans', subscriptionAdminController.createPlan);
-router.put('/subscriptions/plans/:id', validateIdMiddleware('id'), subscriptionAdminController.updatePlan);
-router.delete('/subscriptions/plans/:id', validateIdMiddleware('id'), subscriptionAdminController.deletePlan);
-router.get('/subscriptions/analytics', subscriptionAdminController.getSubscriptionAnalytics);
+router.get('/subscriptions/plans', SubscriptionAdminController.getAllPlans.bind(SubscriptionAdminController));
+router.post('/subscriptions/plans', SubscriptionAdminController.createPlan.bind(SubscriptionAdminController));
+router.put('/subscriptions/plans/:id', validateIdMiddleware('id'), SubscriptionAdminController.updatePlan.bind(SubscriptionAdminController));
+router.delete('/subscriptions/plans/:id', validateIdMiddleware('id'), SubscriptionAdminController.deletePlan.bind(SubscriptionAdminController));
+router.get('/subscriptions/analytics', SubscriptionAdminController.getSubscriptionAnalytics.bind(SubscriptionAdminController));
 
 // ===== Gestion des publicités =====
 router.get('/advertisements', advertisementController.getAllAds);

@@ -270,6 +270,25 @@ const schemaQueries = [
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );`,
 
+  `CREATE TABLE IF NOT EXISTS payment_sessions (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        plan_id INTEGER REFERENCES subscription_plans(id),
+        provider VARCHAR(50) NOT NULL,
+        session_id VARCHAR(255) UNIQUE NOT NULL,
+        transaction_id VARCHAR(255),
+        amount DECIMAL(10, 2) NOT NULL,
+        currency VARCHAR(3) DEFAULT 'TND',
+        status VARCHAR(20) DEFAULT 'pending',
+        expires_at TIMESTAMP WITH TIME ZONE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );`,
+
+  `CREATE INDEX IF NOT EXISTS idx_payment_sessions_user ON payment_sessions(user_id);`,
+  `CREATE INDEX IF NOT EXISTS idx_payment_sessions_status ON payment_sessions(status);`,
+  `CREATE INDEX IF NOT EXISTS idx_payment_sessions_session_id ON payment_sessions(session_id);`,
+
   `CREATE TABLE IF NOT EXISTS supplier_features (
         id SERIAL PRIMARY KEY,
         supplier_id INTEGER REFERENCES users(id) NOT NULL,

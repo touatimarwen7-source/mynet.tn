@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { verifyToken } = require('../middleware/authMiddleware');
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
-const { cacheMiddleware } = require('../middleware/cacheMiddleware');
+const cacheMiddleware = require('../middleware/cacheMiddleware');
 const AIRecommendationService = require('../services/AIRecommendationService');
 const AdvancedAnalyticsService = require('../services/AdvancedAnalyticsService');
 const { getPool } = require('../config/db');
@@ -11,9 +11,9 @@ const { sendOk, sendInternalError } = require('../utils/responseHelper');
 // Get supplier recommendations for a tender
 router.get(
   '/suppliers/:tenderId',
-  verifyToken, // Changed middleware to verifyToken
+  verifyToken,
   validateIdMiddleware('tenderId'),
-  cacheMiddleware(300), // 5 minutes cache
+  cacheMiddleware({ ttl: 300 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable
@@ -48,8 +48,8 @@ router.get(
 // Get tender recommendations for a supplier
 router.get(
   '/tenders',
-  verifyToken, // Changed middleware to verifyToken for consistency
-  cacheMiddleware(600), // 10 minutes cache
+  verifyToken,
+  cacheMiddleware({ ttl: 600 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable
@@ -83,8 +83,8 @@ router.get(
 // Get market trends
 router.get(
   '/market/trends',
-  verifyToken, // Changed middleware to verifyToken
-  cacheMiddleware(1800), // 30 minutes cache
+  verifyToken,
+  cacheMiddleware({ ttl: 1800 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable
@@ -114,9 +114,9 @@ router.get(
 // Get optimal bid prediction
 router.get(
   '/predict/bid/:tenderId',
-  verifyToken, // Changed middleware to verifyToken
+  verifyToken,
   validateIdMiddleware('tenderId'),
-  cacheMiddleware(300),
+  cacheMiddleware({ ttl: 300 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable
@@ -151,9 +151,9 @@ router.get(
 // Get similar tenders
 router.get(
   '/similar/:tenderId',
-  verifyToken, // Changed middleware to verifyToken
+  verifyToken,
   validateIdMiddleware('tenderId'),
-  cacheMiddleware(600),
+  cacheMiddleware({ ttl: 600 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable
@@ -188,8 +188,8 @@ router.get(
 // Get top suppliers
 router.get(
   '/top-suppliers',
-  verifyToken, // Changed middleware to verifyToken
-  cacheMiddleware(1800),
+  verifyToken,
+  cacheMiddleware({ ttl: 1800 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable
@@ -223,9 +223,9 @@ router.get(
 // Get supplier performance
 router.get(
   '/supplier-performance/:supplierId',
-  verifyToken, // Changed middleware to verifyToken
+  verifyToken,
   validateIdMiddleware('supplierId'),
-  cacheMiddleware(900),
+  cacheMiddleware({ ttl: 900 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable
@@ -260,8 +260,8 @@ router.get(
 // Get category statistics
 router.get(
   '/category-stats',
-  verifyToken, // Changed middleware to verifyToken
-  cacheMiddleware(3600),
+  verifyToken,
+  cacheMiddleware({ ttl: 3600 }),
   async (req, res) => {
     const pool = getPool(); // Get the connection pool
     let client; // Declare client variable

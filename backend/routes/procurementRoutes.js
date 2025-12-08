@@ -413,4 +413,9 @@ router.post(
   TenderAwardController.finalizeAward.bind(TenderAwardController)
 );
 
+// Added new tender lifecycle routes
+router.get('/tenders/:id/with-offers', AuthorizationGuard.authenticateToken.bind(AuthorizationGuard), validateIdMiddleware('id'), TenderController.getTenderWithOffers);
+router.get('/tenders/:id/statistics', AuthorizationGuard.authenticateToken.bind(AuthorizationGuard), validateIdMiddleware('id'), TenderController.getTenderStatistics);
+router.post('/tenders/:id/award', AuthorizationGuard.authenticateToken.bind(AuthorizationGuard), validateIdMiddleware('id'), TenderController.awardTender);
+
 module.exports = router;

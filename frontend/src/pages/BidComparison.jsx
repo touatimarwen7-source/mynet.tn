@@ -6,37 +6,33 @@ import {
   Box,
   Card,
   CardContent,
-  Typography,
   Button,
+  Typography,
   Table,
   TableHead,
   TableBody,
   TableRow,
   TableCell,
-  CircularProgress,
   Paper,
-  Chip,
-  Alert,
   Stack,
-  Breadcrumbs,
-  Link,
-  TablePagination,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  Chip,
+  CircularProgress,
+  Alert,
+  Skeleton,
+  Grid,
+  Divider,
+  TableContainer,
 } from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
-import SortIcon from '@mui/icons-material/Sort';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { TableSkeleton } from '../components/SkeletonLoader';
+import GavelIcon from '@mui/icons-material/Gavel';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { procurementAPI } from '../api';
+import TokenManager from '../services/tokenManager';
+import { useFetchData } from '../hooks/useFetchData';
 import { setPageTitle } from '../utils/pageTitle';
-import { getScoreTier, formatScore } from '../utils/evaluationCriteria';
 
 export default function BidComparison() {
   const theme = institutionalTheme;
@@ -268,7 +264,7 @@ export default function BidComparison() {
             {/* Table */}
             <Card sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent sx={{ padding: 0 }}>
-                <Box sx={{ overflowX: 'auto' }}>
+                <TableContainer sx={{ overflowX: 'auto' }}>
                   <Table>
                     <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
                       <TableRow>
@@ -304,6 +300,7 @@ export default function BidComparison() {
                         <TableCell
                           sx={{ fontWeight: 600, color: institutionalTheme.palette.primary.main }}
                           align="center"
+                          endIcon={<AssessmentIcon />}
                         >
                           Évaluation
                         </TableCell>
@@ -354,7 +351,7 @@ export default function BidComparison() {
                       ))}
                     </TableBody>
                   </Table>
-                </Box>
+                </TableContainer>
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, 50]}
                   component="div"

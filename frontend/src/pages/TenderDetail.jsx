@@ -84,27 +84,49 @@ export default function TenderDetail() {
     if (!tender || !user) return null;
 
     const isOwner = tender?.user_id === user?.id;
+    const canSubmitOffer = user.role === 'supplier' && tender.status === 'published';
+    const isBeforeDeadline = new Date() < new Date(tender.submission_deadline);
 
     if (isOwner) {
       return (
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} flexWrap="wrap">
           <Button
             variant="contained"
             startIcon={<CompareArrowsIcon />}
             onClick={() => navigate(`/bid-comparison/${id}`)}
+            disabled={!offers || offers.length === 0}
           >
-            Comparer les Offres
+            Comparer les Offres ({offers?.length || 0})
           </Button>
           <Button
             variant="outlined"
             startIcon={<GavelIcon />}
             onClick={() => navigate(`/tender-awarding/${id}`)}
+            disabled={tender.status !== 'closed'}
           >
             Attribuer le Marché
           </Button>
+          {tender.status === 'published' && (
+            <Button
+              variant="outlined"
+              color="warning"
+              onClick={async () => {
+                if (window.confirm('Voulez-vous vraiment clôturer cet appel d\'offres ?')) {
+                  try {
+                    await procurementAPI.closeTender(id);
+                    window.location.reload();
+                  } catch (error) {
+                    console.error('Error closing tender:', error);
+                  }
+                }
+              }}
+            >
+              Clôturer
+            </Button>
+          )}
         </Stack>
       );
-    } else if (user.role === 'supplier') {
+    } else if (canSubmitOffer && isBeforeDeadline) {
       return (
         <Button
           variant="contained"

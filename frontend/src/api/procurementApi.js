@@ -33,14 +33,14 @@ const updateInvoiceStatus = async (invoiceId, status, paymentDate) => {
 export const procurementAPI = {
   getTenders: (filters) => axiosInstance.get('/procurement/tenders', { params: filters }),
   getTender: (id) => axiosInstance.get(`/procurement/tenders/${id}`),
-  // Note: For buyers, the backend is expected to return 'offersCount' instead of 'offers' array
-  // if the current date is before the tender's 'opening_date'.
-  // After 'opening_date', the 'offers' array should be returned.
+  getTenderWithOffers: (id) => axiosInstance.get(`/procurement/tenders/${id}/with-offers`),
+  getTenderStatistics: (id) => axiosInstance.get(`/procurement/tenders/${id}/statistics`),
   createTender: (data) => axiosInstance.post('/procurement/tenders', data),
   updateTender: (id, data) => axiosInstance.put(`/procurement/tenders/${id}`, data),
   deleteTender: (id) => axiosInstance.delete(`/procurement/tenders/${id}`),
   publishTender: (id) => axiosInstance.post(`/procurement/tenders/${id}/publish`),
   closeTender: (id) => axiosInstance.post(`/procurement/tenders/${id}/close`),
+  awardTender: (id, awards) => axiosInstance.post(`/procurement/tenders/${id}/award`, { awards }),
   getMyTenders: (filters) => axiosInstance.get('/procurement/my-tenders', { params: filters }),
 
   // Direct supply request helpers

@@ -174,6 +174,59 @@ class TenderController {
       errorResponse(res, error, 'Error closing tender');
     }
   }
+
+  async getTenderWithOffers(req, res) {
+    try {
+      const { id } = req.params;
+
+      const tender = await TenderService.getTenderWithOffers(id, req.user.id);
+
+      res.status(200).json({
+        success: true,
+        tender,
+      });
+    } catch (error) {
+      logger.error('Error fetching tender with offers:', error);
+      const { errorResponse } = require('../../middleware/errorResponseFormatter');
+      errorResponse(res, error, 'Error fetching tender with offers');
+    }
+  }
+
+  async getTenderStatistics(req, res) {
+    try {
+      const { id } = req.params;
+
+      const statistics = await TenderService.getTenderStatistics(id);
+
+      res.status(200).json({
+        success: true,
+        statistics,
+      });
+    } catch (error) {
+      logger.error('Error fetching tender statistics:', error);
+      const { errorResponse } = require('../../middleware/errorResponseFormatter');
+      errorResponse(res, error, 'Error fetching tender statistics');
+    }
+  }
+
+  async awardTender(req, res) {
+    try {
+      const { id } = req.params;
+      const { awards } = req.body;
+
+      const result = await TenderService.awardTender(id, awards, req.user.id);
+
+      res.status(200).json({
+        success: true,
+        message: 'Tender awarded successfully',
+        result,
+      });
+    } catch (error) {
+      logger.error('Error awarding tender:', error);
+      const { errorResponse } = require('../../middleware/errorResponseFormatter');
+      errorResponse(res, error, 'Error awarding tender');
+    }
+  }
 }
 
 module.exports = new TenderController();

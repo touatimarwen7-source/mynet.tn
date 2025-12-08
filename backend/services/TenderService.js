@@ -585,6 +585,136 @@ class TenderService {
       throw new Error(`Failed to close tender: ${error.message}`);
     }
   }
+
+  /**
+   * Get tender with offers (for evaluation)
+   * @async
+   * @param {string} tenderId - The ID of the tender
+   * @param {string} userId - ID of the user requesting
+   * @returns {Promise<Object>} Tender with offers
+   */
+  async getTenderWithOffers(tenderId, userId) {
+    const pool = getPool();
+
+    try {
+      const tenderResult = await pool.query(
+        'SELECT * FROM tenders WHERE id = $1 AND is_deleted = FALSE',
+        [tenderId]
+      );
+
+      if (tenderResult.rows.length === 0) {
+        throw new Error('Tender not found');
+      }
+
+      const tender = tenderResult.rows[0];
+
+      // Get offers for this tender
+      const offersResult = await pool.query(
+        'SELECT * FROM offers WHERE tender_id = $1 ORDER BY created_at DESC',
+        [tenderId]
+      );
+
+      await AuditLogService.log(
+        userId,
+        'tender',
+        tenderId,
+        'read',
+        'Tender with offers fetched'
+      );
+
+      return {
+        ...tender,
+        offers: offersResult.rows,
+      };
+    } catch (error) {
+      await AuditLogService.log(
+        userId,
+        'tender',
+        tenderId,
+        'read',
+        `Failed to get tender with offers: ${error.message}`
+      );
+      throw new Error(`Failed to get tender with offers: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get tender statistics
+   * @async
+   * @param {string} tenderId - The ID of the tender
+   * @returns {Promise<Object>} Tender statistics
+   */
+  async getTenderStatistics(tenderId) {
+    const pool = getPool();
+
+    try {
+      const result = await pool.query(
+        `
+        SELECT 
+          COUNT(DISTINCT o.id) as total_offers,
+          COUNT(DISTINCT o.supplier_id) as total_suppliers,
+          MIN(o.total_amount) as lowest_bid,
+          MAX(o.total_amount) as highest_bid,
+          AVG(o.total_amount) as average_bid
+        FROM offers o
+        WHERE o.tender_id = $1
+        `,
+        [tenderId]
+      );
+
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Failed to get tender statistics: ${error.message}`);
+    }
+  }
+
+  /**
+   * Award tender to winning supplier(s)
+   * @async
+   * @param {string} tenderId - The ID of the tender
+   * @param {Array} awards - Array of award objects {offer_id, lot_id?, article_id?}
+   * @param {string} userId - ID of the user awarding
+   * @returns {Promise<Object>} Award result
+   */
+  async awardTender(tenderId, awards, userId) {
+    const pool = getPool();
+
+    try {
+      // Update tender status to awarded
+      await pool.query(
+        `UPDATE tenders SET status = 'awarded', updated_by = $1, updated_at = CURRENT_TIMESTAMP
+         WHERE id = $2`,
+        [userId, tenderId]
+      );
+
+      // Update awarded offers
+      for (const award of awards) {
+        await pool.query(
+          `UPDATE offers SET status = 'awarded' WHERE id = $1`,
+          [award.offer_id]
+        );
+      }
+
+      await AuditLogService.log(
+        userId,
+        'tender',
+        tenderId,
+        'award',
+        `Tender awarded to ${awards.length} supplier(s)`
+      );
+
+      return { success: true, message: 'Tender awarded successfully', awards };
+    } catch (error) {
+      await AuditLogService.log(
+        userId,
+        'tender',
+        tenderId,
+        'award',
+        `Failed to award tender: ${error.message}`
+      );
+      throw new Error(`Failed to award tender: ${error.message}`);
+    }
+  }
 }
 
 module.exports = new TenderService();

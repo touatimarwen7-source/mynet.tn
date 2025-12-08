@@ -72,16 +72,26 @@ const CreateTenderWizard = () => {
     setLoading(true);
     setError('');
     try {
-      // إرسال البيانات إلى الواجهة الخلفية
-      await procurementAPI.createTender(formData);
+      // Validate required fields
+      if (!formData.title || !formData.description) {
+        throw new Error('Veuillez remplir tous les champs obligatoires');
+      }
 
-      // مسح المسودة بعد الإرسال الناجح
+      // Send data to backend
+      const response = await procurementAPI.createTender(formData);
+
+      // Clear draft after successful submission
       clearDraft(DRAFT_KEY);
 
-      // إعادة التوجيه إلى صفحة النجاح أو لوحة التحكم
-      navigate('/tenders', { state: { message: 'تم إنشاء المناقصة بنجاح!' } });
+      // Redirect to success page or dashboard
+      navigate('/tenders', { 
+        state: { 
+          message: 'Appel d\'offres créé avec succès!',
+          tenderId: response.data?.tender?.id
+        } 
+      });
     } catch (err) {
-      setError(err.response?.data?.error || 'فشل في إنشاء المناقصة.');
+      setError(err.response?.data?.error || err.message || 'Échec de la création de l\'appel d\'offres');
     } finally {
       setLoading(false);
     }

@@ -1,0 +1,49 @@
+🔐 Login Request: {url: '/auth/login', method: 'post', hasData: true}
+authApi.js:9  POST https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/api/auth/login 500 (Internal Server Error)
+dispatchXhrRequest @ axios.js?v=8357e542:1696
+xhr @ axios.js?v=8357e542:1573
+dispatchRequest @ axios.js?v=8357e542:2107
+Promise.then
+_request @ axios.js?v=8357e542:2310
+request @ axios.js?v=8357e542:2219
+httpMethod @ axios.js?v=8357e542:2356
+wrap @ axios.js?v=8357e542:8
+login @ authApi.js:9
+(anonymous) @ Login.jsx:34
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:104
+callCallback2 @ chunk-WRD5HZVH.js?v=8357e542:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=8357e542:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=8357e542:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=8357e542:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=8357e542:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=8357e542:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=8357e542:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=8357e542:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=8357e542:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=8357e542:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=8357e542:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=8357e542:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=8357e542:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=8357e542:5449Understand this error
+Login.jsx:78 ❌ Login error: AxiosError {message: 'Request failed with status code 500', name: 'AxiosError', code: 'ERR_BAD_RESPONSE', config: {…}, request: XMLHttpRequest, …}
+(anonymous) @ Login.jsx:78
+await in (anonymous)
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:104
+callCallback2 @ chunk-WRD5HZVH.js?v=8357e542:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=8357e542:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=8357e542:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=8357e542:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=8357e542:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=8357e542:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=8357e542:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=8357e542:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=8357e542:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=8357e542:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=8357e542:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=8357e542:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=8357e542:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=8357e542:5449Understand this error

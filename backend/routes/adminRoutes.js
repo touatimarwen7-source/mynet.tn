@@ -4,12 +4,14 @@ const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 const adminController = require('../controllers/adminController');
 const SubscriptionAdminController = require('../controllers/admin/SubscriptionAdminController');
 const AdvertisementController = require('../controllers/admin/AdvertisementController');
+const AdminController = require('../controllers/admin/AdminController');
 const authMiddleware = require('../middleware/authMiddleware');
+const adminMiddleware = require('../middleware/adminMiddleware');
 const { validatePagination } = require('../middleware/paginationValidator');
 
-// Toutes les routes d'administration sont protégées - super_admin uniquement
+// Toutes les routes d'administration sont protégées
 router.use(authMiddleware.verifyToken);
-router.use(authMiddleware.checkRole(['super_admin']));
+router.use(authMiddleware.checkRole(['super_admin', 'admin']));
 
 // ===== Tableau de bord =====
 router.get('/health', adminController.getHealthDashboard);

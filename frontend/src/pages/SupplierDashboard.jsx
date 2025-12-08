@@ -179,6 +179,20 @@ export default function SupplierDashboard() {
       icon: AnalyticsIcon,
       description: 'تقارير الأداء'
     },
+    { 
+      label: 'الفواتير', 
+      path: '/supplier-invoices', 
+      color: 'warning',
+      icon: MonetizationOn,
+      description: 'إدارة الفواتير'
+    },
+    { 
+      label: 'طلبات الشراء', 
+      path: '/supplier-requests', 
+      color: 'error',
+      icon: ShoppingCartIcon,
+      description: 'طلبات العملاء'
+    },
   ];
 
   return (

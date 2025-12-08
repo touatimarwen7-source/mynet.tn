@@ -33,6 +33,7 @@ import {
   Error as ErrorIcon,
   Schedule,
   BarChart,
+  ShoppingCart as ShoppingCartIcon,
 } from '@mui/icons-material';
 import { LineChart, Line, BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as ChartTooltip, ResponsiveContainer } from 'recharts';
 import institutionalTheme from '../theme/theme';
@@ -143,7 +144,7 @@ export default function AdminDashboard() {
   const quickActions = [
     { 
       label: 'إدارة المستخدمين', 
-      path: '/admin/users', 
+      path: '/super-admin/users', 
       color: 'primary',
       icon: UsersIcon,
       permission: 'manage_users',
@@ -151,7 +152,7 @@ export default function AdminDashboard() {
     },
     { 
       label: 'عرض التقارير', 
-      path: '/admin/reports', 
+      path: '/financial-reports', 
       color: 'secondary',
       icon: ReportsIcon,
       permission: 'view_reports',
@@ -159,7 +160,7 @@ export default function AdminDashboard() {
     },
     { 
       label: 'إدارة المناقصات', 
-      path: '/admin/tenders', 
+      path: '/tenders', 
       color: 'info',
       icon: TendersIcon,
       permission: 'manage_tenders',
@@ -167,11 +168,27 @@ export default function AdminDashboard() {
     },
     { 
       label: 'الإعدادات', 
-      path: '/admin/settings', 
+      path: '/dynamic-config', 
       color: 'success',
       icon: SettingsIcon,
       permission: 'manage_settings',
       description: 'إعدادات النظام'
+    },
+    { 
+      label: 'الإشعارات', 
+      path: '/email-notifications', 
+      color: 'warning',
+      icon: NotificationsIcon,
+      permission: 'send_notifications',
+      description: 'إرسال الإشعارات'
+    },
+    { 
+      label: 'الأمان', 
+      path: '/super-admin/audit-logs', 
+      color: 'error',
+      icon: SecurityIcon,
+      permission: 'view_audit_logs',
+      description: 'سجلات المراجعة'
     },
   ];
 

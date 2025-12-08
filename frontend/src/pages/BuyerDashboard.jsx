@@ -199,6 +199,20 @@ export default function BuyerDashboard() {
       icon: ReportsIcon,
       description: 'تقارير مفصلة'
     },
+    { 
+      label: 'إدارة الفريق', 
+      path: '/team-management', 
+      color: 'warning',
+      icon: PeopleIcon,
+      description: 'إدارة أعضاء الفريق'
+    },
+    { 
+      label: 'الميزانيات', 
+      path: '/budgets', 
+      color: 'error',
+      icon: BudgetIcon,
+      description: 'إدارة الميزانيات'
+    },
   ];
 
   return (

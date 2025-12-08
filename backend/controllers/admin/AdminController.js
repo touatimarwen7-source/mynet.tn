@@ -341,3 +341,236 @@ class AdminController {
 }
 
 module.exports = new AdminController();
+const AdvancedAdminService = require('../../services/AdvancedAdminService');
+const PlatformConfigService = require('../../services/PlatformConfigService');
+
+class AdminController {
+  /**
+   * Get all users (for admin dashboard)
+   */
+  async getAllUsers(req, res) {
+    try {
+      const { page = 1, limit = 50, search, role, status } = req.query;
+      
+      const result = await AdvancedAdminService.getUsersList({
+        page: parseInt(page),
+        limit: parseInt(limit),
+        search,
+        role,
+        status
+      });
+
+      res.json({
+        success: true,
+        data: result.users,
+        pagination: result.pagination
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Update user role
+   */
+  async updateUserRole(req, res) {
+    try {
+      const { id } = req.params;
+      const { role, permissions } = req.body;
+
+      // Check if admin has permission
+      if (req.user.role === 'admin' && !req.user.permissions?.includes('manage_users')) {
+        return res.status(403).json({
+          success: false,
+          error: 'Insufficient permissions'
+        });
+      }
+
+      await AdvancedAdminService.updateUserRole(id, role, permissions);
+
+      res.json({
+        success: true,
+        message: 'User role updated successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Block user
+   */
+  async blockUser(req, res) {
+    try {
+      const { id } = req.params;
+      const { reason } = req.body;
+
+      if (req.user.role === 'admin' && !req.user.permissions?.includes('block_users')) {
+        return res.status(403).json({
+          success: false,
+          error: 'Insufficient permissions'
+        });
+      }
+
+      await AdvancedAdminService.blockUser(id, reason);
+
+      res.json({
+        success: true,
+        message: 'User blocked successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Unblock user
+   */
+  async unblockUser(req, res) {
+    try {
+      const { id } = req.params;
+
+      if (req.user.role === 'admin' && !req.user.permissions?.includes('block_users')) {
+        return res.status(403).json({
+          success: false,
+          error: 'Insufficient permissions'
+        });
+      }
+
+      await AdvancedAdminService.unblockUser(id);
+
+      res.json({
+        success: true,
+        message: 'User unblocked successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get platform statistics
+   */
+  async getPlatformStats(req, res) {
+    try {
+      const stats = await AdvancedAdminService.getPlatformStatistics();
+
+      res.json({
+        success: true,
+        data: stats
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get system health
+   */
+  async getHealthDashboard(req, res) {
+    try {
+      const health = await AdvancedAdminService.getSystemHealth();
+
+      res.json({
+        success: true,
+        data: health
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get platform configuration
+   */
+  async getPlatformConfig(req, res) {
+    try {
+      const config = await PlatformConfigService.getAllConfigs();
+
+      res.json({
+        success: true,
+        data: config
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Update platform configuration
+   */
+  async updatePlatformConfig(req, res) {
+    try {
+      const { configs } = req.body;
+
+      if (req.user.role !== 'super_admin') {
+        return res.status(403).json({
+          success: false,
+          error: 'Only super admin can modify platform configuration'
+        });
+      }
+
+      for (const [key, value] of Object.entries(configs)) {
+        await PlatformConfigService.setConfig(key, value);
+      }
+
+      res.json({
+        success: true,
+        message: 'Platform configuration updated successfully'
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get analytics data
+   */
+  async getAnalytics(req, res) {
+    try {
+      const { startDate, endDate, metric } = req.query;
+
+      const analytics = await AdvancedAdminService.getAnalytics({
+        startDate,
+        endDate,
+        metric
+      });
+
+      res.json({
+        success: true,
+        data: analytics
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+}
+
+module.exports = new AdminController();

@@ -11,14 +11,17 @@ class ErrorHandler {
       const errorCode = err.code || 'INTERNAL_ERROR';
       const message = this._getSafeMessage(err, statusCode);
 
-      // Log error in development
+      // Enhanced logging with stack trace
       if (process.env.NODE_ENV !== 'production') {
-        console.error('Error:', {
-          message: err.message,
-          statusCode,
-          path: req.path,
-          method: req.method,
-        });
+        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.error('❌ Error Details:');
+        console.error('  Message:', err.message);
+        console.error('  Status:', statusCode);
+        console.error('  Code:', errorCode);
+        console.error('  Path:', req.path);
+        console.error('  Method:', req.method);
+        console.error('  Stack:', err.stack);
+        console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       }
 
       // Send unified error response
@@ -29,9 +32,11 @@ class ErrorHandler {
           code: errorCode,
           statusCode,
           timestamp: new Date().toISOString(),
+          ...(process.env.NODE_ENV !== 'production' && { stack: err.stack }),
         },
       });
     } catch (e) {
+      console.error('Fallback error handler:', e);
       // Fallback if all else fails
       res.status(500).json({
         success: false,

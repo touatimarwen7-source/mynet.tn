@@ -64,8 +64,14 @@ async function startServer() {
     });
 
   } catch (error) {
-    console.error('❌ Failed to start server:', error.message);
-    console.error(error);
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.error('❌ CRITICAL: Failed to start server');
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.error('Error Message:', error.message);
+    console.error('Error Code:', error.code);
+    console.error('Stack Trace:');
+    console.error(error.stack);
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     process.exit(1);
   }
 }

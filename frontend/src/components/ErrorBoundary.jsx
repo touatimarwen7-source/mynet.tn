@@ -34,10 +34,22 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    // Enhanced error logging
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.error('⚠️ React Error Boundary Caught Error:');
+    console.error('Error:', error);
+    console.error('Component Stack:', errorInfo.componentStack);
+    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
     this.setState({
       error,
       errorInfo,
     });
+
+    // TODO: Send to error tracking service (Sentry, LogRocket, etc.)
+    // if (import.meta.env.MODE === 'production') {
+    //   window.errorTracker?.captureException(error, { errorInfo });
+    // }
   }
 
   handleReset = () => {

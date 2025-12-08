@@ -313,6 +313,22 @@ export const useAuth = () => {
 
 /**
  * 🪝 useToast Hook
- * Re-export useToastContext for backward compatibility
+ * Simple toast system integrated in AppContext
  */
-export { useToastContext as useToast } from './ToastContext';
+export const useToast = () => {
+  const { addToast, removeToast, toasts } = useContext(AppContext);
+  
+  if (!AppContext) {
+    throw new Error('useToast must be used within AppProvider');
+  }
+
+  return {
+    addToast,
+    removeToast,
+    toasts,
+    success: (message) => addToast(message, 'success'),
+    error: (message) => addToast(message, 'error'),
+    warning: (message) => addToast(message, 'warning'),
+    info: (message) => addToast(message, 'info'),
+  };
+};

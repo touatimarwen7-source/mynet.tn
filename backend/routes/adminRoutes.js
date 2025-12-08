@@ -30,8 +30,9 @@ router.post(
 
 // ===== Gestion des assistants administrateurs =====
 // Accessible uniquement au super_admin
-router.post('/admin-helpers', adminController.createAdminHelper);
-router.put('/admin-helpers/:id/permissions', validateIdMiddleware('id'), adminController.updateAdminPermissions);
+// TODO: Implement createAdminHelper and updateAdminPermissions in adminController
+// router.post('/admin-helpers', adminController.createAdminHelper);
+// router.put('/admin-helpers/:id/permissions', validateIdMiddleware('id'), adminController.updateAdminPermissions);
 
 // ===== Gestion du contenu statique, pages et fichiers =====
 // Pages statiques (édition complète)

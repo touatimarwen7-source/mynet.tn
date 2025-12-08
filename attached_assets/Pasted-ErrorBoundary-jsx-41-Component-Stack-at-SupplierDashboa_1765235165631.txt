@@ -1,0 +1,40 @@
+ErrorBoundary.jsx:41 Component Stack: 
+    at SupplierDashboard (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/pages/SupplierDashboard.jsx:99:20)
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-E75PU324.js?v=ac5ad761:1452:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-E75PU324.js?v=ac5ad761:1452:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-E75PU324.js?v=ac5ad761:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-XZSNYKMK.js?v=ac5ad761:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:236:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:29:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:29:31)
+
+ErrorBoundary.jsx:42 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+api/procurement/tend…mit=5&status=open:1 
+ Failed to load resource: the server responded with a status of 400 (Bad Request)
+SupplierDashboard.jsx:149 ✅ Stats loaded: 
+Object
+SupplierDashboard.jsx:163 ✅ Analytics loaded: 
+Object
+SupplierDashboard.jsx:172 ✅ Trends loaded
+SupplierDashboard.jsx:181 ✅ Orders loaded
+SupplierDashboard.jsx:192 ⚠️ Tenders failed: Request failed with status code 400
+SupplierDashboard.jsx:196 ✅ Dashboard data fetch completed
+﻿
+

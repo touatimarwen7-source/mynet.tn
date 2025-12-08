@@ -98,6 +98,8 @@ app.use(
           "'self'",
           'http://localhost:3000',
           'http://localhost:5000',
+          'https://*.replit.dev',
+          'https://*.replit.dev:*',
           'ws://localhost:*',
           'ws://*.replit.dev:*',
           'wss://*.replit.dev:*',

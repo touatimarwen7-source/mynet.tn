@@ -21,7 +21,7 @@ export default defineConfig({
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Content-Security-Policy':
-        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:3000 http://localhost:5000 ws://localhost:* ws://*.replit.dev:* wss://*.replit.dev:* wss:; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
+        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:3000 http://localhost:5000 https://*.replit.dev:* https://*.replit.dev ws://localhost:* ws://*.replit.dev:* wss://*.replit.dev:* wss:; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'",
     },
     allowedHosts: true,
     cors: true,

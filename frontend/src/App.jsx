@@ -262,8 +262,6 @@ function AppContent() {
                           path="/buyer-dashboard"
                           element={user?.role === 'buyer' ? <BuyerDashboard /> : <Navigate to="/dashboard" />}
                         />
-                        {/* Added create-tender route */}
-                        <Route path="/create-tender" element={<CreateTenderWizard />} />
 
                         {/* Supplier Dashboard */}
                         <Route

@@ -45,4 +45,4 @@ const TenderStepRenderer = (props) => {
   }
 };
 
-export default TenderStepRenderer;
+export default TenderStepRenderer;t TenderStepRenderer;

@@ -9,34 +9,20 @@ const getBaseURL = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
 
-  // In browser, use current hostname with port 3000
+  // In browser, use Vite proxy by using relative paths
   if (typeof window !== 'undefined') {
-    const protocol = window.location.protocol;
-    const hostname = window.location.hostname;
-    
-    // Check if we're on Replit
-    const isReplit = hostname.includes('replit.dev') || hostname.includes('repl.co');
-    
-    if (isReplit) {
-      // For Replit, use same hostname but port 3000
-      const baseUrl = `${protocol}//${hostname}:3000`;
-      console.log('🔧 Replit detected - Base URL:', baseUrl);
-      return baseUrl;
-    }
-    
-    // For local development
-    const baseUrl = `${protocol}//${hostname}:3000`;
-    console.log('🔧 Local dev - Base URL:', baseUrl);
-    return baseUrl;
+    // Simply use relative path - Vite proxy will handle it
+    console.log('🔧 Using Vite proxy - relative URLs');
+    return '';
   }
 
   // Fallback (shouldn't happen in browser)
   console.warn('⚠️ Running outside browser - using fallback');
-  return 'http://0.0.0.0:3000';
+  return '';
 };
 
 const BASE_URL = getBaseURL();
-console.log('✅ Final API Base URL:', BASE_URL);
+console.log('✅ Final API Base URL:', BASE_URL || 'Using Vite Proxy (relative paths)');
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

@@ -8,6 +8,58 @@ const { logger } = require('../utils/logger'); // Fixed: Use logger from utils
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 
+// Import missing controller
+const ChatController = require('../controllers/messaging/ChatController');
+
+// ============================================
+// MESSAGE ROUTES
+// ============================================
+
+// GET all messages for current user (with pagination)
+router.get(
+  '/',
+  authMiddleware,
+  asyncHandler(async (req, res) => {
+    const { limit, offset, sql } = buildPaginationQuery(req.query.limit, req.query.offset);
+    const db = req.app.get('db');
+    const unread_only = req.query.unread_only;
+
+    let query = `
+    SELECT 
+      m.*,
+      u.company_name as sender_company,
+      u.full_name as sender_name
+    FROM messages m
+    LEFT JOIN users u ON m.sender_id = u.id
+    WHERE m.receiver_id = $1
+  `;
+    const params = [req.user.id];
+
+    if (unread_only === 'true') {
+      query += ' AND m.is_read = false';
+    }
+
+    query += ` ORDER BY m.created_at DESC ${sql}`;
+    params.push(limit, offset);
+
+    const result = await db.query(query, params);
+
+    // Get total count
+    let countQuery = 'SELECT COUNT(*) FROM messages WHERE receiver_id = $1';
+    if (unread_only === 'true') {
+      countQuery += ' AND is_read = false';
+    }
+    const countResult = await db.query(countQuery, [req.user.id]);
+
+    res.json({
+      data: result.rows,
+      total: parseInt(countResult.rows[0].count),
+      page: parseInt(req.query.page || 1),
+      limit: parseInt(req.query.limit || 10),
+    });
+  })
+);
+
 // Send a message - ISSUE FIX #3: Add input validation
 router.post('/', authMiddleware, asyncHandler(async (req, res) => {
   const { receiver_id, subject, content, related_entity_type, related_entity_id } = req.body;

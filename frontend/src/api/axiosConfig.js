@@ -1,37 +1,17 @@
-
 import axios from 'axios';
 
-// Base URL configuration for Replit
-const getBaseURL = () => {
-  // Use environment variable if set
-  if (import.meta.env.VITE_API_BASE_URL) {
-    console.log('🔧 Using VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-
-  // In browser, use Vite proxy by using relative paths
-  if (typeof window !== 'undefined') {
-    // Simply use relative path - Vite proxy will handle it
-    console.log('🔧 Using Vite proxy - relative URLs');
-    return '';
-  }
-
-  // Fallback (shouldn't happen in browser)
-  console.warn('⚠️ Running outside browser - using fallback');
-  return '';
-};
-
-const BASE_URL = getBaseURL();
-console.log('✅ Final API Base URL:', BASE_URL || 'Using Vite Proxy (relative paths)');
-
+// ✅ CRITICAL: Force empty baseURL to use Vite proxy
+// Vite proxy in vite.config.js will handle all /api/* requests
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: '', // Empty = relative URLs = Vite proxy
   timeout: 30000,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }
 });
+
+console.log('✅ Axios configured to use Vite proxy (relative URLs)');
 
 // Request interceptor
 axiosInstance.interceptors.request.use(
@@ -41,7 +21,6 @@ axiosInstance.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
     console.log('📤 API Request:', config.method?.toUpperCase(), config.url);
-    console.log('📤 Full URL:', `${config.baseURL}${config.url}`);
     return config;
   },
   (error) => Promise.reject(error)
@@ -55,8 +34,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     console.error('❌ API Error:', error.message, error.config?.url);
-    console.error('❌ Full URL tried:', `${error.config?.baseURL}${error.config?.url}`);
-    
+
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');

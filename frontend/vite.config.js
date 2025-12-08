@@ -36,13 +36,17 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
         ws: false,
-        rewrite: (path) => path,
         configure: (proxy, options) => {
           proxy.on('error', (err, req, res) => {
-            console.log('⚠️ Proxy error:', err.message);
+            console.error('⚠️ Proxy error:', err.message);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Backend server is not running on port 3000');
           });
           proxy.on('proxyReq', (proxyReq, req, res) => {
-            console.log('📤 Proxying:', req.method, req.url);
+            console.log('📤 Proxying:', req.method, req.url, '→ http://0.0.0.0:3000');
+          });
+          proxy.on('proxyRes', (proxyRes, req, res) => {
+            console.log('✅ Proxy response:', req.method, req.url, proxyRes.statusCode);
           });
         }
       },

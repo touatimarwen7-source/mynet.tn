@@ -339,11 +339,12 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/search/advanced', advancedSearchRoutes);
 app.use('/api/export', exportRoutes);
 app.use('/api/mfa', mfaRoutes);
-app.use('/api/supplier-analytics', supplierAnalyticsRoutes);
-app.use('/api/bid-analytics', bidAnalyticsRoutes);
-app.use('/api/bid-comparison', bidComparisonRoutes);
-app.use('/api/performance-tracking', performanceTrackingRoutes);
-app.use('/api/notifications', notificationRoutes);
+// Apply routes with error checking
+if (supplierAnalyticsRoutes) app.use('/api/supplier-analytics', supplierAnalyticsRoutes);
+if (bidAnalyticsRoutes) app.use('/api/bid-analytics', bidAnalyticsRoutes);
+if (bidComparisonRoutes) app.use('/api/bid-comparison', bidComparisonRoutes);
+if (performanceTrackingRoutes) app.use('/api/performance-tracking', performanceTrackingRoutes);
+if (notificationRoutes) app.use('/api/notifications', notificationRoutes);
 
 // Email service routes
 app.use('/api/email', emailRoutes);
@@ -365,7 +366,11 @@ app.use('/api/tender-management', tenderManagementRoutes);
 
 // 🤖 AI RECOMMENDATIONS & ADVANCED ANALYTICS ROUTES
 const aiRecommendationsRoutes = require('./routes/aiRecommendationsRoutes');
-app.use('/api/ai/recommendations', aiRecommendationsRoutes);
+if (aiRecommendationsRoutes && typeof aiRecommendationsRoutes === 'function') {
+  app.use('/api/ai/recommendations', aiRecommendationsRoutes);
+} else {
+  logger.warn('⚠️ AI Recommendations routes not available');
+}
 
 // 🐌 SLOW ENDPOINT MONITORING - Track performance issues
 const { slowEndpointMonitor } = require('./middleware/slowEndpointMonitor');
@@ -373,19 +378,35 @@ app.use(slowEndpointMonitor());
 
 // 📋 CLARIFICATION ROUTES (مسارات الاستفسارات)
 const clarificationRoutes = require('./routes/clarificationRoutes');
-app.use('/api/clarifications', clarificationRoutes);
+if (clarificationRoutes && typeof clarificationRoutes === 'function') {
+  app.use('/api/clarifications', clarificationRoutes);
+} else {
+  logger.warn('⚠️ Clarification routes not available');
+}
 
 // 🏅 PARTIAL AWARD ROUTES (مسارات الترسية الجزئية)
 const partialAwardRoutes = require('./routes/partialAwardRoutes');
-app.use('/api/partial-awards', partialAwardRoutes);
+if (partialAwardRoutes && typeof partialAwardRoutes === 'function') {
+  app.use('/api/partial-awards', partialAwardRoutes);
+} else {
+  logger.warn('⚠️ Partial Award routes not available');
+}
 
 // ⚡ PERFORMANCE MONITORING ROUTES (مراقبة الأداء)
 const performanceRoutes = require('./routes/performanceRoutes');
-app.use('/api/performance', performanceRoutes);
+if (performanceRoutes && typeof performanceRoutes === 'function') {
+  app.use('/api/performance', performanceRoutes);
+} else {
+  logger.warn('⚠️ Performance routes not available');
+}
 
 // 💾 CACHE MANAGEMENT ROUTES (إدارة الذاكرة المؤقتة)
 const cachingRoutes = require('./routes/cachingRoutes');
-app.use('/api/cache', cachingRoutes);
+if (cachingRoutes && typeof cachingRoutes === 'function') {
+  app.use('/api/cache', cachingRoutes);
+} else {
+  logger.warn('⚠️ Caching routes not available');
+}
 
 // Initialize email service
 initializeEmailService();

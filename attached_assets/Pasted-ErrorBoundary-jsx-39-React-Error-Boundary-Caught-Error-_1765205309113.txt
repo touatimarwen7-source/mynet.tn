@@ -1,0 +1,100 @@
+ErrorBoundary.jsx:39 ⚠️ React Error Boundary Caught Error:
+componentDidCatch @ ErrorBoundary.jsx:39
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384Understand this error
+ErrorBoundary.jsx:40 Error: TypeError: Cannot read properties of undefined (reading 'style')
+    at children (@mui_material.js?v=00805cc9:17660:35)
+    at Transition2.render (@mui_material.js?v=00805cc9:876:44)
+    at finishClassComponent (chunk-WRD5HZVH.js?v=00805cc9:14699:39)
+    at updateClassComponent (chunk-WRD5HZVH.js?v=00805cc9:14664:32)
+    at beginWork (chunk-WRD5HZVH.js?v=00805cc9:15930:22)
+    at beginWork$1 (chunk-WRD5HZVH.js?v=00805cc9:19753:22)
+    at performUnitOfWork (chunk-WRD5HZVH.js?v=00805cc9:19198:20)
+    at workLoopSync (chunk-WRD5HZVH.js?v=00805cc9:19137:13)
+    at renderRootSync (chunk-WRD5HZVH.js?v=00805cc9:19116:15)
+    at recoverFromConcurrentError (chunk-WRD5HZVH.js?v=00805cc9:18736:28)
+componentDidCatch @ ErrorBoundary.jsx:40
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384Understand this error
+ErrorBoundary.jsx:41 Component Stack: 
+    at Transition2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/@mui_material.js?v=00805cc9:676:30)
+    at Slide2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/@mui_material.js?v=00805cc9:17525:17)
+    at HideOnScroll (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/UnifiedHeader.jsx:57:25)
+    at UnifiedHeader (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/UnifiedHeader.jsx:72:47)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-FPNHPTLY.js?v=00805cc9:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+componentDidCatch @ ErrorBoundary.jsx:41
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384Understand this error
+ErrorBoundary.jsx:42 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+componentDidCatch @ ErrorBoundary.jsx:42
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384Understand this error
+client:536 WebSocket connection to 'ws://localhost:5000/?token=i6CGrjbvyMgQ' failed: 
+setupWebSocket @ client:536
+(anonymous) @ client:531Understand this error
+client:560 [vite] server connection lost. Polling for restart...

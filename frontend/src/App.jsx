@@ -100,7 +100,7 @@ const Inbox = lazy(() => import('./pages/Inbox'));
 const Compose = lazy(() => import('./pages/Compose'));
 const MessageDetail = lazy(() => import('./pages/MessageDetail'));
 const ReviewsList = lazy(() => import('./pages/ReviewsList'));
-const SuperAdminCRUD = lazy(() => import('./pages/SuperAdminCRUD'));
+const SuperAdminCRUD = lazy(() => import('./pages/admin/SuperAdminCRUD'));
 const FileManagement = lazy(() => import('./pages/FileManagement'));
 const EmailNotifications = lazy(() => import('./pages/EmailNotifications'));
 const BuyerAnalytics = lazy(() => import('./pages/BuyerAnalytics'));

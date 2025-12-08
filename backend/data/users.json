@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "username": "buyer",
+    "email": "buyer@mynet.tn",
+    "password": "buyer123",
+    "full_name": "Acheteur Test",
+    "role": "buyer",
+    "is_active": true,
+    "is_verified": true
+  },
+  {
+    "id": "2",
+    "username": "supplier",
+    "email": "supplier@mynet.tn",
+    "password": "supplier123",
+    "full_name": "Fournisseur Test",
+    "role": "supplier",
+    "is_active": true,
+    "is_verified": true
+  },
+  {
+    "id": "3",
+    "username": "admin",
+    "email": "admin@mynet.tn",
+    "password": "admin123",
+    "full_name": "Administrateur",
+    "role": "admin",
+    "is_active": true,
+    "is_verified": true
+  }
+]

@@ -16,7 +16,7 @@ router.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'performance' });
 });
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken, checkRole } = require('../middleware/authMiddleware');
 const performanceMonitor = require('../utils/performanceMonitor');
 
 /**
@@ -24,7 +24,7 @@ const performanceMonitor = require('../utils/performanceMonitor');
  * Get all performance metrics
  * @returns {Object} Complete metrics object
  */
-router.get('/metrics', authMiddleware, (req, res) => {
+router.get('/metrics', verifyToken, (req, res) => {
   try {
     const metrics = performanceMonitor.getMetrics();
     res.json({
@@ -44,7 +44,7 @@ router.get('/metrics', authMiddleware, (req, res) => {
  * Get performance summary (high-level overview)
  * @returns {Object} Summary report
  */
-router.get('/summary', authMiddleware, (req, res) => {
+router.get('/summary', verifyToken, (req, res) => {
   try {
     const summary = performanceMonitor.getSummary();
     res.json({
@@ -65,7 +65,7 @@ router.get('/summary', authMiddleware, (req, res) => {
  * @query {number} limit - Number of endpoints to return (default: 5)
  * @returns {Array} Ranked slow endpoints
  */
-router.get('/slow-endpoints', authMiddleware, (req, res) => {
+router.get('/slow-endpoints', verifyToken, (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 5;
     const slowEndpoints = performanceMonitor.getTopSlowEndpoints(limit);
@@ -86,7 +86,7 @@ router.get('/slow-endpoints', authMiddleware, (req, res) => {
  * Get detailed slow endpoint monitoring data
  * @returns {Object} Comprehensive slow endpoint metrics
  */
-router.get('/slow-monitoring', authMiddleware, (req, res) => {
+router.get('/slow-monitoring', verifyToken, (req, res) => {
   try {
     const { getSlowEndpointMetrics } = require('../middleware/slowEndpointMonitor');
     const metrics = getSlowEndpointMetrics();
@@ -107,16 +107,8 @@ router.get('/slow-monitoring', authMiddleware, (req, res) => {
  * Clear all performance metrics (admin only)
  * @returns {Object} Confirmation message
  */
-router.delete('/metrics', authMiddleware, (req, res) => {
+router.delete('/metrics', verifyToken, checkRole(['super_admin']), (req, res) => {
   try {
-    // Check if super_admin
-    if (req.user.role !== 'super_admin') {
-      return res.status(403).json({
-        success: false,
-        error: 'Unauthorized',
-      });
-    }
-
     performanceMonitor.clearMetrics();
     res.json({
       success: true,

@@ -35,4 +35,4 @@ router.get('/:tenderId/award-settings', async (req, res) => {
   }
 });
 
-module.exports = { router, validatePartialAwardSettings };
+module.exports = router;

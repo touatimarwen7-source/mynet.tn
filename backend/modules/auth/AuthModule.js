@@ -7,9 +7,12 @@
 const { eventBus, DomainEvents } = require('../../core/EventBus');
 const { logger } = require('../../utils/logger');
 
+const { getPool } = require('../../config/db');
+const { logger } = require('../../utils/logger');
+const { DomainEvents } = require('../../core/EventBus');
+
 class AuthModule {
   constructor(dependencies) {
-    this.db = dependencies.db;
     this.jwtService = dependencies.jwtService;
     this.eventBus = dependencies.eventBus;
   }

@@ -24,9 +24,7 @@ router.get('/monitoring', adminAuth, asyncHandler(adminController.getHealthDashb
 router.get(
   '/users',
   adminAuth,
-  adminPermissions(adminPermissions.PERMISSIONS.VIEW_USERS),
-  validateObjectId('userId'), // Assuming validation for user ID if needed for specific user operations
-  asyncHandler(adminController.getAllUsers)
+  asyncHandler(adminController.getAllUsers.bind(adminController))
 );
 
 router.put(
@@ -43,10 +41,10 @@ router.get('/config', adminAuth, asyncHandler(adminController.getPlatformConfig.
 router.put('/config', adminAuth, asyncHandler(adminController.updatePlatformConfig.bind(adminController)));
 
 // ===== Analyses et surveillance =====
-router.get('/analytics/activities', adminAuth, asyncHandler(adminController.getRecentActivities.bind(adminController)));
-router.get('/analytics/users', adminAuth, asyncHandler(adminController.getUserStatistics.bind(adminController)));
-router.get('/analytics/performance', adminAuth, asyncHandler(adminController.getAdminPerformance.bind(adminController)));
-router.get('/analytics/assistants', adminAuth, asyncHandler(adminController.getAdminAssistantsStats.bind(adminController)));
+router.get('/analytics/activities', adminAuth, asyncHandler((req, res) => adminController.getRecentActivities(req, res)));
+router.get('/analytics/users', adminAuth, asyncHandler((req, res) => adminController.getUserStatistics(req, res)));
+router.get('/analytics/performance', adminAuth, asyncHandler((req, res) => adminController.getAdminPerformance(req, res)));
+router.get('/analytics/assistants', adminAuth, asyncHandler((req, res) => adminController.getAdminAssistantsStats(req, res)));
 
 // ===== Gestion des abonnements =====
 // Assuming SubscriptionAdminController and AdvertisementController are injected or managed appropriately

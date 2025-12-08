@@ -7,10 +7,12 @@
 const { eventBus, DomainEvents } = require('../../core/EventBus');
 const { logger } = require('../../utils/logger');
 
+const { logger } = require('../../utils/logger');
+const { DomainEvents } = require('../../core/EventBus');
+
 class NotificationModule {
   constructor(dependencies) {
     this.emailService = dependencies.emailService;
-    this.db = dependencies.db;
     this.eventBus = dependencies.eventBus;
     
     // Register event listeners

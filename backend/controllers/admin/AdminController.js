@@ -457,59 +457,7 @@ class AdminController {
     }
   }
 
-  /**
-   * Get system metrics
-   */
-  static async getMetrics(req, res) {
-    try {
-      const { ServiceValidator } = req.app.locals;
-
-      ServiceValidator.validateDatabaseAvailability();
-
-      const metrics = await AdminService.getSystemMetrics();
-
-      res.status(200).json({
-        success: true,
-        data: metrics,
-        timestamp: new Date().toISOString(),
-      });
-    } catch (error) {
-      logger.error('Error fetching system metrics:', error);
-      res.status(500).json({
-        success: false,
-        error: error.message,
-      });
-    }
-  }
-
-  /**
-   * Get system monitoring
-   */
-  static async getSystemMonitoring(req, res) {
-    try {
-      const { ServiceValidator } = req.app.locals;
-
-      ServiceValidator.validateDatabaseAvailability();
-
-      const monitoring = {
-        uptime: process.uptime(),
-        memory: process.memoryUsage(),
-        cpu: process.cpuUsage(),
-        timestamp: new Date().toISOString(),
-      };
-
-      res.status(200).json({
-        success: true,
-        data: monitoring,
-      });
-    } catch (error) {
-      logger.error('Error fetching system monitoring:', error);
-      res.status(500).json({
-        success: false,
-        error: error.message,
-      });
-    }
-  }
+  
 
   /**
    * Get user details

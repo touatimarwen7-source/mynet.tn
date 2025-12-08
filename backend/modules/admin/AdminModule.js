@@ -7,9 +7,12 @@
 const { eventBus, DomainEvents } = require('../../core/EventBus');
 const { logger } = require('../../utils/logger');
 
+const { getPool } = require('../../config/db');
+const { logger } = require('../../utils/logger');
+const { DomainEvents } = require('../../core/EventBus');
+
 class AdminModule {
   constructor(dependencies) {
-    this.db = dependencies.db;
     this.eventBus = dependencies.eventBus;
     this.auditService = dependencies.auditService;
   }
@@ -19,7 +22,8 @@ class AdminModule {
    */
   async getDashboardStats() {
     try {
-      const stats = await this.db.query(`
+      const pool = getPool();
+      const stats = await pool.query(`
         WITH user_stats AS (
           SELECT COUNT(*) as total_users FROM users WHERE is_deleted = FALSE
         ),
@@ -49,7 +53,8 @@ class AdminModule {
    */
   async toggleUserStatus(userId, isActive) {
     try {
-      await this.db.query(
+      const pool = getPool();
+      await pool.query(
         'UPDATE users SET is_active = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
         [isActive, userId]
       );
@@ -73,7 +78,8 @@ class AdminModule {
    */
   async exportAuditLogs(format = 'json') {
     try {
-      const logs = await this.db.query('SELECT * FROM audit_logs ORDER BY created_at DESC');
+      const pool = getPool();
+      const logs = await pool.query('SELECT * FROM audit_logs ORDER BY created_at DESC');
 
       this.eventBus.publish(DomainEvents.AUDIT_LOG, {
         action: 'admin.audit_logs.exported',

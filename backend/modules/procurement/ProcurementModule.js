@@ -7,9 +7,12 @@
 const { eventBus, DomainEvents } = require('../../core/EventBus');
 const { logger } = require('../../utils/logger');
 
+const { getPool } = require('../../config/db');
+const { logger } = require('../../utils/logger');
+const { DomainEvents } = require('../../core/EventBus');
+
 class ProcurementModule {
   constructor(dependencies) {
-    this.db = dependencies.db;
     this.eventBus = dependencies.eventBus;
     this.notificationService = dependencies.notificationService;
   }

@@ -24,8 +24,6 @@ async function bootstrap() {
     // Register core services
     container.singleton('eventBus', () => eventBus);
     
-    container.singleton('db', () => require('../config/db'));
-    
     container.singleton('jwtService', () => ({
       generateToken: (user) => 'jwt-token',
       verifyToken: (token) => ({ userId: 1 }),
@@ -47,20 +45,17 @@ async function bootstrap() {
 
     // Register modules
     container.singleton('authModule', (c) => new AuthModule({
-      db: c.resolve('db'),
       jwtService: c.resolve('jwtService'),
       eventBus: c.resolve('eventBus'),
     }));
 
     container.singleton('procurementModule', (c) => new ProcurementModule({
-      db: c.resolve('db'),
       eventBus: c.resolve('eventBus'),
       notificationService: c.resolve('notificationService'),
     }));
 
     container.singleton('notificationModule', (c) => new NotificationModule({
       emailService: c.resolve('emailService'),
-      db: c.resolve('db'),
       eventBus: c.resolve('eventBus'),
     }));
 
@@ -72,7 +67,6 @@ async function bootstrap() {
     }));
 
     container.singleton('adminModule', (c) => new AdminModule({
-      db: c.resolve('db'),
       eventBus: c.resolve('eventBus'),
       auditService: c.resolve('auditService'),
     }));

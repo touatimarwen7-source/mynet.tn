@@ -1,7 +1,165 @@
 const UserService = require('../../services/UserService');
 const SearchService = require('../../services/SearchService');
 
+const AdvancedAdminService = require('../../services/AdvancedAdminService');
+
 class AdminController {
+  /**
+   * Get comprehensive dashboard statistics
+   */
+  async getDashboard(req, res) {
+    try {
+      const [statistics, health, insights] = await Promise.all([
+        AdvancedAdminService.getPlatformStatistics(),
+        AdvancedAdminService.getSystemHealth(),
+        AdvancedAdminService.getUserInsights()
+      ]);
+
+      res.status(200).json({
+        success: true,
+        data: {
+          statistics,
+          health,
+          insights
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get system health dashboard
+   */
+  async getHealthDashboard(req, res) {
+    try {
+      const health = await AdvancedAdminService.getSystemHealth();
+
+      res.status(200).json({
+        success: true,
+        data: health
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get activity timeline
+   */
+  async getRecentActivities(req, res) {
+    try {
+      const filters = {
+        limit: parseInt(req.query.limit) || 50,
+        offset: parseInt(req.query.offset) || 0,
+        userId: req.query.userId,
+        actionType: req.query.actionType,
+        startDate: req.query.startDate,
+        endDate: req.query.endDate
+      };
+
+      const timeline = await AdvancedAdminService.getActivityTimeline(filters);
+
+      res.status(200).json({
+        success: true,
+        data: timeline
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get predictive analytics
+   */
+  async getAnalytics(req, res) {
+    try {
+      const analytics = await AdvancedAdminService.getPredictiveAnalytics();
+
+      res.status(200).json({
+        success: true,
+        data: analytics
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Get user statistics
+   */
+  async getUserStatistics(req, res) {
+    try {
+      const insights = await AdvancedAdminService.getUserInsights();
+
+      res.status(200).json({
+        success: true,
+        data: insights
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+   * Export audit logs
+   */
+  async exportAuditLogs(req, res) {
+    try {
+      const { format = 'json', startDate, endDate } = req.query;
+
+      const timeline = await AdvancedAdminService.getActivityTimeline({
+        limit: 10000,
+        startDate,
+        endDate
+      });
+
+      if (format === 'csv') {
+        const csv = this._convertToCSV(timeline.activities);
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', `attachment; filename="audit-logs-${Date.now()}.csv"`);
+        res.send(csv);
+      } else {
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Disposition', `attachment; filename="audit-logs-${Date.now()}.json"`);
+        res.json(timeline.activities);
+      }
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
+  _convertToCSV(data) {
+    if (!data || data.length === 0) return '';
+
+    const headers = Object.keys(data[0]).join(',');
+    const rows = data.map(row => 
+      Object.values(row).map(val => 
+        typeof val === 'string' && val.includes(',') ? `"${val}"` : val
+      ).join(',')
+    );
+
+    return [headers, ...rows].join('\n');
+  }
+
   async getAllUsers(req, res) {
     try {
       const filters = {

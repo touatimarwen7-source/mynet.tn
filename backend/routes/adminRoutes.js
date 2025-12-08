@@ -14,6 +14,9 @@ router.use(authMiddleware.checkRole(['super_admin']));
 // ===== Tableau de bord =====
 router.get('/health', adminController.getHealthDashboard);
 router.get('/dashboard', adminController.getDashboard);
+router.get('/analytics', adminController.getAnalytics);
+router.get('/analytics/users', adminController.getUserStatistics);
+router.get('/activities/recent', adminController.getRecentActivities);
 router.get('/audit-logs/export', adminController.exportAuditLogs);
 
 // ===== Gestion des utilisateurs =====

@@ -61,31 +61,41 @@ router.get(
       const pool = getPool();
 
       if (!supplierId) {
+        console.error('Supplier dashboard stats: User not authenticated');
         return errorResponse(res, 'User not authenticated', 401);
       }
+
+      console.log('Fetching dashboard stats for supplier:', supplierId);
 
       const statsQuery = `
         SELECT 
           COUNT(DISTINCT o.id) FILTER (WHERE o.is_deleted = FALSE) as total_offers,
           COUNT(DISTINCT o.id) FILTER (WHERE o.status = 'accepted' AND o.is_deleted = FALSE) as accepted_offers,
           COUNT(DISTINCT t.id) FILTER (WHERE t.status IN ('open', 'published') AND t.is_deleted = FALSE) as available_tenders,
-          COUNT(DISTINCT o.id) FILTER (WHERE o.status = 'pending' AND o.is_deleted = FALSE) as pending_offers
+          COUNT(DISTINCT o.id) FILTER (WHERE o.status = 'pending' AND o.is_deleted = FALSE) as pending_offers,
+          COALESCE(SUM(po.total_amount) FILTER (WHERE po.status = 'confirmed' AND po.is_deleted = FALSE), 0) as total_revenue
         FROM offers o
         LEFT JOIN tenders t ON o.tender_id = t.id
+        LEFT JOIN purchase_orders po ON o.id = po.offer_id
         WHERE o.supplier_id = $1
       `;
 
       const result = await pool.query(statsQuery, [supplierId]);
       const stats = result.rows[0];
 
-      return res.json({
+      const response = {
         success: true,
         totalOffers: parseInt(stats.total_offers) || 0,
         acceptedOffers: parseInt(stats.accepted_offers) || 0,
         availableTenders: parseInt(stats.available_tenders) || 0,
-        pendingOffers: parseInt(stats.pending_offers) || 0
-      });
+        pendingOffers: parseInt(stats.pending_offers) || 0,
+        totalRevenue: parseFloat(stats.total_revenue) || 0
+      };
+
+      console.log('Supplier dashboard stats response:', response);
+      return res.json(response);
     } catch (error) {
+      console.error('Supplier dashboard stats error:', error);
       return handleError(res, error, 500);
     }
   }
@@ -508,6 +518,55 @@ router.get('/tenders/:id/with-offers', AuthorizationGuard.authenticateToken.bind
 router.get('/tenders/:id/statistics', AuthorizationGuard.authenticateToken.bind(AuthorizationGuard), validateIdMiddleware('id'), TenderController.getTenderStatistics);
 router.post('/tenders/:id/award', AuthorizationGuard.authenticateToken.bind(AuthorizationGuard), validateIdMiddleware('id'), TenderController.awardTender);
 
+// Supplier trends endpoint (temporal analytics)
+router.get(
+  '/supplier/trends',
+  AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
+  async (req, res) => {
+    try {
+      const supplierId = req.user?.id;
+      const { period = '6 months' } = req.query;
+      const pool = getPool();
+
+      if (!supplierId) {
+        return errorResponse(res, 'User not authenticated', 401);
+      }
+
+      const trendsQuery = `
+        SELECT 
+          DATE_TRUNC('month', o.submitted_at) as month,
+          COUNT(DISTINCT o.id) as offers_submitted,
+          COUNT(DISTINCT o.id) FILTER (WHERE o.status = 'accepted') as offers_accepted,
+          AVG(o.total_amount) as avg_offer_price,
+          SUM(CASE WHEN o.status = 'accepted' THEN o.total_amount ELSE 0 END) as revenue_generated
+        FROM offers o
+        WHERE o.supplier_id = $1 
+          AND o.is_deleted = FALSE
+          AND o.submitted_at >= NOW() - INTERVAL '${period}'
+        GROUP BY DATE_TRUNC('month', o.submitted_at)
+        ORDER BY month DESC
+        LIMIT 12
+      `;
+
+      const result = await pool.query(trendsQuery, [supplierId]);
+
+      return res.json({
+        success: true,
+        trends: result.rows.map(row => ({
+          month: row.month,
+          offersSubmitted: parseInt(row.offers_submitted) || 0,
+          offersAccepted: parseInt(row.offers_accepted) || 0,
+          avgOfferPrice: parseFloat(row.avg_offer_price) || 0,
+          revenueGenerated: parseFloat(row.revenue_generated) || 0
+        }))
+      });
+    } catch (error) {
+      console.error('Supplier trends error:', error);
+      return handleError(res, error, 500);
+    }
+  }
+);
+
 // Buyer trends endpoint (temporal analytics)
 router.get(
   '/buyer/trends',
@@ -553,6 +612,87 @@ router.get(
       });
     } catch (error) {
       console.error('Buyer trends error:', error);
+      return handleError(res, error, 500);
+    }
+  }
+);
+
+// Supplier analytics endpoint
+router.get(
+  '/supplier/analytics',
+  AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
+  async (req, res) => {
+    try {
+      const supplierId = req.user?.id;
+      const pool = getPool();
+
+      if (!supplierId) {
+        return errorResponse(res, 'User not authenticated', 401);
+      }
+
+      const analyticsQuery = `
+        WITH offer_stats AS (
+          SELECT 
+            COUNT(DISTINCT o.id) as total_offers,
+            COUNT(DISTINCT o.id) FILTER (WHERE o.status = 'accepted') as accepted_offers,
+            COUNT(DISTINCT o.id) FILTER (WHERE o.status = 'rejected') as rejected_offers,
+            COUNT(DISTINCT o.id) FILTER (WHERE o.status = 'pending') as pending_offers,
+            AVG(o.total_amount) as avg_offer_amount,
+            MIN(o.total_amount) as min_offer_amount,
+            MAX(o.total_amount) as max_offer_amount,
+            COUNT(DISTINCT o.tender_id) as unique_tenders
+          FROM offers o
+          WHERE o.supplier_id = $1 AND o.is_deleted = FALSE
+        ),
+        revenue_stats AS (
+          SELECT 
+            COALESCE(SUM(po.total_amount), 0) as total_revenue,
+            COALESCE(AVG(po.total_amount), 0) as avg_order_value,
+            COUNT(DISTINCT po.id) as total_orders
+          FROM purchase_orders po
+          JOIN offers o ON po.offer_id = o.id
+          WHERE o.supplier_id = $1 AND po.is_deleted = FALSE
+        ),
+        review_stats AS (
+          SELECT 
+            COUNT(DISTINCT r.id) as total_reviews,
+            COALESCE(AVG(r.rating), 0) as avg_rating,
+            COUNT(DISTINCT r.id) FILTER (WHERE r.rating >= 4) as positive_reviews
+          FROM reviews r
+          WHERE r.reviewed_user_id = $1 AND r.is_deleted = FALSE
+        )
+        SELECT * FROM offer_stats, revenue_stats, review_stats
+      `;
+
+      const result = await pool.query(analyticsQuery, [supplierId]);
+      const analytics = result.rows[0];
+
+      const winRate = analytics.total_offers > 0 
+        ? ((analytics.accepted_offers / analytics.total_offers) * 100).toFixed(2)
+        : 0;
+
+      return res.json({
+        success: true,
+        analytics: {
+          totalOffers: parseInt(analytics.total_offers) || 0,
+          acceptedOffers: parseInt(analytics.accepted_offers) || 0,
+          rejectedOffers: parseInt(analytics.rejected_offers) || 0,
+          pendingOffers: parseInt(analytics.pending_offers) || 0,
+          winRate: parseFloat(winRate),
+          avgOfferAmount: parseFloat(analytics.avg_offer_amount) || 0,
+          minOfferAmount: parseFloat(analytics.min_offer_amount) || 0,
+          maxOfferAmount: parseFloat(analytics.max_offer_amount) || 0,
+          uniqueTenders: parseInt(analytics.unique_tenders) || 0,
+          totalRevenue: parseFloat(analytics.total_revenue) || 0,
+          avgOrderValue: parseFloat(analytics.avg_order_value) || 0,
+          totalOrders: parseInt(analytics.total_orders) || 0,
+          totalReviews: parseInt(analytics.total_reviews) || 0,
+          avgRating: parseFloat(analytics.avg_rating) || 0,
+          positiveReviews: parseInt(analytics.positive_reviews) || 0
+        }
+      });
+    } catch (error) {
+      console.error('Supplier analytics error:', error);
       return handleError(res, error, 500);
     }
   }

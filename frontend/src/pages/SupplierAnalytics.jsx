@@ -16,6 +16,7 @@ import {
   TableCell,
   Rating,
 } from '@mui/material';
+import { procurementAPI } from '../api/procurementApi';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import StarIcon from '@mui/icons-material/Star';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -34,7 +35,11 @@ export default function SupplierAnalytics() {
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      const [analyticsRes, trendsRes] = await Promise.all([
+        procurementAPI.getSupplierAnalytics(),
+        procurementAPI.getSupplierTrends('6 months')
+      ]);
+      
       const mockAnalytics = {
         kpis: {
           totalOffers: 156,

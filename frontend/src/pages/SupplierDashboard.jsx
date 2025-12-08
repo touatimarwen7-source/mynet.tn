@@ -15,6 +15,7 @@ import {
   Paper,
   Rating,
 } from '@mui/material';
+import { procurementAPI } from '../api/procurementApi';
 import {
   LocalOffer as OfferIcon,
   Assessment as AnalyticsIcon,
@@ -42,28 +43,49 @@ export default function SupplierDashboard() {
     setPageTitle('Tableau de Bord Fournisseur - MyNet.tn');
   }, []);
 
-  const stats = [
+  const [dashboardStats, setDashboardStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        setLoading(true);
+        const { data } = await procurementAPI.getSupplierDashboardStats();
+        setDashboardStats(data);
+      } catch (error) {
+        console.error('Erreur lors du chargement des statistiques:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  const stats = dashboardStats ? [
     { 
       label: 'Offres Soumises', 
-      value: 18, 
+      value: dashboardStats.totalOffers || 0, 
       change: 12.5,
       trend: 'up',
       icon: OfferIcon, 
       color: theme.palette.primary.main,
-      subtitle: '+3 ce mois'
+      subtitle: `${dashboardStats.pendingOffers || 0} en attente`
     },
     { 
       label: 'Taux de Victoire', 
-      value: '73%', 
+      value: dashboardStats.totalOffers > 0 
+        ? `${Math.round((dashboardStats.acceptedOffers / dashboardStats.totalOffers) * 100)}%`
+        : '0%', 
       change: 5.2,
       trend: 'up',
       icon: WonIcon, 
       color: theme.palette.success.main,
-      subtitle: '13 sur 18 offres'
+      subtitle: `${dashboardStats.acceptedOffers || 0} sur ${dashboardStats.totalOffers || 0} offres`
     },
     { 
       label: 'Revenus Prévus', 
-      value: '1.8M TND', 
+      value: `${((dashboardStats.totalRevenue || 0) / 1000).toFixed(1)}K TND`, 
       change: 18.3,
       trend: 'up',
       icon: RevenueIcon, 
@@ -71,15 +93,15 @@ export default function SupplierDashboard() {
       subtitle: 'Des offres gagnées'
     },
     { 
-      label: 'Note Globale', 
-      value: '4.8/5', 
+      label: 'Appels Disponibles', 
+      value: dashboardStats.availableTenders || 0, 
       change: 3.1,
       trend: 'up',
-      icon: ReviewsIcon, 
+      icon: SearchIcon, 
       color: theme.palette.warning.main,
-      subtitle: 'Sur 42 avis'
+      subtitle: 'Opportunités actives'
     },
-  ];
+  ] : [];
 
   const offerStatusData = [
     { name: 'Gagnant', value: 13, color: theme.palette.success.main },

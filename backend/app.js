@@ -274,7 +274,6 @@ app.use('/api/company-profile', companyProfileRoutes);
 
 // Procurement & Supply
 app.use('/api/direct-supply', directSupplyRoutes);
-app.use('/api/purchase-orders', require('./routes/purchaseOrdersRoutes'));
 
 // Communication
 app.use('/api/reviews', reviewsRoutes);

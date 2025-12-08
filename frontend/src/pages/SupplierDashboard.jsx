@@ -119,37 +119,102 @@ const SupplierDashboard = () => {
       setLoading(true);
       setError(null);
 
+      console.log('🔄 Fetching supplier dashboard data...');
+
       const [statsRes, analyticsRes, trendsRes, ordersRes, tendersRes] = await Promise.allSettled([
         axiosInstance.get('/api/procurement/supplier/dashboard-stats'),
         axiosInstance.get('/api/procurement/supplier/analytics'),
         axiosInstance.get('/api/procurement/supplier/trends'),
         axiosInstance.get('/api/procurement/supplier/recent-orders'),
-        axiosInstance.get('/api/procurement/tenders?limit=5&status=open'),
+        axiosInstance.get('/api/procurement/tenders', { params: { limit: 5, status: 'open' } }),
       ]);
 
-      if (statsRes.status === 'fulfilled') {
-        setStats(statsRes.value.data);
+      // Stats with safe fallbacks
+      if (statsRes.status === 'fulfilled' && statsRes.value?.data) {
+        const statsData = statsRes.value.data;
+        setStats({
+          totalOffers: statsData.totalOffers || 0,
+          acceptedOffers: statsData.acceptedOffers || 0,
+          rejectedOffers: statsData.rejectedOffers || 0,
+          availableTenders: statsData.availableTenders || 0,
+          pendingOffers: statsData.pendingOffers || 0,
+          totalRevenue: statsData.totalRevenue || 0,
+          avgOfferValue: statsData.avgOfferValue || 0,
+          activeOrders: statsData.activeOrders || 0,
+          offersChange: statsData.offersChange || 0,
+          winRateChange: statsData.winRateChange || 0,
+          revenueChange: statsData.revenueChange || 0,
+          tendersChange: statsData.tendersChange || 0,
+        });
+        console.log('✅ Stats loaded:', statsData);
+      } else {
+        console.warn('⚠️ Stats failed:', statsRes.reason?.message);
       }
 
+      // Analytics with safe fallbacks
       if (analyticsRes.status === 'fulfilled' && analyticsRes.value?.data?.analytics) {
-        setAnalytics(analyticsRes.value.data.analytics);
+        const analyticsData = analyticsRes.value.data.analytics;
+        setAnalytics({
+          totalReviews: analyticsData.totalReviews || 0,
+          avgRating: analyticsData.avgRating || 0,
+          winRate: analyticsData.winRate || 0,
+          totalOrders: analyticsData.totalOrders || 0,
+        });
+        console.log('✅ Analytics loaded:', analyticsData);
+      } else {
+        console.warn('⚠️ Analytics failed:', analyticsRes.reason?.message);
+        setAnalytics({ totalReviews: 0, avgRating: 0, winRate: 0, totalOrders: 0 });
       }
 
+      // Trends with safe fallbacks
       if (trendsRes.status === 'fulfilled' && trendsRes.value?.data?.trends) {
         setTrends(trendsRes.value.data.trends);
+        console.log('✅ Trends loaded');
+      } else {
+        console.warn('⚠️ Trends failed:', trendsRes.reason?.message);
+        setTrends([]);
       }
 
+      // Orders with safe fallbacks
       if (ordersRes.status === 'fulfilled' && ordersRes.value?.data?.orders) {
         setRecentOrders(ordersRes.value.data.orders);
+        console.log('✅ Orders loaded');
+      } else {
+        console.warn('⚠️ Orders failed:', ordersRes.reason?.message);
+        setRecentOrders([]);
       }
 
+      // Tenders with safe fallbacks
       if (tendersRes.status === 'fulfilled' && tendersRes.value?.data?.tenders) {
         setRecentTenders(tendersRes.value.data.tenders);
+        console.log('✅ Tenders loaded');
+      } else {
+        console.warn('⚠️ Tenders failed:', tendersRes.reason?.message);
+        setRecentTenders([]);
       }
+
+      console.log('✅ Dashboard data fetch completed');
 
     } catch (err) {
       console.error('❌ Dashboard Error:', err);
-      setError(err.message || 'فشل تحميل بيانات لوحة التحكم');
+      const errorMessage = err.response?.data?.error || err.message || 'فشل تحميل بيانات لوحة التحكم';
+      setError(errorMessage);
+      
+      // Set safe defaults on error
+      setStats({
+        totalOffers: 0,
+        acceptedOffers: 0,
+        rejectedOffers: 0,
+        availableTenders: 0,
+        pendingOffers: 0,
+        totalRevenue: 0,
+        avgOfferValue: 0,
+        activeOrders: 0,
+      });
+      setAnalytics({ totalReviews: 0, avgRating: 0, winRate: 0, totalOrders: 0 });
+      setTrends([]);
+      setRecentOrders([]);
+      setRecentTenders([]);
     } finally {
       setLoading(false);
     }
@@ -401,7 +466,16 @@ const SupplierDashboard = () => {
       >
         <Container maxWidth="lg">
           {error && (
-            <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError(null)}>
+            <Alert 
+              severity="error" 
+              sx={{ mb: 3 }} 
+              onClose={() => setError(null)}
+              action={
+                <Button color="inherit" size="small" onClick={fetchDashboardData}>
+                  إعادة المحاولة
+                </Button>
+              }
+            >
               {error}
             </Alert>
           )}

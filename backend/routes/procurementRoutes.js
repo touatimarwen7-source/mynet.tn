@@ -58,14 +58,26 @@ router.get(
   async (req, res) => {
     try {
       const supplierId = req.user?.id;
-      const pool = getPool();
 
       if (!supplierId) {
-        console.error('Supplier dashboard stats: User not authenticated');
-        return errorResponse(res, 'User not authenticated', 401);
+        console.error('❌ Supplier dashboard stats: User not authenticated');
+        return res.status(401).json({
+          success: false,
+          error: 'User not authenticated',
+          totalOffers: 0,
+          acceptedOffers: 0,
+          rejectedOffers: 0,
+          availableTenders: 0,
+          pendingOffers: 0,
+          totalRevenue: 0,
+          avgOfferValue: 0,
+          activeOrders: 0,
+        });
       }
 
-      console.log('Fetching dashboard stats for supplier:', supplierId);
+      console.log('📊 Fetching dashboard stats for supplier:', supplierId);
+      
+      const pool = getPool();
 
       const statsQuery = `
         WITH current_stats AS (

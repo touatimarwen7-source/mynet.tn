@@ -1,12 +1,12 @@
 // Advanced Search Routes - TURN 3 ENHANCEMENT
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 const { buildPaginationQuery } = require('../utils/paginationHelper');
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 
 // Advanced search tenders with filters
-router.get('/tenders/advanced', authMiddleware, async (req, res) => {
+router.get('/tenders/advanced', verifyToken, async (req, res) => {
   try {
     const { search, minBudget, maxBudget, category, location, minRating, status } = req.query;
 
@@ -67,7 +67,7 @@ router.get('/tenders/advanced', authMiddleware, async (req, res) => {
 });
 
 // Advanced search suppliers with filters
-router.get('/suppliers/advanced', authMiddleware, async (req, res) => {
+router.get('/suppliers/advanced', verifyToken, async (req, res) => {
   try {
     const { search, minRating, maxRating, category, location, verified } = req.query;
 

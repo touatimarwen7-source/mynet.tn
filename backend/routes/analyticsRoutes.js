@@ -1,13 +1,13 @@
 // Analytics Dashboard Routes - OPTIMIZED
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 const QueryOptimizer = require('../utils/queryOptimizer');
 const cacheMiddleware = require('../middleware/cacheMiddleware');
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 
 // Get dashboard statistics for buyers (optimized + cached)
-router.get('/dashboard/buyer', authMiddleware, cacheMiddleware({ ttl: 600 }), async (req, res) => {
+router.get('/dashboard/buyer', verifyToken, cacheMiddleware({ ttl: 600 }), async (req, res) => {
   try {
     const db = req.app.get('db');
     const userId = req.user.id;
@@ -22,7 +22,7 @@ router.get('/dashboard/buyer', authMiddleware, cacheMiddleware({ ttl: 600 }), as
 // Get dashboard statistics for suppliers (optimized + cached)
 router.get(
   '/dashboard/supplier',
-  authMiddleware,
+  verifyToken,
   cacheMiddleware({ ttl: 600 }),
   async (req, res) => {
     try {
@@ -38,7 +38,7 @@ router.get(
 );
 
 // Get tender trends (last 30 days)
-router.get('/trends/tenders', authMiddleware, async (req, res) => {
+router.get('/trends/tenders', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
 
@@ -59,7 +59,7 @@ router.get('/trends/tenders', authMiddleware, async (req, res) => {
 });
 
 // Get offer status distribution
-router.get('/distribution/offers', authMiddleware, async (req, res) => {
+router.get('/distribution/offers', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
 
@@ -79,7 +79,7 @@ router.get('/distribution/offers', authMiddleware, async (req, res) => {
 });
 
 // Get category breakdown
-router.get('/breakdown/categories', authMiddleware, async (req, res) => {
+router.get('/breakdown/categories', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
 

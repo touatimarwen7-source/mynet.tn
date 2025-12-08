@@ -1,5 +1,5 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
@@ -8,7 +8,7 @@ const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 router.get(
   '/supplier/:supplierId',
   validateIdMiddleware('supplierId'),
-  authMiddleware,
+  verifyToken,
   async (req, res) => {
     try {
       const { supplierId } = req.params;
@@ -31,7 +31,7 @@ router.get(
 );
 
 // Add feature - ISSUE FIX #3: Add input validation
-router.post('/', authMiddleware, async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
   try {
     const { supplier_id, feature_name, description } = req.body;
 
@@ -67,7 +67,7 @@ router.post('/', authMiddleware, async (req, res) => {
 router.delete(
   '/:featureId',
   validateIdMiddleware('featureId'),
-  authMiddleware,
+  verifyToken,
   async (req, res) => {
     try {
       const { featureId } = req.params;

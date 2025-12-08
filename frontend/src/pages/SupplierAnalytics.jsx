@@ -40,30 +40,25 @@ export default function SupplierAnalytics() {
         procurementAPI.getSupplierTrends('6 months')
       ]);
       
-      const mockAnalytics = {
+      const analyticsData = analyticsRes.data?.analytics || {};
+      const trendsData = trendsRes.data?.trends || [];
+
+      setAnalytics({
         kpis: {
-          totalOffers: 156,
-          acceptedOffers: 94,
-          averageRating: 4.6,
-          revenue: 285600,
+          totalOffers: analyticsData.totalOffers || 0,
+          acceptedOffers: analyticsData.acceptedOffers || 0,
+          averageRating: analyticsData.avgRating || 0,
+          revenue: analyticsData.totalRevenue || 0,
         },
-        performanceByMonth: [
-          { month: 'Jan', offers: 18, accepted: 11 },
-          { month: 'Fev', offers: 22, accepted: 15 },
-          { month: 'Mar', offers: 19, accepted: 12 },
-          { month: 'Avr', offers: 25, accepted: 18 },
-          { month: 'Mai', offices: 21, accepted: 14 },
-          { month: 'Jun', offers: 26, accepted: 20 },
-        ],
-        recentOrders: [
-          { id: 'CMD-001', buyer: 'Company A', amount: 5600, status: 'livré' },
-          { id: 'CMD-002', buyer: 'Company B', amount: 8900, status: 'en_route' },
-          { id: 'CMD-003', buyer: 'Company C', amount: 4200, status: 'confirme' },
-          { id: 'CMD-004', buyer: 'Company D', amount: 12300, status: 'livré' },
-          { id: 'CMD-005', buyer: 'Company E', amount: 6800, status: 'en_route' },
-        ],
-      };
-      setAnalytics(mockAnalytics);
+        performanceByMonth: trendsData.map(t => ({
+          month: new Date(t.month).toLocaleDateString('fr-FR', { month: 'short' }),
+          offers: t.offersSubmitted || 0,
+          accepted: t.offersAccepted || 0
+        })),
+        recentOrders: [] // À charger depuis l'API purchase orders si disponible
+      });
+    } catch (error) {
+      console.error('Erreur chargement analytics:', error);
     } finally {
       setLoading(false);
     }

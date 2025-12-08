@@ -617,6 +617,52 @@ router.get(
   }
 );
 
+// Supplier recent orders endpoint
+router.get(
+  '/supplier/recent-orders',
+  AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
+  async (req, res) => {
+    try {
+      const supplierId = req.user?.id;
+      const { limit = 10 } = req.query;
+      const pool = getPool();
+
+      if (!supplierId) {
+        return errorResponse(res, 'User not authenticated', 401);
+      }
+
+      const ordersQuery = `
+        SELECT 
+          po.id,
+          po.po_number,
+          po.total_amount,
+          po.status,
+          po.delivery_date,
+          po.created_at,
+          u.company_name as buyer_name,
+          t.title as tender_title
+        FROM purchase_orders po
+        JOIN offers o ON po.offer_id = o.id
+        JOIN tenders t ON o.tender_id = t.id
+        JOIN users u ON t.buyer_id = u.id
+        WHERE o.supplier_id = $1 AND po.is_deleted = FALSE
+        ORDER BY po.created_at DESC
+        LIMIT $2
+      `;
+
+      const result = await pool.query(ordersQuery, [supplierId, parseInt(limit)]);
+
+      return res.json({
+        success: true,
+        orders: result.rows
+      });
+    } catch (error) {
+      console.error('Supplier recent orders error:', error);
+      return handleError(res, error, 500);
+    }
+  }
+);
+
 // Supplier analytics endpoint
 router.get(
   '/supplier/analytics',

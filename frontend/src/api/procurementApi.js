@@ -45,6 +45,7 @@ export const procurementAPI = {
   getSupplierAnalytics: () => axiosInstance.get('/procurement/supplier/analytics'),
   getSupplierTrends: (period = '6 months') => axiosInstance.get('/procurement/supplier/trends', { params: { period } }),
   getSupplierDashboardStats: () => axiosInstance.get('/procurement/supplier/dashboard-stats'),
+  getSupplierRecentOrders: (limit = 10) => axiosInstance.get('/procurement/supplier/recent-orders', { params: { limit } }),
   createTender: (data) => axiosInstance.post('/procurement/tenders', data),
   updateTender: (id, data) => axiosInstance.put(`/procurement/tenders/${id}`, data),
   deleteTender: (id) => axiosInstance.delete(`/procurement/tenders/${id}`),

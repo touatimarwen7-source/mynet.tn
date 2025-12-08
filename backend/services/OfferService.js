@@ -116,7 +116,27 @@ class OfferService {
     const offer = new Offer(mappedData);
 
     try {
+      // Vérifier que le tender existe et est ouvert
+      const tenderCheck = await pool.query(
+        'SELECT status, deadline FROM tenders WHERE id = $1 AND is_deleted = FALSE',
+        [offer.tender_id]
+      );
+
+      if (tenderCheck.rows.length === 0) {
+        throw new Error('Tender not found or has been deleted');
+      }
+
+      const tender = tenderCheck.rows[0];
+      if (tender.status !== 'published' && tender.status !== 'open') {
+        throw new Error('Tender is not open for submissions');
+      }
+
+      if (new Date(tender.deadline) < new Date()) {
+        throw new Error('Tender deadline has passed');
+      }
+
       const offerNumber = this.generateOfferNumber();
+      logger.info('Creating offer', { offerNumber, tenderId: offer.tender_id, userId });
 
       // تشفير البيانات المالية الحساسة
       const sensitiveData = JSON.stringify({

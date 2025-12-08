@@ -66,8 +66,6 @@ export default function SupplierDashboard() {
     { 
       label: 'Offres Soumises', 
       value: dashboardStats.totalOffers || 0, 
-      change: 12.5,
-      trend: 'up',
       icon: OfferIcon, 
       color: theme.palette.primary.main,
       subtitle: `${dashboardStats.pendingOffers || 0} en attente`
@@ -77,17 +75,13 @@ export default function SupplierDashboard() {
       value: dashboardStats.totalOffers > 0 
         ? `${Math.round((dashboardStats.acceptedOffers / dashboardStats.totalOffers) * 100)}%`
         : '0%', 
-      change: 5.2,
-      trend: 'up',
       icon: WonIcon, 
       color: theme.palette.success.main,
       subtitle: `${dashboardStats.acceptedOffers || 0} sur ${dashboardStats.totalOffers || 0} offres`
     },
     { 
-      label: 'Revenus Prévus', 
+      label: 'Revenus Générés', 
       value: `${((dashboardStats.totalRevenue || 0) / 1000).toFixed(1)}K TND`, 
-      change: 18.3,
-      trend: 'up',
       icon: RevenueIcon, 
       color: theme.palette.info.main,
       subtitle: 'Des offres gagnées'
@@ -95,55 +89,61 @@ export default function SupplierDashboard() {
     { 
       label: 'Appels Disponibles', 
       value: dashboardStats.availableTenders || 0, 
-      change: 3.1,
-      trend: 'up',
       icon: SearchIcon, 
       color: theme.palette.warning.main,
       subtitle: 'Opportunités actives'
     },
   ] : [];
 
-  const offerStatusData = [
-    { name: 'Gagnant', value: 13, color: theme.palette.success.main },
-    { name: 'En Évaluation', value: 3, color: theme.palette.warning.main },
-    { name: 'Rejeté', value: 2, color: theme.palette.error.main },
-  ];
+  const [offerStatusData, setOfferStatusData] = useState([]);
+  const [monthlyRevenue, setMonthlyRevenue] = useState([]);
+  const [recentOffers, setRecentOffers] = useState([]);
 
-  const monthlyRevenue = [
-    { month: 'Janvier', revenue: 240, offers: 3 },
-    { month: 'Février', revenue: 380, offers: 5 },
-    { month: 'Mars', revenue: 520, offers: 6 },
-    { month: 'Avril', revenue: 290, offers: 4 },
-    { month: 'Mai', revenue: 650, offers: 8 },
-    { month: 'Juin', revenue: 480, offers: 5 },
-  ];
+  useEffect(() => {
+    const fetchChartData = async () => {
+      try {
+        // Charger données de statut des offres
+        if (dashboardStats) {
+          setOfferStatusData([
+            { name: 'Gagnant', value: dashboardStats.acceptedOffers || 0, color: theme.palette.success.main },
+            { name: 'En Attente', value: dashboardStats.pendingOffers || 0, color: theme.palette.warning.main },
+            { name: 'Total', value: dashboardStats.totalOffers || 0, color: theme.palette.primary.main },
+          ]);
+        }
 
-  const recentOffers = [
-    { 
-      id: 1, 
-      tender: 'Fourniture équipements bureau', 
-      amount: '145,000 TND',
-      status: 'Gagnant', 
-      date: '2025-01-05',
-      rating: 5
-    },
-    { 
-      id: 2, 
-      tender: 'Services maintenance complète', 
-      amount: '280,000 TND',
-      status: 'En Évaluation', 
-      date: '2025-01-03',
-      rating: null
-    },
-    { 
-      id: 3, 
-      tender: 'Achat ordinateurs', 
-      amount: '420,000 TND',
-      status: 'Gagnant', 
-      date: '2024-12-28',
-      rating: 4.5
-    },
-  ];
+        // Charger tendances mensuelles
+        const { data: trendsData } = await procurementAPI.getSupplierTrends('6 months');
+        if (trendsData?.trends) {
+          setMonthlyRevenue(trendsData.trends.map(t => ({
+            month: new Date(t.month).toLocaleDateString('fr-FR', { month: 'short' }),
+            revenue: (t.revenueGenerated / 1000).toFixed(1),
+            offers: t.offersSubmitted
+          })));
+        }
+
+        // Charger offres récentes
+        const { data: offersData } = await procurementAPI.getMyOffers();
+        if (offersData?.offers) {
+          setRecentOffers(offersData.offers.slice(0, 5).map(o => ({
+            id: o.id,
+            tender: o.tender_title || `Offre #${o.offer_number}`,
+            amount: `${o.total_amount?.toLocaleString()} ${o.currency || 'TND'}`,
+            status: o.status === 'accepted' ? 'Gagnant' : 
+                    o.status === 'pending' ? 'En Évaluation' : 
+                    o.status === 'rejected' ? 'Rejeté' : 'En Attente',
+            date: new Date(o.submitted_at).toLocaleDateString('fr-FR'),
+            rating: o.evaluation_score || null
+          })));
+        }
+      } catch (error) {
+        console.error('Erreur chargement données graphiques:', error);
+      }
+    };
+
+    if (dashboardStats) {
+      fetchChartData();
+    }
+  }, [dashboardStats]);
 
   const tableColumns = [
     { key: 'tender', label: 'Appel d\'Offre' },

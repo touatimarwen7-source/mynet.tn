@@ -1,13 +1,20 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware'); // This line should ideally be removed if verifyToken replaces it everywhere.
-const verifyToken = require('../middleware/verifyToken'); // Assuming verifyToken is imported from a similar path.
+const { verifyToken } = require('../middleware/authMiddleware');
+const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
+const { asyncHandler } = require('../middleware/errorHandlingMiddleware');
+const ResponseFormatter = require('../utils/responseFormatter');
 
 const router = express.Router();
-const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 
-// Get all active suppliers
-router.get('/suppliers', verifyToken, async (req, res) => {
-  try {
+/**
+ * @route   GET /api/direct-supply/suppliers
+ * @desc    Récupérer tous les fournisseurs actifs et vérifiés
+ * @access  Privé (Acheteurs)
+ */
+router.get(
+  '/suppliers',
+  verifyToken,
+  asyncHandler(async (req, res) => {
     const db = req.app.get('db');
 
     const result = await db.query(`
@@ -27,110 +34,103 @@ router.get('/suppliers', verifyToken, async (req, res) => {
       LIMIT 100
     `);
 
-    res.json(result.rows);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+    return res.json(ResponseFormatter.success(result.rows, 'Fournisseurs récupérés avec succès'));
+  })
+);
 
-// Create direct supply request - ISSUE FIX #3: Add input validation
-router.post('/create-request', verifyToken, async (req, res) => {
-  try {
-    // Only buyers can create supply requests
+/**
+ * @route   POST /api/direct-supply/create-request
+ * @desc    Créer une demande d'achat direct
+ * @access  Privé (Acheteurs uniquement)
+ */
+router.post(
+  '/create-request',
+  verifyToken,
+  asyncHandler(async (req, res) => {
+    // Vérification du rôle
     if (req.user.role !== 'buyer') {
-      return res.status(403).json({ error: 'Only buyers can create supply requests' });
+      return res.status(403).json(
+        ResponseFormatter.error('Seuls les acheteurs peuvent créer des demandes', 'FORBIDDEN', 403)
+      );
     }
 
     const { supplier_id, title, description, category, quantity, unit, budget, notes } = req.body;
     const buyer_id = req.user.id;
 
-    // ISSUE FIX #3: Comprehensive validation
-    if (!supplier_id || !title || !category || !budget) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    // Validation complète
+    const errors = [];
+    
+    if (!supplier_id) errors.push({ field: 'supplier_id', message: 'Le fournisseur est requis' });
+    if (!title) errors.push({ field: 'title', message: 'Le titre est requis' });
+    else if (title.length < 3 || title.length > 255) {
+      errors.push({ field: 'title', message: 'Le titre doit contenir entre 3 et 255 caractères' });
     }
-    if (title.length < 3 || title.length > 255) {
-      return res.status(400).json({ error: 'Title must be 3-255 characters' });
-    }
+    if (!category) errors.push({ field: 'category', message: 'La catégorie est requise' });
+    if (!budget) errors.push({ field: 'budget', message: 'Le budget est requis' });
+    else if (budget <= 0) errors.push({ field: 'budget', message: 'Le budget doit être supérieur à 0' });
     if (quantity && quantity <= 0) {
-      return res.status(400).json({ error: 'Quantity must be greater than 0' });
+      errors.push({ field: 'quantity', message: 'La quantité doit être supérieure à 0' });
     }
-    if (budget <= 0) {
-      return res.status(400).json({ error: 'Budget must be greater than 0' });
-    }
-    if (!['pending', 'accepted', 'rejected', 'completed'].includes(category)) {
-      // Category validation - allow valid categories
-      if (category.length === 0) {
-        return res.status(400).json({ error: 'Category cannot be empty' });
-      }
+
+    if (errors.length > 0) {
+      return res.status(400).json(
+        ResponseFormatter.error('Erreur de validation', 'VALIDATION_ERROR', 400)
+      );
     }
 
     const db = req.app.get('db');
 
-    // Check if supplier exists and is verified
+    // Vérifier si le fournisseur existe
     const supplierCheck = await db.query(
-      `
-      SELECT id FROM users WHERE id = $1 AND role = 'supplier' AND is_active = true
-    `,
-      [supplier_id]
+      'SELECT id FROM users WHERE id = $1 AND role = $2 AND is_active = true',
+      [supplier_id, 'supplier']
     );
 
     if (supplierCheck.rows.length === 0) {
-      return res.status(404).json({ error: 'Supplier not found' });
+      return res.status(404).json(
+        ResponseFormatter.error('Fournisseur introuvable', 'NOT_FOUND', 404)
+      );
     }
 
-    // Create supply request
+    // Créer la demande
     const result = await db.query(
-      `
-      INSERT INTO purchase_requests (
+      `INSERT INTO purchase_requests (
         buyer_id, supplier_id, title, description, category, 
         quantity, unit, budget, notes, status
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'pending')
-      RETURNING *
-    `,
-      [
-        buyer_id,
-        supplier_id,
-        title,
-        description,
-        category,
-        quantity || 1,
-        unit || 'pièce',
-        budget,
-        notes,
-      ]
+      RETURNING *`,
+      [buyer_id, supplier_id, title, description, category, quantity || 1, unit || 'pièce', budget, notes]
     );
 
-    // Create notification for supplier
+    // Créer une notification
     await db.query(
-      `
-      INSERT INTO notifications (
+      `INSERT INTO notifications (
         user_id, type, title, message, related_entity_type, related_entity_id
       )
-      VALUES ($1, 'supply_request', 'Nouvelle demande de fourniture', 
-              $2, 'supply_request', $3)
-    `,
-      [supplier_id, `Une demande de fourniture directe a été reçue: ${title}`, result.rows[0].id]
+      VALUES ($1, 'supply_request', 'Nouvelle demande de fourniture', $2, 'supply_request', $3)`,
+      [supplier_id, `Demande d'achat direct reçue: ${title}`, result.rows[0].id]
     );
 
-    res.status(201).json({
-      success: true,
-      message: 'Supply request created successfully',
-      data: result.rows[0],
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+    return res.status(201).json(
+      ResponseFormatter.success(result.rows[0], 'Demande créée avec succès')
+    );
+  })
+);
 
-// Get my supply requests (buyer)
-router.get('/my-requests', verifyToken, async (req, res) => {
-  try {
+/**
+ * @route   GET /api/direct-supply/my-requests
+ * @desc    Récupérer mes demandes d'achat (acheteur)
+ * @access  Privé (Acheteurs)
+ */
+router.get(
+  '/my-requests',
+  verifyToken,
+  asyncHandler(async (req, res) => {
     const db = req.app.get('db');
 
     const result = await db.query(
-      `
-      SELECT 
+      `SELECT 
         pr.*,
         u.company_name as supplier_name,
         u.phone as supplier_phone,
@@ -138,25 +138,27 @@ router.get('/my-requests', verifyToken, async (req, res) => {
       FROM purchase_requests pr
       LEFT JOIN users u ON pr.supplier_id = u.id
       WHERE pr.buyer_id = $1
-      ORDER BY pr.created_at DESC
-    `,
+      ORDER BY pr.created_at DESC`,
       [req.user.id]
     );
 
-    res.json(result.rows);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+    return res.json(ResponseFormatter.success(result.rows, 'Demandes récupérées avec succès'));
+  })
+);
 
-// Get requests received (supplier)
-router.get('/received-requests', verifyToken, async (req, res) => {
-  try {
+/**
+ * @route   GET /api/direct-supply/received-requests
+ * @desc    Récupérer les demandes reçues (fournisseur)
+ * @access  Privé (Fournisseurs)
+ */
+router.get(
+  '/received-requests',
+  verifyToken,
+  asyncHandler(async (req, res) => {
     const db = req.app.get('db');
 
     const result = await db.query(
-      `
-      SELECT 
+      `SELECT 
         pr.*,
         u.company_name as buyer_company,
         u.full_name as buyer_name,
@@ -164,72 +166,69 @@ router.get('/received-requests', verifyToken, async (req, res) => {
       FROM purchase_requests pr
       LEFT JOIN users u ON pr.buyer_id = u.id
       WHERE pr.supplier_id = $1
-      ORDER BY pr.created_at DESC
-    `,
+      ORDER BY pr.created_at DESC`,
       [req.user.id]
     );
 
-    res.json(result.rows);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+    return res.json(ResponseFormatter.success(result.rows, 'Demandes reçues récupérées avec succès'));
+  })
+);
 
-// Update supply request status (supplier)
+/**
+ * @route   PUT /api/direct-supply/:requestId/status
+ * @desc    Mettre à jour le statut d'une demande (fournisseur)
+ * @access  Privé (Fournisseurs)
+ */
 router.put(
   '/:requestId/status',
   validateIdMiddleware('requestId'),
   verifyToken,
-  async (req, res) => {
-    try {
-      const { requestId } = req.params;
-      const { status } = req.body;
+  asyncHandler(async (req, res) => {
+    const { requestId } = req.params;
+    const { status } = req.body;
 
-      // Valid statuses
-      const validStatuses = ['pending', 'accepted', 'rejected', 'completed'];
-      if (!validStatuses.includes(status)) {
-        return res.status(400).json({ error: 'Invalid status' });
-      }
-
-      const db = req.app.get('db');
-
-      // Check if request exists and belongs to supplier
-      const checkResult = await db.query(
-        `
-      SELECT * FROM purchase_requests WHERE id = $1
-    `,
-        [requestId]
+    // Validation du statut
+    const validStatuses = ['pending', 'accepted', 'rejected', 'completed'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json(
+        ResponseFormatter.error('Statut invalide', 'VALIDATION_ERROR', 400)
       );
-
-      if (checkResult.rows.length === 0) {
-        return res.status(404).json({ error: 'Request not found' });
-      }
-
-      const request = checkResult.rows[0];
-      if (request.supplier_id !== req.user.id) {
-        return res.status(403).json({ error: 'Unauthorized' });
-      }
-
-      // Update status
-      const result = await db.query(
-        `
-      UPDATE purchase_requests 
-      SET status = $1, updated_at = CURRENT_TIMESTAMP
-      WHERE id = $2
-      RETURNING *
-    `,
-        [status, requestId]
-      );
-
-      res.json({
-        success: true,
-        message: 'Status updated successfully',
-        data: result.rows[0],
-      });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
     }
-  }
+
+    const db = req.app.get('db');
+
+    // Vérifier l'existence de la demande
+    const checkResult = await db.query(
+      'SELECT * FROM purchase_requests WHERE id = $1',
+      [requestId]
+    );
+
+    if (checkResult.rows.length === 0) {
+      return res.status(404).json(
+        ResponseFormatter.error('Demande introuvable', 'NOT_FOUND', 404)
+      );
+    }
+
+    const request = checkResult.rows[0];
+    if (request.supplier_id !== req.user.id) {
+      return res.status(403).json(
+        ResponseFormatter.error('Non autorisé', 'FORBIDDEN', 403)
+      );
+    }
+
+    // Mettre à jour le statut
+    const result = await db.query(
+      `UPDATE purchase_requests 
+       SET status = $1, updated_at = CURRENT_TIMESTAMP
+       WHERE id = $2
+       RETURNING *`,
+      [status, requestId]
+    );
+
+    return res.json(
+      ResponseFormatter.success(result.rows[0], 'Statut mis à jour avec succès')
+    );
+  })
 );
 
 module.exports = router;

@@ -33,14 +33,39 @@ class TokenManager {
 
   // Gestion des données utilisateur
   setUser(user) {
-    if (user) {
+    if (!user) {
+      console.warn('TokenManager: Attempted to set null/undefined user');
+      return;
+    }
+    
+    if (!user.userId) {
+      console.error('TokenManager: User data missing userId:', user);
+      return;
+    }
+    
+    try {
       localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+      console.log('TokenManager: User data stored successfully');
+    } catch (error) {
+      console.error('TokenManager: Error storing user data:', error);
     }
   }
 
   getUser() {
-    const user = localStorage.getItem(this.USER_KEY);
-    return user ? JSON.parse(user) : null;
+    try {
+      const userJson = localStorage.getItem(this.USER_KEY);
+      if (!userJson) {
+        console.log('TokenManager: No user data in storage');
+        return null;
+      }
+      
+      const user = JSON.parse(userJson);
+      console.log('TokenManager: User data retrieved:', user?.userId);
+      return user;
+    } catch (error) {
+      console.error('TokenManager: Error retrieving user data:', error);
+      return null;
+    }
   }
 
   // Gestion complète des tokens

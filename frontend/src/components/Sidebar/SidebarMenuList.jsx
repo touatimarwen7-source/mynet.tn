@@ -43,15 +43,47 @@ export default function SidebarMenuList({ menu = [] }) {
 
   // Comprehensive menu validation
   const validatedMenu = useMemo(() => {
-    if (!menu || !Array.isArray(menu) || menu.length === 0) {
+    console.log('SidebarMenuList: Validating menu:', menu);
+    
+    if (!menu) {
+      console.warn('SidebarMenuList: Menu is null/undefined');
       return [];
     }
+    
+    if (!Array.isArray(menu)) {
+      console.error('SidebarMenuList: Menu is not an array:', typeof menu);
+      return [];
+    }
+    
+    if (menu.length === 0) {
+      console.warn('SidebarMenuList: Menu array is empty');
+      return [];
+    }
+    
     // Filter out invalid items
-    return menu.filter(item => item && item.id && (item.label || item.text));
+    const validItems = menu.filter(item => {
+      if (!item) {
+        console.warn('SidebarMenuList: Null/undefined menu item found');
+        return false;
+      }
+      if (!item.id) {
+        console.warn('SidebarMenuList: Menu item missing id:', item);
+        return false;
+      }
+      if (!item.label && !item.text) {
+        console.warn('SidebarMenuList: Menu item missing label:', item);
+        return false;
+      }
+      return true;
+    });
+    
+    console.log('SidebarMenuList: Validated', validItems.length, 'menu items');
+    return validItems;
   }, [menu]);
 
   // Safety check for menu
   if (validatedMenu.length === 0) {
+    console.warn('SidebarMenuList: No valid menu items to display');
     return (
       <Box sx={{ padding: '16px', textAlign: 'center', color: '#999' }}>
         <Typography variant="body2">Aucun menu disponible</Typography>

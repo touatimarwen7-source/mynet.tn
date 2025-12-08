@@ -88,29 +88,32 @@ export const AppProvider = ({ children }) => {
   const login = useCallback((userData) => {
     try {
       if (!userData || !userData.userId) {
+        console.error('Invalid user data received:', userData);
         throw new Error('Données utilisateur invalides');
       }
+      
+      console.log('AppContext login: Setting user data:', userData);
       
       // Store in TokenManager
       TokenManager.setUser(userData);
       
-      // Update state
+      // Update state immediately
       setUser(userData);
       setIsAuthenticated(true);
       setAuthError(null);
       
+      console.log('AppContext login: User state updated successfully');
+      
       // Dispatch event for cross-tab sync
       window.dispatchEvent(new CustomEvent('authChanged', { detail: userData }));
       
-      addToast('Connexion réussie', 'success');
       return true;
     } catch (error) {
       console.error('Login error in AppContext:', error);
       setAuthError(error.message);
-      addToast('Erreur de connexion', 'error');
       return false;
     }
-  }, [addToast]);
+  }, []);
 
   /**
    * Handle user logout
@@ -224,10 +227,15 @@ export const AppProvider = ({ children }) => {
     // Listen for auth changes from login
     const handleAuthChange = (event) => {
       const userData = event.detail;
-      if (userData) {
+      console.log('Auth change event received:', userData);
+      
+      if (userData && userData.userId) {
+        console.log('Setting user from auth change event');
         setUser(userData);
         setIsAuthenticated(true);
+        setAuthError(null);
       } else {
+        console.log('Clearing user from auth change event');
         setUser(null);
         setIsAuthenticated(false);
       }

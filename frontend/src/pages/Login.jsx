@@ -13,7 +13,7 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import { useToast } from '../contexts/AppContext';
+import { useToast, useAuth } from '../contexts/AppContext';
 import { useFormValidation } from '../hooks/useFormValidation';
 import { authSchemas } from '../utils/validationSchemas';
 import { authAPI } from '../api';
@@ -24,6 +24,7 @@ export default function Login() {
   const theme = institutionalTheme;
   const navigate = useNavigate();
   const { addToast } = useToast();
+  const { login } = useAuth();
   const [apiError, setApiError] = useState('');
 
   const form = useFormValidation({ email: '', password: '' }, authSchemas.login, async (values) => {
@@ -58,7 +59,7 @@ export default function Login() {
       }
 
       const userData = response.data.user;
-      if (!userData) {
+      if (!userData || !userData.userId) {
         console.error('❌ No user data received');
         throw new Error('Données utilisateur manquantes');
       }
@@ -69,10 +70,19 @@ export default function Login() {
       const success = login(userData);
       
       if (success) {
-        // Small delay to ensure state propagation
+        addToast('Connexion réussie', 'success', 2000);
+        
+        // Navigate based on user role
         setTimeout(() => {
-          navigate('/dashboard', { replace: true });
-        }, 50);
+          const role = userData.role?.toLowerCase();
+          if (role === 'super_admin' || role === 'superadmin') {
+            navigate('/super-admin', { replace: true });
+          } else {
+            navigate('/dashboard', { replace: true });
+          }
+        }, 100);
+      } else {
+        throw new Error('Échec de la connexion');
       }
       
     } catch (err) {

@@ -38,13 +38,33 @@ export default function Sidebar({ user, onLogout }) {
   // Safe menu retrieval with comprehensive error handling
   const getMenu = () => {
     try {
-      if (!user?.role) {
+      if (!user) {
+        console.warn('Sidebar: No user data available');
         return DEFAULT_MENU;
       }
+      
+      if (!user.role) {
+        console.warn('Sidebar: User has no role defined', user);
+        return DEFAULT_MENU;
+      }
+      
+      console.log('Sidebar: Getting menu for role:', user.role);
       const menu = getMenuByRole(user.role, user.permissions);
-      return Array.isArray(menu) && menu.length > 0 ? menu : DEFAULT_MENU;
+      
+      if (!Array.isArray(menu)) {
+        console.warn('Sidebar: Menu is not an array:', menu);
+        return DEFAULT_MENU;
+      }
+      
+      if (menu.length === 0) {
+        console.warn('Sidebar: Menu is empty for role:', user.role);
+        return DEFAULT_MENU;
+      }
+      
+      console.log('Sidebar: Menu loaded successfully:', menu.length, 'items');
+      return menu;
     } catch (error) {
-      console.error('Error getting menu:', error);
+      console.error('Sidebar: Error getting menu:', error);
       return DEFAULT_MENU;
     }
   };

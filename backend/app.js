@@ -198,17 +198,17 @@ let enhancedRateLimiting;
 try {
   enhancedRateLimiting = require('./middleware/enhancedRateLimiting');
   
-  // Apply enhanced rate limiting (only if it exists and is a function)
-  if (enhancedRateLimiting && typeof enhancedRateLimiting.general === 'function') {
+  // Apply general rate limiting
+  if (enhancedRateLimiting && enhancedRateLimiting.general) {
     app.use('/api/', enhancedRateLimiting.general);
   }
 
   // Advanced rate limit middleware for tracking
-  if (enhancedRateLimiting && typeof enhancedRateLimiting.advancedRateLimitMiddleware === 'function') {
+  if (enhancedRateLimiting && enhancedRateLimiting.advancedRateLimitMiddleware) {
     app.use(enhancedRateLimiting.advancedRateLimitMiddleware);
   }
 } catch (err) {
-  logger.warn('Enhanced rate limiting not available');
+  logger.warn('Enhanced rate limiting not available', { error: err.message });
 }
 
 // ⏱️ REQUEST TIMEOUT ENFORCEMENT (NEW)

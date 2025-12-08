@@ -25,35 +25,35 @@ router.get('/audit-logs/export', AdminController.exportAuditLogs.bind(AdminContr
 const AdminPermissionsMiddleware = require('../middleware/adminPermissionsMiddleware');
 
 router.get(
-  '/users', 
+  '/users',
   validatePagination,
   AdminPermissionsMiddleware.checkPermission(AdminPermissionsMiddleware.PERMISSIONS.VIEW_USERS),
   AdminController.getAllUsers.bind(AdminController)
 );
 
 router.get(
-  '/users/:id', 
+  '/users/:id',
   validateIdMiddleware('id'),
   AdminPermissionsMiddleware.checkPermission(AdminPermissionsMiddleware.PERMISSIONS.VIEW_USERS),
   adminController.getUserDetails
 );
 
 router.put(
-  '/users/:id/role', 
+  '/users/:id/role',
   validateIdMiddleware('id'),
   AdminPermissionsMiddleware.checkPermission(AdminPermissionsMiddleware.PERMISSIONS.MANAGE_USERS),
   adminController.updateUserRole
 );
 
 router.post(
-  '/users/:id/block', 
+  '/users/:id/block',
   validateIdMiddleware('id'),
   AdminPermissionsMiddleware.checkPermission(AdminPermissionsMiddleware.PERMISSIONS.BLOCK_USERS),
   adminController.blockUser
 );
 
 router.post(
-  '/users/:id/unblock', 
+  '/users/:id/unblock',
   validateIdMiddleware('id'),
   AdminPermissionsMiddleware.checkPermission(AdminPermissionsMiddleware.PERMISSIONS.BLOCK_USERS),
   adminController.unblockUser
@@ -119,12 +119,12 @@ router.post('/config/cache/clear', (req, res) => res.json({ success: true, messa
 router.post('/config/system/restart', (req, res) => res.json({ success: true, message: 'System restart scheduled' }));
 
 // ===== Analyses et surveillance =====
-router.get('/analytics/stats', AdminController.getAnalytics.bind(AdminController));
-router.get('/analytics/health', AdminController.getHealthDashboard.bind(AdminController));
-router.get('/analytics/activities', AdminController.getRecentActivities.bind(AdminController));
-router.get('/analytics/users', AdminController.getUserStatistics.bind(AdminController));
-router.get('/analytics/performance', AdminController.getAdminPerformance.bind(AdminController));
-router.get('/analytics/assistants', AdminController.getAdminAssistantsStats.bind(AdminController));
+router.get('/analytics/stats', (req, res) => AdminController.getAnalytics(req, res));
+router.get('/analytics/health', (req, res) => AdminController.getHealthDashboard(req, res));
+router.get('/analytics/activities', (req, res) => AdminController.getRecentActivities(req, res));
+router.get('/analytics/users', (req, res) => AdminController.getUserStatistics(req, res));
+router.get('/analytics/performance', (req, res) => AdminController.getAdminPerformance(req, res));
+router.get('/analytics/assistants', (req, res) => AdminController.getAdminAssistantsStats(req, res));
 
 // ===== Gestion des abonnements =====
 router.get('/subscriptions/plans', SubscriptionAdminController.getAllPlans.bind(SubscriptionAdminController));

@@ -459,7 +459,7 @@ class AdminController {
     }
   }
 
-  async getHealthDashboard(req, res) {
+  getHealthDashboard = async (req, res) => {
     try {
       const pool = getPool();
       
@@ -490,7 +490,7 @@ class AdminController {
     }
   }
 
-  async getDashboard(req, res) {
+  getDashboard = async (req, res) => {
     try {
       const pool = getPool();
       
@@ -520,7 +520,7 @@ class AdminController {
     }
   }
 
-  async getAnalytics(req, res) {
+  getAnalytics = async (req, res) => {
     try {
       const pool = getPool();
       
@@ -546,7 +546,7 @@ class AdminController {
     }
   }
 
-  async getUserStatistics(req, res) {
+  getUserStatistics = async (req, res) => {
     try {
       const pool = getPool();
       
@@ -571,7 +571,7 @@ class AdminController {
     }
   }
 
-  async getRecentActivities(req, res) {
+  getRecentActivities = async (req, res) => {
     try {
       const pool = getPool();
       
@@ -598,7 +598,7 @@ class AdminController {
     }
   }
 
-  async exportAuditLogs(req, res) {
+  exportAuditLogs = async (req, res) => {
     try {
       const pool = getPool();
       
@@ -619,7 +619,7 @@ class AdminController {
     }
   }
 
-  async getAdminPerformance(req, res) {
+  getAdminPerformance = async (req, res) => {
     try {
       res.json({
         success: true,
@@ -634,7 +634,7 @@ class AdminController {
     }
   }
 
-  async getAdminAssistantsStats(req, res) {
+  getAdminAssistantsStats = async (req, res) => {
     try {
       res.json({
         success: true,

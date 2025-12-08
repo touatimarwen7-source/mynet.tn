@@ -216,17 +216,23 @@ export const AppProvider = ({ children }) => {
   // ===== Listen for auth changes from other tabs =====
 
   useEffect(() => {
+    const storedUser = TokenManager.getUser();
+    if (storedUser) {
+      setUser(storedUser);
+    }
+    setAuthLoading(false);
+
+    // Listen for auth changes from login
     const handleAuthChange = (event) => {
-      if (event.detail) {
-        login(event.detail);
-      } else {
-        checkAuth();
+      const userData = event.detail;
+      if (userData) {
+        setUser(userData);
       }
     };
 
     window.addEventListener('authChanged', handleAuthChange);
     return () => window.removeEventListener('authChanged', handleAuthChange);
-  }, [login, checkAuth]);
+  }, []);
 
   // ===== Context Value =====
 
@@ -317,7 +323,7 @@ export const useAuth = () => {
  */
 export const useToast = () => {
   const { addToast, removeToast, toasts } = useContext(AppContext);
-  
+
   if (!AppContext) {
     throw new Error('useToast must be used within AppProvider');
   }

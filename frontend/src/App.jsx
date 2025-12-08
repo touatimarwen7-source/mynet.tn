@@ -132,17 +132,7 @@ const LoadingFallback = () => (
 function AppContent() {
   const { user, authLoading, logout, addToast } = useApp();
 
-  useEffect(() => {
-    const handleAuthChange = (event) => {
-      const userData = event.detail;
-      console.log('🔄 Auth changed event received:', userData);
-      // User is already managed by AppContext, no need to set it here
-      // The Login component already updates TokenManager, which triggers a re-render
-    };
-
-    window.addEventListener('authChanged', handleAuthChange);
-    return () => window.removeEventListener('authChanged', handleAuthChange);
-  }, [])
+  // Auth changes are now handled in AppContext
 
   if (authLoading) {
     return <Box sx={{ padding: '20px', textAlign: 'center' }}>Chargement en cours...</Box>;

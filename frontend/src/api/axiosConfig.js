@@ -12,8 +12,9 @@ const getBaseURL = () => {
   if (typeof window !== 'undefined') {
     const protocol = window.location.protocol;
     const hostname = window.location.hostname;
-    console.log('🔧 API Config - Protocol:', protocol, 'Hostname:', hostname);
-    return `${protocol}//${hostname}:3000`;
+    const baseUrl = `${protocol}//${hostname}:3000`;
+    console.log('🔧 API Config - Full URL:', baseUrl);
+    return baseUrl;
   }
 
   return 'http://localhost:3000';

@@ -153,46 +153,46 @@ export default function SupplierDashboard() {
 
   const quickActions = [
     { 
-      label: 'تصفح المناقصات', 
+      label: 'Parcourir les Appels', 
       path: '/tenders', 
       color: 'primary',
       icon: SearchIcon,
-      description: 'اكتشف فرص جديدة'
+      description: 'Découvrez de nouvelles opportunités'
     },
     { 
-      label: 'عروضي', 
+      label: 'Mes Offres', 
       path: '/my-offers', 
       color: 'secondary',
       icon: OfferIcon,
-      description: 'إدارة العروض المقدمة'
+      description: 'Gérer les offres soumises'
     },
     { 
-      label: 'المنتجات والخدمات', 
+      label: 'Produits et Services', 
       path: '/supplier-products', 
       color: 'info',
       icon: ProductsIcon,
-      description: 'كتالوج المنتجات'
+      description: 'Catalogue de produits'
     },
     { 
-      label: 'التحليلات', 
+      label: 'Analyses', 
       path: '/supplier-analytics', 
       color: 'success',
       icon: AnalyticsIcon,
-      description: 'تقارير الأداء'
+      description: 'Rapports de performance'
     },
     { 
-      label: 'الفواتير', 
+      label: 'Factures', 
       path: '/supplier-invoices', 
       color: 'warning',
       icon: MonetizationOn,
-      description: 'إدارة الفواتير'
+      description: 'Gestion des factures'
     },
     { 
-      label: 'طلبات الشراء', 
+      label: 'Demandes d\'Achat', 
       path: '/supplier-requests', 
       color: 'error',
       icon: ShoppingCartIcon,
-      description: 'طلبات العملاء'
+      description: 'Demandes des clients'
     },
   ];
 

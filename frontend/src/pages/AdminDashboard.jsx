@@ -143,52 +143,52 @@ export default function AdminDashboard() {
 
   const quickActions = [
     { 
-      label: 'إدارة المستخدمين', 
+      label: 'Gestion des Utilisateurs', 
       path: '/super-admin/users', 
       color: 'primary',
       icon: UsersIcon,
       permission: 'manage_users',
-      description: 'عرض وإدارة المستخدمين'
+      description: 'Voir et gérer les utilisateurs'
     },
     { 
-      label: 'عرض التقارير', 
+      label: 'Voir les Rapports', 
       path: '/financial-reports', 
       color: 'secondary',
       icon: ReportsIcon,
       permission: 'view_reports',
-      description: 'تقارير مفصلة'
+      description: 'Rapports détaillés'
     },
     { 
-      label: 'إدارة المناقصات', 
+      label: 'Gestion des Appels', 
       path: '/tenders', 
       color: 'info',
       icon: TendersIcon,
       permission: 'manage_tenders',
-      description: 'مراقبة المناقصات'
+      description: 'Surveillance des appels'
     },
     { 
-      label: 'الإعدادات', 
+      label: 'Paramètres', 
       path: '/dynamic-config', 
       color: 'success',
       icon: SettingsIcon,
       permission: 'manage_settings',
-      description: 'إعدادات النظام'
+      description: 'Configuration système'
     },
     { 
-      label: 'الإشعارات', 
+      label: 'Notifications', 
       path: '/email-notifications', 
       color: 'warning',
       icon: NotificationsIcon,
       permission: 'send_notifications',
-      description: 'إرسال الإشعارات'
+      description: 'Envoyer des notifications'
     },
     { 
-      label: 'الأمان', 
+      label: 'Sécurité', 
       path: '/super-admin/audit-logs', 
       color: 'error',
       icon: SecurityIcon,
       permission: 'view_audit_logs',
-      description: 'سجلات المراجعة'
+      description: 'Journaux d\'audit'
     },
   ];
 
@@ -212,7 +212,7 @@ export default function AdminDashboard() {
   if (!user || user.role !== 'admin') {
     return (
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Alert severity="error">ليس لديك صلاحية الوصول إلى هذه الصفحة</Alert>
+        <Alert severity="error">Vous n'avez pas la permission d'accéder à cette page</Alert>
       </Container>
     );
   }
@@ -296,7 +296,7 @@ export default function AdminDashboard() {
                     {Math.abs(stat.change)}%
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    عن الأسبوع الماضي
+                    vs semaine dernière
                   </Typography>
                 </Stack>
               </CardContent>

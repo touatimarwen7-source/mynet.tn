@@ -87,6 +87,10 @@ export const AppProvider = ({ children }) => {
    */
   const login = useCallback((userData) => {
     try {
+      if (!userData || !userData.userId) {
+        throw new Error('Données utilisateur invalides');
+      }
+      
       TokenManager.setUserData(userData);
       setUser(userData);
       setIsAuthenticated(true);
@@ -94,11 +98,12 @@ export const AppProvider = ({ children }) => {
       addToast('تم تسجيل الدخول بنجاح', 'success');
       return true;
     } catch (error) {
+      console.error('Login error in AppContext:', error);
       setAuthError(error.message);
       addToast('خطأ في تسجيل الدخول', 'error');
       return false;
     }
-  }, []);
+  }, [addToast]);
 
   /**
    * Handle user logout

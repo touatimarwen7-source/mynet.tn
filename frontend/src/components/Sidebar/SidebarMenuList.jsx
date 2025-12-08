@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { List, ListItemButton, ListItemText, Collapse, Box } from '@mui/material';
+import { List, ListItemButton, ListItemText, Collapse, Box, Typography } from '@mui/material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -35,11 +35,20 @@ const iconMap = {
 /**
  * Sidebar menu list component with collapsible submenu support
  */
-export default function SidebarMenuList({ menu }) {
+export default function SidebarMenuList({ menu = [] }) {
   const theme = institutionalTheme;
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState({});
+
+  // Safety check for menu
+  if (!menu || !Array.isArray(menu) || menu.length === 0) {
+    return (
+      <Box sx={{ padding: '16px', textAlign: 'center', color: '#999' }}>
+        <Typography variant="body2">Aucun menu disponible</Typography>
+      </Box>
+    );
+  }
 
   const toggleMenu = (menuId) => {
     setExpandedMenus((prev) => ({
@@ -60,10 +69,18 @@ export default function SidebarMenuList({ menu }) {
   return (
     <List sx={{ flex: 1, padding: '8px 0', overflowY: 'auto' }}>
       {menu.map((item) => {
+        // Safety checks for menu item
+        if (!item || !item.id) {
+          console.warn('Invalid menu item:', item);
+          return null;
+        }
+
         const IconComponent = iconMap[item.id];
+        const hasSubItems = Array.isArray(item.subItems) && item.subItems.length > 0;
+        
         return (
           <Box key={item.id}>
-            {item.subItems.length > 0 ? (
+            {hasSubItems ? (
               <>
                 {/* Collapsible menu item */}
                 <ListItemButton

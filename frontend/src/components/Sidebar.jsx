@@ -14,6 +14,17 @@ import { getMenuByRole } from './Sidebar/SidebarMenus';
 
 const DRAWER_WIDTH = 280;
 
+// Define a default menu in case user role is not available
+const DEFAULT_MENU = [
+  {
+    id: 'dashboard',
+    label: 'Dashboard',
+    icon: 'DashboardIcon',
+    link: '/dashboard',
+  },
+];
+
+
 /**
  * Main Sidebar component - Orchestrates sidebar layout and state
  * Handles menu rendering for all user roles
@@ -24,12 +35,16 @@ export default function Sidebar({ user, onLogout }) {
   const { checkFeatureAccess, handleLockedFeatureClick, closeUpgradeModal, upgradeModal } =
     useSubscriptionTier(user?.subscription);
 
-  const menuItems = user?.role ? getMenuByRole(user.role, user.permissions) : [];
+  // Safe menu retrieval with fallback
+  const menu = user?.role ? getMenuByRole(user.role, user.permissions) : DEFAULT_MENU;
+
+  // Ensure menu is always an array
+  const safeMenu = Array.isArray(menu) ? menu : DEFAULT_MENU;
 
   const drawerContent = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <SidebarHeader user={user} />
-      <SidebarMenuList menu={menuItems} />
+      <SidebarMenuList menu={safeMenu} />
       <SidebarFooter onLogout={onLogout} />
       {upgradeModal && <UpgradeModal {...upgradeModal} onClose={closeUpgradeModal} />}
     </Box>

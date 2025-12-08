@@ -95,8 +95,20 @@ export const supplierMenu = getMenuByRole('supplier');
 export const superAdminMenu = getMenuByRole('super_admin');
 export const adminMenu = buildAdminMenu(null);
 
-export const getMenuForRole = (role) => {
-  switch (role) {
+/**
+ * Get menu items based on user role
+ * @param {string} role - User role (buyer, supplier, admin, super_admin)
+ * @returns {Array} Menu configuration for the role
+ */
+export const getMenuByRole = (role) => {
+  if (!role || typeof role !== 'string') {
+    console.warn('Invalid role provided to getMenuByRole:', role);
+    return buyerMenu;
+  }
+
+  const normalizedRole = role.toLowerCase().trim();
+
+  switch (normalizedRole) {
     case 'buyer':
       return buyerMenu;
     case 'supplier':
@@ -104,8 +116,10 @@ export const getMenuForRole = (role) => {
     case 'admin':
       return adminMenu;
     case 'super_admin':
+    case 'superadmin':
       return superAdminMenu;
     default:
-      return [];
+      console.warn('Unknown role, using buyer menu as fallback:', role);
+      return buyerMenu;
   }
 };

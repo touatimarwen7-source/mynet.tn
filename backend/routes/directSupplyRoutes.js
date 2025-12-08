@@ -1,11 +1,12 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware'); // This line should ideally be removed if verifyToken replaces it everywhere.
+const verifyToken = require('../middleware/verifyToken'); // Assuming verifyToken is imported from a similar path.
 
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 
 // Get all active suppliers
-router.get('/suppliers', authMiddleware, async (req, res) => {
+router.get('/suppliers', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
 
@@ -33,7 +34,7 @@ router.get('/suppliers', authMiddleware, async (req, res) => {
 });
 
 // Create direct supply request - ISSUE FIX #3: Add input validation
-router.post('/create-request', authMiddleware, async (req, res) => {
+router.post('/create-request', verifyToken, async (req, res) => {
   try {
     // Only buyers can create supply requests
     if (req.user.role !== 'buyer') {
@@ -123,7 +124,7 @@ router.post('/create-request', authMiddleware, async (req, res) => {
 });
 
 // Get my supply requests (buyer)
-router.get('/my-requests', authMiddleware, async (req, res) => {
+router.get('/my-requests', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
 
@@ -149,7 +150,7 @@ router.get('/my-requests', authMiddleware, async (req, res) => {
 });
 
 // Get requests received (supplier)
-router.get('/received-requests', authMiddleware, async (req, res) => {
+router.get('/received-requests', verifyToken, async (req, res) => {
   try {
     const db = req.app.get('db');
 
@@ -178,7 +179,7 @@ router.get('/received-requests', authMiddleware, async (req, res) => {
 router.put(
   '/:requestId/status',
   validateIdMiddleware('requestId'),
-  authMiddleware,
+  verifyToken,
   async (req, res) => {
     try {
       const { requestId } = req.params;

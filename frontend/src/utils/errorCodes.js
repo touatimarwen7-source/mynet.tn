@@ -226,7 +226,7 @@ export function formatError(error) {
   }
   
   return SYSTEM_ERRORS.UNKNOWN_ERROR;
-}ng',
+},
   },
 };
 

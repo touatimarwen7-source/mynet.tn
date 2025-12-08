@@ -3,15 +3,6 @@ import react from '@vitejs/plugin-react';
 import { splitVendorChunkPlugin } from 'vite';
 
 export default defineConfig({
-  server: {
-    host: '0.0.0.0',
-    port: 5000,
-    strictPort: true,
-    hmr: {
-      clientPort: 443,
-      protocol: 'wss'
-    }
-  },
   plugins: [
     react(),
     splitVendorChunkPlugin(),
@@ -23,9 +14,8 @@ export default defineConfig({
     hmr: {
       overlay: true,
       timeout: 60000,
-      clientPort: 5000,
-      protocol: 'ws',
-      host: 'localhost',
+      clientPort: 443,
+      protocol: 'wss',
     },
     watch: {
       usePolling: true,
@@ -63,11 +53,9 @@ export default defineConfig({
     port: 5000,
   },
   build: {
-    // Optimize chunk strategy for faster first load
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Core dependencies
           if (id.includes('node_modules/react')) {
             return 'react-core';
           }
@@ -89,15 +77,12 @@ export default defineConfig({
           if (id.includes('node_modules/socket.io-client')) {
             return 'socket';
           }
-          // Split large components
           if (id.includes('components/Sidebar') || id.includes('components/UnifiedHeader')) {
             return 'heavy-components';
           }
-          // Admin components
           if (id.includes('components/Admin')) {
             return 'admin-components';
           }
-          // Pages grouped by feature
           if (
             id.includes('pages/Tender') ||
             id.includes('pages/Offer') ||
@@ -122,25 +107,18 @@ export default defineConfig({
         },
       },
     },
-    // Larger limit for better loading
     chunkSizeWarningLimit: 1000,
-    // Minify aggressively
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
       },
     },
-    // Enable source maps only in dev
     sourcemap: false,
-    // Optimize CSS
     cssCodeSplit: true,
-    // Increase report size
     reportCompressedSize: false,
-    // Optimize lib entry point
     lib: undefined,
   },
-  // Optimize resolution
   resolve: {
     alias: {
       '@': '/src',
@@ -152,7 +130,6 @@ export default defineConfig({
       '@contexts': '/src/contexts',
     },
   },
-  // Optimize dependency pre-bundling
   optimizeDeps: {
     include: [
       'react',

@@ -1,0 +1,58 @@
+2
+tokenManager.js:120 TokenManager: No user data in storage
+tokenManager.js:120 TokenManager: No user data in storage
+tokenManager.js:120 TokenManager: No user data in storage
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+Login.jsx:34 🔐 Attempting login for: buyer1@test.tn
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+Login.jsx:95 ❌ Login error: 
+AxiosError {message: 'Network Error', name: 'AxiosError', code: 'ERR_NETWORK', config: {…}, request: XMLHttpRequest, …}
+authApi.js:11 
+ POST http://localhost:3000/api/auth/login net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+Login.jsx:34 🔐 Attempting login for: buyer1@test.tn
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+Login.jsx:95 ❌ Login error: 
+AxiosError {message: 'Network Error', name: 'AxiosError', code: 'ERR_NETWORK', config: {…}, request: XMLHttpRequest, …}
+
+authApi.js:11 
+ POST http://localhost:3000/api/auth/login net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736 
+ GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+client:736  GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+﻿
+

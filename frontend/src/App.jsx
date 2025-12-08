@@ -61,7 +61,6 @@ const DeliveryManagement = lazy(() => import('./pages/DeliveryManagement'));
 const AwardNotifications = lazy(() => import('./pages/AwardNotifications'));
 const PerformanceMonitoring = lazy(() => import('./pages/PerformanceMonitoring'));
 const DisputeManagement = lazy(() => import('./pages/DisputeManagement'));
-const InvoiceGeneration = lazy(() => import('./pages/InvoiceGeneration'));
 const MonitoringSubmissions = lazy(() => import('./pages/MonitoringSubmissions'));
 const TestingChecklist = lazy(() => import('./pages/TestingChecklist'));
 const TenderChat = lazy(() => import('./pages/TenderChat'));

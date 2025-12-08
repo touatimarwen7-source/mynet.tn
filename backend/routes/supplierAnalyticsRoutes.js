@@ -1,7 +1,7 @@
 // Supplier Analytics Dashboard - TURN 3 ENHANCEMENT
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
+const authMiddleware = require('../middleware/authMiddleware');
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 const { validationMiddleware } = require('../middleware/validationMiddleware');
 

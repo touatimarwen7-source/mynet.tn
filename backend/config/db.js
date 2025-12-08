@@ -47,7 +47,7 @@ async function initializeDb() {
     if (!pool) {
       const databaseUrl = KeyManagementHelper.getRequiredEnv('DATABASE_URL');
       
-      // استخدام connection pooler من Neon للاتصالات المجمعة
+      // Use Neon connection pooler for pooled connections
       const pooledUrl = databaseUrl.includes('neon.tech') 
         ? databaseUrl.replace('.us-east-2', '-pooler.us-east-2')
         : databaseUrl;
@@ -57,9 +57,9 @@ async function initializeDb() {
         ssl: {
           rejectUnauthorized: false,
         },
-        // 🚀 تكوين محسّن لـ Neon PostgreSQL
-        max: 10, // تقليل الاتصالات للتوافق مع Neon
-        min: 2, // حد أدنى أقل لتوفير الموارد
+        // 🚀 Optimized configuration for Neon PostgreSQL
+        max: 10, // Reduce connections for Neon compatibility
+        min: 2, // Lower minimum to save resources
         idleTimeoutMillis: 60000, // 60s idle timeout
         connectionTimeoutMillis: 10000, // 10s connection timeout
         application_name: 'mynet-backend-pro',
@@ -87,9 +87,9 @@ async function initializeDb() {
           timestamp: new Date().toISOString()
         });
         
-        // إعادة الاتصال التلقائية للأخطاء الشبكية
+        // Automatic reconnection for network errors
         if (err.code === 'ECONNREFUSED' || err.code === 'ETIMEDOUT') {
-          console.log('🔄 Attempting to reconnect...');
+          console.log('🔄 Tentative de reconnexion...');
           setTimeout(() => {
             if (pool && pool.totalCount < pool.options.max) {
               pool.connect().catch(e => console.error('Reconnection failed:', e.message));
@@ -102,7 +102,7 @@ async function initializeDb() {
         poolMetrics.totalConnections++;
         poolMetrics.activeConnections++;
         
-        // تعيين timeout افتراضي لكل اتصال
+        // Set default timeout for each connection
         client.query('SET statement_timeout = 30000').catch(() => {});
       });
 

@@ -12,19 +12,24 @@ import AddCardIcon from '@mui/icons-material/AddCard';
 import theme from '../../theme/theme';
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  background: theme.palette.primary.main,
-  borderRadius: theme.shape.borderRadius,
-  padding: theme.spacing(4, 3),
-  marginBottom: theme.spacing(3),
+  background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+  borderRadius: theme.shape.borderRadius * 2,
+  padding: theme.spacing(5, 4),
+  marginBottom: theme.spacing(4),
   color: theme.palette.primary.contrastText,
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  boxShadow: theme.shadows[2],
+  boxShadow: theme.shadows[4],
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  '&:hover': {
+    transform: 'translateY(-4px)',
+    boxShadow: theme.shadows[6],
+  },
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     textAlign: 'center',
-    gap: theme.spacing(2),
+    gap: theme.spacing(3),
   },
 }));
 
@@ -83,11 +88,17 @@ const Homepage = () => {
             color="secondary"
             endIcon={<ArrowForwardIcon />}
             sx={{
-              borderRadius: '8px',
-              padding: '12px 24px',
-              fontWeight: 'bold',
-              fontSize: '16px',
+              borderRadius: theme.shape.borderRadius,
+              padding: theme.spacing(1.5, 3),
+              fontWeight: theme.typography.h6.fontWeight,
+              fontSize: theme.typography.h6.fontSize,
               textTransform: 'none',
+              boxShadow: theme.shadows[2],
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: theme.shadows[4],
+                transform: 'scale(1.05)',
+              },
             }}
           >
             Commencer maintenant

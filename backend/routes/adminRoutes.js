@@ -14,12 +14,12 @@ router.use(authMiddleware.verifyToken);
 router.use(adminMiddleware.isAdmin);
 
 // ===== Tableau de bord =====
-router.get('/health', AdminController.getHealthDashboard.bind(AdminController));
-router.get('/dashboard', AdminController.getDashboard.bind(AdminController));
-router.get('/analytics', AdminController.getAnalytics.bind(AdminController));
-router.get('/analytics/users', AdminController.getUserStatistics.bind(AdminController));
-router.get('/activities/recent', AdminController.getRecentActivities.bind(AdminController));
-router.get('/audit-logs/export', AdminController.exportAuditLogs.bind(AdminController));
+router.get('/health', (req, res) => AdminController.getHealthDashboard(req, res));
+router.get('/dashboard', (req, res) => AdminController.getDashboard(req, res));
+router.get('/analytics', (req, res) => AdminController.getAnalytics(req, res));
+router.get('/analytics/users', (req, res) => AdminController.getUserStatistics(req, res));
+router.get('/activities/recent', (req, res) => AdminController.getRecentActivities(req, res));
+router.get('/audit-logs/export', (req, res) => AdminController.exportAuditLogs(req, res));
 
 // ===== Gestion des utilisateurs =====
 const AdminPermissionsMiddleware = require('../middleware/adminPermissionsMiddleware');

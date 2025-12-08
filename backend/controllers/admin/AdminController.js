@@ -212,11 +212,8 @@ class AdminController {
         LIMIT $1 OFFSET $2
       `;
 
-      // Set statement timeout to 5 seconds
-      const result = await pool.query(
-        'SELECT * FROM (' + activitiesQuery + ') AS subquery',
-        [limit, offset]
-      );
+      // Execute with proper parameterization (no subquery needed)
+      const result = await pool.query(activitiesQuery, [limit, offset]);
 
       res.status(200).json({
         success: true,

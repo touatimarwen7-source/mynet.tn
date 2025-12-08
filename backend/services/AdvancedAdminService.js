@@ -197,23 +197,41 @@ class AdvancedAdminService {
   async getAdminAssistantsStats() {
     const pool = getPool();
     try {
+      // Optimized single query with proper indexing hints
       const result = await pool.query(`
+        WITH admin_activity AS (
+          SELECT 
+            user_id,
+            COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '30 days') as recent_actions,
+            COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '7 days') as weekly_actions,
+            MAX(created_at) as last_active
+          FROM audit_logs
+          WHERE user_id IN (SELECT id FROM users WHERE role = 'admin' AND is_deleted = FALSE)
+          GROUP BY user_id
+        ),
+        admin_permissions AS (
+          SELECT 
+            user_id,
+            COUNT(DISTINCT permission_key) as permissions_count
+          FROM admin_permissions
+          WHERE is_active = TRUE
+          GROUP BY user_id
+        )
         SELECT 
           u.id,
           u.email,
           u.full_name,
           u.is_active,
           u.created_at,
-          COUNT(DISTINCT ap.permission_key) as permissions_count,
-          COUNT(DISTINCT CASE WHEN al.created_at >= CURRENT_DATE - INTERVAL '30 days' THEN al.id END) as recent_actions,
-          COUNT(DISTINCT CASE WHEN al.created_at >= CURRENT_DATE - INTERVAL '7 days' THEN al.id END) as weekly_actions,
-          MAX(al.created_at) as last_active
+          COALESCE(ap.permissions_count, 0) as permissions_count,
+          COALESCE(aa.recent_actions, 0) as recent_actions,
+          COALESCE(aa.weekly_actions, 0) as weekly_actions,
+          aa.last_active
         FROM users u
-        LEFT JOIN admin_permissions ap ON u.id = ap.user_id AND ap.is_active = TRUE
-        LEFT JOIN audit_logs al ON u.id = al.user_id
+        LEFT JOIN admin_permissions ap ON u.id = ap.user_id
+        LEFT JOIN admin_activity aa ON u.id = aa.user_id
         WHERE u.role = $1 AND u.is_deleted = FALSE
-        GROUP BY u.id, u.email, u.full_name, u.is_active, u.created_at
-        ORDER BY recent_actions DESC, u.created_at DESC
+        ORDER BY recent_actions DESC NULLS LAST, u.created_at DESC
         LIMIT 100
       `, ['admin']);
 

@@ -80,11 +80,13 @@ async function initializeDb() {
       // ✅ POOL EVENT HANDLERS - معالجة أخطاء محسّنة
       pool.on('error', (err, client) => {
         poolMetrics.errors++;
-        console.error('🔴 Pool Error:', {
-          message: err.message,
+        // Use logger instead of console to prevent credential leaks
+        const logger = require('../utils/logger').logger;
+        logger.error('Database pool error', {
           code: err.code,
           errno: err.errno,
           timestamp: new Date().toISOString()
+          // Do NOT log err.message as it may contain connection strings
         });
         
         // Automatic reconnection for network errors

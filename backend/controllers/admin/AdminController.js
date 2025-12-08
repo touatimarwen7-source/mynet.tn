@@ -458,9 +458,8 @@ class AdminController {
       });
     }
   }
-}
 
-async getHealthDashboard(req, res) {
+  async getHealthDashboard(req, res) {
     try {
       const pool = getPool();
       

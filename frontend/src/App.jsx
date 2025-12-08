@@ -8,7 +8,6 @@ import AlertStrip from './components/AlertStrip';
 import UnifiedHeader from './components/UnifiedHeader';
 import ErrorBoundary from './components/ErrorBoundary';
 import ToastContainer from './components/ToastContainer';
-// Sidebar removed - navigation integrated into dashboards
 import { ToastContext } from './contexts/ToastContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import { SuperAdminProvider } from './contexts/SuperAdminContext';
@@ -150,17 +149,16 @@ function AppContent() {
                 <UnifiedHeader />
                 <AppToastContainer />
 
-                <Box sx={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-                  <Box
-                    component="main"
-                    sx={{
-                      flex: 1,
-                      overflowY: 'auto',
-                      paddingY: '20px',
-                      paddingX: { xs: '12px', sm: '20px' },
-                      width: '100%',
-                    }}
-                  >
+                <Box
+                  component="main"
+                  sx={{
+                    flex: 1,
+                    overflowY: 'auto',
+                    paddingY: '20px',
+                    paddingX: { xs: '12px', sm: '20px' },
+                    width: '100%',
+                  }}
+                >
                     <Suspense fallback={<LoadingFallback />}>
                       <Routes>
                         {/* ========== Public Pages ========== */}
@@ -515,7 +513,6 @@ function AppContent() {
                         <Route path="*" element={<Navigate to={user ? "/dashboard" : "/"} replace />} />
                       </Routes>
                     </Suspense>
-                  </Box>
                 </Box>
 
                 <Box

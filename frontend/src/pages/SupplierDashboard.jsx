@@ -28,6 +28,7 @@ import {
   Schedule as PendingIcon,
   CheckCircle as WonIcon,
   Cancel as LostIcon,
+  ShoppingCart as ShoppingCartIcon,
 } from '@mui/icons-material';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as ChartTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import institutionalTheme from '../theme/theme';

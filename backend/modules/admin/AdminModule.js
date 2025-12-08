@@ -1,7 +1,7 @@
 
 /**
- * 🔐 ADMIN MODULE
- * Modular Monolith - Administration Domain
+ * 👨‍💼 ADMIN MODULE
+ * Modular Monolith - Admin Domain
  */
 
 const { getPool } = require('../../config/db');
@@ -12,82 +12,175 @@ class AdminModule {
   constructor(dependencies) {
     this.eventBus = dependencies.eventBus;
     this.auditService = dependencies.auditService;
+    this.pool = getPool();
   }
 
   /**
-   * Get dashboard statistics
+   * Get all users
    */
-  async getDashboardStats() {
+  async getAllUsers(filters = {}) {
     try {
-      const pool = getPool();
-      const stats = await pool.query(`
-        WITH user_stats AS (
-          SELECT COUNT(*) as total_users FROM users WHERE is_deleted = FALSE
-        ),
-        tender_stats AS (
-          SELECT COUNT(*) as total_tenders FROM tenders WHERE is_deleted = FALSE
-        ),
-        offer_stats AS (
-          SELECT COUNT(*) as total_offers FROM offers WHERE is_deleted = FALSE
-        )
-        SELECT * FROM user_stats, tender_stats, offer_stats
-      `);
+      let query = `SELECT id, email, full_name, role, created_at FROM users WHERE 1=1`;
+      const params = [];
+      let paramIndex = 1;
 
-      this.eventBus.publish(DomainEvents.AUDIT_LOG, {
-        action: 'admin.dashboard.viewed',
-        timestamp: new Date().toISOString(),
-      });
+      if (filters.role) {
+        query += ` AND role = $${paramIndex}`;
+        params.push(filters.role);
+        paramIndex++;
+      }
 
-      return stats.rows[0];
+      if (filters.search) {
+        query += ` AND (email ILIKE $${paramIndex} OR full_name ILIKE $${paramIndex})`;
+        params.push(`%${filters.search}%`);
+        paramIndex++;
+      }
+
+      query += ` ORDER BY created_at DESC`;
+
+      if (filters.limit) {
+        query += ` LIMIT $${paramIndex}`;
+        params.push(filters.limit);
+        paramIndex++;
+      }
+
+      const result = await this.pool.query(query, params);
+      return result.rows;
     } catch (error) {
-      logger.error('Admin Module - Get dashboard stats failed', { error });
+      logger.error('Admin Module - Get all users failed', { error });
       throw error;
     }
   }
 
   /**
-   * Manage user status
+   * Update user role
    */
-  async toggleUserStatus(userId, isActive) {
+  async updateUserRole(userId, newRole, adminId) {
     try {
-      const pool = getPool();
-      await pool.query(
-        'UPDATE users SET is_active = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
-        [isActive, userId]
+      const result = await this.pool.query(
+        `UPDATE users SET role = $1 WHERE id = $2 RETURNING id, email, full_name, role`,
+        [newRole, userId]
       );
 
-      this.eventBus.publish(DomainEvents.AUDIT_LOG, {
-        action: 'admin.user.status_changed',
+      if (result.rows.length === 0) {
+        throw new Error('User not found');
+      }
+
+      const user = result.rows[0];
+
+      // Log audit
+      await this.auditService.log({
+        admin_id: adminId,
+        action: 'UPDATE_USER_ROLE',
+        target_user_id: userId,
+        details: { oldRole: null, newRole },
+      });
+
+      // Publish event
+      this.eventBus.publish(DomainEvents.USER_ROLE_UPDATED, {
         userId,
-        newStatus: isActive,
+        newRole,
+        adminId,
         timestamp: new Date().toISOString(),
       });
 
-      return { success: true };
+      return user;
     } catch (error) {
-      logger.error('Admin Module - Toggle user status failed', { error });
+      logger.error('Admin Module - Update user role failed', { error });
       throw error;
     }
   }
 
   /**
-   * Export audit logs
+   * Delete user
    */
-  async exportAuditLogs(format = 'json') {
+  async deleteUser(userId, adminId) {
     try {
-      const pool = getPool();
-      const logs = await pool.query('SELECT * FROM audit_logs ORDER BY created_at DESC');
+      const result = await this.pool.query(
+        `DELETE FROM users WHERE id = $1 RETURNING id, email`,
+        [userId]
+      );
 
-      this.eventBus.publish(DomainEvents.AUDIT_LOG, {
-        action: 'admin.audit_logs.exported',
-        format,
-        count: logs.rowCount,
-        timestamp: new Date().toISOString(),
+      if (result.rows.length === 0) {
+        throw new Error('User not found');
+      }
+
+      const deletedUser = result.rows[0];
+
+      // Log audit
+      await this.auditService.log({
+        admin_id: adminId,
+        action: 'DELETE_USER',
+        target_user_id: userId,
+        details: { email: deletedUser.email },
       });
 
-      return logs.rows;
+      return { success: true, deletedUser };
     } catch (error) {
-      logger.error('Admin Module - Export audit logs failed', { error });
+      logger.error('Admin Module - Delete user failed', { error });
+      throw error;
+    }
+  }
+
+  /**
+   * Get platform statistics
+   */
+  async getPlatformStats() {
+    try {
+      const stats = {};
+
+      // Count users by role
+      const usersResult = await this.pool.query(
+        `SELECT role, COUNT(*) as count FROM users GROUP BY role`
+      );
+      stats.usersByRole = usersResult.rows;
+
+      // Count tenders by status
+      const tendersResult = await this.pool.query(
+        `SELECT status, COUNT(*) as count FROM tenders GROUP BY status`
+      );
+      stats.tendersByStatus = tendersResult.rows;
+
+      // Count total offers
+      const offersResult = await this.pool.query(
+        `SELECT COUNT(*) as total FROM offers`
+      );
+      stats.totalOffers = parseInt(offersResult.rows[0].total);
+
+      return stats;
+    } catch (error) {
+      logger.error('Admin Module - Get platform stats failed', { error });
+      throw error;
+    }
+  }
+
+  /**
+   * Get audit logs
+   */
+  async getAuditLogs(filters = {}) {
+    try {
+      let query = `SELECT * FROM audit_logs WHERE 1=1`;
+      const params = [];
+      let paramIndex = 1;
+
+      if (filters.admin_id) {
+        query += ` AND admin_id = $${paramIndex}`;
+        params.push(filters.admin_id);
+        paramIndex++;
+      }
+
+      if (filters.action) {
+        query += ` AND action = $${paramIndex}`;
+        params.push(filters.action);
+        paramIndex++;
+      }
+
+      query += ` ORDER BY created_at DESC LIMIT 100`;
+
+      const result = await this.pool.query(query, params);
+      return result.rows;
+    } catch (error) {
+      logger.error('Admin Module - Get audit logs failed', { error });
       throw error;
     }
   }

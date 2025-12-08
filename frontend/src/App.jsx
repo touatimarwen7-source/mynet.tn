@@ -8,7 +8,7 @@ import AlertStrip from './components/AlertStrip';
 import UnifiedHeader from './components/UnifiedHeader';
 import ErrorBoundary from './components/ErrorBoundary';
 import ToastContainer from './components/ToastContainer';
-import Sidebar from './components/Sidebar';
+// Sidebar removed - navigation integrated into dashboards
 import { ToastContext } from './contexts/ToastContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import { SuperAdminProvider } from './contexts/SuperAdminContext';
@@ -151,9 +151,6 @@ function AppContent() {
                 <AppToastContainer />
 
                 <Box sx={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-                  {/* Sidebar Navigation - Show for authenticated users */}
-                  {user && <Sidebar user={user} onLogout={logout} />}
-
                   <Box
                     component="main"
                     sx={{
@@ -161,7 +158,7 @@ function AppContent() {
                       overflowY: 'auto',
                       paddingY: '20px',
                       paddingX: { xs: '12px', sm: '20px' },
-                      transition: 'all 0.3s ease-in-out',
+                      width: '100%',
                     }}
                   >
                     <Suspense fallback={<LoadingFallback />}>

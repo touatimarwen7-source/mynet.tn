@@ -1,6 +1,6 @@
 import { Box, Typography, TextField, Stack, Paper, Alert } from '@mui/material';
 import { CATEGORIES } from './constants';
-import { THEME_COLORS, THEME_STYLES } from './themeHelpers';
+import { THEME_COLORS } from './themeHelpers';
 
 export default function StepSeven({ formData, handleChange, loading }) {
   const awardLevelLabel = {

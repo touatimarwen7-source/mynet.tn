@@ -1,0 +1,29 @@
+ErrorBoundary.jsx:41 Component Stack: 
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-FPNHPTLY.js?v=00805cc9:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+
+ErrorBoundary.jsx:42 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+﻿
+

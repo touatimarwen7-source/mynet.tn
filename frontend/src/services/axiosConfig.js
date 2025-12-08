@@ -40,10 +40,22 @@ const getCurrentHost = () => {
     : `${protocol}//${hostname}:3000`;
 };
 
-// ✅ استخدام 0.0.0.0 بدلاً من localhost لتوافق أفضل على Replit
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  'http://0.0.0.0:3000/api';
+// ✅ استخدام window.location.hostname للحصول على الـ host الصحيح
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  // في بيئة Replit، استخدم نفس الـ hostname
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    return `${window.location.protocol}//${hostname}:3000/api`;
+  }
+  
+  return 'http://0.0.0.0:3000/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL.replace(/\/api\/api/, '/api'), // Éviter double /api/

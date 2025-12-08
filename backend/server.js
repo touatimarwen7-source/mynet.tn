@@ -7,6 +7,15 @@ const HOST = '0.0.0.0'; // Bind to all interfaces for external access
 
 async function startServer() {
   try {
+    // ✅ تنظيف المنفذ تلقائياً قبل التشغيل
+    const { execSync } = require('child_process');
+    try {
+      execSync(`lsof -ti:${PORT} | xargs kill -9 2>/dev/null || true`, { stdio: 'ignore' });
+      console.log(`✅ Port ${PORT} cleaned successfully`);
+    } catch (cleanError) {
+      // تجاهل الخطأ إذا لم يكن هناك عملية تستخدم المنفذ
+    }
+
     console.log('========================================');
     console.log('MyNet.tn Backend Server Starting...');
     console.log('========================================');

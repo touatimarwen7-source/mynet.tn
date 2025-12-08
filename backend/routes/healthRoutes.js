@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const { getPool, getPoolMetrics } = require('../config/db');
@@ -22,7 +21,7 @@ router.get('/', async (req, res) => {
     // فحص قاعدة البيانات المتقدم
     const dbHealth = await checkDatabaseHealth();
     const poolMetrics = getPoolMetrics();
-    
+
     healthStatus.components.database = {
       status: dbHealth.status,
       responseTime: dbHealth.responseTime,
@@ -35,7 +34,7 @@ router.get('/', async (req, res) => {
         waiting: dbHealth.pool?.waiting || 0
       }
     };
-    
+
     if (dbHealth.status !== 'healthy') {
       healthStatus.status = 'degraded';
     }
@@ -52,7 +51,7 @@ router.get('/', async (req, res) => {
     // فحص الكاش
     const cacheManager = getCacheManager();
     const cacheStats = cacheManager.getStats();
-    
+
     healthStatus.components.cache = {
       status: 'healthy',
       stats: cacheStats
@@ -66,7 +65,7 @@ router.get('/', async (req, res) => {
 
   // تحديد رمز الحالة HTTP
   const statusCode = healthStatus.status === 'healthy' ? 200 : 503;
-  
+
   res.status(statusCode).json(healthStatus);
 });
 

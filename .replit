@@ -78,7 +78,7 @@ localPort = 45467
 externalPort = 6800
 
 [workflows]
-runButton = "Development"
+runButton = "Clean Start"
 
 [[workflows.workflow]]
 name = "Project"
@@ -169,6 +169,19 @@ mode = "parallel"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd backend && lsof -ti:3000 | xargs kill -9 2>/dev/null; npm run dev"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend && npm run dev"
+
+[[workflows.workflow]]
+name = "Clean Start"
+author = 49972067
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend && lsof -ti:3000 | xargs kill -9 2>/dev/null; sleep 1 && npm run dev"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"

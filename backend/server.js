@@ -85,16 +85,22 @@ async function startServer() {
     console.error('❌ CRITICAL: Failed to start server');
     console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.error('Error Message:', error.message);
-    console.error('Error Code:', error.code);
-    console.error('Error File:', error.stack?.split('\n')[1]?.trim());
-    console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.error('Full Stack Trace:');
-    console.error(error.stack);
+    console.error('Error Code:', error.code || 'N/A');
+    
+    if (error.stack) {
+      const stackLines = error.stack.split('\n');
+      console.error('Error Location:', stackLines[1]?.trim() || 'Unknown');
+      console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.error('Full Stack Trace:');
+      console.error(error.stack);
+    }
+    
     console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.error('💡 Troubleshooting Tips:');
-    console.error('  1. Check if all required dependencies are installed');
-    console.error('  2. Verify database connection settings in .env');
-    console.error('  3. Ensure all controller exports are correct');
+    console.error('  1. Check controller exports: ensure all methods are properly defined');
+    console.error('  2. Verify database connection in .env file');
+    console.error('  3. Check if all dependencies are installed: npm install');
+    console.error('  4. Review route handlers for missing function references');
     console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     process.exit(1);
   }

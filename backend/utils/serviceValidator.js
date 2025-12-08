@@ -4,7 +4,7 @@
  */
 
 const Joi = require('joi');
-const ErrorResponseFormatter = require('./errorHandler');
+const { ErrorResponseFormatter } = require('./errorHandler');
 
 class ServiceValidator {
   /**

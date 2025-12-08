@@ -106,4 +106,5 @@ module.exports = {
   handleDatabaseError,
   formatDatabaseError,
   databaseErrorMiddleware
+};orMiddleware
 };

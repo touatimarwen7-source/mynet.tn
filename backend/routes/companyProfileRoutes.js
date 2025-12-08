@@ -1,5 +1,5 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 const { buildPaginationQuery } = require('../utils/paginationHelper');
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
 router.get(
   '/supplier/:supplierId',
   validateIdMiddleware('supplierId'),
-  authMiddleware,
+  verifyToken,
   async (req, res) => {
     try {
       const { supplierId } = req.params;
@@ -63,7 +63,7 @@ router.get(
 router.put(
   '/supplier/:supplierId',
   validateIdMiddleware('supplierId'),
-  authMiddleware,
+  verifyToken,
   async (req, res) => {
     try {
       const { supplierId } = req.params;
@@ -121,7 +121,7 @@ router.put(
 );
 
 // Search suppliers with advanced filtering
-router.get('/search', authMiddleware, async (req, res) => {
+router.get('/search', verifyToken, async (req, res) => {
   try {
     const { query, category, minRating, maxBudget, location } = req.query;
     const db = req.app.get('db');

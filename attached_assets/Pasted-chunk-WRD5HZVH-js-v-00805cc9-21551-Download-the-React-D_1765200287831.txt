@@ -1,0 +1,328 @@
+chunk-WRD5HZVH.js?v=00805cc9:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+logger.js:96 [INFO] MyNet: MyNet Frontend Started {}
+analyticsTracking.js:11 ⚠️ Sentry not available for analytics
+(anonymous) @ analyticsTracking.js:11
+tokenManager.js:57 TokenManager: User data stored successfully
+tokenManager.js:73 TokenManager: User data retrieved: 1
+tokenManager.js:73 TokenManager: User data retrieved: 1
+tokenManager.js:73 TokenManager: User data retrieved: 1
+tokenManager.js:73 TokenManager: User data retrieved: 1
+tokenManager.js:73 TokenManager: User data retrieved: 1
+tokenManager.js:73 TokenManager: User data retrieved: 1
+useOptimizedFetch.js:50  GET https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/api/procurement/tenders?page=1&limit=20 400 (Bad Request)
+dispatchXhrRequest @ axios.js?v=00805cc9:1696
+xhr @ axios.js?v=00805cc9:1573
+dispatchRequest @ axios.js?v=00805cc9:2107
+_request @ axios.js?v=00805cc9:2327
+request @ axios.js?v=00805cc9:2219
+Axios.<computed> @ axios.js?v=00805cc9:2346
+wrap @ axios.js?v=00805cc9:8
+(anonymous) @ useOptimizedFetch.js:50
+(anonymous) @ TenderList.Optimized.jsx:37
+commitHookEffectListMount @ chunk-WRD5HZVH.js?v=00805cc9:16915
+invokePassiveEffectMountInDEV @ chunk-WRD5HZVH.js?v=00805cc9:18324
+invokeEffectsInDev @ chunk-WRD5HZVH.js?v=00805cc9:19701
+commitDoubleInvokeEffectsInDEV @ chunk-WRD5HZVH.js?v=00805cc9:19686
+flushPassiveEffectsImpl @ chunk-WRD5HZVH.js?v=00805cc9:19503
+flushPassiveEffects @ chunk-WRD5HZVH.js?v=00805cc9:19447
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18868
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=00805cc9:9119
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19432
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18805
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+TenderList.Optimized.jsx:68 Warning: Failed prop type: Invalid prop `children` supplied to `ForwardRef(Alert2)`, expected a ReactNode.
+    at Alert2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/@mui_material.js?v=00805cc9:4368:17)
+    at TenderListOptimized (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/pages/TenderList.Optimized.jsx:37:35)
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-FPNHPTLY.js?v=00805cc9:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+printWarning @ react_jsx-dev-runtime.js?v=00805cc9:64
+error @ react_jsx-dev-runtime.js?v=00805cc9:48
+checkPropTypes @ react_jsx-dev-runtime.js?v=00805cc9:451
+validatePropTypes @ react_jsx-dev-runtime.js?v=00805cc9:778
+jsxWithValidation @ react_jsx-dev-runtime.js?v=00805cc9:876
+TenderListOptimized @ TenderList.Optimized.jsx:68
+renderWithHooks @ chunk-WRD5HZVH.js?v=00805cc9:11548
+updateFunctionComponent @ chunk-WRD5HZVH.js?v=00805cc9:14582
+beginWork @ chunk-WRD5HZVH.js?v=00805cc9:15924
+beginWork$1 @ chunk-WRD5HZVH.js?v=00805cc9:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=00805cc9:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=00805cc9:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=00805cc9:19116
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18678
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+chunk-WRD5HZVH.js?v=00805cc9:9934 Uncaught Error: Objects are not valid as a React child (found: object with keys {message, code}). If you meant to render a collection of children, use an array instead.
+    at throwOnInvalidObjectType (chunk-WRD5HZVH.js?v=00805cc9:9934:17)
+    at reconcileChildFibers2 (chunk-WRD5HZVH.js?v=00805cc9:10564:15)
+    at reconcileChildren (chunk-WRD5HZVH.js?v=00805cc9:14290:37)
+    at updateHostComponent (chunk-WRD5HZVH.js?v=00805cc9:14807:11)
+    at beginWork (chunk-WRD5HZVH.js?v=00805cc9:15935:22)
+    at HTMLUnknownElement.callCallback2 (chunk-WRD5HZVH.js?v=00805cc9:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-WRD5HZVH.js?v=00805cc9:3699:24)
+    at invokeGuardedCallback (chunk-WRD5HZVH.js?v=00805cc9:3733:39)
+    at beginWork$1 (chunk-WRD5HZVH.js?v=00805cc9:19765:15)
+    at performUnitOfWork (chunk-WRD5HZVH.js?v=00805cc9:19198:20)
+throwOnInvalidObjectType @ chunk-WRD5HZVH.js?v=00805cc9:9934
+reconcileChildFibers2 @ chunk-WRD5HZVH.js?v=00805cc9:10564
+reconcileChildren @ chunk-WRD5HZVH.js?v=00805cc9:14290
+updateHostComponent @ chunk-WRD5HZVH.js?v=00805cc9:14807
+beginWork @ chunk-WRD5HZVH.js?v=00805cc9:15935
+callCallback2 @ chunk-WRD5HZVH.js?v=00805cc9:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=00805cc9:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=00805cc9:3733
+beginWork$1 @ chunk-WRD5HZVH.js?v=00805cc9:19765
+performUnitOfWork @ chunk-WRD5HZVH.js?v=00805cc9:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=00805cc9:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=00805cc9:19116
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18678
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+chunk-WRD5HZVH.js?v=00805cc9:9934 Uncaught Error: Objects are not valid as a React child (found: object with keys {message, code}). If you meant to render a collection of children, use an array instead.
+    at throwOnInvalidObjectType (chunk-WRD5HZVH.js?v=00805cc9:9934:17)
+    at reconcileChildFibers2 (chunk-WRD5HZVH.js?v=00805cc9:10564:15)
+    at reconcileChildren (chunk-WRD5HZVH.js?v=00805cc9:14290:37)
+    at updateHostComponent (chunk-WRD5HZVH.js?v=00805cc9:14807:11)
+    at beginWork (chunk-WRD5HZVH.js?v=00805cc9:15935:22)
+    at HTMLUnknownElement.callCallback2 (chunk-WRD5HZVH.js?v=00805cc9:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-WRD5HZVH.js?v=00805cc9:3699:24)
+    at invokeGuardedCallback (chunk-WRD5HZVH.js?v=00805cc9:3733:39)
+    at beginWork$1 (chunk-WRD5HZVH.js?v=00805cc9:19765:15)
+    at performUnitOfWork (chunk-WRD5HZVH.js?v=00805cc9:19198:20)
+throwOnInvalidObjectType @ chunk-WRD5HZVH.js?v=00805cc9:9934
+reconcileChildFibers2 @ chunk-WRD5HZVH.js?v=00805cc9:10564
+reconcileChildren @ chunk-WRD5HZVH.js?v=00805cc9:14290
+updateHostComponent @ chunk-WRD5HZVH.js?v=00805cc9:14807
+beginWork @ chunk-WRD5HZVH.js?v=00805cc9:15935
+callCallback2 @ chunk-WRD5HZVH.js?v=00805cc9:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=00805cc9:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=00805cc9:3733
+beginWork$1 @ chunk-WRD5HZVH.js?v=00805cc9:19765
+performUnitOfWork @ chunk-WRD5HZVH.js?v=00805cc9:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=00805cc9:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=00805cc9:19116
+recoverFromConcurrentError @ chunk-WRD5HZVH.js?v=00805cc9:18736
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18684
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+chunk-WRD5HZVH.js?v=00805cc9:14032 The above error occurred in the <div> component:
+
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Paper2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/@mui_material.js?v=00805cc9:2284:17)
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Alert2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/@mui_material.js?v=00805cc9:4368:17)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Container3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:2116:19)
+    at TenderListOptimized (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/pages/TenderList.Optimized.jsx:37:35)
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-FPNHPTLY.js?v=00805cc9:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+logCapturedError @ chunk-WRD5HZVH.js?v=00805cc9:14032
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14078
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+ErrorBoundary.jsx:38 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+componentDidCatch @ ErrorBoundary.jsx:38
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+ErrorBoundary.jsx:39 ⚠️ React Error Boundary Caught Error:
+componentDidCatch @ ErrorBoundary.jsx:39
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+ErrorBoundary.jsx:40 Error: Error: Objects are not valid as a React child (found: object with keys {message, code}). If you meant to render a collection of children, use an array instead.
+    at throwOnInvalidObjectType (chunk-WRD5HZVH.js?v=00805cc9:9934:17)
+    at reconcileChildFibers2 (chunk-WRD5HZVH.js?v=00805cc9:10564:15)
+    at reconcileChildren (chunk-WRD5HZVH.js?v=00805cc9:14290:37)
+    at updateHostComponent (chunk-WRD5HZVH.js?v=00805cc9:14807:11)
+    at beginWork (chunk-WRD5HZVH.js?v=00805cc9:15935:22)
+    at beginWork$1 (chunk-WRD5HZVH.js?v=00805cc9:19753:22)
+    at performUnitOfWork (chunk-WRD5HZVH.js?v=00805cc9:19198:20)
+    at workLoopSync (chunk-WRD5HZVH.js?v=00805cc9:19137:13)
+    at renderRootSync (chunk-WRD5HZVH.js?v=00805cc9:19116:15)
+    at recoverFromConcurrentError (chunk-WRD5HZVH.js?v=00805cc9:18736:28)
+componentDidCatch @ ErrorBoundary.jsx:40
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+ErrorBoundary.jsx:41 Component Stack: 
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Paper2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/@mui_material.js?v=00805cc9:2284:17)
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Alert2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/@mui_material.js?v=00805cc9:4368:17)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Container3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:2116:19)
+    at TenderListOptimized (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/pages/TenderList.Optimized.jsx:37:35)
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:3082:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=00805cc9:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-W772XLVY.js?v=00805cc9:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-ERN5PUDO.js?v=00805cc9:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-FPNHPTLY.js?v=00805cc9:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:234:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:28:31)
+componentDidCatch @ ErrorBoundary.jsx:41
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+ErrorBoundary.jsx:42 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+componentDidCatch @ ErrorBoundary.jsx:42
+callback @ chunk-WRD5HZVH.js?v=00805cc9:14084
+callCallback @ chunk-WRD5HZVH.js?v=00805cc9:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=00805cc9:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=00805cc9:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=00805cc9:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=00805cc9:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=00805cc9:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=00805cc9:19353
+commitRoot @ chunk-WRD5HZVH.js?v=00805cc9:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=00805cc9:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=00805cc9:18718
+workLoop @ chunk-WRD5HZVH.js?v=00805cc9:197
+flushWork @ chunk-WRD5HZVH.js?v=00805cc9:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=00805cc9:384
+client:536 WebSocket connection to 'wss://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/?token=-To6qAlXF7Kg' failed: 
+setupWebSocket @ client:536
+(anonymous) @ client:531
+client:560 [vite] server connection lost. Polling for restart...
+client:736  GET https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev:5000/ 502 (Bad Gateway)
+ping @ client:736
+waitForSuccessfulPing @ client:749
+(anonymous) @ client:561

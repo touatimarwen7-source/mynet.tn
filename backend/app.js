@@ -141,7 +141,7 @@ if (process.env.REPL_SLUG) {
 
 app.use(
   cors({
-    origin: process.env.NODE_ENV === 'development' 
+    origin: process.env.NODE_ENV === 'development'
       ? true // Allow all origins in development
       : allowedOrigins,
     credentials: true,
@@ -312,6 +312,7 @@ app.use('/api/messages', messagesRoutes);
 
 // System
 app.use('/api/audit-logs', auditLogsRoutes);
+app.use('/api/team-management', teamManagementRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/tender-history', tenderHistoryRoutes);
 app.use('/api/search', searchRoutes);

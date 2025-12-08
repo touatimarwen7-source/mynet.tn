@@ -93,9 +93,6 @@ router.get(
     return sendOk(res, result.rows, 'User activity logs retrieved successfully');
   })
 );
-    `,
-      [userId, limit, offset]
-    );
 
     res.json(result.rows);
   })

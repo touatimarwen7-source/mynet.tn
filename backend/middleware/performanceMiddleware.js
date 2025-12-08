@@ -1,4 +1,3 @@
-
 /**
  * Performance Monitoring Middleware
  * Tracks response times and performance metrics
@@ -22,10 +21,18 @@ const performanceMiddleware = (req, res, next) => {
         status: res.statusCode
       });
     }
-
-    // Set performance header
-    res.setHeader('X-Response-Time', `${duration.toFixed(2)}ms`);
   });
+
+  // Set header before response is sent
+  const originalSend = res.send;
+  res.send = function (data) {
+    const end = process.hrtime.bigint();
+    const duration = Number(end - start) / 1000000; // Convert to ms
+    if (!res.headersSent) {
+      res.setHeader('X-Response-Time', `${duration.toFixed(2)}ms`);
+    }
+    return originalSend.call(this, data);
+  };
 
   next();
 };

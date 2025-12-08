@@ -47,7 +47,13 @@ const getApiBaseUrl = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // استخدم الـ IP الشبكي مباشرة لـ Replit
+  // في بيئة Replit، استخدم الـ hostname الحالي مع port 3000
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    return `http://${hostname}:3000/api`;
+  }
+  
+  // Fallback للـ IP الشبكي
   return 'http://172.31.68.98:3000/api';
 };
 

@@ -7,8 +7,13 @@ const getBaseURL = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
 
-  // Always use network IP for Replit environment
-  return 'http://172.31.68.98:3000';
+  // Use current hostname with port 3000
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    return `http://${hostname}:3000`;
+  }
+
+  return 'http://localhost:3000';
 };
 
 const axiosInstance = axios.create({

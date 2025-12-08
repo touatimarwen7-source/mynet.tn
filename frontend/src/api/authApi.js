@@ -13,14 +13,8 @@ const getApiBaseUrl = () => {
   }
 
   if (typeof window !== 'undefined') {
-    const isReplit = window.location.hostname.includes('replit.dev');
-    
-    if (isReplit) {
-      const hostname = window.location.hostname.split(':')[0];
-      return `http://${hostname}:3000/api`;
-    }
-    
-    return 'http://localhost:3000/api';
+    const hostname = window.location.hostname;
+    return `http://${hostname}:3000/api`;
   }
 
   return 'http://localhost:3000/api';

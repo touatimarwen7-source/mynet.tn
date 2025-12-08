@@ -194,16 +194,21 @@ app.use(securityHeadersMiddleware);
 app.use(requestLoggingMiddleware);
 
 // 🚀 ENHANCED RATE LIMITING with per-user + IP tracking
-const enhancedRateLimiting = require('./middleware/enhancedRateLimiting');
+let enhancedRateLimiting;
+try {
+  enhancedRateLimiting = require('./middleware/enhancedRateLimiting');
+  
+  // Apply enhanced rate limiting (only if it exists and is a function)
+  if (enhancedRateLimiting && typeof enhancedRateLimiting.general === 'function') {
+    app.use('/api/', enhancedRateLimiting.general);
+  }
 
-// Apply enhanced rate limiting (only if it exists and is a function)
-if (enhancedRateLimiting && typeof enhancedRateLimiting.general === 'function') {
-  app.use('/api/', enhancedRateLimiting.general);
-}
-
-// Advanced rate limit middleware for tracking
-if (enhancedRateLimiting && typeof enhancedRateLimiting.advancedRateLimitMiddleware === 'function') {
-  app.use(enhancedRateLimiting.advancedRateLimitMiddleware);
+  // Advanced rate limit middleware for tracking
+  if (enhancedRateLimiting && typeof enhancedRateLimiting.advancedRateLimitMiddleware === 'function') {
+    app.use(enhancedRateLimiting.advancedRateLimiting);
+  }
+} catch (err) {
+  logger.warn('Enhanced rate limiting not available');
 }
 
 // ⏱️ REQUEST TIMEOUT ENFORCEMENT (NEW)
@@ -399,30 +404,54 @@ if (deliveryRoutes && typeof deliveryRoutes === 'object') safeUseRoute('/api/del
 if (disputeRoutes && typeof disputeRoutes === 'object') safeUseRoute('/api/disputes', disputeRoutes, 'Disputes');
 
 // 🤖 AI RECOMMENDATIONS & ADVANCED ANALYTICS ROUTES
-const aiRecommendationsRoutes = require('./routes/aiRecommendationsRoutes');
-if (aiRecommendationsRoutes && typeof aiRecommendationsRoutes === 'object') safeUseRoute('/api/ai/recommendations', aiRecommendationsRoutes, 'AI Recommendations');
+try {
+  const aiRecommendationsRoutes = require('./routes/aiRecommendationsRoutes');
+  if (aiRecommendationsRoutes && typeof aiRecommendationsRoutes === 'object') safeUseRoute('/api/ai/recommendations', aiRecommendationsRoutes, 'AI Recommendations');
+} catch (err) {
+  logger.warn('AI recommendations routes not available');
+}
 
 // 🐌 SLOW ENDPOINT MONITORING - Track performance issues
-const { slowEndpointMonitor } = require('./middleware/slowEndpointMonitor');
-if (slowEndpointMonitor && typeof slowEndpointMonitor === 'function') {
-  app.use(slowEndpointMonitor());
+try {
+  const { slowEndpointMonitor } = require('./middleware/slowEndpointMonitor');
+  if (slowEndpointMonitor && typeof slowEndpointMonitor === 'function') {
+    app.use(slowEndpointMonitor());
+  }
+} catch (err) {
+  logger.warn('Slow endpoint monitor not available');
 }
 
 // 📋 CLARIFICATION ROUTES (مسارات الاستفسارات)
-const clarificationRoutes = require('./routes/clarificationRoutes');
-if (clarificationRoutes && typeof clarificationRoutes === 'object') safeUseRoute('/api/clarifications', clarificationRoutes, 'Clarifications');
+try {
+  const clarificationRoutes = require('./routes/clarificationRoutes');
+  if (clarificationRoutes && typeof clarificationRoutes === 'object') safeUseRoute('/api/clarifications', clarificationRoutes, 'Clarifications');
+} catch (err) {
+  logger.warn('Clarification routes not available');
+}
 
 // 🏅 PARTIAL AWARDROUTES (مسارات الترسية الجزئية)
-const partialAwardRoutes = require('./routes/partialAwardRoutes');
-if (partialAwardRoutes && typeof partialAwardRoutes === 'object') safeUseRoute('/api/partial-awards', partialAwardRoutes, 'Partial Awards');
+try {
+  const partialAwardRoutes = require('./routes/partialAwardRoutes');
+  if (partialAwardRoutes && typeof partialAwardRoutes === 'object') safeUseRoute('/api/partial-awards', partialAwardRoutes, 'Partial Awards');
+} catch (err) {
+  logger.warn('Partial award routes not available');
+}
 
 // ⚡ PERFORMANCE MONITORING ROUTES (مراقبة الأداء)
-const performanceRoutes = require('./routes/performanceRoutes');
-if (performanceRoutes && typeof performanceRoutes === 'object') safeUseRoute('/api/performance', performanceRoutes, 'Performance Monitoring');
+try {
+  const performanceRoutes = require('./routes/performanceRoutes');
+  if (performanceRoutes && typeof performanceRoutes === 'object') safeUseRoute('/api/performance', performanceRoutes, 'Performance Monitoring');
+} catch (err) {
+  logger.warn('Performance routes not available');
+}
 
 // 💾 CACHE MANAGEMENT ROUTES (إدارة الذاكرة المؤقتة)
-const cachingRoutes = require('./routes/cachingRoutes');
-if (cachingRoutes && typeof cachingRoutes === 'object') safeUseRoute('/api/cache', cachingRoutes, 'Cache Management');
+try {
+  const cachingRoutes = require('./routes/cachingRoutes');
+  if (cachingRoutes && typeof cachingRoutes === 'object') safeUseRoute('/api/cache', cachingRoutes, 'Cache Management');
+} catch (err) {
+  logger.warn('Caching routes not available');
+}
 
 // Initialize email service
 initializeEmailService();

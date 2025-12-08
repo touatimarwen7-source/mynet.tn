@@ -4,6 +4,7 @@
  * Modular Monolith - Authentication Domain
  */
 
+const bcrypt = require('bcryptjs');
 const { getPool } = require('../../config/db');
 const { logger } = require('../../utils/logger');
 const { DomainEvents } = require('../../core/EventBus');
@@ -16,21 +17,27 @@ class AuthModule {
   }
 
   /**
-   * Register user
+   * Register new user
    */
   async register(userData) {
     try {
-      // Business logic here
+      // Hash password
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+      // Insert user
       const result = await this.pool.query(
-        'INSERT INTO users (email, password, role) VALUES ($1, $2, $3) RETURNING *',
-        [userData.email, userData.password, userData.role || 'buyer']
+        `INSERT INTO users (email, password, full_name, role, created_at) 
+         VALUES ($1, $2, $3, $4, $5) RETURNING id, email, full_name, role, created_at`,
+        [userData.email, hashedPassword, userData.full_name, userData.role, new Date()]
       );
+
       const user = result.rows[0];
-      
+
       // Publish event
       this.eventBus.publish(DomainEvents.USER_REGISTERED, {
         userId: user.id,
         email: user.email,
+        role: user.role,
         timestamp: new Date().toISOString(),
       });
 
@@ -46,18 +53,40 @@ class AuthModule {
    */
   async login(email, password) {
     try {
-      // Authenticate user
-      const user = await this.authenticateUser(email, password);
-      
+      // Find user
+      const result = await this.pool.query(
+        `SELECT * FROM users WHERE email = $1`,
+        [email]
+      );
+
+      if (result.rows.length === 0) {
+        throw new Error('Invalid credentials');
+      }
+
+      const user = result.rows[0];
+
+      // Verify password
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) {
+        throw new Error('Invalid credentials');
+      }
+
       // Generate token
-      const token = this.jwtService.generateToken(user);
-      
+      const token = this.jwtService.generateToken({
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      });
+
       // Publish event
       this.eventBus.publish(DomainEvents.USER_LOGGED_IN, {
         userId: user.id,
         email: user.email,
         timestamp: new Date().toISOString(),
       });
+
+      // Remove password from response
+      delete user.password;
 
       return { user, token };
     } catch (error) {
@@ -67,11 +96,48 @@ class AuthModule {
   }
 
   /**
-   * Authenticate user (internal)
+   * Verify token
    */
-  async authenticateUser(email, password) {
-    // Implementation here
-    return { id: 1, email };
+  async verifyToken(token) {
+    try {
+      const decoded = this.jwtService.verifyToken(token);
+      
+      // Get fresh user data
+      const result = await this.pool.query(
+        `SELECT id, email, full_name, role, created_at FROM users WHERE id = $1`,
+        [decoded.id]
+      );
+
+      if (result.rows.length === 0) {
+        throw new Error('User not found');
+      }
+
+      return result.rows[0];
+    } catch (error) {
+      logger.error('Auth Module - Verify token failed', { error });
+      throw error;
+    }
+  }
+
+  /**
+   * Get user by ID
+   */
+  async getUserById(userId) {
+    try {
+      const result = await this.pool.query(
+        `SELECT id, email, full_name, role, created_at FROM users WHERE id = $1`,
+        [userId]
+      );
+
+      if (result.rows.length === 0) {
+        throw new Error('User not found');
+      }
+
+      return result.rows[0];
+    } catch (error) {
+      logger.error('Auth Module - Get user failed', { error });
+      throw error;
+    }
   }
 }
 

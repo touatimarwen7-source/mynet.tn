@@ -27,13 +27,6 @@ class ProcurementModule {
       );
       const tender = result.rows[0];
 
-      // Original code for reference
-      // const tender = await this.db.createTender({
-        ...tenderData,
-        buyer_id: buyerId,
-        created_at: new Date(),
-      });
-
       // Publish event
       this.eventBus.publish(DomainEvents.TENDER_CREATED, {
         tenderId: tender.id,
@@ -54,10 +47,17 @@ class ProcurementModule {
    */
   async publishTender(tenderId) {
     try {
-      const tender = await this.db.updateTender(tenderId, {
-        status: 'published',
-        published_at: new Date(),
-      });
+      const result = await this.pool.query(
+        `UPDATE tenders SET status = $1, published_at = $2 
+         WHERE id = $3 RETURNING *`,
+        ['published', new Date(), tenderId]
+      );
+      
+      if (result.rows.length === 0) {
+        throw new Error('Tender not found');
+      }
+      
+      const tender = result.rows[0];
 
       // Publish event
       this.eventBus.publish(DomainEvents.TENDER_PUBLISHED, {
@@ -78,11 +78,13 @@ class ProcurementModule {
    */
   async submitOffer(offerData, supplierId) {
     try {
-      const offer = await this.db.createOffer({
-        ...offerData,
-        supplier_id: supplierId,
-        created_at: new Date(),
-      });
+      const result = await this.pool.query(
+        `INSERT INTO offers (tender_id, supplier_id, total_price, created_at) 
+         VALUES ($1, $2, $3, $4) RETURNING *`,
+        [offerData.tender_id, supplierId, offerData.total_price, new Date()]
+      );
+      
+      const offer = result.rows[0];
 
       // Publish event
       this.eventBus.publish(DomainEvents.OFFER_SUBMITTED, {
@@ -95,6 +97,44 @@ class ProcurementModule {
       return offer;
     } catch (error) {
       logger.error('Procurement Module - Submit offer failed', { error });
+      throw error;
+    }
+  }
+
+  /**
+   * Get tender by ID
+   */
+  async getTenderById(tenderId) {
+    try {
+      const result = await this.pool.query(
+        `SELECT * FROM tenders WHERE id = $1`,
+        [tenderId]
+      );
+      
+      if (result.rows.length === 0) {
+        throw new Error('Tender not found');
+      }
+      
+      return result.rows[0];
+    } catch (error) {
+      logger.error('Procurement Module - Get tender failed', { error });
+      throw error;
+    }
+  }
+
+  /**
+   * Get offers for tender
+   */
+  async getOffersByTender(tenderId) {
+    try {
+      const result = await this.pool.query(
+        `SELECT * FROM offers WHERE tender_id = $1 ORDER BY created_at DESC`,
+        [tenderId]
+      );
+      
+      return result.rows;
+    } catch (error) {
+      logger.error('Procurement Module - Get offers failed', { error });
       throw error;
     }
   }

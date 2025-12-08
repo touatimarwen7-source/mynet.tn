@@ -47,14 +47,7 @@ const handleSuccess = (res, data, message = 'Success', statusCode = 200) => {
   return res.status(statusCode).json(ErrorResponseFormatter.success(data, message, statusCode));
 };
 
-// Middleware to validate pagination parameters
-const validatePagination = (req, res, next) => {
-  const { page, limit } = req.query;
-  if ((page && isNaN(parseInt(page))) || (limit && isNaN(parseInt(limit)))) {
-    return errorResponse(res, 'Invalid pagination parameters', 400);
-  }
-  next();
-};
+// Pagination validation is now handled inline in each route
 
 // ========== DASHBOARD STATS (must be before parameterized routes) ==========
 
@@ -250,7 +243,7 @@ router.get(
 );
 
 // GET /procurement/tenders - Get all tenders (with pagination)
-router.get('/tenders', validatePagination, async (req, res) => {
+router.get('/tenders', async (req, res) => {
   try {
     // Validate and sanitize pagination parameters
     const rawPage = req.query.page;
@@ -312,7 +305,7 @@ router.get('/tenders', validatePagination, async (req, res) => {
       return res.status(503).json({
         success: false,
         error: 'Base de données non initialisée. Veuillez exécuter les migrations.',
-        hint: 'Run: node backend/scripts/initDb.js'
+        message: 'Run: node backend/scripts/initDb.js'
       });
     }
     

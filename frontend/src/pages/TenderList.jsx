@@ -82,8 +82,15 @@ export default function TenderList() {
           errorMessage = 'Base de données non initialisée. Veuillez contacter l\'administrateur.';
         } else if (err.response.status === 400) {
           errorMessage = 'Paramètres de pagination invalides';
-        } else if (err.response.data && err.response.data.error) {
-          errorMessage = err.response.data.error;
+        } else if (err.response.data) {
+          // Handle both error and message fields
+          if (typeof err.response.data.error === 'string') {
+            errorMessage = err.response.data.error;
+          } else if (typeof err.response.data.message === 'string') {
+            errorMessage = err.response.data.message;
+          } else if (err.response.data.error?.message) {
+            errorMessage = err.response.data.error.message;
+          }
         }
       } else if (err.code === 'ECONNABORTED') {
         errorMessage = 'La requête a expiré. Veuillez réessayer.';
@@ -91,7 +98,8 @@ export default function TenderList() {
         errorMessage = err.message;
       }
 
-      setError(errorMessage);
+      // Ensure errorMessage is always a string
+      setError(String(errorMessage));
       setTenders([]); // Set empty array on error
     } finally {
       setLoading(false);
@@ -200,7 +208,7 @@ export default function TenderList() {
             }}
             onClose={() => setError('')}
           >
-            {error}
+            {typeof error === 'string' ? error : error.message || 'Une erreur est survenue'}
           </Alert>
         )}
 

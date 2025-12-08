@@ -31,7 +31,7 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path,
       },
-      '/ws': {
+      '/socket.io': {
         target: 'ws://0.0.0.0:3000',
         ws: true,
         changeOrigin: true,

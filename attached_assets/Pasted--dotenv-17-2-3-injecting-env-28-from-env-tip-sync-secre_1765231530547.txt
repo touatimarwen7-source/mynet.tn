@@ -1,0 +1,55 @@
+[dotenv@17.2.3] injecting env (28) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+========================================
+🚀 MyNet.tn Backend Starting...
+========================================
+[INFO] MyNet.tn: 🚀 Bootstrapping application... {}
+[INFO] MyNet.tn: ✅ Application bootstrapped successfully {}
+[INFO] MyNet.tn: 📦 Registered modules: Auth, Procurement, Notification, Admin {}
+✅ DI Container initialized
+🔵 Pool: checking client timeout
+🔵 Pool: connecting new client
+🔵 Pool: new client connected
+🔵 Pool: pulse queue
+🔵 Pool: no queued requests
+✅ Database connected
+🔵 Pool: pulse queue
+🔵 Pool: dispatching query
+🔵 Pool: query dispatched
+🔵 Pool: pulse queue
+🔵 Pool: no queued requests
+✅ Database health: healthy
+[INFO] MyNet.tn: ✅ Analytics routes loaded {}
+[INFO] MyNet.tn: ✅ Advanced Search routes loaded {}
+[INFO] MyNet.tn: ✅ Export routes loaded {}
+[INFO] MyNet.tn: ✅ MFA routes loaded {}
+[INFO] MyNet.tn: ✅ Supplier Analytics routes loaded {}
+[INFO] MyNet.tn: ✅ Bid Analytics routes loaded {}
+[INFO] MyNet.tn: ✅ Bid Comparison routes loaded {}
+[INFO] MyNet.tn: ✅ Performance Tracking routes loaded {}
+[INFO] MyNet.tn: ✅ Notifications routes loaded {}
+[INFO] MyNet.tn: ✅ Email routes loaded {}
+[INFO] MyNet.tn: ✅ Backup Management routes loaded {}
+[INFO] MyNet.tn: ✅ Password Reset routes loaded {}
+[INFO] MyNet.tn: ✅ Tender Inquiries routes loaded {}
+[INFO] MyNet.tn: ✅ Offer Evaluation routes loaded {}
+[INFO] MyNet.tn: ✅ Tender Management routes loaded {}
+[INFO] MyNet.tn: ✅ AI Recommendations routes loaded {}
+[INFO] MyNet.tn: ✅ Clarifications routes loaded {}
+[INFO] MyNet.tn: ✅ Partial Awards routes loaded {}
+[INFO] MyNet.tn: ✅ Performance Monitoring routes loaded {}
+[INFO] MyNet.tn: ✅ Cache Management routes loaded {}
+[INFO] MyNet.tn: MyNet.tn Backend Started { nodeVersion: 'v22.16.0', environment: 'development', port: '3000' }
+[INFO] MyNet.tn: ✅ Tender auto-close job initialized {}
+========================================
+✅ Backend running on http://0.0.0.0:3000
+✅ Network: http://172.31.68.98:3000
+========================================
+📋 Available Endpoints:
+  • Health: GET /health
+  • Auth: POST /api/auth/login
+  • Tenders: GET /api/procurement/tenders
+  • API Docs: GET /api-docs
+========================================
+👥 Test Accounts:
+  • Buyer: buyer@mynet.tn / buyer123
+  • Supplier: supplier@mynet.tn / supplier123

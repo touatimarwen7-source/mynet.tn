@@ -1,0 +1,134 @@
+🔧 Axios Config - API Base URL: http://localhost:3000
+axiosConfig.js:8 🔧 Using VITE_API_BASE_URL: http://localhost:3000
+axiosConfig.js:25 ✅ Final API Base URL: http://localhost:3000
+authApi.js:8 🔧 authApi.js - Using axiosInstance with baseURL: http://localhost:3000
+logger.js:96 [INFO] MyNet: MyNet Frontend Started {}
+analyticsTracking.js:11 ⚠️ Sentry not available for analytics
+(anonymous) @ analyticsTracking.js:11Understand this warning
+2tokenManager.js:120 TokenManager: No user data in storage
+2tokenManager.js:120 TokenManager: No user data in storage
+tokenManager.js:120 TokenManager: No user data in storage
+tokenManager.js:120 TokenManager: No user data in storage
+Login.jsx:34 🔐 Attempting login for: buyer@mynet.tn
+axiosConfig.js:43 📤 API Request: POST /api/auth/login
+axiosConfig.js:44 📤 Full URL: http://localhost:3000/api/auth/login
+axiosConfig.js:57 ❌ API Error: Network Error /api/auth/login
+(anonymous) @ axiosConfig.js:57
+Promise.then
+_request @ axios.js?v=8cf20ecf:2310
+request @ axios.js?v=8cf20ecf:2219
+httpMethod @ axios.js?v=8cf20ecf:2356
+wrap @ axios.js?v=8cf20ecf:8
+login @ authApi.js:11
+(anonymous) @ Login.jsx:35
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=8cf20ecf:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=8cf20ecf:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=8cf20ecf:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=8cf20ecf:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=8cf20ecf:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=8cf20ecf:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=8cf20ecf:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=8cf20ecf:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=8cf20ecf:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=8cf20ecf:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=8cf20ecf:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=8cf20ecf:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=8cf20ecf:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5449Understand this error
+axiosConfig.js:58 ❌ Full URL tried: http://localhost:3000/api/auth/login
+(anonymous) @ axiosConfig.js:58
+Promise.then
+_request @ axios.js?v=8cf20ecf:2310
+request @ axios.js?v=8cf20ecf:2219
+httpMethod @ axios.js?v=8cf20ecf:2356
+wrap @ axios.js?v=8cf20ecf:8
+login @ authApi.js:11
+(anonymous) @ Login.jsx:35
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=8cf20ecf:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=8cf20ecf:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=8cf20ecf:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=8cf20ecf:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=8cf20ecf:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=8cf20ecf:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=8cf20ecf:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=8cf20ecf:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=8cf20ecf:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=8cf20ecf:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=8cf20ecf:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=8cf20ecf:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=8cf20ecf:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5449Understand this error
+Login.jsx:95 ❌ Login error: AxiosError {message: 'Network Error', name: 'AxiosError', code: 'ERR_NETWORK', config: {…}, request: XMLHttpRequest, …}
+(anonymous) @ Login.jsx:95
+await in (anonymous)
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=8cf20ecf:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=8cf20ecf:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=8cf20ecf:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=8cf20ecf:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=8cf20ecf:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=8cf20ecf:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=8cf20ecf:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=8cf20ecf:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=8cf20ecf:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=8cf20ecf:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=8cf20ecf:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=8cf20ecf:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=8cf20ecf:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5449Understand this error
+Login.jsx:102 🔴 Backend Connection Error: Make sure backend is running on port 3000
+(anonymous) @ Login.jsx:102
+await in (anonymous)
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=8cf20ecf:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=8cf20ecf:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=8cf20ecf:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=8cf20ecf:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=8cf20ecf:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=8cf20ecf:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=8cf20ecf:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=8cf20ecf:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=8cf20ecf:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=8cf20ecf:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=8cf20ecf:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=8cf20ecf:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=8cf20ecf:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5449Understand this error
+authApi.js:11  POST http://localhost:3000/api/auth/login net::ERR_CONNECTION_REFUSED
+dispatchXhrRequest @ axios.js?v=8cf20ecf:1696
+xhr @ axios.js?v=8cf20ecf:1573
+dispatchRequest @ axios.js?v=8cf20ecf:2107
+Promise.then
+_request @ axios.js?v=8cf20ecf:2310
+request @ axios.js?v=8cf20ecf:2219
+httpMethod @ axios.js?v=8cf20ecf:2356
+wrap @ axios.js?v=8cf20ecf:8
+login @ authApi.js:11
+(anonymous) @ Login.jsx:35
+(anonymous) @ useFormValidation.js:182
+handleSubmit @ Login.jsx:127
+callCallback2 @ chunk-WRD5HZVH.js?v=8cf20ecf:3674
+invokeGuardedCallbackDev @ chunk-WRD5HZVH.js?v=8cf20ecf:3699
+invokeGuardedCallback @ chunk-WRD5HZVH.js?v=8cf20ecf:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WRD5HZVH.js?v=8cf20ecf:3736
+executeDispatch @ chunk-WRD5HZVH.js?v=8cf20ecf:7014
+processDispatchQueueItemsInOrder @ chunk-WRD5HZVH.js?v=8cf20ecf:7034
+processDispatchQueue @ chunk-WRD5HZVH.js?v=8cf20ecf:7043
+dispatchEventsForPlugins @ chunk-WRD5HZVH.js?v=8cf20ecf:7051
+(anonymous) @ chunk-WRD5HZVH.js?v=8cf20ecf:7174
+batchedUpdates$1 @ chunk-WRD5HZVH.js?v=8cf20ecf:18913
+batchedUpdates @ chunk-WRD5HZVH.js?v=8cf20ecf:3579
+dispatchEventForPluginEventSystem @ chunk-WRD5HZVH.js?v=8cf20ecf:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WRD5HZVH.js?v=8cf20ecf:5478
+dispatchEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5472
+dispatchDiscreteEvent @ chunk-WRD5HZVH.js?v=8cf20ecf:5449Understand this error

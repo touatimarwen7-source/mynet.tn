@@ -148,4 +148,20 @@ router.put('/users/:id/block', validateIdMiddleware('id'), (req, res, next) => {
   return AdminController.toggleUserStatus.bind(AdminController)(req, res, next);
 });
 
+// Health monitoring dashboard
+router.get(
+  '/health-dashboard',
+  AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
+  AuthorizationGuard.requireRole([Roles.SUPER_ADMIN, Roles.ADMIN]),
+  AdminController.getHealthDashboard.bind(AdminController)
+);
+
+// System metrics
+router.get(
+  '/system-metrics',
+  AuthorizationGuard.authenticateToken.bind(AuthorizationGuard),
+  AuthorizationGuard.requireRole([Roles.SUPER_ADMIN, Roles.ADMIN]),
+  AdminController.getSystemMetrics.bind(AdminController)
+);
+
 module.exports = router;

@@ -12,10 +12,16 @@ class NotificationModule {
   constructor(dependencies) {
     this.emailService = dependencies.emailService;
     this.eventBus = dependencies.eventBus;
-    this.pool = getPool();
 
     // Subscribe to events
     this.subscribeToEvents();
+  }
+
+  /**
+   * Get database pool
+   */
+  getPool() {
+    return getPool();
   }
 
   /**
@@ -45,7 +51,7 @@ class NotificationModule {
         metadata: { tenderId: data.tenderId },
       });
     } catch (error) {
-      logger.error('Notification Module - Handle tender created failed', { error });
+      logger.error('Notification Module - Handle tender created failed', { error: error.message });
     }
   }
 
@@ -61,7 +67,7 @@ class NotificationModule {
         metadata: { tenderId: data.tenderId },
       });
     } catch (error) {
-      logger.error('Notification Module - Handle tender published failed', { error });
+      logger.error('Notification Module - Handle tender published failed', { error: error.message });
     }
   }
 
@@ -69,9 +75,10 @@ class NotificationModule {
    * Handle offer submitted event
    */
   async handleOfferSubmitted(data) {
+    const pool = this.getPool();
     try {
       // Get tender details
-      const tenderResult = await this.pool.query(
+      const tenderResult = await pool.query(
         `SELECT buyer_id, title FROM tenders WHERE id = $1`,
         [data.tenderId]
       );
@@ -87,7 +94,7 @@ class NotificationModule {
         });
       }
     } catch (error) {
-      logger.error('Notification Module - Handle offer submitted failed', { error });
+      logger.error('Notification Module - Handle offer submitted failed', { error: error.message });
     }
   }
 
@@ -102,7 +109,7 @@ class NotificationModule {
         text: 'Thank you for registering!',
       });
     } catch (error) {
-      logger.error('Notification Module - Handle user registered failed', { error });
+      logger.error('Notification Module - Handle user registered failed', { error: error.message });
     }
   }
 
@@ -110,8 +117,9 @@ class NotificationModule {
    * Create notification
    */
   async createNotification(notificationData) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `INSERT INTO notifications (user_id, type, message, metadata, created_at, is_read) 
          VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
         [
@@ -126,7 +134,7 @@ class NotificationModule {
 
       return result.rows[0];
     } catch (error) {
-      logger.error('Notification Module - Create notification failed', { error });
+      logger.error('Notification Module - Create notification failed', { error: error.message });
       throw error;
     }
   }
@@ -135,8 +143,9 @@ class NotificationModule {
    * Notify all suppliers
    */
   async notifyAllSuppliers(notificationData) {
+    const pool = this.getPool();
     try {
-      const suppliersResult = await this.pool.query(
+      const suppliersResult = await pool.query(
         `SELECT id FROM users WHERE role = $1`,
         ['supplier']
       );
@@ -152,7 +161,7 @@ class NotificationModule {
         await this.createNotification(notification);
       }
     } catch (error) {
-      logger.error('Notification Module - Notify all suppliers failed', { error });
+      logger.error('Notification Module - Notify all suppliers failed', { error: error.message });
       throw error;
     }
   }
@@ -161,8 +170,9 @@ class NotificationModule {
    * Get user notifications
    */
   async getUserNotifications(userId, limit = 50) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `SELECT * FROM notifications WHERE user_id = $1 
          ORDER BY created_at DESC LIMIT $2`,
         [userId, limit]
@@ -170,7 +180,7 @@ class NotificationModule {
 
       return result.rows;
     } catch (error) {
-      logger.error('Notification Module - Get user notifications failed', { error });
+      logger.error('Notification Module - Get user notifications failed', { error: error.message });
       throw error;
     }
   }
@@ -179,15 +189,16 @@ class NotificationModule {
    * Mark notification as read
    */
   async markAsRead(notificationId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `UPDATE notifications SET is_read = true WHERE id = $1 RETURNING *`,
         [notificationId]
       );
 
       return result.rows[0];
     } catch (error) {
-      logger.error('Notification Module - Mark as read failed', { error });
+      logger.error('Notification Module - Mark as read failed', { error: error.message });
       throw error;
     }
   }

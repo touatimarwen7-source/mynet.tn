@@ -12,15 +12,22 @@ class ProcurementModule {
   constructor(dependencies) {
     this.eventBus = dependencies.eventBus;
     this.notificationService = dependencies.notificationService;
-    this.pool = getPool();
+  }
+
+  /**
+   * Get database pool
+   */
+  getPool() {
+    return getPool();
   }
 
   /**
    * Create tender
    */
   async createTender(tenderData, buyerId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `INSERT INTO tenders (title, description, buyer_id, created_at) 
          VALUES ($1, $2, $3, $4) RETURNING *`,
         [tenderData.title, tenderData.description, buyerId, new Date()]
@@ -37,7 +44,7 @@ class ProcurementModule {
 
       return tender;
     } catch (error) {
-      logger.error('Procurement Module - Create tender failed', { error });
+      logger.error('Procurement Module - Create tender failed', { error: error.message });
       throw error;
     }
   }
@@ -46,8 +53,9 @@ class ProcurementModule {
    * Publish tender
    */
   async publishTender(tenderId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `UPDATE tenders SET status = $1, published_at = $2 
          WHERE id = $3 RETURNING *`,
         ['published', new Date(), tenderId]
@@ -68,7 +76,7 @@ class ProcurementModule {
 
       return tender;
     } catch (error) {
-      logger.error('Procurement Module - Publish tender failed', { error });
+      logger.error('Procurement Module - Publish tender failed', { error: error.message });
       throw error;
     }
   }
@@ -77,8 +85,9 @@ class ProcurementModule {
    * Submit offer
    */
   async submitOffer(offerData, supplierId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `INSERT INTO offers (tender_id, supplier_id, total_price, created_at) 
          VALUES ($1, $2, $3, $4) RETURNING *`,
         [offerData.tender_id, supplierId, offerData.total_price, new Date()]
@@ -96,7 +105,7 @@ class ProcurementModule {
 
       return offer;
     } catch (error) {
-      logger.error('Procurement Module - Submit offer failed', { error });
+      logger.error('Procurement Module - Submit offer failed', { error: error.message });
       throw error;
     }
   }
@@ -105,8 +114,9 @@ class ProcurementModule {
    * Get tender by ID
    */
   async getTenderById(tenderId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `SELECT * FROM tenders WHERE id = $1`,
         [tenderId]
       );
@@ -117,7 +127,7 @@ class ProcurementModule {
       
       return result.rows[0];
     } catch (error) {
-      logger.error('Procurement Module - Get tender failed', { error });
+      logger.error('Procurement Module - Get tender failed', { error: error.message });
       throw error;
     }
   }
@@ -126,15 +136,16 @@ class ProcurementModule {
    * Get offers for tender
    */
   async getOffersByTender(tenderId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `SELECT * FROM offers WHERE tender_id = $1 ORDER BY created_at DESC`,
         [tenderId]
       );
       
       return result.rows;
     } catch (error) {
-      logger.error('Procurement Module - Get offers failed', { error });
+      logger.error('Procurement Module - Get offers failed', { error: error.message });
       throw error;
     }
   }

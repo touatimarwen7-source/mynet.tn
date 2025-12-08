@@ -12,13 +12,20 @@ class AdminModule {
   constructor(dependencies) {
     this.eventBus = dependencies.eventBus;
     this.auditService = dependencies.auditService;
-    this.pool = getPool();
+  }
+
+  /**
+   * Get database pool
+   */
+  getPool() {
+    return getPool();
   }
 
   /**
    * Get all users
    */
   async getAllUsers(filters = {}) {
+    const pool = this.getPool();
     try {
       let query = `SELECT id, email, full_name, role, created_at FROM users WHERE 1=1`;
       const params = [];
@@ -44,10 +51,10 @@ class AdminModule {
         paramIndex++;
       }
 
-      const result = await this.pool.query(query, params);
+      const result = await pool.query(query, params);
       return result.rows;
     } catch (error) {
-      logger.error('Admin Module - Get all users failed', { error });
+      logger.error('Admin Module - Get all users failed', { error: error.message });
       throw error;
     }
   }
@@ -56,8 +63,9 @@ class AdminModule {
    * Update user role
    */
   async updateUserRole(userId, newRole, adminId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `UPDATE users SET role = $1 WHERE id = $2 RETURNING id, email, full_name, role`,
         [newRole, userId]
       );
@@ -86,7 +94,7 @@ class AdminModule {
 
       return user;
     } catch (error) {
-      logger.error('Admin Module - Update user role failed', { error });
+      logger.error('Admin Module - Update user role failed', { error: error.message });
       throw error;
     }
   }
@@ -95,8 +103,9 @@ class AdminModule {
    * Delete user
    */
   async deleteUser(userId, adminId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `DELETE FROM users WHERE id = $1 RETURNING id, email`,
         [userId]
       );
@@ -117,7 +126,7 @@ class AdminModule {
 
       return { success: true, deletedUser };
     } catch (error) {
-      logger.error('Admin Module - Delete user failed', { error });
+      logger.error('Admin Module - Delete user failed', { error: error.message });
       throw error;
     }
   }
@@ -126,30 +135,31 @@ class AdminModule {
    * Get platform statistics
    */
   async getPlatformStats() {
+    const pool = this.getPool();
     try {
       const stats = {};
 
       // Count users by role
-      const usersResult = await this.pool.query(
+      const usersResult = await pool.query(
         `SELECT role, COUNT(*) as count FROM users GROUP BY role`
       );
       stats.usersByRole = usersResult.rows;
 
       // Count tenders by status
-      const tendersResult = await this.pool.query(
+      const tendersResult = await pool.query(
         `SELECT status, COUNT(*) as count FROM tenders GROUP BY status`
       );
       stats.tendersByStatus = tendersResult.rows;
 
       // Count total offers
-      const offersResult = await this.pool.query(
+      const offersResult = await pool.query(
         `SELECT COUNT(*) as total FROM offers`
       );
       stats.totalOffers = parseInt(offersResult.rows[0].total);
 
       return stats;
     } catch (error) {
-      logger.error('Admin Module - Get platform stats failed', { error });
+      logger.error('Admin Module - Get platform stats failed', { error: error.message });
       throw error;
     }
   }
@@ -158,6 +168,7 @@ class AdminModule {
    * Get audit logs
    */
   async getAuditLogs(filters = {}) {
+    const pool = this.getPool();
     try {
       let query = `SELECT * FROM audit_logs WHERE 1=1`;
       const params = [];
@@ -177,10 +188,10 @@ class AdminModule {
 
       query += ` ORDER BY created_at DESC LIMIT 100`;
 
-      const result = await this.pool.query(query, params);
+      const result = await pool.query(query, params);
       return result.rows;
     } catch (error) {
-      logger.error('Admin Module - Get audit logs failed', { error });
+      logger.error('Admin Module - Get audit logs failed', { error: error.message });
       throw error;
     }
   }

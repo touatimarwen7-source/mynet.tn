@@ -13,19 +13,26 @@ class AuthModule {
   constructor(dependencies) {
     this.jwtService = dependencies.jwtService;
     this.eventBus = dependencies.eventBus;
-    this.pool = getPool();
+  }
+
+  /**
+   * Get database pool
+   */
+  getPool() {
+    return getPool();
   }
 
   /**
    * Register new user
    */
   async register(userData) {
+    const pool = this.getPool();
     try {
       // Hash password
       const hashedPassword = await bcrypt.hash(userData.password, 10);
 
       // Insert user
-      const result = await this.pool.query(
+      const result = await pool.query(
         `INSERT INTO users (email, password, full_name, role, created_at) 
          VALUES ($1, $2, $3, $4, $5) RETURNING id, email, full_name, role, created_at`,
         [userData.email, hashedPassword, userData.full_name, userData.role, new Date()]
@@ -43,7 +50,7 @@ class AuthModule {
 
       return user;
     } catch (error) {
-      logger.error('Auth Module - Register failed', { error });
+      logger.error('Auth Module - Register failed', { error: error.message });
       throw error;
     }
   }
@@ -52,9 +59,10 @@ class AuthModule {
    * Login user
    */
   async login(email, password) {
+    const pool = this.getPool();
     try {
       // Find user
-      const result = await this.pool.query(
+      const result = await pool.query(
         `SELECT * FROM users WHERE email = $1`,
         [email]
       );
@@ -90,7 +98,7 @@ class AuthModule {
 
       return { user, token };
     } catch (error) {
-      logger.error('Auth Module - Login failed', { error });
+      logger.error('Auth Module - Login failed', { error: error.message });
       throw error;
     }
   }
@@ -99,11 +107,12 @@ class AuthModule {
    * Verify token
    */
   async verifyToken(token) {
+    const pool = this.getPool();
     try {
       const decoded = this.jwtService.verifyToken(token);
       
       // Get fresh user data
-      const result = await this.pool.query(
+      const result = await pool.query(
         `SELECT id, email, full_name, role, created_at FROM users WHERE id = $1`,
         [decoded.id]
       );
@@ -114,7 +123,7 @@ class AuthModule {
 
       return result.rows[0];
     } catch (error) {
-      logger.error('Auth Module - Verify token failed', { error });
+      logger.error('Auth Module - Verify token failed', { error: error.message });
       throw error;
     }
   }
@@ -123,8 +132,9 @@ class AuthModule {
    * Get user by ID
    */
   async getUserById(userId) {
+    const pool = this.getPool();
     try {
-      const result = await this.pool.query(
+      const result = await pool.query(
         `SELECT id, email, full_name, role, created_at FROM users WHERE id = $1`,
         [userId]
       );
@@ -135,7 +145,7 @@ class AuthModule {
 
       return result.rows[0];
     } catch (error) {
-      logger.error('Auth Module - Get user failed', { error });
+      logger.error('Auth Module - Get user failed', { error: error.message });
       throw error;
     }
   }

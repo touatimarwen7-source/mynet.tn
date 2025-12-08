@@ -46,6 +46,23 @@ import { useAuth } from '../contexts/AppContext';
 
 const DRAWER_WIDTH = 240;
 
+/**
+ * 🎯 Buyer Dashboard - Enhanced with Security & Analytics
+ * 
+ * @component BuyerDashboard
+ * @description Main dashboard for buyer users displaying tender statistics,
+ * analytics, and quick actions. Includes error handling with retry logic
+ * and comprehensive loading states.
+ * 
+ * @requires TokenManager - For user authentication data
+ * @requires procurementApi - For fetching dashboard statistics
+ * 
+ * @returns {JSX.Element} Rendered buyer dashboard with stats and analytics
+ * 
+ * @example
+ * // Route configuration
+ * <Route path="/buyer-dashboard" element={<BuyerDashboard />} />
+ */
 export default function BuyerDashboard() {
   const navigate = useNavigate();
   const [stats, setStats] = useState({
@@ -131,14 +148,14 @@ export default function BuyerDashboard() {
 
     } catch (err) {
       console.error('❌ Dashboard data fetch error:', err);
-      
+
       // Retry logic for network errors
       if (retryCount < 2 && (err.code === 'ECONNABORTED' || err.message.includes('Network Error'))) {
         console.log(`⚠️ Retrying... (${retryCount + 1}/2)`);
         setTimeout(() => fetchDashboardData(retryCount + 1), 1000 * (retryCount + 1));
         return;
       }
-      
+
       // Set user-friendly error messages
       let errorMsg = 'خطأ في تحميل البيانات';
       if (err.response?.status === 401) {
@@ -150,9 +167,9 @@ export default function BuyerDashboard() {
       } else if (err.response?.data?.error) {
         errorMsg = err.response.data.error;
       }
-      
+
       setError(errorMsg);
-      
+
       // Set default values to prevent blank page
       setStats({
         activeTenders: 0,

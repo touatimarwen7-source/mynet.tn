@@ -2,6 +2,8 @@ const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
 const { buildPaginationQuery } = require('../utils/paginationHelper');
 const { asyncHandler } = require('../middleware/errorHandlingMiddleware');
+const { getPool } = require('../config/db'); // Assuming getPool is defined elsewhere for DB connection
+const logger = require('../config/logger'); // Assuming logger is configured elsewhere
 
 const router = express.Router();
 const { validateIdMiddleware } = require('../middleware/validateIdMiddleware');
@@ -163,7 +165,7 @@ router.get('/:messageId', validateIdMiddleware('messageId'), authMiddleware, asy
   res.json(message);
 }));
 
-// Mark as read
+// Mark as read (PUT method - more appropriate for updating resource state)
 router.put(
   '/:messageId/read',
   validateIdMiddleware('messageId'),
@@ -194,6 +196,40 @@ router.put(
     res.json({ success: true, message: 'Message marked as read' });
   })
 );
+
+// Mark message as read (POST method - as per original change request, though PUT is semantically better)
+router.post('/mark-read/:id', authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+    const db = getPool();
+
+    // Ensure the message exists and belongs to the current user before marking as read
+    const messageCheck = await db.query(
+      'SELECT receiver_id FROM messages WHERE id = $1 AND is_deleted = false',
+      [id]
+    );
+
+    if (messageCheck.rows.length === 0) {
+      return res.status(404).json({ error: 'Message not found' });
+    }
+
+    if (messageCheck.rows[0].receiver_id !== userId) {
+      return res.status(403).json({ error: 'Unauthorized to mark this message as read' });
+    }
+
+    await db.query(
+      'UPDATE messages SET is_read = true WHERE id = $1 AND receiver_id = $2',
+      [id, userId]
+    );
+
+    res.json({ success: true, message: 'Message marked as read' });
+  } catch (error) {
+    logger.error('Mark as read error:', { error: error.message, messageId: id, userId });
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Get unread count
 router.get('/count/unread', authMiddleware, asyncHandler(async (req, res) => {

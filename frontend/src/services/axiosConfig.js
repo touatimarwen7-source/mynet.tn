@@ -21,6 +21,7 @@ import axios from 'axios';
 import TokenManager from './tokenManager';
 import CSRFProtection from '../utils/csrfProtection';
 import { API_CONFIG, shouldCache, getCacheDuration, isPublicEndpoint } from '../config/apiConfig';
+import logger from '../utils/logger'; // Assuming logger utility is available
 
 // Get current host from window location
 const getCurrentHost = () => {
@@ -51,6 +52,13 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+if (import.meta.env.DEV) {
+  logger.debug('Axios Instance Created', {
+    baseURL: axiosInstance.defaults.baseURL,
+    timeout: axiosInstance.defaults.timeout
+  });
+}
 
 // ============================================
 // Response Cache
@@ -150,11 +158,13 @@ axiosInstance.interceptors.request.use(
 
     // DEBUG: Log login requests
     if (config.url?.includes('auth/login')) {
-      console.log('🔐 Login Request:', {
-        url: config.url,
-        method: config.method,
-        hasData: !!config.data,
-      });
+      if (import.meta.env.DEV) {
+        logger.debug('Request Interceptor', {
+          url: config.url,
+          method: config.method,
+          hasData: !!config.data,
+        });
+      }
     }
 
     // Check if token should be refreshed proactively (only if we have a token)
@@ -165,7 +175,10 @@ axiosInstance.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    logger.error('Request Error', { error: error.message });
+    return Promise.reject(error);
+  }
 );
 
 /**
@@ -188,7 +201,7 @@ axiosInstance.interceptors.response.use(
         });
       } catch (cacheError) {
         // تجاهل أخطاء التخزين المؤقت
-        console.warn('Cache error:', cacheError.message);
+        logger.warn('Cache error:', cacheError.message);
       }
     }
     return response;
@@ -256,6 +269,21 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 403) {
       // Only log 403, don't immediately logout
       // Let components handle the 403 appropriately without clearing auth
+      logger.error('Response Error', {
+        status: error.response?.status,
+        message: error.response?.data?.error || error.message,
+        url: error.config?.url,
+      });
+    } else if (error.response) {
+      // Log other response errors
+      logger.error('Response Error', {
+        status: error.response?.status,
+        message: error.response?.data?.error || error.message,
+        url: error.config?.url,
+      });
+    } else {
+      // Log network errors
+      logger.error('Request Error', { error: error.message });
     }
 
     return Promise.reject(error);

@@ -341,14 +341,24 @@ class OfferService {
   }
 
   /**
-   * Evaluates an offer with technical and financial scores
-   * Updates offer status to 'evaluated'
+   * Evaluates an offer with technical and financial scoring
+   * Updates offer status to 'evaluated' and stores evaluation results
+   * Part of the multi-stage tender evaluation workflow
    * @async
    * @param {string} offerId - The ID of the offer to evaluate
-   * @param {Object} evaluationData - Evaluation data (score, notes)
-   * @param {string} userId - ID of the evaluator
-   * @returns {Promise<Object>} Updated offer object
-   * @throws {Error} If database operation fails
+   * @param {Object} evaluationData - Evaluation criteria and results:
+   *   - score: Numeric evaluation score (0-100)
+   *   - notes: Detailed evaluation notes and justification
+   *   - technical_score: Optional technical evaluation score
+   *   - financial_score: Optional financial evaluation score
+   * @param {string} userId - ID of the evaluator (must be buyer or evaluation committee member)
+   * @returns {Promise<Object>} Updated offer object with evaluation_score and evaluation_notes
+   * @throws {Error} If database operation fails or offer not found
+   * @example
+   * const evaluated = await evaluateOffer('offer-123', {
+   *   score: 85,
+   *   notes: 'Good technical proposal, competitive pricing'
+   * }, 'evaluator-id');
    */
   async evaluateOffer(offerId, evaluationData, userId) {
     const pool = getPool();

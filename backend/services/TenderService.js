@@ -597,11 +597,17 @@ class TenderService {
   }
 
   /**
-   * Get tender with offers (for evaluation)
+   * Get tender with offers for evaluation purposes
+   * Retrieves tender details along with all submitted offers
+   * Used by buyers to evaluate and compare supplier offers
    * @async
-   * @param {string} tenderId - The ID of the tender
-   * @param {string} userId - ID of the user requesting
-   * @returns {Promise<Object>} Tender with offers
+   * @param {string} tenderId - The ID of the tender to fetch with offers
+   * @param {string} userId - ID of the user requesting (for audit logging)
+   * @returns {Promise<Object>} Tender object with nested offers array
+   * @throws {Error} If tender not found or database operation fails
+   * @example
+   * const tenderWithOffers = await getTenderWithOffers('tender-123', 'user-456');
+   * console.log(tenderWithOffers.offers.length); // Number of offers
    */
   async getTenderWithOffers(tenderId, userId) {
     const pool = getPool();
@@ -649,10 +655,21 @@ class TenderService {
   }
 
   /**
-   * Get tender statistics
+   * Get comprehensive tender statistics and bid analysis
+   * Calculates total offers, unique suppliers, and bid price ranges
+   * Used for tender evaluation and market analysis
    * @async
-   * @param {string} tenderId - The ID of the tender
-   * @returns {Promise<Object>} Tender statistics
+   * @param {string} tenderId - The ID of the tender to analyze
+   * @returns {Promise<Object>} Statistics object with:
+   *   - total_offers: Total number of submitted offers
+   *   - total_suppliers: Number of unique suppliers who bid
+   *   - lowest_bid: Minimum offer amount
+   *   - highest_bid: Maximum offer amount
+   *   - average_bid: Average offer amount across all bids
+   * @throws {Error} If database query fails
+   * @example
+   * const stats = await getTenderStatistics('tender-123');
+   * console.log(`Price range: ${stats.lowest_bid} - ${stats.highest_bid}`);
    */
   async getTenderStatistics(tenderId) {
     const pool = getPool();
@@ -679,12 +696,23 @@ class TenderService {
   }
 
   /**
-   * Award tender to winning supplier(s)
+   * Award tender to one or more winning suppliers
+   * Updates tender status to 'awarded' and marks winning offers
+   * Supports partial awards for multi-lot tenders
    * @async
-   * @param {string} tenderId - The ID of the tender
-   * @param {Array} awards - Array of award objects {offer_id, lot_id?, article_id?}
-   * @param {string} userId - ID of the user awarding
-   * @returns {Promise<Object>} Award result
+   * @param {string} tenderId - The ID of the tender to award
+   * @param {Array<Object>} awards - Array of award objects, each containing:
+   *   - offer_id: ID of the winning offer (required)
+   *   - lot_id: ID of the lot if multi-lot tender (optional)
+   *   - article_id: ID of specific article if partial award (optional)
+   * @param {string} userId - ID of the buyer awarding the tender
+   * @returns {Promise<Object>} Award result with success status and awards array
+   * @throws {Error} If database operation fails or tender not found
+   * @example
+   * const result = await awardTender('tender-123', [
+   *   { offer_id: 'offer-456', lot_id: 'lot-1' },
+   *   { offer_id: 'offer-789', lot_id: 'lot-2' }
+   * ], 'buyer-id');
    */
   async awardTender(tenderId, awards, userId) {
     const pool = getPool();

@@ -163,13 +163,24 @@ class UserService {
   }
 
   /**
-   * Updates user profile information (full_name, phone, company details)
-   * Only allows updating specific fields, ignores role/admin changes
+   * Updates user profile information with field validation
+   * Only allows updating specific whitelisted fields for security
+   * Ignores role/admin changes to prevent privilege escalation
    * @async
    * @param {string} userId - The ID of the user to update
-   * @param {Object} updateData - Fields to update (full_name, phone, company_name, company_registration)
-   * @returns {Promise<Object>} Updated user object
-   * @throws {Error} If no valid fields provided or database operation fails
+   * @param {Object} updateData - Fields to update, only these are allowed:
+   *   - full_name: User's full name
+   *   - phone: Contact phone number
+   *   - company_name: Company/organization name
+   *   - company_registration: Company registration number
+   * @returns {Promise<Object>} Updated user object with public fields only
+   * @throws {Error} If no valid fields provided, user not found, or database operation fails
+   * @example
+   * const updated = await updateUser('user-123', {
+   *   full_name: 'Ahmed Ben Ali',
+   *   phone: '+216 12 345 678',
+   *   company_name: 'Tech Solutions SARL'
+   * });
    */
   async updateUser(userId, updateData) {
     const pool = getPool();

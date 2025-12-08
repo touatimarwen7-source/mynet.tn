@@ -13,6 +13,33 @@ const fs = require('fs').promises;
 class InvoiceService {
   /**
    * Create an invoice for a purchase order
+   * Generates invoice with line items, tax calculations, and payment terms
+   * Notifies buyer of new invoice submission
+   * @async
+   * @param {Object} invoiceData - Invoice details:
+   *   - purchase_order_id: Associated purchase order ID (required)
+   *   - supplier_id: Supplier creating the invoice (required)
+   *   - invoice_number: Unique invoice reference number (required)
+   *   - invoice_date: Invoice creation date (required)
+   *   - due_date: Payment due date (required)
+   *   - items: Array of invoice line items (required)
+   *   - subtotal: Pre-tax amount (required)
+   *   - tax_amount: Total tax amount (required)
+   *   - total_amount: Grand total including tax (required)
+   *   - currency: Currency code (default: 'TND')
+   *   - payment_terms: Payment conditions and terms
+   *   - notes: Additional notes or instructions
+   *   - bank_details: Supplier bank account information for payment
+   * @returns {Promise<Object>} Created invoice object with status 'submitted'
+   * @throws {Error} If purchase order not found, unauthorized, or database operation fails
+   * @example
+   * const invoice = await createInvoice({
+   *   purchase_order_id: 'po-123',
+   *   supplier_id: 'supplier-456',
+   *   invoice_number: 'INV-2025-001',
+   *   total_amount: 15000,
+   *   items: [{ description: 'Laptops', quantity: 10, unit_price: 1500 }]
+   * });
    */
   async createInvoice(invoiceData) {
     const pool = getPool();
@@ -235,7 +262,22 @@ class InvoiceService {
   }
 
   /**
-   * Get invoice statistics for a supplier
+   * Get comprehensive invoice statistics for a supplier
+   * Calculates total invoices, payment status breakdown, and revenue metrics
+   * Used for supplier financial dashboard and performance tracking
+   * @async
+   * @param {string} supplierId - The ID of the supplier
+   * @returns {Promise<Object>} Statistics object with:
+   *   - total_invoices: Total number of invoices created
+   *   - pending_invoices: Count of submitted invoices awaiting approval
+   *   - approved_invoices: Count of approved invoices awaiting payment
+   *   - paid_invoices: Count of fully paid invoices
+   *   - total_paid: Total revenue received (sum of paid invoice amounts)
+   *   - total_pending: Total outstanding amount (submitted + approved invoices)
+   * @throws {Error} If database query fails
+   * @example
+   * const stats = await getSupplierInvoiceStats('supplier-123');
+   * console.log(`Total revenue: ${stats.total_paid} TND`);
    */
   async getSupplierInvoiceStats(supplierId) {
     const pool = getPool();
@@ -257,7 +299,22 @@ class InvoiceService {
   }
 
   /**
-   * Get invoice statistics for a buyer
+   * Get comprehensive invoice statistics for a buyer
+   * Tracks payables, pending approvals, and payment history
+   * Used for buyer financial management and budget tracking
+   * @async
+   * @param {string} buyerId - The ID of the buyer
+   * @returns {Promise<Object>} Statistics object with:
+   *   - total_invoices: Total number of invoices received
+   *   - pending_review: Count of invoices awaiting approval
+   *   - approved_pending_payment: Count of approved invoices not yet paid
+   *   - paid_invoices: Count of fully paid invoices
+   *   - total_paid: Total amount paid to suppliers
+   *   - total_outstanding: Total amount owed (pending + approved invoices)
+   * @throws {Error} If database query fails
+   * @example
+   * const stats = await getBuyerInvoiceStats('buyer-456');
+   * console.log(`Outstanding payables: ${stats.total_outstanding} TND`);
    */
   async getBuyerInvoiceStats(buyerId) {
     const pool = getPool();

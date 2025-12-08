@@ -1,0 +1,46 @@
+فشل تحميل الإحصائيات: AxiosError {message: 'Network Error', name: 'AxiosError', code: 'ERR_NETWORK', config: {…}, request: XMLHttpRequest, …}
+fetchDashboardData @ BuyerDashboard.jsx:120
+await in fetchDashboardData
+(anonymous) @ BuyerDashboard.jsx:89
+commitHookEffectListMount @ chunk-WRD5HZVH.js?v=32775a63:16915
+invokePassiveEffectMountInDEV @ chunk-WRD5HZVH.js?v=32775a63:18324
+invokeEffectsInDev @ chunk-WRD5HZVH.js?v=32775a63:19701
+commitDoubleInvokeEffectsInDEV @ chunk-WRD5HZVH.js?v=32775a63:19686
+flushPassiveEffectsImpl @ chunk-WRD5HZVH.js?v=32775a63:19503
+flushPassiveEffects @ chunk-WRD5HZVH.js?v=32775a63:19447
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=32775a63:18868
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=32775a63:9119
+commitRootImpl @ chunk-WRD5HZVH.js?v=32775a63:19432
+commitRoot @ chunk-WRD5HZVH.js?v=32775a63:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=32775a63:18805
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=32775a63:18718
+workLoop @ chunk-WRD5HZVH.js?v=32775a63:197
+flushWork @ chunk-WRD5HZVH.js?v=32775a63:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=32775a63:384Understand this warning
+BuyerDashboard.jsx:135 فشل تحميل التحليلات: AxiosError {message: 'Network Error', name: 'AxiosError', code: 'ERR_NETWORK', config: {…}, request: XMLHttpRequest, …}
+fetchDashboardData @ BuyerDashboard.jsx:135
+await in fetchDashboardData
+(anonymous) @ BuyerDashboard.jsx:89
+commitHookEffectListMount @ chunk-WRD5HZVH.js?v=32775a63:16915
+invokePassiveEffectMountInDEV @ chunk-WRD5HZVH.js?v=32775a63:18324
+invokeEffectsInDev @ chunk-WRD5HZVH.js?v=32775a63:19701
+commitDoubleInvokeEffectsInDEV @ chunk-WRD5HZVH.js?v=32775a63:19686
+flushPassiveEffectsImpl @ chunk-WRD5HZVH.js?v=32775a63:19503
+flushPassiveEffects @ chunk-WRD5HZVH.js?v=32775a63:19447
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=32775a63:18868
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=32775a63:9119
+commitRootImpl @ chunk-WRD5HZVH.js?v=32775a63:19432
+commitRoot @ chunk-WRD5HZVH.js?v=32775a63:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=32775a63:18805
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=32775a63:18718
+workLoop @ chunk-WRD5HZVH.js?v=32775a63:197
+flushWork @ chunk-WRD5HZVH.js?v=32775a63:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=32775a63:384Understand this warning
+client:736  GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED
+ping @ client:736
+waitForSuccessfulPing @ client:755
+await in waitForSuccessfulPing
+(anonymous) @ client:561Understand this error
+logger.js:96 [ERROR] MyNet: Request Error {error: 'Network Error'}
+logger.js:96 [ERROR] MyNet: Request Error {error: 'Network Error'}
+client:736  GET http://localhost:5000/ net::ERR_CONNECTION_REFUSED

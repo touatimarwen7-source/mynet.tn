@@ -36,6 +36,11 @@ const backupRoutes = require('./routes/backupRoutes');
 const passwordResetRoutes = require('./routes/passwordResetRoutes');
 const offerEvaluationRoutes = require('./routes/offerEvaluationRoutes');
 const tenderManagementRoutes = require('./routes/tenderManagementRoutes');
+const tenderEvaluationRoutes = require('./routes/tenderEvaluationRoutes');
+const tenderAwardingRoutes = require('./routes/tenderAwardingRoutes');
+const contractRoutes = require('./routes/contractRoutes');
+const deliveryRoutes = require('./routes/deliveryRoutes');
+const disputeRoutes = require('./routes/disputeRoutes');
 const { ipMiddleware } = require('./middleware/ipMiddleware');
 const { requestTimeout } = require('./middleware/timeoutMiddleware');
 const { perUserLimiter, apiLimiters } = require('./middleware/perUserRateLimiting');
@@ -387,6 +392,11 @@ if (passwordResetRoutes && typeof passwordResetRoutes === 'object') safeUseRoute
 if (inquiryRoutes && typeof inquiryRoutes === 'object') safeUseRoute('/api/inquiries', inquiryRoutes, 'Tender Inquiries');
 if (offerEvaluationRoutes && typeof offerEvaluationRoutes === 'object') safeUseRoute('/api/evaluation', offerEvaluationRoutes, 'Offer Evaluation');
 if (tenderManagementRoutes && typeof tenderManagementRoutes === 'object') safeUseRoute('/api/tender-management', tenderManagementRoutes, 'Tender Management');
+if (tenderEvaluationRoutes && typeof tenderEvaluationRoutes === 'object') safeUseRoute('/api/tender-evaluation', tenderEvaluationRoutes, 'Tender Evaluation');
+if (tenderAwardingRoutes && typeof tenderAwardingRoutes === 'object') safeUseRoute('/api/tender-awarding', tenderAwardingRoutes, 'Tender Awarding');
+if (contractRoutes && typeof contractRoutes === 'object') safeUseRoute('/api/contracts', contractRoutes, 'Contracts');
+if (deliveryRoutes && typeof deliveryRoutes === 'object') safeUseRoute('/api/deliveries', deliveryRoutes, 'Deliveries');
+if (disputeRoutes && typeof disputeRoutes === 'object') safeUseRoute('/api/disputes', disputeRoutes, 'Disputes');
 
 // 🤖 AI RECOMMENDATIONS & ADVANCED ANALYTICS ROUTES
 const aiRecommendationsRoutes = require('./routes/aiRecommendationsRoutes');

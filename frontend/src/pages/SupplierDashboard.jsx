@@ -197,7 +197,7 @@ const SupplierDashboard = () => {
 
     } catch (err) {
       console.error('❌ Dashboard Error:', err);
-      const errorMessage = err.response?.data?.error || err.message || 'فشل تحميل بيانات لوحة التحكم';
+      const errorMessage = err.response?.data?.error || err.message || 'Échec du chargement des données du tableau de bord';
       setError(errorMessage);
       
       // Set safe defaults on error
@@ -221,66 +221,66 @@ const SupplierDashboard = () => {
   };
 
   const menuItems = [
-    { text: 'لوحة التحكم', icon: <DashboardIcon />, path: '/supplier-dashboard' },
-    { text: 'المناقصات المتاحة', icon: <GavelIcon />, path: '/tenders' },
-    { text: 'عروضي', icon: <LocalOfferIcon />, path: '/my-offers' },
-    { text: 'الطلبات النشطة', icon: <ShoppingCartIcon />, path: '/supplier-orders' },
-    { text: 'الفواتير', icon: <DescriptionIcon />, path: '/supplier-invoices' },
-    { text: 'المنتجات والخدمات', icon: <InventoryIcon />, path: '/supplier-products' },
-    { text: 'التحليلات', icon: <AssessmentIcon />, path: '/supplier-analytics' },
-    { text: 'إدارة الفريق', icon: <PeopleIcon />, path: '/supplier-team-management' },
-    { text: 'الملف الشخصي', icon: <PersonIcon />, path: '/profile' },
-    { text: 'الإعدادات', icon: <SettingsIcon />, path: '/settings' },
+    { text: 'Tableau de Bord', icon: <DashboardIcon />, path: '/supplier-dashboard' },
+    { text: 'Appels d\'Offres Disponibles', icon: <GavelIcon />, path: '/tenders' },
+    { text: 'Mes Offres', icon: <LocalOfferIcon />, path: '/my-offers' },
+    { text: 'Commandes Actives', icon: <ShoppingCartIcon />, path: '/supplier-orders' },
+    { text: 'Factures', icon: <DescriptionIcon />, path: '/supplier-invoices' },
+    { text: 'Produits et Services', icon: <InventoryIcon />, path: '/supplier-products' },
+    { text: 'Analyses', icon: <AssessmentIcon />, path: '/supplier-analytics' },
+    { text: 'Gestion d\'Équipe', icon: <PeopleIcon />, path: '/supplier-team-management' },
+    { text: 'Profil', icon: <PersonIcon />, path: '/profile' },
+    { text: 'Paramètres', icon: <SettingsIcon />, path: '/settings' },
   ];
 
   const dashboardCards = [
     {
-      title: 'إجمالي العروض',
+      title: 'Total des Offres',
       value: stats.totalOffers || 0,
       icon: AssignmentIcon,
       color: institutionalTheme.palette.primary.main,
-      subtitle: 'العروض المقدمة',
+      subtitle: 'Offres soumises',
       change: stats.offersChange,
       action: () => navigate('/my-offers'),
     },
     {
-      title: 'العروض المقبولة',
+      title: 'Offres Acceptées',
       value: stats.acceptedOffers || 0,
       icon: CheckCircleIcon,
       color: institutionalTheme.palette.success.main,
-      subtitle: 'عروض فائزة',
+      subtitle: 'Offres gagnées',
       change: stats.winRateChange,
       action: () => navigate('/my-offers?status=accepted'),
     },
     {
-      title: 'إجمالي الإيرادات',
-      value: new Intl.NumberFormat('ar-TN', {
+      title: 'Revenus Totaux',
+      value: new Intl.NumberFormat('fr-FR', {
         style: 'currency',
         currency: 'TND',
         minimumFractionDigits: 0,
       }).format(stats.totalRevenue || 0),
       icon: AttachMoneyIcon,
       color: institutionalTheme.palette.info.main,
-      subtitle: 'إيرادات كلية',
+      subtitle: 'Revenus cumulés',
       change: stats.revenueChange,
       action: () => navigate('/supplier-analytics'),
     },
     {
-      title: 'مناقصات متاحة',
+      title: 'Appels d\'Offres Disponibles',
       value: stats.availableTenders || 0,
       icon: LocalOfferIcon,
       color: institutionalTheme.palette.warning.main,
-      subtitle: 'فرص جديدة',
+      subtitle: 'Nouvelles opportunités',
       change: stats.tendersChange,
       action: () => navigate('/tenders'),
     },
   ];
 
   const revenueChartData = {
-    labels: trends.map(t => new Date(t.month).toLocaleDateString('ar-TN', { month: 'short' })),
+    labels: trends.map(t => new Date(t.month).toLocaleDateString('fr-FR', { month: 'short' })),
     datasets: [
       {
-        label: 'الإيرادات الشهرية (TND)',
+        label: 'Revenus mensuels (TND)',
         data: trends.map(t => t.revenueGenerated || 0),
         borderColor: institutionalTheme.palette.primary.main,
         backgroundColor: `${institutionalTheme.palette.primary.main}20`,
@@ -291,7 +291,7 @@ const SupplierDashboard = () => {
   };
 
   const offersChartData = {
-    labels: ['مقبولة', 'قيد المراجعة', 'مرفوضة'],
+    labels: ['Acceptées', 'En cours d\'évaluation', 'Rejetées'],
     datasets: [
       {
         data: [stats.acceptedOffers || 0, stats.pendingOffers || 0, stats.rejectedOffers || 0],
@@ -355,7 +355,7 @@ const SupplierDashboard = () => {
               <ArrowDownwardIcon fontSize="small" sx={{ color: institutionalTheme.palette.error.main }} />
             )}
             <Typography variant="caption" sx={{ color: change > 0 ? institutionalTheme.palette.success.main : institutionalTheme.palette.error.main }}>
-              {Math.abs(change)}% من الشهر الماضي
+              {Math.abs(change)}% par rapport au mois dernier
             </Typography>
           </Box>
         )}
@@ -483,10 +483,10 @@ const SupplierDashboard = () => {
           <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box>
               <Typography variant="h4" sx={{ fontWeight: 700, color: institutionalTheme.palette.primary.main }}>
-                لوحة تحكم المزود
+                Tableau de Bord Fournisseur
               </Typography>
               <Typography variant="body1" color="textSecondary">
-                مرحباً، {user?.company_name || user?.username}
+                Bienvenue, {user?.company_name || user?.username}
               </Typography>
             </Box>
             <IconButton onClick={fetchDashboardData} color="primary">
@@ -509,7 +509,7 @@ const SupplierDashboard = () => {
               <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid', borderColor: institutionalTheme.palette.divider }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-                    معدل الفوز
+                    Taux de Réussite
                   </Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Box sx={{ flex: 1 }}>
@@ -530,7 +530,7 @@ const SupplierDashboard = () => {
               <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid', borderColor: institutionalTheme.palette.divider }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-                    التقييم العام
+                    Note Moyenne
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
                     <Avatar sx={{ bgcolor: `${institutionalTheme.palette.warning.main}20`, width: 56, height: 56 }}>
@@ -541,7 +541,7 @@ const SupplierDashboard = () => {
                         {(analytics.avgRating || 0).toFixed(1)}
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
-                        من {analytics.totalReviews || 0} تقييم
+                        sur {analytics.totalReviews || 0} avis
                       </Typography>
                     </Box>
                   </Box>
@@ -556,7 +556,7 @@ const SupplierDashboard = () => {
               <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid', borderColor: institutionalTheme.palette.divider }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
-                    الإيرادات الشهرية
+                    Revenus Mensuels
                   </Typography>
                   <Box sx={{ height: 300 }}>
                     <Line
@@ -575,7 +575,7 @@ const SupplierDashboard = () => {
               <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid', borderColor: institutionalTheme.palette.divider }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
-                    حالة العروض
+                    État des Offres
                   </Typography>
                   <Box sx={{ height: 300 }}>
                     <Doughnut
@@ -598,7 +598,7 @@ const SupplierDashboard = () => {
               <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid', borderColor: institutionalTheme.palette.divider }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-                    الطلبات الأخيرة
+                    Commandes Récentes
                   </Typography>
                   {recentOrders.length > 0 ? (
                     <List>
@@ -614,7 +614,7 @@ const SupplierDashboard = () => {
                             secondary={`${order.tender_title} - ${new Intl.NumberFormat('ar-TN', { style: 'currency', currency: 'TND' }).format(order.total_amount)}`}
                           />
                           <Chip
-                            label={order.status === 'confirmed' ? 'مؤكد' : 'قيد المعالجة'}
+                            label={order.status === 'confirmed' ? 'Confirmé' : 'En traitement'}
                             size="small"
                             color={order.status === 'confirmed' ? 'success' : 'warning'}
                           />
@@ -622,7 +622,7 @@ const SupplierDashboard = () => {
                       ))}
                     </List>
                   ) : (
-                    <Alert severity="info">لا توجد طلبات حالياً</Alert>
+                    <Alert severity="info">Aucune commande pour le moment</Alert>
                   )}
                 </CardContent>
               </Card>
@@ -631,7 +631,7 @@ const SupplierDashboard = () => {
               <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid', borderColor: institutionalTheme.palette.divider }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-                    مناقصات متاحة
+                    Appels d'Offres Disponibles
                   </Typography>
                   {recentTenders.length > 0 ? (
                     <List>
@@ -648,16 +648,16 @@ const SupplierDashboard = () => {
                           </ListItemAvatar>
                           <ListItemText
                             primary={tender.title}
-                            secondary={`الموعد النهائي: ${new Date(tender.deadline).toLocaleDateString('ar-TN')}`}
+                            secondary={`Échéance: ${new Date(tender.deadline).toLocaleDateString('fr-FR')}`}
                           />
                           <Button variant="outlined" size="small">
-                            عرض
+                            Voir
                           </Button>
                         </ListItem>
                       ))}
                     </List>
                   ) : (
-                    <Alert severity="info">لا توجد مناقصات متاحة</Alert>
+                    <Alert severity="info">Aucun appel d'offres disponible</Alert>
                   )}
                 </CardContent>
               </Card>
@@ -668,7 +668,7 @@ const SupplierDashboard = () => {
           <Card sx={{ mt: 3, borderRadius: 2, boxShadow: 'none', border: '1px solid', borderColor: institutionalTheme.palette.divider }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
-                إجراءات سريعة
+                Actions Rapides
               </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} md={4}>
@@ -693,10 +693,10 @@ const SupplierDashboard = () => {
                         <GavelIcon sx={{ color: institutionalTheme.palette.primary.main }} />
                       </Avatar>
                       <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                        تصفح المناقصات
+                        Parcourir les Appels d'Offres
                       </Typography>
                       <Typography variant="caption" color="textSecondary">
-                        اكتشف فرص جديدة
+                        Découvrez de nouvelles opportunités
                       </Typography>
                     </Stack>
                   </Paper>
@@ -723,10 +723,10 @@ const SupplierDashboard = () => {
                         <LocalOfferIcon sx={{ color: institutionalTheme.palette.success.main }} />
                       </Avatar>
                       <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                        إدارة العروض
+                        Gérer les Offres
                       </Typography>
                       <Typography variant="caption" color="textSecondary">
-                        تابع عروضك
+                        Suivez vos offres
                       </Typography>
                     </Stack>
                   </Paper>
@@ -753,10 +753,10 @@ const SupplierDashboard = () => {
                         <AssessmentIcon sx={{ color: institutionalTheme.palette.info.main }} />
                       </Avatar>
                       <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                        التحليلات والتقارير
+                        Analyses et Rapports
                       </Typography>
                       <Typography variant="caption" color="textSecondary">
-                        تحليل الأداء
+                        Analysez vos performances
                       </Typography>
                     </Stack>
                   </Paper>

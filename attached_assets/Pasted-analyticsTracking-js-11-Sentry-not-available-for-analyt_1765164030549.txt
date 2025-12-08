@@ -1,0 +1,236 @@
+analyticsTracking.js:11 ⚠️ Sentry not available for analytics
+(anonymous) @ analyticsTracking.js:11Understand this warning
+App.jsx:145 📥 Loading user from storage: {id: '1', email: 'buyer@mynet.tn', username: 'buyer', full_name: 'Acheteur Test', role: 'buyer', …}
+App.jsx:145 📥 Loading user from storage: {id: '1', email: 'buyer@mynet.tn', username: 'buyer', full_name: 'Acheteur Test', role: 'buyer', …}
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performSyncWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18874
+flushSyncCallbacks @ chunk-WRD5HZVH.js?v=8357e542:9119
+(anonymous) @ chunk-WRD5HZVH.js?v=8357e542:18627Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19189
+renderRootConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19164
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19189
+renderRootConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19164
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19189
+renderRootConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19164
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14330
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19189
+renderRootConcurrent @ chunk-WRD5HZVH.js?v=8357e542:19164
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.
+Paper2 @ @mui_material.js?v=8357e542:2303
+renderWithHooks @ chunk-WRD5HZVH.js?v=8357e542:11548
+updateForwardRef @ chunk-WRD5HZVH.js?v=8357e542:14325
+beginWork @ chunk-WRD5HZVH.js?v=8357e542:15946
+beginWork$1 @ chunk-WRD5HZVH.js?v=8357e542:19753
+performUnitOfWork @ chunk-WRD5HZVH.js?v=8357e542:19198
+workLoopSync @ chunk-WRD5HZVH.js?v=8357e542:19137
+renderRootSync @ chunk-WRD5HZVH.js?v=8357e542:19116
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=8357e542:18678
+workLoop @ chunk-WRD5HZVH.js?v=8357e542:197
+flushWork @ chunk-WRD5HZVH.js?v=8357e542:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=8357e542:384Understand this error
+@mui_material.js?v=8357e542:2303 MUI: The elevation provided <Paper elevation={16}> is not available in the theme.
+Please make sure that `theme.shadows[16]` is defined.

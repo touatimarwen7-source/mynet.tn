@@ -363,14 +363,6 @@ app.use('/api/tender-management', tenderManagementRoutes);
 const aiRecommendationsRoutes = require('./routes/aiRecommendationsRoutes');
 app.use('/api/ai/recommendations', aiRecommendationsRoutes);
 
-// 🔥 DISTRIBUTED CACHING MIDDLEWARE - Apply to all routes
-const distributedCacheMiddleware = require('./middleware/distributedCacheMiddleware');
-app.use(distributedCacheMiddleware);
-
-// 📄 UNIFIED PAGINATION MIDDLEWARE - Standardize pagination
-const unifiedPaginationMiddleware = require('./middleware/unifiedPaginationMiddleware');
-app.use(unifiedPaginationMiddleware);
-
 // 🐌 SLOW ENDPOINT MONITORING - Track performance issues
 const { slowEndpointMonitor } = require('./middleware/slowEndpointMonitor');
 app.use(slowEndpointMonitor());

@@ -1,0 +1,131 @@
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+logCapturedError @ chunk-WRD5HZVH.js?v=ac5ad761:14032
+callback @ chunk-WRD5HZVH.js?v=ac5ad761:14078
+callCallback @ chunk-WRD5HZVH.js?v=ac5ad761:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=ac5ad761:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=ac5ad761:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=ac5ad761:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=ac5ad761:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=ac5ad761:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=ac5ad761:19353
+commitRoot @ chunk-WRD5HZVH.js?v=ac5ad761:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=ac5ad761:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=ac5ad761:18718
+workLoop @ chunk-WRD5HZVH.js?v=ac5ad761:197
+flushWork @ chunk-WRD5HZVH.js?v=ac5ad761:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=ac5ad761:384Understand this error
+ErrorBoundary.jsx:38 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+componentDidCatch @ ErrorBoundary.jsx:38
+callback @ chunk-WRD5HZVH.js?v=ac5ad761:14084
+callCallback @ chunk-WRD5HZVH.js?v=ac5ad761:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=ac5ad761:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=ac5ad761:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=ac5ad761:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=ac5ad761:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=ac5ad761:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=ac5ad761:19353
+commitRoot @ chunk-WRD5HZVH.js?v=ac5ad761:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=ac5ad761:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=ac5ad761:18718
+workLoop @ chunk-WRD5HZVH.js?v=ac5ad761:197
+flushWork @ chunk-WRD5HZVH.js?v=ac5ad761:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=ac5ad761:384Understand this error
+ErrorBoundary.jsx:39 ⚠️ React Error Boundary Caught Error:
+componentDidCatch @ ErrorBoundary.jsx:39
+callback @ chunk-WRD5HZVH.js?v=ac5ad761:14084
+callCallback @ chunk-WRD5HZVH.js?v=ac5ad761:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=ac5ad761:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=ac5ad761:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=ac5ad761:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=ac5ad761:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=ac5ad761:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=ac5ad761:19353
+commitRoot @ chunk-WRD5HZVH.js?v=ac5ad761:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=ac5ad761:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=ac5ad761:18718
+workLoop @ chunk-WRD5HZVH.js?v=ac5ad761:197
+flushWork @ chunk-WRD5HZVH.js?v=ac5ad761:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=ac5ad761:384Understand this error
+ErrorBoundary.jsx:40 Error: ReferenceError: Cannot access 'fetchDashboardData' before initialization
+    at SupplierDashboard (SupplierDashboard.jsx:95:31)
+    at renderWithHooks (chunk-WRD5HZVH.js?v=ac5ad761:11548:26)
+    at mountIndeterminateComponent (chunk-WRD5HZVH.js?v=ac5ad761:14926:21)
+    at beginWork (chunk-WRD5HZVH.js?v=ac5ad761:15914:22)
+    at beginWork$1 (chunk-WRD5HZVH.js?v=ac5ad761:19753:22)
+    at performUnitOfWork (chunk-WRD5HZVH.js?v=ac5ad761:19198:20)
+    at workLoopSync (chunk-WRD5HZVH.js?v=ac5ad761:19137:13)
+    at renderRootSync (chunk-WRD5HZVH.js?v=ac5ad761:19116:15)
+    at recoverFromConcurrentError (chunk-WRD5HZVH.js?v=ac5ad761:18736:28)
+    at performConcurrentWorkOnRoot (chunk-WRD5HZVH.js?v=ac5ad761:18684:30)
+componentDidCatch @ ErrorBoundary.jsx:40
+callback @ chunk-WRD5HZVH.js?v=ac5ad761:14084
+callCallback @ chunk-WRD5HZVH.js?v=ac5ad761:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=ac5ad761:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=ac5ad761:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=ac5ad761:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=ac5ad761:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=ac5ad761:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=ac5ad761:19353
+commitRoot @ chunk-WRD5HZVH.js?v=ac5ad761:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=ac5ad761:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=ac5ad761:18718
+workLoop @ chunk-WRD5HZVH.js?v=ac5ad761:197
+flushWork @ chunk-WRD5HZVH.js?v=ac5ad761:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=ac5ad761:384Understand this error
+ErrorBoundary.jsx:41 Component Stack: 
+    at SupplierDashboard (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/pages/SupplierDashboard.jsx:62:20)
+    at RenderedRoute (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:4108:5)
+    at Routes (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:4578:5)
+    at Suspense
+    at main
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-E75PU324.js?v=ac5ad761:1452:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:707:19)
+    at div
+    at https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-E75PU324.js?v=ac5ad761:1452:49
+    at Box3 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:707:19)
+    at Router (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:4521:15)
+    at BrowserRouter (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=ac5ad761:5267:5)
+    at SuperAdminProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/SuperAdminContext.jsx:20:38)
+    at DarkModeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/DarkModeContext.jsx:20:36)
+    at DefaultPropsProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-E75PU324.js?v=ac5ad761:6679:3)
+    at RtlProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:1091:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:1041:5)
+    at ThemeProvider2 (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-UGLQOGY2.js?v=ac5ad761:1181:5)
+    at ThemeProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/node_modules/.vite/deps/chunk-XZSNYKMK.js?v=ac5ad761:327:12)
+    at ErrorBoundary (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/components/ErrorBoundary.jsx:20:5)
+    at AppContent (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/App.jsx:241:51)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:29:31)
+    at App
+    at ToastProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/ToastContext.jsx:20:33)
+    at AppProvider (https://ffc44f4e-1b0d-4db9-8f13-744af476d3fc-00-2vnyhv14egn7v.riker.replit.dev/src/contexts/AppContext.jsx:29:31)
+componentDidCatch @ ErrorBoundary.jsx:41
+callback @ chunk-WRD5HZVH.js?v=ac5ad761:14084
+callCallback @ chunk-WRD5HZVH.js?v=ac5ad761:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=ac5ad761:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=ac5ad761:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=ac5ad761:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=ac5ad761:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=ac5ad761:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=ac5ad761:19353
+commitRoot @ chunk-WRD5HZVH.js?v=ac5ad761:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=ac5ad761:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=ac5ad761:18718
+workLoop @ chunk-WRD5HZVH.js?v=ac5ad761:197
+flushWork @ chunk-WRD5HZVH.js?v=ac5ad761:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=ac5ad761:384Understand this error
+ErrorBoundary.jsx:42 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+componentDidCatch @ ErrorBoundary.jsx:42
+callback @ chunk-WRD5HZVH.js?v=ac5ad761:14084
+callCallback @ chunk-WRD5HZVH.js?v=ac5ad761:11248
+commitUpdateQueue @ chunk-WRD5HZVH.js?v=ac5ad761:11265
+commitLayoutEffectOnFiber @ chunk-WRD5HZVH.js?v=ac5ad761:17075
+commitLayoutMountEffects_complete @ chunk-WRD5HZVH.js?v=ac5ad761:17980
+commitLayoutEffects_begin @ chunk-WRD5HZVH.js?v=ac5ad761:17969
+commitLayoutEffects @ chunk-WRD5HZVH.js?v=ac5ad761:17920
+commitRootImpl @ chunk-WRD5HZVH.js?v=ac5ad761:19353
+commitRoot @ chunk-WRD5HZVH.js?v=ac5ad761:19277
+finishConcurrentRender @ chunk-WRD5HZVH.js?v=ac5ad761:18760
+performConcurrentWorkOnRoot @ chunk-WRD5HZVH.js?v=ac5ad761:18718
+workLoop @ chunk-WRD5HZVH.js?v=ac5ad761:197
+flushWork @ chunk-WRD5HZVH.js?v=ac5ad761:176
+performWorkUntilDeadline @ chunk-WRD5HZVH.js?v=ac5ad761:384Understand this error

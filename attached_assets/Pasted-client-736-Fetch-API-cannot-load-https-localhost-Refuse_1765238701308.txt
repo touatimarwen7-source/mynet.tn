@@ -1,0 +1,24 @@
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+client:736 Fetch API cannot load https://localhost/. Refused to connect because it violates the document's Content Security Policy.
+﻿
+

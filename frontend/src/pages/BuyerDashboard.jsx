@@ -86,11 +86,24 @@ export default function BuyerDashboard() {
 
   useEffect(() => {
     setPageTitle('Tableau de Bord Acheteur');
-    if (user?.id) {
-      console.log('📊 Fetching dashboard data for user:', user.id);
-      fetchDashboardData();
+    
+    // Only fetch if user is authenticated and has an ID
+    if (!user) {
+      setLoading(false);
+      return;
     }
-  }, [user?.id]); // Dependency array includes userId
+    
+    const id = user.id || user.userId;
+    if (!id) {
+      console.warn('⚠️ User object exists but no ID found');
+      setLoading(false);
+      setError('Identifiant utilisateur manquant. Veuillez vous reconnecter.');
+      return;
+    }
+    
+    console.log('📊 Fetching dashboard data for user:', id);
+    fetchDashboardData();
+  }, [user?.id, user?.userId]); // Watch both ID fields
 
   const fetchDashboardData = async (retryCount = 0) => {
     if (!userId) {

@@ -73,11 +73,24 @@ export default function SupplierDashboard() {
 
   useEffect(() => {
     setPageTitle('Tableau de Bord Fournisseur');
-    if (user?.id) {
-      console.log('📊 Fetching dashboard data for supplier:', user.id);
-      fetchDashboardData();
+    
+    // Only fetch if user is authenticated and has an ID
+    if (!user) {
+      setLoading(false);
+      return;
     }
-  }, [user?.id]);
+    
+    const id = user.id || user.userId;
+    if (!id) {
+      console.warn('⚠️ User object exists but no ID found');
+      setLoading(false);
+      setError('Identifiant utilisateur manquant. Veuillez vous reconnecter.');
+      return;
+    }
+    
+    console.log('📊 Fetching dashboard data for supplier:', id);
+    fetchDashboardData();
+  }, [user?.id, user?.userId, fetchDashboardData]); // Include fetchDashboardData in dependencies
 
   const fetchDashboardData = useCallback(async (retryCount = 0) => {
     if (!userId) {

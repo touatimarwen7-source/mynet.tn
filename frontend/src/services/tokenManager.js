@@ -100,12 +100,25 @@ class TokenManager {
 
     try {
       localStorage.setItem(this.USER_KEY, JSON.stringify(normalizedUser));
+      // Fallback to sessionStorage
+      try {
+        sessionStorage.setItem(this.USER_KEY, JSON.stringify(normalizedUser));
+      } catch (e) {
+        console.warn('SessionStorage unavailable:', e);
+      }
       // Reduce console spam - only log in development
       if (import.meta.env.DEV) {
         console.log('TokenManager: User data stored successfully');
       }
     } catch (error) {
       console.error('TokenManager: Error storing user data:', error);
+      // Try sessionStorage as fallback
+      try {
+        sessionStorage.setItem(this.USER_KEY, JSON.stringify(normalizedUser));
+        console.log('TokenManager: Fallback to sessionStorage');
+      } catch (fallbackError) {
+        console.error('TokenManager: All storage methods failed:', fallbackError);
+      }
     }
   }
 
@@ -115,14 +128,29 @@ class TokenManager {
    */
   getUser() {
     try {
-      const userJson = localStorage.getItem(this.USER_KEY);
+      // Try localStorage first
+      let userJson = localStorage.getItem(this.USER_KEY);
+      
+      // Fallback to sessionStorage
       if (!userJson) {
-        console.log('TokenManager: No user data in storage');
+        try {
+          userJson = sessionStorage.getItem(this.USER_KEY);
+        } catch (e) {
+          console.warn('SessionStorage read failed:', e);
+        }
+      }
+      
+      if (!userJson) {
+        if (import.meta.env.DEV) {
+          console.log('TokenManager: No user data in storage');
+        }
         return null;
       }
 
       const user = JSON.parse(userJson);
-      console.log('TokenManager: User data retrieved:', user?.userId);
+      if (import.meta.env.DEV) {
+        console.log('TokenManager: User data retrieved:', user?.userId);
+      }
       return user;
     } catch (error) {
       console.error('TokenManager: Error retrieving user data:', error);

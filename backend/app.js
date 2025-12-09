@@ -211,8 +211,7 @@ try {
   }
 
   // Advanced rate limit middleware for tracking
-  if (enhancedRateLimiting.advancedRateLimitMiddleware && 
-      typeof enhancedRateLimiting.advancedRateLimitMiddleware === 'function') {
+  if (typeof enhancedRateLimiting.advancedRateLimitMiddleware === 'function') {
     app.use(enhancedRateLimiting.advancedRateLimitMiddleware);
     logger.info('✅ Advanced rate limiting tracking enabled');
   } else {

@@ -42,11 +42,13 @@ axiosInstance.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
     
-    // Logging pour debug
-    console.log(`📤 Request: ${config.method?.toUpperCase()} ${config.url}`, {
-      params: config.params,
-      hasAuth: !!token
-    });
+    // Logging pour debug (only in development)
+    if (import.meta.env.DEV && !config.url.includes('/health')) {
+      console.log(`📤 Request: ${config.method?.toUpperCase()} ${config.url}`, {
+        params: config.params,
+        hasAuth: !!token
+      });
+    }
     
     return config;
   },
@@ -59,10 +61,12 @@ axiosInstance.interceptors.request.use(
 // Response Interceptor - Gestion des erreurs
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(`✅ Response: ${response.config.url}`, {
-      status: response.status,
-      data: response.data
-    });
+    // Only log non-health check responses in development
+    if (import.meta.env.DEV && !response.config.url.includes('/health')) {
+      console.log(`✅ Response: ${response.config.url}`, {
+        status: response.status
+      });
+    }
     return response;
   },
   async (error) => {

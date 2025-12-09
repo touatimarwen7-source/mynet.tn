@@ -148,8 +148,9 @@ class TokenManager {
       }
 
       const user = JSON.parse(userJson);
-      if (import.meta.env.DEV) {
-        console.log('TokenManager: User data retrieved:', user?.userId);
+      // Only log in development and not repeatedly
+      if (import.meta.env.DEV && !userJson.includes('"userId"')) {
+        console.log('TokenManager: User data retrieved');
       }
       return user;
     } catch (error) {

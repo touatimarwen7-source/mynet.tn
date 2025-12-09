@@ -13,15 +13,14 @@ export default defineConfig({
     strictPort: false,
     hmr: {
       overlay: true,
-      timeout: 30000,
+      timeout: 5000,
       clientPort: 443,
       protocol: 'wss',
-      host: 'localhost',
     },
     watch: {
-      usePolling: true,
-      interval: 2000,
-      ignored: ['**/node_modules/**', '**/dist/**', '**/.git/**'],
+      usePolling: false,
+      interval: 1000,
+      ignored: ['**/node_modules/**', '**/dist/**', '**/.git/**', '**/logs/**', '**/backups/**'],
     },
     headers: {
       'X-Frame-Options': 'SAMEORIGIN',

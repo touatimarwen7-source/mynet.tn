@@ -88,9 +88,11 @@ export default function SupplierDashboard() {
       return;
     }
     
-    console.log('📊 Fetching dashboard data for supplier:', id);
+    if (import.meta.env.DEV) {
+      console.log('📊 Fetching dashboard data for supplier:', id);
+    }
     fetchDashboardData();
-  }, [user?.id, user?.userId, fetchDashboardData]); // Include fetchDashboardData in dependencies
+  }, [user?.id, user?.userId, fetchDashboardData]);
 
   const fetchDashboardData = useCallback(async (retryCount = 0) => {
     if (!userId) {

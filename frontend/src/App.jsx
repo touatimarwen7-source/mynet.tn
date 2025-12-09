@@ -28,8 +28,13 @@ import EmailVerification from './pages/EmailVerification';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 
-// Lazy load heavy pages
-const AboutPage = lazy(() => import('./pages/AboutPage'));
+// Lazy load heavy pages with retry logic
+const AboutPage = lazy(() => 
+  import('./pages/AboutPage').catch(() => {
+    console.warn('Failed to load AboutPage, retrying...');
+    return import('./pages/AboutPage');
+  })
+);
 const FeaturesPage = lazy(() => import('./pages/FeaturesPage'));
 const PricingPage = lazy(() => import('./pages/PricingPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));

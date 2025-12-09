@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react'; // Import React for useMemo
 import {
@@ -103,9 +103,9 @@ export default function BuyerDashboard() {
     
     console.log('📊 Fetching dashboard data for user:', id);
     fetchDashboardData();
-  }, [user?.id, user?.userId]); // Watch both ID fields
+  }, [user?.id, user?.userId, fetchDashboardData]); // Include fetchDashboardData
 
-  const fetchDashboardData = async (retryCount = 0) => {
+  const fetchDashboardData = useCallback(async (retryCount = 0) => {
     if (!userId) {
       console.warn('⚠️ No userId available, skipping dashboard fetch');
       setLoading(false);
@@ -197,7 +197,7 @@ export default function BuyerDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId, navigate]);
 
   const menuItems = [
     { text: 'Tableau de Bord', icon: <DashboardIcon />, path: '/buyer-dashboard' },

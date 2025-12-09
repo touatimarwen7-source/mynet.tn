@@ -72,14 +72,16 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Logging détaillé des erreurs
-    console.error('❌ Response Error:', {
-      url: error.config?.url,
-      method: error.config?.method,
-      status: error.response?.status,
-      message: error.message,
-      data: error.response?.data
-    });
+    // Logging détaillé des erreurs (only non-health-check endpoints)
+    if (!error.config?.url?.includes('/health')) {
+      console.error('❌ Response Error:', {
+        url: error.config?.url,
+        method: error.config?.method,
+        status: error.response?.status,
+        message: error.message,
+        data: error.response?.data
+      });
+    }
 
     // Retry logic for transient failures
     if (shouldRetry(error)) {

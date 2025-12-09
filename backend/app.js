@@ -99,13 +99,17 @@ app.use(
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.jsdelivr.net'],
         styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com', 'cdn.jsdelivr.net'],
         fontSrc: ["'self'", 'fonts.gstatic.com'],
-        imgSrc: ["'self'", 'data:', 'https:'],
+        imgSrc: ["'self'", 'data:', 'https:', 'http:'],
         connectSrc: [
           "'self'",
+          'http://localhost:3000',
+          'http://localhost:5000',
+          'http://0.0.0.0:3000',
+          'http://0.0.0.0:5000',
+          'https://localhost:*',
+          'http://localhost:*',
           'http://*:3000',
           'http://*:5000',
-          'http://localhost:*',
-          'http://0.0.0.0:*',
           'https://*.replit.dev',
           'https://*.replit.dev:*',
           'http://*.replit.dev',
@@ -114,6 +118,8 @@ app.use(
           'https://*.repl.co:*',
           'http://*.repl.co',
           'http://*.repl.co:*',
+          'ws://localhost:*',
+          'wss://localhost:*',
           'ws://*:*',
           'wss://*:*',
         ],
@@ -194,34 +200,43 @@ app.use(securityHeadersMiddleware);
 app.use(requestLoggingMiddleware);
 
 // 🚀 ENHANCED RATE LIMITING with per-user + IP tracking
+let enhancedRateLimiting;
 try {
-  const enhancedRateLimiting = require('./middleware/enhancedRateLimiting');
+  enhancedRateLimiting = require('./middleware/enhancedRateLimiting');
   
   // Validate module structure
   if (!enhancedRateLimiting || typeof enhancedRateLimiting !== 'object') {
-    throw new Error('Invalid module structure');
-  }
-
-  // Apply general rate limiting (IP-based)
-  if (enhancedRateLimiting.general && typeof enhancedRateLimiting.general === 'function') {
-    app.use('/api/', enhancedRateLimiting.general);
-    logger.info('✅ General rate limiting enabled');
+    logger.warn('⚠️ Enhanced rate limiting module invalid, using fallback');
+    enhancedRateLimiting = null;
   } else {
-    logger.warn('⚠️ General rate limiter not available');
-  }
+    // Apply general rate limiting (IP-based)
+    if (enhancedRateLimiting.general && typeof enhancedRateLimiting.general === 'function') {
+      app.use('/api/', enhancedRateLimiting.general);
+      logger.info('✅ General rate limiting enabled');
+    }
 
-  // Advanced rate limit middleware for tracking
-  if (typeof enhancedRateLimiting.advancedRateLimitMiddleware === 'function') {
-    app.use(enhancedRateLimiting.advancedRateLimitMiddleware);
-    logger.info('✅ Advanced rate limiting tracking enabled');
-  } else {
-    logger.warn('⚠️ Advanced rate limit tracker not available');
+    // Advanced rate limit middleware for tracking
+    if (enhancedRateLimiting.advancedRateLimitMiddleware && typeof enhancedRateLimiting.advancedRateLimitMiddleware === 'function') {
+      app.use(enhancedRateLimiting.advancedRateLimitMiddleware);
+      logger.info('✅ Advanced rate limiting tracking enabled');
+    }
   }
 } catch (err) {
-  logger.error('❌ Enhanced rate limiting initialization failed', { 
-    error: err.message,
-    stack: err.stack?.split('\n').slice(0, 3).join('\n')
+  logger.warn('⚠️ Enhanced rate limiting not available, using basic rate limiting', { 
+    error: err.message
   });
+  enhancedRateLimiting = null;
+  
+  // Fallback to basic rate limiting
+  const basicLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 100,
+    message: 'Too many requests, please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+  app.use('/api/', basicLimiter);
+  logger.info('✅ Basic rate limiting enabled (fallback)');
 }
 
 // ⏱️ REQUEST TIMEOUT ENFORCEMENT (NEW)

@@ -123,6 +123,17 @@ const exportLimiter = rateLimit({
 });
 
 /**
+ * Enhanced Rate Limiting Middleware
+ * Provides comprehensive rate limiting with user and IP tracking
+ */
+
+const rateLimit = require('express-rate-limit');
+const { logger } = require('../utils/logger');
+
+// Store for tracking rate limits
+const rateLimitStore = new Map();
+
+/**
  * Custom rate limiting middleware with advanced tracking
  */
 function advancedRateLimitMiddleware(req, res, next) {
@@ -216,4 +227,83 @@ module.exports = {
   getRateLimitStats,
   resetLimits,
   clearAllLimits,
+};
+
+
+
+/**
+ * Advanced rate limit middleware with user/IP tracking
+ */
+const advancedRateLimitMiddleware = (req, res, next) => {
+  const identifier = req.user?.id || req.clientIP || req.ip || 'unknown';
+  const key = `ratelimit:${identifier}`;
+  
+  if (!rateLimitStore.has(key)) {
+    rateLimitStore.set(key, {
+      count: 0,
+      firstRequest: Date.now(),
+      lastRequest: Date.now()
+    });
+  }
+  
+  const data = rateLimitStore.get(key);
+  data.count++;
+  data.lastRequest = Date.now();
+  
+  // Log high-frequency requests
+  if (data.count > 50) {
+    logger.warn('High request frequency detected', {
+      identifier,
+      count: data.count,
+      duration: data.lastRequest - data.firstRequest
+    });
+  }
+  
+  next();
+};
+
+/**
+ * Get rate limit statistics
+ */
+const getRateLimitStats = () => {
+  const stats = {
+    totalTracked: rateLimitStore.size,
+    highFrequency: 0,
+    entries: []
+  };
+  
+  rateLimitStore.forEach((data, key) => {
+    if (data.count > 50) stats.highFrequency++;
+    stats.entries.push({ key, ...data });
+  });
+  
+  return stats;
+};
+
+/**
+ * Reset limits for a specific key
+ */
+const resetLimits = (key) => {
+  return rateLimitStore.delete(key);
+};
+
+/**
+ * Clear all limits
+ */
+const clearAllLimits = () => {
+  rateLimitStore.clear();
+};
+
+// Export all rate limiters and utilities
+module.exports = {
+  general,
+  auth,
+  upload,
+  payment,
+  search,
+  exportLimiter,
+  advancedRateLimitMiddleware,
+  getRateLimitStats,
+  resetLimits,
+  clearAllLimits
 };

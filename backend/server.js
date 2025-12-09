@@ -39,35 +39,32 @@ async function startServer() {
     // Create HTTP server
     const httpServer = http.createServer(app);
 
+    // Enhanced server startup with error handling
+    httpServer.listen(PORT, HOST, (err) => {
+      if (err) {
+        console.error('❌ Failed to start server', { error: err.message, stack: err.stack });
+        process.exit(1);
+      }
+
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log('🚀 MyNet.tn Backend Server Started Successfully');
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log(`📍 Server Address: http://${HOST}:${PORT}`);
+      console.log(`📚 API Documentation: http://${HOST}:${PORT}/api-docs`);
+      console.log(`🏥 Health Check: http://${HOST}:${PORT}/health`);
+      console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    });
+
     // Handle server errors
     httpServer.on('error', (error) => {
       if (error.code === 'EADDRINUSE') {
-        console.error(`\n❌ Port ${PORT} is in use. Retrying in 3 seconds...`);
-        setTimeout(() => {
-          httpServer.close();
-          httpServer.listen(PORT, HOST);
-        }, 3000);
+        console.error(`❌ Port ${PORT} is already in use`);
+        process.exit(1);
       } else {
-        console.error('❌ Server error:', error.message);
+        console.error('❌ Server error', { error: error.message, code: error.code });
+        process.exit(1);
       }
-    });
-
-    // Start listening
-    httpServer.listen(PORT, HOST, () => {
-      console.log('========================================');
-      console.log(`✅ Backend running on http://${HOST}:${PORT}`);
-      console.log(`✅ Network: http://172.31.68.98:${PORT}`);
-      console.log('========================================');
-      console.log('📋 Available Endpoints:');
-      console.log('  • Health: GET /health');
-      console.log('  • Auth: POST /api/auth/login');
-      console.log('  • Tenders: GET /api/procurement/tenders');
-      console.log('  • API Docs: GET /api-docs');
-      console.log('========================================');
-      console.log('👥 Test Accounts:');
-      console.log('  • Buyer: buyer@mynet.tn / buyer123');
-      console.log('  • Supplier: supplier@mynet.tn / supplier123');
-      console.log('========================================');
     });
 
     // Graceful shutdown

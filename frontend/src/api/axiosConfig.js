@@ -1,8 +1,29 @@
-
 import axios from 'axios';
 import tokenManager from '../services/tokenManager';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+// Determine API base URL
+const getApiBaseUrl = () => {
+  // Check for explicit environment variable
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+
+  // In production/Replit environment
+  if (import.meta.env.PROD || window.location.hostname.includes('replit')) {
+    const currentOrigin = window.location.origin;
+    // If frontend is on port 5000, backend is on port 3000
+    if (currentOrigin.includes(':5000')) {
+      return currentOrigin.replace(':5000', ':3000');
+    }
+    return currentOrigin;
+  }
+
+  // Local development - use 0.0.0.0 instead of localhost to avoid CSP issues
+  const protocol = window.location.protocol;
+  return `${protocol}//0.0.0.0:3000`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 console.log('🔧 Axios Config - API Base URL:', API_BASE_URL);
 
@@ -24,7 +45,7 @@ const shouldRetry = (error) => {
   if (!error.config || error.config.__retryCount >= MAX_RETRIES) {
     return false;
   }
-  
+
   // Retry on network errors and 5xx server errors
   return (
     !error.response ||
@@ -41,7 +62,7 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
+
     // Logging pour debug (only in development)
     if (import.meta.env.DEV && !config.url.includes('/health')) {
       console.log(`📤 Request: ${config.method?.toUpperCase()} ${config.url}`, {
@@ -49,7 +70,7 @@ axiosInstance.interceptors.request.use(
         hasAuth: !!token
       });
     }
-    
+
     return config;
   },
   (error) => {
@@ -86,10 +107,10 @@ axiosInstance.interceptors.response.use(
     // Retry logic for transient failures
     if (shouldRetry(error)) {
       originalRequest.__retryCount = (originalRequest.__retryCount || 0) + 1;
-      
+
       const delay = RETRY_DELAY * originalRequest.__retryCount;
       console.log(`⚠️ Retrying request (${originalRequest.__retryCount}/${MAX_RETRIES}) after ${delay}ms`);
-      
+
       await new Promise(resolve => setTimeout(resolve, delay));
       return axiosInstance(originalRequest);
     }
@@ -112,7 +133,7 @@ axiosInstance.interceptors.response.use(
 
       try {
         const refreshToken = tokenManager.getRefreshToken();
-        
+
         if (!refreshToken) {
           tokenManager.clearTokens();
           window.location.href = '/login';

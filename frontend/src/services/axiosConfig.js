@@ -4,9 +4,11 @@ import CSRFProtection from '../utils/csrfProtection';
 import { shouldCache, getCacheDuration, isPublicEndpoint } from '../config/apiConfig';
 import logger from '../utils/logger';
 
-// ✅ Force Vite proxy usage
+// ✅ Direct backend connection (bypassing Vite proxy to fix 502)
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://0.0.0.0:3000/api';
+
 const axiosInstance = axios.create({
-  baseURL: '', // Empty = Vite proxy
+  baseURL: API_BASE_URL,
   timeout: 30000,
   withCredentials: true,
   headers: {
@@ -14,7 +16,7 @@ const axiosInstance = axios.create({
   },
 });
 
-console.log('✅ Axios configured to use Vite proxy');
+console.log('✅ Axios configured with direct backend URL:', API_BASE_URL);
 
 // Response Cache
 const responseCache = new Map();

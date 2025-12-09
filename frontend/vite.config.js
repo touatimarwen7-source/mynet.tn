@@ -11,6 +11,12 @@ export default defineConfig({
       clientPort: 443,
       protocol: 'wss',
     },
+    allowedHosts: [
+      '.replit.dev',
+      '.repl.co',
+      '.riker.replit.dev',
+      'localhost',
+    ],
   },
   build: {
     outDir: 'dist',

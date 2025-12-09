@@ -6,44 +6,45 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5000,
-    strictPort: false,
+    strictPort: true,
     proxy: {
       '/api': {
-        target: 'http://0.0.0.0:3000',
+        target: 'http://127.0.0.1:3000',
         changeOrigin: true,
         secure: false,
         ws: true,
-        rewrite: (path) => path,
+        timeout: 30000,
+        proxyTimeout: 30000,
         configure: (proxy, _options) => {
           proxy.on('error', (err, _req, _res) => {
-            console.log('❌ Proxy error:', err.message);
+            console.error('❌ Proxy error:', err.message);
           });
           proxy.on('proxyReq', (proxyReq, req, _res) => {
-            console.log('📤 Proxy request:', req.method, req.url);
+            console.log('📤 Sending to backend:', req.method, req.url, '→', proxyReq.path);
           });
           proxy.on('proxyRes', (proxyRes, req, _res) => {
-            console.log('📥 Proxy response:', proxyRes.statusCode, req.url);
+            console.log('📥 Backend response:', proxyRes.statusCode, req.url);
           });
         },
       }
-    },
-    hmr: {
-      protocol: 'wss',
-      host: undefined,
-      clientPort: 443,
-      timeout: 5000,
-      overlay: false
-    },
-    allowedHosts: [
-      '.replit.dev',
-      '.repl.co',
-      '.riker.replit.dev',
-      'localhost',
-    ],
-    watch: {
-      usePolling: false,
-      ignored: ['**/node_modules/**', '**/dist/**']
-    },
+    }
+  },
+  hmr: {
+    protocol: 'wss',
+    host: undefined,
+    clientPort: 443,
+    timeout: 5000,
+    overlay: false
+  },
+  allowedHosts: [
+    '.replit.dev',
+    '.repl.co',
+    '.riker.replit.dev',
+    'localhost',
+  ],
+  watch: {
+    usePolling: false,
+    ignored: ['**/node_modules/**', '**/dist/**']
   },
   build: {
     outDir: 'dist',

@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  timeout: 30000,
   withCredentials: true,
 });
 
@@ -28,12 +28,25 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('❌ API Error:', {
+    const errorDetails = {
       url: error.config?.url,
       method: error.config?.method,
       status: error.response?.status,
-      message: error.message
-    });
+      message: error.message,
+      code: error.code
+    };
+    
+    console.error('❌ API Error:', errorDetails);
+
+    // Handle timeout
+    if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+      console.error('⏱️ Request timeout - Backend may be slow or unavailable');
+    }
+
+    // Handle network errors
+    if (error.message === 'Network Error') {
+      console.error('🌐 Network Error - Check if backend is running on port 3000');
+    }
 
     if (error.response?.status === 401) {
       localStorage.removeItem('token');

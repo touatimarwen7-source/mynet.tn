@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
@@ -46,7 +45,7 @@ const DRAWER_WIDTH = 240;
 export default function SupplierDashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  
+
   const [stats, setStats] = useState({
     totalOffers: 0,
     acceptedOffers: 0,
@@ -73,13 +72,13 @@ export default function SupplierDashboard() {
 
   useEffect(() => {
     setPageTitle('Tableau de Bord Fournisseur');
-    
+
     // Only fetch if user is authenticated and has an ID
     if (!user) {
       setLoading(false);
       return;
     }
-    
+
     const id = user.id || user.userId;
     if (!id) {
       console.warn('⚠️ User object exists but no ID found');
@@ -87,7 +86,7 @@ export default function SupplierDashboard() {
       setError('Identifiant utilisateur manquant. Veuillez vous reconnecter.');
       return;
     }
-    
+
     if (import.meta.env.DEV) {
       console.log('📊 Fetching dashboard data for supplier:', id);
     }
@@ -177,7 +176,7 @@ export default function SupplierDashboard() {
                           err.code === 'ERR_NETWORK' ||
                           err.message.includes('Network Error') ||
                           !err.response;
-                          
+
       if (retryCount < 2 && isRetryable) {
         console.log(`⚠️ Retrying... (${retryCount + 1}/2)`);
         setTimeout(() => fetchDashboardData(retryCount + 1), 1000 * (retryCount + 1));

@@ -1,19 +1,20 @@
 
-// API Base URL - دعم بيئة Replit
+// API Base URL - Replit optimized configuration
 const getBackendUrl = () => {
-  // في بيئة Replit، استخدم نفس الـ hostname للواجهة والخادم
+  // في بيئة المتصفح، استخدم window.location للحصول على العنوان الصحيح
   if (typeof window !== 'undefined') {
-    const protocol = window.location.protocol;
-    const hostname = window.location.hostname;
+    const protocol = window.location.protocol; // http: أو https:
+    const hostname = window.location.hostname; // العنوان الفعلي
     
-    // استخدام نفس hostname مع port 3000 للـ backend
-    return `${protocol}//${hostname}:3000/api`;
+    // إنشاء URL للـ Backend على نفس الـ hostname مع port 3000
+    const backendUrl = `${protocol}//${hostname}:3000/api`;
+    
+    console.log('✅ Backend URL configured:', backendUrl);
+    return backendUrl;
   }
   
-  // Fallback (لن يحدث عادة في المتصفح)
+  // Fallback (لن يحدث في المتصفح)
   return 'http://localhost:3000/api';
 };
 
 export const API_BASE_URL = getBackendUrl();
-
-console.log('✅ Axios configured with direct backend URL:', API_BASE_URL);

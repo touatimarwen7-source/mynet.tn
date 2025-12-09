@@ -7,6 +7,12 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5000,
     strictPort: true,
+    allowedHosts: [
+      '.replit.dev',
+      '.repl.co',
+      '.riker.replit.dev',
+      'localhost',
+    ],
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:3000',
@@ -27,21 +33,15 @@ export default defineConfig({
           });
         },
       }
+    },
+    hmr: {
+      protocol: 'wss',
+      host: undefined,
+      clientPort: 443,
+      timeout: 5000,
+      overlay: false
     }
   },
-  hmr: {
-    protocol: 'wss',
-    host: undefined,
-    clientPort: 443,
-    timeout: 5000,
-    overlay: false
-  },
-  allowedHosts: [
-    '.replit.dev',
-    '.repl.co',
-    '.riker.replit.dev',
-    'localhost',
-  ],
   watch: {
     usePolling: false,
     ignored: ['**/node_modules/**', '**/dist/**']

@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -15,9 +14,11 @@ export default defineConfig({
     ],
     hmr: {
       protocol: 'wss',
+      host: undefined, // Let Vite auto-detect
       port: 443,
-      timeout: 30000,
-      overlay: true,
+      timeout: 30000, // Increase timeout to 30 seconds
+      overlay: false, // Disable error overlay to reduce console spam
+      clientPort: 443,
     },
   },
   build: {

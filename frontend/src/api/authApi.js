@@ -2,7 +2,7 @@
  * Authentication API
  * Handles login, register, password reset, email verification
  */
-import axiosInstance from '../services/axiosConfig';
+import axiosInstance from './axiosConfig.js';
 
 console.log('🔧 authApi.js - Using axiosInstance with baseURL:', axiosInstance.defaults.baseURL);
 

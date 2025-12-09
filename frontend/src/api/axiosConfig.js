@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { API_BASE_URL } from './constants';
 
@@ -8,7 +7,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
   timeout: 30000,
-  withCredentials: false, // تعطيل credentials في Replit
+  withCredentials: true,
 });
 
 console.log('✅ Axios configured with baseURL:', API_BASE_URL);
@@ -35,7 +34,7 @@ axiosInstance.interceptors.response.use(
       status: error.response?.status,
       message: error.message
     });
-    
+
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';

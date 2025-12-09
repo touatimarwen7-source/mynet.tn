@@ -6,7 +6,14 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5000,
-    strictPort: false,
+    proxy: {
+      '/api': {
+        target: 'http://0.0.0.0:3000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path
+      }
+    },
     hmr: {
       clientPort: 443,
       protocol: 'wss',

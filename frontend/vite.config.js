@@ -35,10 +35,10 @@ export default defineConfig({
               method: req.method
             });
             res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ 
-              error: 'Proxy Error', 
+            res.end(JSON.stringify({
+              error: 'Proxy Error',
               message: 'Backend is not reachable',
-              details: err.message 
+              details: err.message
             }));
           });
           proxy.on('proxyReq', (proxyReq, req, _res) => {

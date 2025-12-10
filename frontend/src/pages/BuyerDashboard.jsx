@@ -77,7 +77,6 @@ export default function BuyerDashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Safely extract user ID with fallback
-  const { user } = useAuth();
   const userId = React.useMemo(() => {
     if (!user) return null;
     return user.userId || user.id || user.user_id;
@@ -165,7 +164,7 @@ export default function BuyerDashboard() {
         } else if (analyticsRes.status === 'rejected') {
           combinedErrorMsg = `فشل تحميل التحليلات: ${analyticsError}`;
         }
-        
+
         // Check for specific error codes
         if (statsRes.reason?.response?.status === 401 || analyticsRes.reason?.response?.status === 401) {
           combinedErrorMsg = 'انتهت صلاحية الجلسة. الرجاء تسجيل الدخول مرة أخرى.';
@@ -181,7 +180,7 @@ export default function BuyerDashboard() {
     } catch (err) {
       // This catch block primarily handles unexpected errors not covered by Promise.allSettled
       console.error('❌ Unexpected Dashboard data fetch error:', err);
-      
+
       // Set user-friendly error messages for unexpected issues
       let errorMsg = 'خطأ غير متوقع في تحميل البيانات';
       if (err.message.includes('timeout')) {
